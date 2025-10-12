@@ -1,0 +1,206 @@
+{
+  "id": "modal",
+  "type": "modal",
+  "version": "1.0.0",
+  "metadata": {
+    "name": "Modal Dialog",
+    "description": "Modal dialog overlay with focus management, backdrop, and configurable content areas",
+    "author": "UXscii Team",
+    "created": "2024-01-15T00:00:00Z",
+    "modified": "2024-01-15T00:00:00Z",
+    "tags": ["modal", "dialog", "overlay", "popup"],
+    "category": "overlay"
+  },
+  "props": {
+    "title": "Confirm Action",
+    "content": "Are you sure you want to proceed with this action?",
+    "size": "medium",
+    "showCloseButton": true,
+    "closable": true,
+    "backdrop": true,
+    "backdropClosable": true,
+    "centered": true,
+    "buttons": [
+      {
+        "text": "Cancel",
+        "variant": "secondary",
+        "action": "close"
+      },
+      {
+        "text": "Confirm", 
+        "variant": "primary",
+        "action": "confirm"
+      }
+    ],
+    "icon": "",
+    "variant": "default"
+  },
+  "behavior": {
+    "states": [
+      {
+        "name": "closed",
+        "properties": {
+          "visible": false,
+          "zIndex": -1
+        }
+      },
+      {
+        "name": "opening",
+        "properties": {
+          "visible": true,
+          "zIndex": 1000,
+          "opacity": 0.5
+        }
+      },
+      {
+        "name": "open",
+        "properties": {
+          "visible": true,
+          "zIndex": 1000,
+          "opacity": 1
+        }
+      },
+      {
+        "name": "closing",
+        "properties": {
+          "visible": true,
+          "zIndex": 1000,
+          "opacity": 0.5
+        }
+      }
+    ],
+    "interactions": [
+      {
+        "trigger": "click",
+        "action": "close-modal",
+        "condition": "backdrop && backdropClosable"
+      },
+      {
+        "trigger": "keydown",
+        "action": "close-modal",
+        "condition": "key === 'Escape' && closable"
+      },
+      {
+        "trigger": "keydown",
+        "action": "cycle-focus",
+        "condition": "key === 'Tab'"
+      },
+      {
+        "trigger": "click",
+        "action": "button-action",
+        "condition": "target.type === 'button'"
+      }
+    ],
+    "focusManagement": {
+      "trapFocus": true,
+      "restoreFocus": true,
+      "initialFocus": "first-button",
+      "focusableElements": ["button", "input", "select", "textarea"]
+    },
+    "accessibility": {
+      "role": "dialog",
+      "focusable": true,
+      "keyboardSupport": ["Escape", "Tab", "Shift+Tab", "Enter"],
+      "ariaLabel": "{{title}}"
+    }
+  },
+  "layout": {
+    "display": "overlay",
+    "positioning": "fixed",
+    "spacing": {
+      "padding": {
+        "top": 2,
+        "right": 3,
+        "bottom": 2,
+        "left": 3
+      }
+    },
+    "sizing": {
+      "small": {
+        "width": 30,
+        "height": 15
+      },
+      "medium": {
+        "width": 50,
+        "height": 20
+      },
+      "large": {
+        "width": 70,
+        "height": 30
+      },
+      "fullscreen": {
+        "width": "100vw",
+        "height": "100vh"
+      }
+    }
+  },
+  "ascii": {
+    "templateFile": "modal.md",
+    "width": 50,
+    "height": 20,
+    "variables": [
+      {
+        "name": "title",
+        "type": "string",
+        "defaultValue": "Confirm Action",
+        "description": "Modal dialog title/header text",
+        "required": false,
+        "validation": {
+          "max": 60
+        }
+      },
+      {
+        "name": "content",
+        "type": "string",
+        "defaultValue": "Are you sure you want to proceed?",
+        "description": "Main content/message text",
+        "required": true,
+        "validation": {
+          "max": 500
+        }
+      },
+      {
+        "name": "size",
+        "type": "string",
+        "defaultValue": "medium",
+        "description": "Modal size variant",
+        "validation": {
+          "enum": ["small", "medium", "large", "fullscreen"]
+        }
+      },
+      {
+        "name": "buttons",
+        "type": "array",
+        "defaultValue": [
+          {"text": "Cancel", "variant": "secondary", "action": "close"},
+          {"text": "Confirm", "variant": "primary", "action": "confirm"}
+        ],
+        "description": "Modal action buttons",
+        "validation": {
+          "max": 5
+        }
+      },
+      {
+        "name": "showCloseButton",
+        "type": "boolean",
+        "defaultValue": true,
+        "description": "Show X close button in header"
+      },
+      {
+        "name": "backdrop",
+        "type": "boolean",
+        "defaultValue": true,
+        "description": "Show backdrop overlay behind modal"
+      },
+      {
+        "name": "variant",
+        "type": "string",
+        "defaultValue": "default",
+        "description": "Modal style variant",
+        "validation": {
+          "enum": ["default", "warning", "error", "success", "info"]
+        }
+      }
+    ]
+  }
+}

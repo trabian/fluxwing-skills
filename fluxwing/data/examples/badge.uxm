@@ -1,0 +1,200 @@
+{
+  "id": "badge",
+  "type": "badge",
+  "version": "1.0.0",
+  "metadata": {
+    "name": "Badge/Tag Component",
+    "description": "Status indicators, labels, and informational tags with various styles and interactive capabilities",
+    "author": "UXscii Team",
+    "created": "2024-01-15T00:00:00Z",
+    "modified": "2024-01-15T00:00:00Z",
+    "tags": ["badge", "tag", "label", "status", "indicator"],
+    "category": "display"
+  },
+  "props": {
+    "text": "New",
+    "variant": "default",
+    "size": "medium",
+    "removable": false,
+    "clickable": false,
+    "icon": "",
+    "color": "primary",
+    "outlined": false,
+    "pill": false,
+    "count": null,
+    "maxCount": 99,
+    "dot": false
+  },
+  "behavior": {
+    "states": [
+      {
+        "name": "default",
+        "properties": {
+          "background": "primary",
+          "textColor": "white",
+          "border": "none"
+        }
+      },
+      {
+        "name": "hover",
+        "properties": {
+          "background": "primary-dark",
+          "textColor": "white",
+          "cursor": "pointer"
+        },
+        "triggers": ["mouseenter"],
+        "condition": "clickable || removable"
+      },
+      {
+        "name": "active",
+        "properties": {
+          "background": "primary-darker",
+          "textColor": "white",
+          "transform": "scale(0.95)"
+        },
+        "triggers": ["mousedown"],
+        "condition": "clickable"
+      },
+      {
+        "name": "disabled",
+        "properties": {
+          "background": "gray-light",
+          "textColor": "gray-dark",
+          "opacity": 0.6
+        }
+      }
+    ],
+    "interactions": [
+      {
+        "trigger": "click",
+        "action": "emit-click-event",
+        "condition": "clickable && !disabled"
+      },
+      {
+        "trigger": "click",
+        "action": "remove-badge",
+        "condition": "removable && target.isRemoveButton"
+      },
+      {
+        "trigger": "keydown",
+        "action": "emit-click-event",
+        "condition": "key === 'Enter' && clickable"
+      },
+      {
+        "trigger": "keydown",
+        "action": "remove-badge",
+        "condition": "key === 'Delete' && removable"
+      }
+    ],
+    "accessibility": {
+      "role": "status",
+      "focusable": true,
+      "keyboardSupport": ["Enter", "Delete"],
+      "ariaLabel": "{{text}} badge"
+    }
+  },
+  "layout": {
+    "display": "inline-block",
+    "positioning": "static",
+    "spacing": {
+      "padding": {
+        "top": 0,
+        "right": 1,
+        "bottom": 0,
+        "left": 1
+      },
+      "margin": {
+        "right": 1
+      }
+    },
+    "sizing": {
+      "small": {
+        "height": 1,
+        "minWidth": 3
+      },
+      "medium": {
+        "height": 1,
+        "minWidth": 4
+      },
+      "large": {
+        "height": 1,
+        "minWidth": 5
+      }
+    }
+  },
+  "ascii": {
+    "templateFile": "badge.md",
+    "width": 12,
+    "height": 1,
+    "variables": [
+      {
+        "name": "text",
+        "type": "string",
+        "defaultValue": "New",
+        "description": "Badge text content",
+        "required": true,
+        "validation": {
+          "max": 20
+        }
+      },
+      {
+        "name": "variant",
+        "type": "string",
+        "defaultValue": "default",
+        "description": "Badge style variant",
+        "validation": {
+          "enum": ["default", "success", "warning", "error", "info", "secondary"]
+        }
+      },
+      {
+        "name": "size",
+        "type": "string",
+        "defaultValue": "medium",
+        "description": "Badge size variant",
+        "validation": {
+          "enum": ["small", "medium", "large"]
+        }
+      },
+      {
+        "name": "removable",
+        "type": "boolean",
+        "defaultValue": false,
+        "description": "Whether badge can be removed with X button"
+      },
+      {
+        "name": "clickable",
+        "type": "boolean",
+        "defaultValue": false,
+        "description": "Whether badge responds to click events"
+      },
+      {
+        "name": "outlined",
+        "type": "boolean",
+        "defaultValue": false,
+        "description": "Use outline style instead of filled"
+      },
+      {
+        "name": "pill",
+        "type": "boolean",
+        "defaultValue": false,
+        "description": "Use rounded pill shape"
+      },
+      {
+        "name": "count",
+        "type": "number",
+        "defaultValue": null,
+        "description": "Numeric count for notification badges",
+        "validation": {
+          "min": 0,
+          "max": 999
+        }
+      },
+      {
+        "name": "dot",
+        "type": "boolean",
+        "defaultValue": false,
+        "description": "Show as small dot indicator without text"
+      }
+    ]
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "id": "email-input",
+  "type": "input",
+  "version": "1.0.0",
+  "metadata": {
+    "name": "Email Input Field",
+    "description": "A specialized input field for email addresses with built-in validation",
+    "author": "UXscii Team",
+    "created": "2024-01-15T00:00:00Z",
+    "modified": "2024-01-15T00:00:00Z",
+    "tags": ["input", "email", "form", "validation"],
+    "category": "input"
+  },
+  "extends": "text-input",
+  "props": {
+    "label": "Email Address",
+    "placeholder": "name@example.com",
+    "value": "",
+    "disabled": false,
+    "required": true,
+    "autocomplete": "email",
+    "ariaLabel": "",
+    "errorMessage": "",
+    "helpText": "We'll never share your email address"
+  },
+  "behavior": {
+    "states": [
+      {
+        "name": "default",
+        "properties": {
+          "background": "white",
+          "textColor": "black",
+          "border": "solid-gray",
+          "borderWidth": 1
+        }
+      },
+      {
+        "name": "focus",
+        "properties": {
+          "background": "white",
+          "textColor": "black",
+          "border": "solid-primary",
+          "borderWidth": 2,
+          "outline": "primary"
+        },
+        "triggers": ["focus"]
+      },
+      {
+        "name": "valid",
+        "properties": {
+          "background": "success-light",
+          "textColor": "success-dark",
+          "border": "solid-success",
+          "borderWidth": 1
+        }
+      },
+      {
+        "name": "error",
+        "properties": {
+          "background": "error-light",
+          "textColor": "error-dark",
+          "border": "solid-error",
+          "borderWidth": 1
+        }
+      },
+      {
+        "name": "disabled",
+        "properties": {
+          "background": "gray-lighter",
+          "textColor": "gray-medium",
+          "border": "dashed-gray",
+          "borderWidth": 1
+        }
+      }
+    ],
+    "interactions": [
+      {
+        "trigger": "change",
+        "action": "validate-email-format"
+      },
+      {
+        "trigger": "blur",
+        "action": "validate-email-complete"
+      }
+    ],
+    "accessibility": {
+      "role": "textbox",
+      "focusable": true,
+      "keyboardSupport": ["Tab", "Shift+Tab", "All text input keys"],
+      "ariaLabel": "{{ariaLabel || label}}"
+    }
+  },
+  "layout": {
+    "display": "block",
+    "positioning": "static",
+    "spacing": {
+      "margin": {
+        "bottom": 1
+      },
+      "padding": {
+        "top": 1,
+        "right": 1,
+        "bottom": 1,
+        "left": 1
+      }
+    },
+    "sizing": {
+      "width": 35,
+      "height": 3,
+      "minWidth": 20,
+      "maxWidth": 60
+    }
+  },
+  "ascii": {
+    "templateFile": "email-input.md",
+    "width": 35,
+    "height": 5,
+    "variables": [
+      {
+        "name": "label",
+        "type": "string",
+        "defaultValue": "Email Address",
+        "description": "The label displayed above the input field"
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "defaultValue": "name@example.com",
+        "description": "Placeholder text shown when input is empty"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "defaultValue": "",
+        "description": "Current email address value"
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "defaultValue": 35,
+        "description": "Input field width in characters",
+        "validation": {
+          "min": 20,
+          "max": 60
+        }
+      },
+      {
+        "name": "errorMessage",
+        "type": "string",
+        "defaultValue": "",
+        "description": "Error message to display below the input"
+      },
+      {
+        "name": "helpText",
+        "type": "string",
+        "defaultValue": "We'll never share your email address",
+        "description": "Help text to display below the input"
+      },
+      {
+        "name": "isValid",
+        "type": "boolean",
+        "defaultValue": false,
+        "description": "Whether the current email is valid"
+      }
+    ]
+  }
+}

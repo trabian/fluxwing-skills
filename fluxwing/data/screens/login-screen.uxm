@@ -1,0 +1,71 @@
+{
+  "id": "login-screen",
+  "type": "container",
+  "version": "1.0.0",
+  "metadata": {
+    "name": "Login Screen",
+    "description": "User authentication screen with email and password inputs",
+    "author": "Fluxwing Team",
+    "created": "2024-10-11T12:00:00Z",
+    "modified": "2024-10-11T12:00:00Z",
+    "tags": ["auth", "login", "screen", "form"],
+    "category": "display"
+  },
+  "props": {
+    "title": "Welcome Back",
+    "subtitle": "Sign in to continue",
+    "components": [
+      "email-input",
+      "primary-button"
+    ]
+  },
+  "layout": {
+    "display": "flex",
+    "positioning": "relative",
+    "spacing": {
+      "padding": 16,
+      "margin": 0
+    }
+  },
+  "behavior": {
+    "states": [
+      {
+        "name": "idle",
+        "properties": {
+          "showError": false,
+          "loading": false
+        }
+      },
+      {
+        "name": "loading",
+        "properties": {
+          "showSpinner": true,
+          "disableInputs": true
+        }
+      },
+      {
+        "name": "error",
+        "properties": {
+          "showError": true,
+          "errorMessage": "Invalid credentials"
+        }
+      }
+    ],
+    "interactions": [
+      {
+        "trigger": "submit",
+        "action": "authenticate-user"
+      }
+    ],
+    "accessibility": {
+      "role": "main",
+      "ariaLabel": "Login form",
+      "focusable": false
+    }
+  },
+  "ascii": {
+    "templateFile": "login-screen.md",
+    "width": 44,
+    "height": 20
+  }
+}

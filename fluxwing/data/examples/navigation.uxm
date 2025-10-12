@@ -1,0 +1,162 @@
+{
+  "id": "navigation",
+  "type": "navigation",
+  "version": "1.0.0",
+  "metadata": {
+    "name": "Navigation Menu",
+    "description": "A horizontal or vertical navigation component with active state management",
+    "author": "UXscii Team",
+    "created": "2024-01-15T00:00:00Z",
+    "modified": "2024-01-15T00:00:00Z",
+    "tags": ["navigation", "menu", "nav"],
+    "category": "navigation"
+  },
+  "props": {
+    "items": [
+      {
+        "label": "Home",
+        "href": "/",
+        "active": true
+      },
+      {
+        "label": "About",
+        "href": "/about",
+        "active": false
+      },
+      {
+        "label": "Contact",
+        "href": "/contact", 
+        "active": false
+      }
+    ],
+    "orientation": "horizontal",
+    "variant": "default",
+    "separator": " | ",
+    "activeIndicator": "[*]"
+  },
+  "behavior": {
+    "states": [
+      {
+        "name": "default",
+        "properties": {
+          "textColor": "default",
+          "background": "transparent"
+        }
+      },
+      {
+        "name": "active",
+        "properties": {
+          "textColor": "primary",
+          "background": "primary-light",
+          "fontWeight": "bold"
+        }
+      },
+      {
+        "name": "hover", 
+        "properties": {
+          "textColor": "primary-dark",
+          "background": "gray-light"
+        },
+        "triggers": ["mouseenter"]
+      }
+    ],
+    "interactions": [
+      {
+        "trigger": "click",
+        "action": "navigate",
+        "condition": "item.href"
+      },
+      {
+        "trigger": "keydown",
+        "action": "navigate-next",
+        "condition": "key === 'ArrowRight' && orientation === 'horizontal'"
+      },
+      {
+        "trigger": "keydown", 
+        "action": "navigate-previous",
+        "condition": "key === 'ArrowLeft' && orientation === 'horizontal'"
+      },
+      {
+        "trigger": "keydown",
+        "action": "navigate-next", 
+        "condition": "key === 'ArrowDown' && orientation === 'vertical'"
+      },
+      {
+        "trigger": "keydown",
+        "action": "navigate-previous",
+        "condition": "key === 'ArrowUp' && orientation === 'vertical'"
+      }
+    ],
+    "accessibility": {
+      "role": "navigation",
+      "focusable": true,
+      "keyboardSupport": ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Enter", "Space"],
+      "ariaLabel": "Main navigation"
+    }
+  },
+  "layout": {
+    "display": "block",
+    "positioning": "static",
+    "spacing": {
+      "padding": {
+        "top": 1,
+        "right": 1, 
+        "bottom": 1,
+        "left": 1
+      }
+    },
+    "sizing": {
+      "minWidth": 20,
+      "height": "auto"
+    }
+  },
+  "ascii": {
+    "templateFile": "navigation.md",
+    "width": 60,
+    "height": 3,
+    "variables": [
+      {
+        "name": "items",
+        "type": "array",
+        "defaultValue": [
+          {"label": "Home", "href": "/", "active": true},
+          {"label": "About", "href": "/about", "active": false},
+          {"label": "Contact", "href": "/contact", "active": false}
+        ],
+        "description": "Navigation menu items with labels, links, and active states",
+        "required": true,
+        "validation": {
+          "min": 1,
+          "max": 10
+        }
+      },
+      {
+        "name": "orientation",
+        "type": "string",
+        "defaultValue": "horizontal",
+        "description": "Layout orientation of navigation items",
+        "validation": {
+          "enum": ["horizontal", "vertical"]
+        }
+      },
+      {
+        "name": "separator",
+        "type": "string", 
+        "defaultValue": " | ",
+        "description": "Separator between navigation items (horizontal only)",
+        "validation": {
+          "max": 5
+        }
+      },
+      {
+        "name": "activeIndicator",
+        "type": "string",
+        "defaultValue": "[*]",
+        "description": "Visual indicator for active navigation item",
+        "validation": {
+          "max": 10
+        }
+      }
+    ]
+  }
+}

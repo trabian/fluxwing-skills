@@ -1,0 +1,53 @@
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Build outputs
+dist/
+build/
+*.log
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# MCP server binaries (if compiled)
+mcp/**/*.exe
+mcp/**/*.bin
+mcp/**/node_modules/
+
+# Test files
+coverage/
+.nyc_output/
+*.test.js
+*.spec.js
+
+# Source directories (for development reference only)
+uxscii/
+uxscii/**

@@ -1,0 +1,8 @@
+{
+  "name": "fluxwing",
+  "description": "Fluxwing - AI-native UX design using the uxscii standard. Create components and screens with ASCII art and structured metadata.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Fluxwing Team"
+  }
+}

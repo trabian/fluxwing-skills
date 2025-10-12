@@ -1,0 +1,82 @@
+{
+  "id": "custom-widget",
+  "type": "custom",
+  "version": "1.0.0",
+  "extends": "card",
+  "metadata": {
+    "name": "Custom Widget",
+    "description": "A specialized widget component that extends the basic card with custom properties",
+    "author": "UXscii Team",
+    "created": "2024-01-15T00:00:00Z",
+    "modified": "2024-01-15T00:00:00Z",
+    "tags": ["widget", "custom", "card"],
+    "category": "display"
+  },
+  "props": {
+    "widgetType": "dashboard",
+    "data": {
+      "title": "Sales Overview",
+      "value": "1,234",
+      "trend": "+12%",
+      "icon": "📊"
+    },
+    "refreshable": true,
+    "autoRefresh": 30000,
+    "compact": false
+  },
+  "behavior": {
+    "states": [
+      {
+        "name": "loading",
+        "properties": {
+          "opacity": 0.6,
+          "cursor": "wait"
+        }
+      },
+      {
+        "name": "error",
+        "properties": {
+          "borderColor": "red",
+          "background": "error-light"
+        }
+      }
+    ],
+    "interactions": [
+      {
+        "trigger": "click",
+        "action": "refresh-widget",
+        "condition": "refreshable"
+      },
+      {
+        "trigger": "change",
+        "action": "auto-refresh",
+        "condition": "autoRefresh > 0"
+      }
+    ]
+  },
+  "ascii": {
+    "templateFile": "custom-widget.md",
+    "width": 30,
+    "height": 8,
+    "variables": [
+      {
+        "name": "widgetType",
+        "type": "string",
+        "defaultValue": "dashboard",
+        "description": "Type of widget to display"
+      },
+      {
+        "name": "data",
+        "type": "string",
+        "defaultValue": "{\"title\":\"Widget Title\",\"value\":\"N/A\",\"trend\":\"\",\"icon\":\"📊\"}",
+        "description": "Widget data to display (JSON string)"
+      },
+      {
+        "name": "refreshable",
+        "type": "boolean",
+        "defaultValue": true,
+        "description": "Whether widget can be refreshed"
+      }
+    ]
+  }
+}

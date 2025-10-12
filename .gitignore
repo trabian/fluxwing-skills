@@ -1,0 +1,19 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Claude Code project configuration (NOT plugin config)
+.claude/
+!.claude-plugin/
+
+# Git
+.git/
+
+# Temporary files
+*.tmp
+*.log
+
+# Build artifacts (if any in future)
+dist/
+build/
+node_modules/

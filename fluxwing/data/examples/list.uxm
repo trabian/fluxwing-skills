@@ -1,0 +1,205 @@
+{
+  "id": "list",
+  "type": "list",
+  "version": "1.0.0",
+  "metadata": {
+    "name": "List Component",
+    "description": "Ordered and unordered list component with various display patterns and interaction support",
+    "author": "UXscii Team",
+    "created": "2024-01-15T00:00:00Z",
+    "modified": "2024-01-15T00:00:00Z",
+    "tags": ["list", "menu", "navigation", "display"],
+    "category": "display"
+  },
+  "props": {
+    "items": [
+      {
+        "id": "1",
+        "text": "First item",
+        "selected": false,
+        "disabled": false
+      },
+      {
+        "id": "2", 
+        "text": "Second item",
+        "selected": true,
+        "disabled": false
+      },
+      {
+        "id": "3",
+        "text": "Third item",
+        "selected": false,
+        "disabled": false
+      }
+    ],
+    "type": "unordered",
+    "selectable": true,
+    "multiSelect": false,
+    "variant": "default",
+    "marker": "•",
+    "numbering": "decimal",
+    "compact": false,
+    "bordered": true,
+    "striped": false
+  },
+  "behavior": {
+    "states": [
+      {
+        "name": "default",
+        "properties": {
+          "background": "transparent",
+          "textColor": "default",
+          "border": "none"
+        }
+      },
+      {
+        "name": "selected",
+        "properties": {
+          "background": "primary-light",
+          "textColor": "primary-dark",
+          "border": "solid",
+          "fontWeight": "medium"
+        }
+      },
+      {
+        "name": "hover",
+        "properties": {
+          "background": "gray-light",
+          "textColor": "default"
+        },
+        "triggers": ["mouseenter"]
+      },
+      {
+        "name": "disabled",
+        "properties": {
+          "background": "transparent",
+          "textColor": "gray-light",
+          "opacity": 0.5
+        }
+      }
+    ],
+    "interactions": [
+      {
+        "trigger": "click",
+        "action": "select-item",
+        "condition": "selectable && !disabled"
+      },
+      {
+        "trigger": "keydown",
+        "action": "select-next",
+        "condition": "key === 'ArrowDown'"
+      },
+      {
+        "trigger": "keydown",
+        "action": "select-previous", 
+        "condition": "key === 'ArrowUp'"
+      },
+      {
+        "trigger": "keydown",
+        "action": "select-item",
+        "condition": "key === 'Enter' || key === ' '"
+      },
+      {
+        "trigger": "keydown",
+        "action": "toggle-select",
+        "condition": "key === 'Space' && multiSelect"
+      }
+    ],
+    "accessibility": {
+      "role": "list",
+      "focusable": true,
+      "keyboardSupport": ["ArrowUp", "ArrowDown", "Enter", "Space", "Home", "End"],
+      "ariaLabel": "List of items"
+    }
+  },
+  "layout": {
+    "display": "block",
+    "positioning": "static",
+    "spacing": {
+      "padding": {
+        "top": 1,
+        "right": 1,
+        "bottom": 1,
+        "left": 1
+      }
+    },
+    "sizing": {
+      "minWidth": 15,
+      "maxWidth": 60,
+      "height": "auto"
+    }
+  },
+  "ascii": {
+    "templateFile": "list.md",
+    "width": 40,
+    "height": 10,
+    "variables": [
+      {
+        "name": "items",
+        "type": "array",
+        "defaultValue": [
+          {"id": "1", "text": "First item", "selected": false},
+          {"id": "2", "text": "Second item", "selected": true},
+          {"id": "3", "text": "Third item", "selected": false}
+        ],
+        "description": "List items with text, selection state, and metadata",
+        "required": true,
+        "validation": {
+          "min": 1,
+          "max": 50
+        }
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "defaultValue": "unordered",
+        "description": "List type: ordered, unordered, or definition",
+        "validation": {
+          "enum": ["ordered", "unordered", "definition", "checklist"]
+        }
+      },
+      {
+        "name": "marker",
+        "type": "string",
+        "defaultValue": "•",
+        "description": "Bullet character for unordered lists",
+        "validation": {
+          "max": 5
+        }
+      },
+      {
+        "name": "numbering",
+        "type": "string",
+        "defaultValue": "decimal",
+        "description": "Numbering style for ordered lists",
+        "validation": {
+          "enum": ["decimal", "alpha", "roman", "roman-upper"]
+        }
+      },
+      {
+        "name": "selectable",
+        "type": "boolean",
+        "defaultValue": true,
+        "description": "Whether items can be selected"
+      },
+      {
+        "name": "multiSelect",
+        "type": "boolean", 
+        "defaultValue": false,
+        "description": "Allow multiple item selection"
+      },
+      {
+        "name": "bordered",
+        "type": "boolean",
+        "defaultValue": true,
+        "description": "Show border around list"
+      },
+      {
+        "name": "compact",
+        "type": "boolean",
+        "defaultValue": false,
+        "description": "Use compact spacing between items"
+      }
+    ]
+  }
+}

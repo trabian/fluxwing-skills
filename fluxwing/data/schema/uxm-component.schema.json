@@ -1,0 +1,378 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://uxscii.org/schemas/uxm-component.json",
+  "title": "UXM Component Schema",
+  "description": "JSON schema for .uxm component metadata files",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*[a-z0-9]$",
+      "minLength": 2,
+      "maxLength": 64,
+      "description": "Unique identifier for the component using kebab-case"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "button",
+        "input",
+        "card",
+        "navigation",
+        "form",
+        "list",
+        "modal",
+        "table",
+        "badge",
+        "alert",
+        "container",
+        "text",
+        "image",
+        "divider",
+        "custom"
+      ],
+      "description": "Component type from the standard library or 'custom'"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+(?:-[a-zA-Z0-9-]+)?$",
+      "description": "Semantic version of the component specification"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "description": "Human-readable name for the component"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 500,
+          "description": "Optional description of the component's purpose and usage"
+        },
+        "author": {
+          "type": "string",
+          "maxLength": 100,
+          "description": "Component author or organization"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp when component was created"
+        },
+        "modified": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp when component was last modified"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]*[a-z0-9]$"
+          },
+          "maxItems": 10,
+          "uniqueItems": true,
+          "description": "Tags for categorization and search"
+        },
+        "category": {
+          "type": "string",
+          "enum": ["layout", "input", "display", "navigation", "feedback", "utility", "overlay", "custom"],
+          "description": "Primary category for component organization"
+        }
+      },
+      "required": ["name", "created", "modified"],
+      "additionalProperties": false
+    },
+    "props": {
+      "type": "object",
+      "description": "Component properties and configuration",
+      "additionalProperties": true
+    },
+    "behavior": {
+      "type": "object",
+      "properties": {
+        "states": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/componentState"
+          },
+          "description": "Possible states the component can be in"
+        },
+        "interactions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/componentInteraction"
+          },
+          "description": "User interactions the component responds to"
+        },
+        "animations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/componentAnimation"
+          },
+          "description": "Animations associated with state changes"
+        },
+        "accessibility": {
+          "$ref": "#/$defs/accessibilitySpec",
+          "description": "Accessibility requirements and ARIA attributes"
+        }
+      },
+      "additionalProperties": true
+    },
+    "layout": {
+      "type": "object",
+      "properties": {
+        "positioning": {
+          "type": "string",
+          "enum": ["static", "relative", "absolute", "fixed", "sticky"],
+          "default": "static"
+        },
+        "display": {
+          "type": "string",
+          "enum": ["block", "inline", "inline-block", "flex", "grid", "none", "overlay", "table"],
+          "default": "block"
+        },
+        "spacing": {
+          "$ref": "#/$defs/spacingSpec"
+        },
+        "sizing": {
+          "$ref": "#/$defs/sizingSpec"
+        }
+      },
+      "additionalProperties": true
+    },
+    "ascii": {
+      "type": "object",
+      "properties": {
+        "templateFile": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9._-]+\\.md$",
+          "description": "Filename of the associated ASCII template"
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 120,
+          "description": "Character width of the ASCII representation"
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50,
+          "description": "Character height of the ASCII representation"
+        },
+        "variables": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/templateVariable"
+          },
+          "description": "Variables used in the ASCII template"
+        }
+      },
+      "required": ["templateFile", "width", "height"],
+      "additionalProperties": false
+    },
+    "extends": {
+      "type": "string",
+      "description": "Component ID that this component extends"
+    }
+  },
+  "required": ["id", "type", "version", "metadata", "props", "ascii"],
+  "additionalProperties": false,
+  "$defs": {
+    "componentState": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "properties": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "triggers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["name", "properties"],
+      "additionalProperties": true
+    },
+    "componentInteraction": {
+      "type": "object",
+      "properties": {
+        "trigger": {
+          "type": "string",
+          "enum": ["click", "hover", "focus", "blur", "keydown", "keyup", "change", "submit", "timeout", "reset", "field-change"]
+        },
+        "action": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target": {
+          "type": "string",
+          "description": "Optional target element or component"
+        },
+        "condition": {
+          "type": "string",
+          "description": "Optional condition for the interaction"
+        }
+      },
+      "required": ["trigger", "action"],
+      "additionalProperties": false
+    },
+    "componentAnimation": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "duration": {
+          "type": "number",
+          "minimum": 0
+        },
+        "easing": {
+          "type": "string",
+          "enum": ["linear", "ease", "ease-in", "ease-out", "ease-in-out", "cubic-bezier"]
+        },
+        "properties": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "required": ["name", "duration", "properties"],
+      "additionalProperties": false
+    },
+    "accessibilitySpec": {
+      "type": "object",
+      "properties": {
+        "role": {
+          "type": "string",
+          "description": "ARIA role for the component"
+        },
+        "ariaLabel": {
+          "type": "string",
+          "description": "Accessible label for screen readers"
+        },
+        "ariaDescribedBy": {
+          "type": "string",
+          "description": "IDs of elements that describe this component"
+        },
+        "ariaLabelledBy": {
+          "type": "string",
+          "description": "IDs of elements that label this component"
+        },
+        "keyboardSupport": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Keyboard interactions supported"
+        },
+        "focusable": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether the component can receive focus"
+        }
+      },
+      "additionalProperties": false
+    },
+    "spacingSpec": {
+      "type": "object",
+      "properties": {
+        "margin": {
+          "oneOf": [
+            {"type": "number"},
+            {"$ref": "#/$defs/boxSpacing"}
+          ]
+        },
+        "padding": {
+          "oneOf": [
+            {"type": "number"},
+            {"$ref": "#/$defs/boxSpacing"}
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "boxSpacing": {
+      "type": "object",
+      "properties": {
+        "top": {"type": "number"},
+        "right": {"type": "number"},
+        "bottom": {"type": "number"},
+        "left": {"type": "number"}
+      },
+      "additionalProperties": false
+    },
+    "sizingSpec": {
+      "type": "object",
+      "properties": {
+        "width": {
+          "oneOf": [
+            {"type": "number"},
+            {"type": "string", "enum": ["auto", "fit-content", "max-content", "min-content"]}
+          ]
+        },
+        "height": {
+          "oneOf": [
+            {"type": "number"},
+            {"type": "string", "enum": ["auto", "fit-content", "max-content", "min-content"]}
+          ]
+        },
+        "minWidth": {"type": "number"},
+        "maxWidth": {"type": "number"},
+        "minHeight": {"type": "number"},
+        "maxHeight": {"type": "number"}
+      },
+      "additionalProperties": true
+    },
+    "templateVariable": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-zA-Z][a-zA-Z0-9_]*$",
+          "description": "Variable name using camelCase"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["string", "number", "boolean", "color", "size", "array", "object"],
+          "description": "Data type of the variable"
+        },
+        "defaultValue": {
+          "description": "Default value for the variable"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 200,
+          "description": "Description of the variable's purpose"
+        },
+        "required": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether the variable is required"
+        },
+        "validation": {
+          "type": "object",
+          "properties": {
+            "min": {"type": "number"},
+            "max": {"type": "number"},
+            "pattern": {"type": "string"},
+            "enum": {"type": "array"}
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": ["name", "type"],
+      "additionalProperties": false
+    }
+  }
+}
