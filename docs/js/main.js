@@ -3,6 +3,25 @@
 
 import { componentShowcase, screenShowcase } from "./gallery-data.js";
 
+const analyticsDefaults = () => ({
+  path: window.location.pathname ?? "/",
+});
+
+const captureEvent = (eventName, properties = {}) => {
+  const client = window.posthog;
+  if (!client || typeof client.capture !== "function") {
+    return;
+  }
+
+  try {
+    client.capture(eventName, { ...analyticsDefaults(), ...properties });
+  } catch (error) {
+    console.debug("Analytics capture failed", error);
+  }
+};
+
+captureEvent("page_view");
+
 const YEAR_SPAN = document.querySelector("[data-year]");
 if (YEAR_SPAN) {
   YEAR_SPAN.textContent = new Date().getFullYear().toString();
@@ -12,16 +31,27 @@ const copyButtons = document.querySelectorAll("[data-copy]");
 copyButtons.forEach((btn) => {
   btn.addEventListener("click", async () => {
     const text = btn.getAttribute("data-copy") ?? "";
+    const label = btn.textContent?.trim() ?? "copy";
+
     try {
       await navigator.clipboard.writeText(text);
       const original = btn.textContent;
       btn.textContent = "Copied!";
+      captureEvent("cta_copy_clicked", {
+        label,
+        success: true,
+      });
       setTimeout(() => {
         btn.textContent = original;
       }, 2000);
     } catch (error) {
       console.error("Copy failed", error);
       btn.textContent = "Copy manually ↑";
+      captureEvent("cta_copy_clicked", {
+        label,
+        success: false,
+        error: error instanceof Error ? error.message : String(error),
+      });
     }
   });
 });
@@ -129,11 +159,19 @@ if (typedTerminals.length) {
       responses.push("");
     }
 
+    captureEvent("typed_terminal_start", {
+      commands: commands.length,
+    });
+
     if (prefersReducedMotion) {
       terminal.classList.add("is-complete");
       if (banner) {
         banner.setAttribute("aria-hidden", "false");
       }
+      captureEvent("typed_terminal_complete", {
+        commands: commands.length,
+        reducedMotion: true,
+      });
       return;
     }
 
@@ -154,6 +192,10 @@ if (typedTerminals.length) {
         if (banner) {
           banner.setAttribute("aria-hidden", "false");
         }
+        captureEvent("typed_terminal_complete", {
+          commands: commands.length,
+          reducedMotion: false,
+        });
       }, 320);
     };
 
@@ -238,6 +280,10 @@ asciiPalettes.forEach((section) => {
     button.addEventListener("click", () => {
       const mode = button.getAttribute("data-ascii-mode") ?? "template";
       setMode(mode);
+      captureEvent("ascii_palette_mode_selected", {
+        mode,
+        section: section.getAttribute("data-title") ?? section.id ?? "unknown",
+      });
     });
   });
 
