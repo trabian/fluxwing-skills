@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fluxwing Command Reference</title>
+    <meta name="description" content="Complete guide to Fluxwing slash commands for designing ASCII-first UX with Claude Code.">
+    <meta name="posthog-host" content="https://us.i.posthog.com">
+    <meta name="posthog-key" content="">
+    <link rel="preload" href="../css/base.css" as="style">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/docs.css">
+  </head>
+  <body class="crt-bg subpage">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="subpage__header">
+      <p class="doc-breadcrumbs">
+        <a href="../index.html">Fluxwing Home</a> · Documentation · Command Reference
+      </p>
+      <p class="subpage__eyebrow">Fluxwing Documentation</p>
+      <h1 class="subpage__title">Slash Command Reference</h1>
+      <p class="subpage__lede">
+        Learn how each Fluxwing command accelerates ASCII-first design inside Claude Code. Understand when to use
+        them, what they create, and how the generated files slot into your project workspace.
+      </p>
+    </header>
+
+    <main id="main" class="doc-page">
+      <section class="doc-section">
+        <h2>At a Glance</h2>
+        <p>
+          Fluxwing ships with six high-impact commands. Use them to create components, scaffold entire screens,
+          validate quality, explore the bundled library, inspect existing assets, and import UI screenshots—all without leaving the terminal.
+        </p>
+        <table class="doc-table">
+          <thead>
+            <tr>
+              <th>Command</th>
+              <th>Primary Goal</th>
+              <th>Outputs</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>/fluxwing-create</code></td>
+              <td>Create a single component with metadata + ASCII template</td>
+              <td><code>components/{name}.uxm</code>, <code>components/{name}.md</code></td>
+            </tr>
+            <tr>
+              <td><code>/fluxwing-scaffold</code></td>
+              <td>Generate a complete screen and any missing components</td>
+              <td><code>screens/{name}.uxm</code>, <code>.md</code>, <code>.rendered.md</code></td>
+            </tr>
+            <tr>
+              <td><code>/fluxwing-validate</code></td>
+              <td>Audit components or screens for schema + accessibility issues</td>
+              <td>Terminal quality report, optional fixes</td>
+            </tr>
+            <tr>
+              <td><code>/fluxwing-library</code></td>
+              <td>Browse bundled templates and project components</td>
+              <td>Interactive terminal menu</td>
+            </tr>
+            <tr>
+              <td><code>/fluxwing-get</code></td>
+              <td>Inspect a specific component with context</td>
+              <td>On-demand ASCII preview + metadata summary</td>
+            </tr>
+            <tr>
+              <td><code>/fluxwing-import-screenshot</code></td>
+              <td>Convert UI screenshots into uxscii components automatically</td>
+              <td>Multiple components + screen files from visual analysis</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="doc-callout">
+          Tip: Commands always write to your local <code>./fluxwing</code> workspace. Bundled examples remain
+          read-only, so you can experiment without risking base templates.
+        </div>
+      </section>
+
+      <section class="doc-section">
+        <h2>Data Locations</h2>
+        <p>
+          Fluxwing strictly separates bundled resources from your editable project files. Commands rely on that
+          separation to keep upgrades predictable and your work safe.
+        </p>
+        <h3>Read-Only Reference</h3>
+        <ul>
+          <li><code>{PLUGIN_ROOT}/data/examples/</code> — 11 curated component templates</li>
+          <li><code>{PLUGIN_ROOT}/data/screens/</code> — 2 rendered screen examples</li>
+          <li><code>{PLUGIN_ROOT}/data/docs/</code> — Documentation blocks for agents</li>
+          <li><code>{PLUGIN_ROOT}/data/schema/</code> — JSON Schema definitions</li>
+        </ul>
+        <h3>Your Writable Workspace</h3>
+        <ul>
+          <li><code>./fluxwing/components/</code> — Components you create or customize</li>
+          <li><code>./fluxwing/screens/</code> — Screen compositions, including rendered examples</li>
+          <li><code>./fluxwing/library/</code> — Template copies you tailor for reuse</li>
+        </ul>
+        <p>
+          Whenever Fluxwing needs to check what already exists, it searches in priority order:
+          <strong>components → library → bundled examples</strong>. That keeps your bespoke designs front and center.
+        </p>
+      </section>
+
+      <section class="doc-section" id="create">
+        <h2><code>/fluxwing-create</code>: Component Builder</h2>
+        <p>
+          The fastest way to craft structured components. Fluxwing guides you through naming, states, props, and
+          templating, then delivers ASCII and metadata files ready for iteration.
+        </p>
+        <pre><code>/fluxwing-create pricing-card</code></pre>
+        <h3>Workflow</h3>
+        <ol>
+          <li>Plan name, component type, props, and required states.</li>
+          <li>Optionally reuse a bundled template or start from scratch.</li>
+          <li>Fluxwing generates a matching <code>.uxm</code> file and ASCII template.</li>
+          <li>Outputs are validated and saved to <code>./fluxwing/components/</code>.</li>
+        </ol>
+        <h3>Best Practices</h3>
+        <ul>
+          <li>Choose descriptive, kebab-case names such as <code>primary-cta-button</code>.</li>
+          <li>Document all interaction states (default, hover, focus, disabled).</li>
+          <li>Reference bundled examples when you need quick inspiration.</li>
+        </ul>
+      </section>
+
+      <section class="doc-section" id="scaffold">
+        <h2><code>/fluxwing-scaffold</code>: Screen Composer</h2>
+        <p>
+          Build full screens with one command. Fluxwing inventories required components, creates missing pieces, and
+          assembles everything into a complete screen package.
+        </p>
+        <pre><code>/fluxwing-scaffold onboarding-wizard</code></pre>
+        <h3>What You Get</h3>
+        <ul>
+          <li><code>{screen}.uxm</code> — Screen metadata with component references.</li>
+          <li><code>{screen}.md</code> — Templated ASCII blueprint with <code>{{variables}}</code>.</li>
+          <li><code>{screen}.rendered.md</code> — Example output filled with representative data.</li>
+        </ul>
+        <p>
+          Any missing components are created automatically, validated, and stored alongside your existing library.
+          Fluxwing follows an atomic → composite → screen build order to keep dependencies tidy.
+        </p>
+      </section>
+
+      <section class="doc-section" id="validate">
+        <h2><code>/fluxwing-validate</code>: Quality Reports</h2>
+        <p>
+          Run validation whenever you need confidence in a component or screen. Fluxwing checks schema compliance,
+          accessibility attributes, and metadata completeness before highlighting next steps.
+        </p>
+        <pre><code>/fluxwing-validate screens/login-screen.uxm</code></pre>
+        <p>
+          Pair validations with the designer or composer agents to keep large projects harmonized as they grow.
+        </p>
+      </section>
+
+      <section class="doc-section" id="library">
+        <h2>Discovery & Inspection Commands</h2>
+        <h3><code>/fluxwing-library</code></h3>
+        <p>
+          Browse every available component — bundled templates, customized library entries, and newly created assets
+          — using an interactive terminal menu. Perfect for onboarding teammates or reviewing available building blocks.
+        </p>
+        <h3><code>/fluxwing-get</code></h3>
+        <p>
+          Display the ASCII preview, metadata, and usage tips for a specific component without leaving your current
+          context. Ideal for quick refreshers during implementation.
+        </p>
+      </section>
+
+      <section class="doc-section" id="import-screenshot">
+        <h2><code>/fluxwing-import-screenshot</code>: Screenshot to uxscii</h2>
+        <p>
+          Transform UI screenshots into production-ready uxscii components automatically. Fluxwing analyzes the visual layout,
+          extracts components, generates ASCII representations, and creates complete metadata files—all from a single image.
+        </p>
+        <pre><code>/fluxwing-import-screenshot path/to/screenshot.png</code></pre>
+        <h3>What You Get</h3>
+        <ul>
+          <li><strong>Atomic Components</strong> — Buttons, inputs, badges, icons extracted as individual components</li>
+          <li><strong>Composite Components</strong> — Forms, cards, navigation assembled from atomics</li>
+          <li><strong>Complete Screen</strong> — Full layout with <code>.uxm</code>, <code>.md</code>, and <code>.rendered.md</code> files</li>
+          <li><strong>Validation Report</strong> — Schema compliance and quality metrics for all generated files</li>
+        </ul>
+        <h3>How It Works</h3>
+        <ol>
+          <li><strong>Visual Analysis</strong> — AI-powered computer vision detects all UI components and layout structure</li>
+          <li><strong>Component Extraction</strong> — Each element is classified (button, input, card, etc.) with visual properties</li>
+          <li><strong>ASCII Generation</strong> — Creates faithful ASCII representations matching the original design</li>
+          <li><strong>Metadata Creation</strong> — Generates complete <code>.uxm</code> files with props, states, and accessibility</li>
+          <li><strong>Validation</strong> — Ensures all generated files meet uxscii standards</li>
+        </ol>
+        <h3>Supported Formats</h3>
+        <p>PNG, JPG, JPEG, WebP, GIF</p>
+        <h3>Best Practices</h3>
+        <ul>
+          <li>Use clear, high-resolution screenshots for better detection accuracy</li>
+          <li>Break complex interfaces into focused sections (one feature at a time)</li>
+          <li>Review and customize generated components to match your brand</li>
+          <li>Run <code>/fluxwing-validate</code> after import to check quality</li>
+        </ul>
+        <div class="doc-callout">
+          Tip: Screenshot import works best with standard UI patterns. Custom or highly stylized interfaces may require
+          manual adjustments after generation.
+        </div>
+      </section>
+
+      <section class="doc-section">
+        <h2>Where to Go Next</h2>
+        <p>
+          Commands handle focused tasks. When a project demands autonomous exploration or multi-step orchestration,
+          hand things off to Fluxwing’s agents.
+        </p>
+        <ul>
+          <li><a href="agents.html">Meet the autonomous agents →</a></li>
+          <li><a href="architecture.html">Understand the plugin architecture →</a></li>
+          <li><a href="getting-started.html">Launch checklist and quick start →</a></li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="doc-footer">
+      © <span data-year></span> Fluxwing. ASCII-first design, powered by AI.
+    </footer>
+
+    <script>
+      window.__POSTHOG_CONFIG__ = (() => {
+        const host = document.querySelector('meta[name="posthog-host"]');
+        const key = document.querySelector('meta[name="posthog-key"]');
+        return {
+          apiHost: host?.content?.trim() || "https://us.i.posthog.com",
+          apiKey: key?.content?.trim() || "",
+        };
+      })();
+    </script>
+    <script>
+      !function(t,e){var o,n,p,r;e.__SV||(window.posthog&&window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init hi Er $r ui br Sr capture Ri calculateEventProperties Tr register register_once register_for_session unregister unregister_for_session Or getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty Rr Pr createPersonProfile Cr mr Fr opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing kr debug L Ir getPageViewId captureTraceFeedback captureTraceMetric".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    </script>
+    <script>
+      (function () {
+        const config = window.__POSTHOG_CONFIG__ || {};
+        if (!config.apiKey) {
+          console.warn("PostHog key missing; analytics disabled.");
+          return;
+        }
+
+        posthog.init(config.apiKey, {
+          api_host: config.apiHost || "https://us.i.posthog.com",
+          defaults: "2025-05-24",
+          person_profiles: "identified_only",
+        });
+      })();
+    </script>
+    <script src="../js/main.js" type="module"></script>
+  </body>
+</html>

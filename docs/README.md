@@ -28,4 +28,10 @@ The command serves the static site at `http://localhost:4173`. It uses Python's 
 - [ ] `CNAME`, DNS, and HTTPS enforcement confirmed in GitHub Pages settings.
 - [ ] Manual tests on Chrome, Firefox, Safari, Edge, and mobile breakpoints.
 
+### Link Audit Checklist
+
+- Run `npm run ghpages:serve` and open `http://localhost:4173`.
+- Visit `/reference/commands.html`, `/reference/agents.html`, `/reference/architecture.html`, and `/reference/getting-started.html`.
+- Test hero and footer CTAs (`#loop`, `#docs`, `#install`) to confirm anchor targets.
+
 Track additional refinements in `thoughts/shared/plans/2025-10-13-fluxwing-github-pages-site.md`.

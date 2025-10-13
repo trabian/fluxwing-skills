@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fluxwing Agent Capabilities</title>
+    <meta name="description" content="Understand Fluxwing's autonomous agents and when to dispatch them for complex ASCII-first UX workflows.">
+    <meta name="posthog-host" content="https://us.i.posthog.com">
+    <meta name="posthog-key" content="">
+    <link rel="preload" href="../css/base.css" as="style">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/docs.css">
+  </head>
+  <body class="crt-bg subpage">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="subpage__header">
+      <p class="doc-breadcrumbs">
+        <a href="../index.html">Fluxwing Home</a> · Documentation · Agent Capabilities
+      </p>
+      <p class="subpage__eyebrow">Fluxwing Documentation</p>
+      <h1 class="subpage__title">Autonomous Agents</h1>
+      <p class="subpage__lede">
+        Fluxwing’s agents handle multi-step design work, deep validation, and screen composition without manual
+        prompting. Use this guide to decide when to dispatch each agent and what to expect from their output.
+      </p>
+    </header>
+
+    <main id="main" class="doc-page">
+      <section class="doc-section">
+        <h2>Agent Overview</h2>
+        <p>
+          Agents extend Fluxwing beyond single-command interactions. They plan work, execute TodoWrite tasks, and keep
+          your project files aligned with the uxscii standard.
+        </p>
+        <h3>Core Agents</h3>
+        <table class="doc-table">
+          <thead>
+            <tr>
+              <th>Agent</th>
+              <th>Primary Focus</th>
+              <th>Ideal For</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>fluxwing-designer</strong></td>
+              <td>End-to-end component + screen creation</td>
+              <td>Design systems, multi-component requests, rapid prototyping</td>
+            </tr>
+            <tr>
+              <td><strong>fluxwing-validator</strong></td>
+              <td>Comprehensive quality analysis</td>
+              <td>Pre-release audits, accessibility checks, schema compliance</td>
+            </tr>
+            <tr>
+              <td><strong>fluxwing-composer</strong></td>
+              <td>Assemble screens from existing components</td>
+              <td>Storyboarding flows, reusing component libraries</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>Screenshot Import Agents</h3>
+        <p>
+          The screenshot import workflow is powered by five specialized agents working in concert. These are automatically
+          dispatched by the <code>/fluxwing-import-screenshot</code> command and coordinate to analyze visual designs.
+        </p>
+        <table class="doc-table">
+          <thead>
+            <tr>
+              <th>Agent</th>
+              <th>Specialized Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>screenshot-vision-coordinator</strong></td>
+              <td>Orchestrates the analysis pipeline and coordinates other screenshot agents</td>
+            </tr>
+            <tr>
+              <td><strong>screenshot-layout-discovery</strong></td>
+              <td>Identifies overall screen structure, sections, and spatial relationships</td>
+            </tr>
+            <tr>
+              <td><strong>screenshot-component-detection</strong></td>
+              <td>Locates and classifies individual UI components (buttons, inputs, cards, etc.)</td>
+            </tr>
+            <tr>
+              <td><strong>screenshot-visual-properties</strong></td>
+              <td>Extracts visual attributes like dimensions, borders, colors, and text content</td>
+            </tr>
+            <tr>
+              <td><strong>screenshot-component-generator</strong></td>
+              <td>Generates uxscii files (.uxm + .md) from analyzed component data</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="doc-callout">
+          Note: Screenshot agents work automatically during import. You don't dispatch them individually—the coordinator
+          handles orchestration when you run <code>/fluxwing-import-screenshot</code>.
+        </div>
+      </section>
+
+      <section class="doc-section">
+        <h2>Respecting Data Boundaries</h2>
+        <p>
+          Agents observe the same read/write separation as commands. Understanding that boundary keeps your workspace
+          predictable.
+        </p>
+        <h3>Reference Only</h3>
+        <ul>
+          <li><code>{PLUGIN_ROOT}/data/examples/</code></li>
+          <li><code>{PLUGIN_ROOT}/data/screens/</code></li>
+          <li><code>{PLUGIN_ROOT}/data/docs/</code></li>
+          <li><code>{PLUGIN_ROOT}/data/schema/</code></li>
+        </ul>
+        <h3>Project Workspace</h3>
+        <ul>
+          <li><code>./fluxwing/components/</code></li>
+          <li><code>./fluxwing/screens/</code></li>
+          <li><code>./fluxwing/library/</code></li>
+        </ul>
+        <p>
+          Agents search in the order <strong>components → library → bundled examples</strong> so custom work always
+          wins over stock templates.
+        </p>
+      </section>
+
+      <section class="doc-section">
+        <h2>Commands or Agents?</h2>
+        <div class="doc-callout">
+          Use commands for focused tasks. Dispatch agents when work requires planning, iteration, or coordinating
+          multiple outputs.
+        </div>
+        <h3>Stick with Commands When You Need:</h3>
+        <ul>
+          <li>A single component or screen with tight guidance.</li>
+          <li>Quick validation on a specific artifact.</li>
+          <li>A fast scan of available templates.</li>
+        </ul>
+        <h3>Dispatch Agents When You Need:</h3>
+        <ul>
+          <li>Autonomous creation of multi-component systems.</li>
+          <li>Deep quality analysis across dozens of files.</li>
+          <li>Coordinated screen compositions that reuse existing pieces.</li>
+        </ul>
+      </section>
+
+      <section class="doc-section" id="designer">
+        <h2><code>fluxwing-designer</code></h2>
+        <p>
+          The designer agent interprets high-level briefs and turns them into complete component and screen suites.
+          It balances reuse with net-new creation and finishes with a comprehensive status report.
+        </p>
+        <h3>How to Dispatch</h3>
+        <p>
+          Describe the experience you need; Claude Code will suggest the designer agent automatically. You can also
+          request it explicitly:
+        </p>
+        <pre><code>Dispatch fluxwing-designer to create a revenue dashboard with metrics, charts, and activity feed.</code></pre>
+        <h3>Execution Phases</h3>
+        <ol>
+          <li><strong>Requirements</strong> — analyze the request, plan deliverables, build TodoWrite list.</li>
+          <li><strong>Inventory</strong> — check project components, library, and bundled examples.</li>
+          <li><strong>Systematic Creation</strong> — atomic components → composite components → screens.</li>
+          <li><strong>Quality</strong> — validate schema, accessibility, naming, and references.</li>
+          <li><strong>Reporting</strong> — summarize outputs, file paths, validation score, suggestions.</li>
+        </ol>
+        <p>
+          Expect dozens of files created or updated in a single run, each validated and documented.
+        </p>
+      </section>
+
+      <section class="doc-section" id="validator">
+        <h2><code>fluxwing-validator</code></h2>
+        <p>
+          When your library matures, the validator agent ensures everything still meets Fluxwing’s standards. It
+          reviews ASCII fidelity, schema compliance, accessibility, and metadata completeness, then recommends fixes.
+        </p>
+        <ul>
+          <li>Ideal before shipping a new feature or publishing docs.</li>
+          <li>Produces a prioritized checklist with pass/fail details.</li>
+          <li>Pairs well with <code>/fluxwing-validate</code> for spot checks during development.</li>
+        </ul>
+      </section>
+
+      <section class="doc-section" id="composer">
+        <h2><code>fluxwing-composer</code></h2>
+        <p>
+          The composer agent stitches together existing components into coherent screens or flows. It respects your
+          naming conventions, detects gaps, and uses library assets before reaching for bundled templates.
+        </p>
+        <h3>Typical Session</h3>
+        <ol>
+          <li>Evaluate requested flow and gather required components.</li>
+          <li>Confirm assets exist or queue creation via designer agent.</li>
+          <li>Assemble screen metadata, template, and rendered example.</li>
+          <li>Return a narrative explaining layout decisions and follow-up actions.</li>
+        </ol>
+      </section>
+
+      <section class="doc-section" id="screenshot-workflow">
+        <h2>Screenshot Import Workflow</h2>
+        <p>
+          When you run <code>/fluxwing-import-screenshot</code>, the coordinator agent orchestrates a multi-phase pipeline:
+        </p>
+        <ol>
+          <li><strong>Layout Discovery</strong> — Identifies screen structure (header, sidebar, main content, etc.)</li>
+          <li><strong>Component Detection</strong> — Locates all UI elements and classifies them by type</li>
+          <li><strong>Visual Property Extraction</strong> — Measures dimensions, extracts text, identifies borders and styles</li>
+          <li><strong>Component Generation</strong> — Creates atomic components first, then composites, then screens</li>
+          <li><strong>Validation</strong> — Ensures all generated files meet uxscii standards</li>
+        </ol>
+        <p>
+          Each specialized agent contributes its expertise, and the coordinator merges results into a unified component library.
+        </p>
+      </section>
+
+      <section class="doc-section">
+        <h2>Agent Tips</h2>
+        <ul>
+          <li>Share real data examples so rendered screens feel grounded.</li>
+          <li>Group related asks into one agent dispatch instead of many micro-requests.</li>
+          <li>Run validator after large designer sessions to catch regressions.</li>
+          <li>Leverage <code>./fluxwing/library/</code> for reusable variants the composer can pull from.</li>
+          <li>For screenshot imports, use clear, well-lit images focused on single features or screens.</li>
+          <li>Review imported components and customize them to match your brand guidelines.</li>
+        </ul>
+      </section>
+
+      <section class="doc-section">
+        <h2>Continue Exploring</h2>
+        <ul>
+          <li><a href="commands.html">Command reference →</a></li>
+          <li><a href="architecture.html">Architecture deep dive →</a></li>
+          <li><a href="getting-started.html">Fluxwing launch checklist →</a></li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="doc-footer">
+      © <span data-year></span> Fluxwing. ASCII-first design, powered by AI.
+    </footer>
+
+    <script>
+      window.__POSTHOG_CONFIG__ = (() => {
+        const host = document.querySelector('meta[name="posthog-host"]');
+        const key = document.querySelector('meta[name="posthog-key"]');
+        return {
+          apiHost: host?.content?.trim() || "https://us.i.posthog.com",
+          apiKey: key?.content?.trim() || "",
+        };
+      })();
+    </script>
+    <script>
+      !function(t,e){var o,n,p,r;e.__SV||(window.posthog&&window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init hi Er $r ui br Sr capture Ri calculateEventProperties Tr register register_once register_for_session unregister unregister_for_session Or getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty Rr Pr createPersonProfile Cr mr Fr opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing kr debug L Ir getPageViewId captureTraceFeedback captureTraceMetric".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    </script>
+    <script>
+      (function () {
+        const config = window.__POSTHOG_CONFIG__ || {};
+        if (!config.apiKey) {
+          console.warn("PostHog key missing; analytics disabled.");
+          return;
+        }
+
+        posthog.init(config.apiKey, {
+          api_host: config.apiHost || "https://us.i.posthog.com",
+          defaults: "2025-05-24",
+          person_profiles: "identified_only",
+        });
+      })();
+    </script>
+    <script src="../js/main.js" type="module"></script>
+  </body>
+</html>
