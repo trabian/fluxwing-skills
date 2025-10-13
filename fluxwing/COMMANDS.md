@@ -4,7 +4,7 @@ Complete reference for all Fluxwing slash commands.
 
 ## Overview
 
-Fluxwing provides 4 slash commands for quick UX design tasks:
+Fluxwing provides 5 slash commands for quick UX design tasks:
 
 | Command | Purpose | Output |
 |---------|---------|--------|
@@ -12,6 +12,39 @@ Fluxwing provides 4 slash commands for quick UX design tasks:
 | `/fluxwing-scaffold` | Build complete screen | screen.{uxm,md,rendered.md} |
 | `/fluxwing-validate` | Validate components | Validation report |
 | `/fluxwing-library` | Browse library | Interactive menu |
+| `/fluxwing-get` | View single component details | Component display |
+
+## Data Location Philosophy
+
+**Understanding where files live is crucial**:
+
+### Plugin Data Directory (READ-ONLY)
+- **Location**: `{PLUGIN_ROOT}/data/`
+- **Contains**: 11 bundled component templates, 2 screen examples, docs, schema
+- **Purpose**: Reference materials and patterns
+- **Access**: READ-ONLY - never modified by commands or agents
+
+### Project Workspace (READ-WRITE)
+- **Location**: `./fluxwing/`
+- **Contains**: Your components, screens, and customized templates
+- **Purpose**: Your actual design files
+- **Access**: READ-WRITE - all command outputs go here
+
+### The Three-Source Inventory
+When commands check for available components, they look in this order:
+1. `./fluxwing/components/` - Your created components (FIRST PRIORITY)
+2. `./fluxwing/library/` - Your customized template copies
+3. `{PLUGIN_ROOT}/data/examples/` - Bundled templates (READ-ONLY reference)
+
+### Component Lifecycle
+```
+1. BROWSE    → /fluxwing-library (see all: bundled + project)
+2. GET       → /fluxwing-get [name] (view single component details)
+3. COPY      → Copy bundled template to ./fluxwing/library/
+4. CREATE    → /fluxwing-create (new component to ./fluxwing/components/)
+5. COMPOSE   → /fluxwing-scaffold (screens to ./fluxwing/screens/)
+6. VALIDATE  → /fluxwing-validate (check quality)
+```
 
 ---
 
@@ -402,6 +435,80 @@ Results: card, pricing-card, hero-card
 - To create new: use `/fluxwing-create`
 - To compose screen: use `/fluxwing-scaffold`
 - For bulk operations: dispatch `fluxwing-designer` agent
+- To view single component: use `/fluxwing-get`
+
+---
+
+## `/fluxwing-get` - View Component Details
+
+**Purpose**: Quick access to view details of a single component from any source
+
+**Usage**:
+```bash
+/fluxwing-get [component-name]
+```
+
+**Examples**:
+```bash
+/fluxwing-get primary-button
+/fluxwing-get submit-button
+/fluxwing-get login-screen
+```
+
+### Search Order
+
+Searches for the component in this order (first match wins):
+1. `./fluxwing/components/` - Your created components
+2. `./fluxwing/library/` - Your customized templates
+3. `{PLUGIN_ROOT}/data/examples/` - Bundled templates
+
+### Display Format
+
+Shows complete component details:
+
+**Metadata**:
+- Component ID, type, version
+- Description and purpose
+- Props and their defaults
+- States and triggers
+- Accessibility attributes
+
+**ASCII Template**:
+- Preview of all states
+- Variables used
+- Dimensions
+
+**File Location**:
+- Full path to `.uxm` and `.md` files
+- Modification timestamp
+- Source indicator (bundled/library/project)
+
+### Interactive Options
+
+After displaying, offers context-aware actions:
+
+**For bundled templates**:
+- Copy to project (`./fluxwing/library/`)
+- Use as reference for new component
+- View raw template file
+
+**For project components**:
+- Edit component files
+- Validate component
+- Delete component (with confirmation)
+
+### Tips
+
+- Faster than browsing full library when you know the name
+- Shows file location so you can edit directly
+- Great for quick reference during development
+- Use fuzzy matching if you don't know exact name
+
+### Related
+
+- To browse all components: use `/fluxwing-library`
+- To create new component: use `/fluxwing-create`
+- To validate component: use `/fluxwing-validate`
 
 ---
 

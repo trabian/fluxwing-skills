@@ -131,17 +131,33 @@ Every component consists of two files:
 ```
 ````
 
-### Output Structure
+### Output Structure & Data Locations
 
-Your designs are saved to `./fluxwing/`:
+**Critical Understanding**: Fluxwing has TWO separate file locations:
 
+#### Plugin Data (READ-ONLY)
 ```
-./fluxwing/
-├── components/              # Reusable UI components
-├── screens/                 # Complete screen compositions
+{PLUGIN_ROOT}/data/          # Bundled with plugin - reference only
+├── schema/                  # JSON Schema for validation
+├── examples/                # 11 component templates (READ-ONLY)
+├── screens/                 # 2 screen examples (READ-ONLY)
+└── docs/                    # Documentation modules
+```
+
+**These are bundled reference materials - NEVER modified by commands or agents.**
+
+#### Your Project Workspace (READ-WRITE)
+```
+./fluxwing/                  # Your project files - ALL outputs go here
+├── components/              # Your created components
+├── screens/                 # Your created screens
 │   └── *.rendered.md        # Examples with REAL data
-└── library/                 # Copied/customized templates
+└── library/                 # Your customized template copies
 ```
+
+**All command and agent outputs are saved here. These are YOUR files.**
+
+**The Golden Rule**: READ from plugin data, WRITE to project workspace.
 
 🏗️ **[See complete architecture →](ARCHITECTURE.md)**
 

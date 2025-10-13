@@ -6,12 +6,30 @@ description: Browse uxscii component library (bundled examples + project files)
 
 Browse all available uxscii components: bundled templates, user-created components, and complete screens.
 
+## Data Location Rules
+
+**READ from (bundled templates - reference only):**
+- `{PLUGIN_ROOT}/data/examples/` - 11 component templates
+- `{PLUGIN_ROOT}/data/screens/` - 2 screen examples
+- `{PLUGIN_ROOT}/data/docs/` - Documentation
+- `{PLUGIN_ROOT}/data/schema/` - JSON Schema
+
+**WRITE to (project workspace):**
+- `./fluxwing/components/` - Your created components
+- `./fluxwing/screens/` - Your created screens
+- `./fluxwing/library/` - Customized template copies
+
+**NEVER write to plugin data directory - it's read-only!**
+
 ## Your Task
 
-Show the user what uxscii components are available across three sources:
-1. **Bundled Templates** - 10 curated examples included with the plugin
-2. **Project Components** - User/agent-created reusable components
-3. **Project Screens** - Complete screen compositions
+Show the user what uxscii components are available across **three sources**:
+1. **Bundled Templates** - 11 curated examples from `{PLUGIN_ROOT}/data/examples/` (read-only reference)
+2. **Project Components** - User/agent-created reusable components in `./fluxwing/components/` (editable)
+3. **Project Library** - Customized template copies in `./fluxwing/library/` (editable)
+4. **Project Screens** - Complete screen compositions in `./fluxwing/screens/` (editable)
+
+**Key Distinction**: Bundled templates are READ-ONLY reference materials. To customize them, copy to your project workspace first.
 
 ## Display Format
 
@@ -135,8 +153,8 @@ After displaying the library, offer these actions:
 ```
 What would you like to do?
 
-1️⃣ View a component's details (read .uxm and .md files)
-2️⃣ Copy a template to your project
+1️⃣ View component details (/fluxwing-get [name])
+2️⃣ Copy a template to your project (bundled → ./fluxwing/library/)
 3️⃣ Create a new component (/fluxwing-create)
 4️⃣ Validate existing components (/fluxwing-validate)
 5️⃣ Scaffold a new screen (/fluxwing-scaffold)
@@ -262,15 +280,18 @@ Get started:
 
 ## Resources
 
-- **All Examples**: `{PLUGIN_ROOT}/data/examples/`
-- **Example Screens**: `{PLUGIN_ROOT}/data/screens/`
+- **Bundled Examples**: `{PLUGIN_ROOT}/data/examples/` (READ-ONLY - 11 component templates)
+- **Example Screens**: `{PLUGIN_ROOT}/data/screens/` (READ-ONLY - 2 screen examples)
 - **Documentation**: `{PLUGIN_ROOT}/data/docs/00-INDEX.md`
 
 ## Important Notes
 
-- Bundled templates are read-only reference - copy them to customize
-- Your components in `./fluxwing/` are fully editable
+- **Bundled templates** (`{PLUGIN_ROOT}/data/examples/`) are READ-ONLY reference materials - copy to `./fluxwing/library/` to customize
+- **Your components** in `./fluxwing/components/` are fully editable
+- **Your library** in `./fluxwing/library/` contains customized template copies (editable)
+- **Your screens** in `./fluxwing/screens/` are fully editable
 - Screens reference components by ID - ensure components exist first
 - Use `/fluxwing-validate` after copying/creating to ensure quality
+- Use `/fluxwing-get [name]` to view details of any component from any source
 
 You are helping users discover and leverage the complete uxscii component ecosystem!

@@ -6,6 +6,22 @@ description: Validate uxscii components for quality and compliance
 
 Quick validation of uxscii components against the schema and best practices.
 
+## Data Location Rules
+
+**READ from (for validation reference):**
+- `{PLUGIN_ROOT}/data/schema/` - JSON Schema for validation
+
+**VALIDATE (project files only):**
+- `./fluxwing/components/` - Your created components
+- `./fluxwing/screens/` - Your created screens
+- `./fluxwing/library/` - Customized template copies
+
+**DO NOT validate:**
+- `{PLUGIN_ROOT}/data/examples/` - Bundled templates are pre-validated (READ-ONLY)
+- `{PLUGIN_ROOT}/data/screens/` - Example screens are pre-validated (READ-ONLY)
+
+**Focus on user files in project workspace only.**
+
 ## Usage
 
 ```
@@ -23,10 +39,12 @@ Perform quick validation checks on uxscii component files.
 Validate only that specific file.
 
 ### If no path is provided:
-Validate ALL `.uxm` files found in:
-- `./fluxwing/components/`
-- `./fluxwing/screens/`
-- `./fluxwing/library/`
+Validate ALL `.uxm` files found in **project workspace only**:
+- `./fluxwing/components/` (user-created components)
+- `./fluxwing/screens/` (user-created screens)
+- `./fluxwing/library/` (customized template copies)
+
+**Skip bundled templates** in `{PLUGIN_ROOT}/data/` - they are pre-validated and read-only.
 
 ## Validation Checklist
 
@@ -127,14 +145,17 @@ If the user needs more comprehensive analysis, suggest:
 - **Schema**: `{PLUGIN_ROOT}/data/schema/uxm-component.schema.json` - The source of truth
 - **Validation Guide**: `{PLUGIN_ROOT}/data/docs/05-validation-guide.md` - Complete validation standards
 - **Schema Reference**: `{PLUGIN_ROOT}/data/docs/07-schema-reference.md` - Field-by-field documentation
+- **Example Components**: `{PLUGIN_ROOT}/data/examples/` - Pre-validated reference implementations (READ-ONLY)
 
 ## Important Notes
 
+- **Only validate project files** in `./fluxwing/` - bundled templates are already validated
 - Schema compliance is non-negotiable - components must pass Level 1 & 2
 - Best practices (Level 3) are strongly recommended for production use
 - Quality standards (Level 4) improve maintainability and reusability
 - Fix errors before using components in production
 - Warnings indicate potential UX or accessibility issues
+- Validation reports should show file locations clearly (e.g., `./fluxwing/components/button.uxm`)
 
 ## Common Issues & Fixes
 

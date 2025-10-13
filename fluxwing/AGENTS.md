@@ -12,6 +12,33 @@ Fluxwing provides 3 autonomous agents for complex UX design work:
 | **fluxwing-validator** | Deep quality analysis with recommendations | Pre-production quality checks |
 | **fluxwing-composer** | Assemble screens from existing components | Compose layouts from available components |
 
+## Data Location Rules for Agents
+
+**All agents follow strict data location rules**:
+
+### READ-ONLY Sources (Reference Materials)
+- `{PLUGIN_ROOT}/data/examples/` - 11 bundled component templates
+- `{PLUGIN_ROOT}/data/screens/` - 2 screen examples
+- `{PLUGIN_ROOT}/data/docs/` - Documentation modules
+- `{PLUGIN_ROOT}/data/schema/` - JSON Schema validation
+
+**Agents NEVER write to these locations** - they are bundled reference materials.
+
+### READ-WRITE Targets (Project Workspace)
+- `./fluxwing/components/` - Agent-created components
+- `./fluxwing/screens/` - Agent-created screens
+- `./fluxwing/library/` - Customized template copies
+
+**All agent outputs go here** - these are your project files.
+
+### Inventory Check Order
+When agents check for available components, they search in this order:
+1. `./fluxwing/components/` - User-created components (FIRST PRIORITY)
+2. `./fluxwing/library/` - Customized template copies
+3. `{PLUGIN_ROOT}/data/examples/` - Bundled templates (READ-ONLY reference)
+
+This ensures agents prefer your project components over bundled templates.
+
 ---
 
 ## Agent vs Command: When to Use Each

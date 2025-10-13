@@ -122,15 +122,46 @@ Standard types: button, input, checkbox, radio, select, slider, toggle, text, he
 - Composite (reference others): form, card
 - Screens (top-level): use type "container"
 
-## File Locations Users Create
+## Data Location Philosophy
 
-When users run commands, files are saved to:
+**Critical Distinction**: The plugin has TWO completely separate file locations:
+
+### 1. Plugin Data Directory (READ-ONLY)
 ```
-./fluxwing/                    # In user's project
-├── components/                # .uxm + .md pairs
-├── screens/                   # .uxm + .md + .rendered.md
-└── library/                   # Copied/customized templates
+{PLUGIN_ROOT}/data/            # Bundled with plugin - NEVER write here
+├── schema/                    # JSON Schema validation rules
+├── examples/                  # 11 component templates (reference only)
+├── screens/                   # 2 screen examples (reference only)
+└── docs/                      # Modular documentation
 ```
+
+**These files are:**
+- ✅ READ-ONLY reference materials
+- ✅ Pre-validated and tested
+- ✅ Bundled with plugin installation
+- ❌ NEVER modified by commands or agents
+- ❌ NEVER written to by user
+
+### 2. Project Workspace (READ-WRITE)
+```
+./fluxwing/                    # In user's project - ALL outputs go here
+├── components/                # User/agent-created components (.uxm + .md)
+├── screens/                   # User/agent-created screens (.uxm + .md + .rendered.md)
+└── library/                   # Customized copies of bundled templates
+```
+
+**These files are:**
+- ✅ User's project files
+- ✅ Fully editable
+- ✅ Version controlled with user's code
+- ✅ Where ALL command/agent outputs go
+
+### The Golden Rules
+
+1. **READ from bundled templates**: Reference `{PLUGIN_ROOT}/data/examples/` for patterns
+2. **WRITE to project workspace**: All outputs go to `./fluxwing/`
+3. **NEVER mix**: Never write to plugin directory, never assume plugin files are editable
+4. **Inventory check order**: components → library → bundled templates (preference for user files)
 
 ## Important Implementation Notes
 
