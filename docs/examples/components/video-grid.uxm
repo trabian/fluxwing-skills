@@ -1,0 +1,58 @@
+{
+  "id": "video-grid",
+  "type": "container",
+  "version": "1.0.0",
+  "metadata": {
+    "name": "Video Grid",
+    "description": "Responsive grid layout displaying multiple video cards",
+    "author": "Fluxwing Screenshot Import",
+    "created": "2025-10-13T16:36:00Z",
+    "modified": "2025-10-13T16:36:00Z",
+    "tags": ["grid", "layout", "video", "composite", "imported"],
+    "category": "layout"
+  },
+  "props": {
+    "components": [
+      {"id": "video-card", "slot": "item"}
+    ],
+    "columns": 4,
+    "gap": 2
+  },
+  "behavior": {
+    "states": [
+      {
+        "name": "default",
+        "properties": {
+          "border": "none",
+          "background": "transparent",
+          "textColor": "default"
+        }
+      }
+    ],
+    "interactions": ["scroll"],
+    "accessibility": {
+      "role": "region",
+      "focusable": false,
+      "keyboardSupport": [],
+      "ariaLabel": "Video grid"
+    }
+  },
+  "layout": {
+    "display": "grid",
+    "positioning": "static",
+    "spacing": {
+      "padding": { "x": 2, "y": 2 },
+      "gap": 2
+    },
+    "sizing": {
+      "width": 80,
+      "height": 50
+    }
+  },
+  "ascii": {
+    "templateFile": "video-grid.md",
+    "width": 80,
+    "height": 50,
+    "variables": []
+  }
+}

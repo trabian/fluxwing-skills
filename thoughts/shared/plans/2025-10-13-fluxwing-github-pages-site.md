@@ -817,7 +817,7 @@ Create search engine configuration files
 ### User Testing
 - **Developer Feedback**: Get feedback from Claude Code users
 - **UX Review**: Have designers review the terminal aesthetic
-- **Content Review**: Verify technical accuracy with Fluxwing docs
+- **Content Review**: Verify technical accuracy with Fluxwing docs site
 
 ---
 
@@ -850,11 +850,11 @@ N/A - This is a new site, no migration required.
 
 ## References
 
-- **Original design docs**: fluxwing/README.md (main repository)
+- **Original design docs site**: fluxwing/README.md (main repository)
 - **Commands reference**: fluxwing/COMMANDS.md
 - **Agents reference**: fluxwing/AGENTS.md
 - **Architecture**: fluxwing/ARCHITECTURE.md
-- **xterm.js docs**: https://xtermjs.org/docs/
+- **xterm.js demos**: https://xtermjs.org/ghpages/
 - **GitHub Pages**: https://docs.github.com/en/pages
 - **ANSI colors**: Terminal color standards and escape codes
 

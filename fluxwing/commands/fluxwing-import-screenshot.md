@@ -60,9 +60,24 @@ const screenshotContent = await read(screenshotPath);
 Analyze the screenshot to extract component structure. Identify:
 
 **1. All UI Components:**
-- List every distinct element (buttons, inputs, cards, navigation, etc.)
+
+**CRITICAL - DO NOT MISS THESE:**
+- ⚠️ **Navigation bars** - Check ALL edges (top, left, right, bottom) for nav elements
+- ⚠️ **Sidebars** - Left/right vertical navigation menus (often collapsed/hidden in screenshots)
+- ⚠️ **Headers** - Top bars with logo, search, user menus
+- ⚠️ **Small elements** - Icons, badges, close buttons, hamburger menus
+- ⚠️ **Overlays** - Modals, dropdowns, tooltips, notifications
+
+**Then identify all other components:**
+- List every distinct element (buttons, inputs, cards, etc.)
 - Classify by type: button, input, checkbox, radio, select, card, modal, navigation, alert, badge, text, heading, divider, container, form, custom
 - Note hierarchy (which components contain others)
+
+**Scanning strategy:**
+1. **Edges first**: Top → Left → Right → Bottom (find all navigation)
+2. **Corners**: Check for logo, user menu, notifications
+3. **Main area**: Center content after identifying chrome
+4. **Read order**: Left-to-right, top-to-bottom
 
 **2. Visual Properties per Component:**
 - Dimensions: Approximate width/height in characters
@@ -74,13 +89,34 @@ Analyze the screenshot to extract component structure. Identify:
 - States visible: default, hover, focus, disabled, error, success
 
 **3. Layout Structure:**
+
+Identify the overall layout type:
+- **fixed-header-sidebar**: Header at top (0-10% height) + sidebar on left (10-20% width) + main content
+- **centered**: Single centered container (login forms, modals)
+- **full-width**: Content spans entire width with no sidebars
+- **three-column**: Sidebar + main + right panel
+- **grid**: Tile-based layout (dashboards, galleries)
+
+Document sections with bounds:
 - Positioning: top-to-bottom, left-to-right, grid, centered
 - Spacing: tight, normal, spacious
 - Alignment: left, center, right
 - Nesting: container relationships
 
+**Example for YouTube-like layout:**
+```json
+{
+  "layout": "fixed-header-sidebar",
+  "sections": {
+    "header": { "bounds": {"x": 0, "y": 0, "width": 100, "height": 8}, "contains": ["logo", "search", "user-menu"] },
+    "left-sidebar": { "bounds": {"x": 0, "y": 8, "width": 15, "height": 92}, "contains": ["home", "trending", "subscriptions"] },
+    "main": { "bounds": {"x": 15, "y": 8, "width": 85, "height": 92}, "contains": ["video-grid"] }
+  }
+}
+```
+
 **4. Screen Classification:**
-- Purpose: login, dashboard, form, profile, settings, list, detail
+- Purpose: login, dashboard, form, profile, settings, list, detail, landing
 - Primary actions: submit, navigate, view, configure
 - Data displayed: user info, metrics, content
 
@@ -143,6 +179,12 @@ Before proceeding, verify:
 - ✓ components array not empty
 - ✓ Each component: id, type, category, visualProperties, states, accessibility
 - ✓ composition has all three arrays
+
+**Navigation Check (CRITICAL):**
+- ✓ **Did you find the left sidebar?** (If layout has sidebar, should have sidebar nav components)
+- ✓ **Did you find the top header?** (Logo, search, user menu should be separate components)
+- ✓ **Did you find navigation buttons?** (Home, Trending, etc. should be in components list)
+- ⚠️ If screen is a dashboard/list/detail type and you have <5 components, you probably missed navigation!
 
 **Data Types:**
 - ✓ width: 1-200, height: 1-100

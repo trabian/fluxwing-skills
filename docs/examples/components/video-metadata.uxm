@@ -1,0 +1,77 @@
+{
+  "id": "video-metadata",
+  "type": "text",
+  "version": "1.0.0",
+  "metadata": {
+    "name": "Video Metadata",
+    "description": "Video metadata information including channel name, view count, and upload time",
+    "author": "Fluxwing Screenshot Import",
+    "created": "2025-10-13T16:36:00Z",
+    "modified": "2025-10-13T16:36:00Z",
+    "tags": ["text", "metadata", "video", "info", "imported"],
+    "category": "display"
+  },
+  "props": {
+    "channel": "Channel Name",
+    "views": "1.2M views",
+    "time": "2 days ago"
+  },
+  "behavior": {
+    "states": [
+      {
+        "name": "default",
+        "properties": {
+          "border": "none",
+          "background": "transparent",
+          "textColor": "muted"
+        }
+      }
+    ],
+    "interactions": [],
+    "accessibility": {
+      "role": "text",
+      "focusable": false,
+      "keyboardSupport": [],
+      "ariaLabel": "Video metadata"
+    }
+  },
+  "layout": {
+    "display": "block",
+    "positioning": "static",
+    "spacing": {
+      "padding": { "x": 0, "y": 0 }
+    },
+    "sizing": {
+      "width": 30,
+      "height": 2
+    }
+  },
+  "ascii": {
+    "templateFile": "video-metadata.md",
+    "width": 30,
+    "height": 2,
+    "variables": [
+      {
+        "name": "channel",
+        "type": "string",
+        "required": true,
+        "default": "Channel Name",
+        "description": "Channel name that uploaded the video"
+      },
+      {
+        "name": "views",
+        "type": "string",
+        "required": true,
+        "default": "1.2M views",
+        "description": "View count formatted"
+      },
+      {
+        "name": "time",
+        "type": "string",
+        "required": true,
+        "default": "2 days ago",
+        "description": "Time since upload"
+      }
+    ]
+  }
+}

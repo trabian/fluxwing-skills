@@ -4,13 +4,21 @@
   "description": "Fluxwing Claude Code Plugin Marketplace",
   "scripts": {
     "dev:setup": "mkdir -p ~/.claude/plugins/cache/fluxwing && cp -r ./fluxwing/* ~/.claude/plugins/cache/fluxwing/",
-    "dev:sync-components": "rsync -av ./fluxwing/data/examples/ ~/.claude/plugins/cache/fluxwing/data/examples/",
+    "dev:sync-commands": "rsync -av ./fluxwing/commands/ ~/.claude/plugins/cache/fluxwing/commands/",
+    "dev:sync-agents": "rsync -av ./fluxwing/agents/ ~/.claude/plugins/cache/fluxwing/agents/",
+    "dev:sync-examples": "rsync -av ./fluxwing/data/examples/ ~/.claude/plugins/cache/fluxwing/data/examples/",
+    "dev:sync-docs": "rsync -av ./fluxwing/data/docs/ ~/.claude/plugins/cache/fluxwing/data/docs/",
+    "dev:sync-schema": "rsync -av ./fluxwing/data/schema/ ~/.claude/plugins/cache/fluxwing/data/schema/",
+    "dev:sync-screens": "rsync -av ./fluxwing/data/screens/ ~/.claude/plugins/cache/fluxwing/data/screens/",
+    "dev:sync-data": "npm run dev:sync-examples && npm run dev:sync-docs && npm run dev:sync-schema && npm run dev:sync-screens",
+    "dev:sync-all": "npm run dev:sync-commands && npm run dev:sync-agents && npm run dev:sync-data",
     "test": "cd tests && pnpm test",
     "test:watch": "cd tests && pnpm test:watch",
     "test:coverage": "cd tests && pnpm test:coverage",
     "test:report": "cd tests && pnpm test:report",
     "test:build": "cd tests && pnpm build",
-    "test:clean": "cd tests && pnpm clean"
+    "test:clean": "cd tests && pnpm clean",
+    "ghpages:serve": "python3 -m http.server 4173 --directory docs"
   },
   "keywords": ["fluxwing", "uxscii", "claude-code", "plugin", "marketplace"],
   "author": "",

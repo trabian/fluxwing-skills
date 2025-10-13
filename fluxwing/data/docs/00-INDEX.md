@@ -17,7 +17,11 @@ This index helps you load only the documentation you need, saving context tokens
 | 05-validation-guide.md | ~600 | Quality standards |
 | 06-ascii-patterns.md | ~500 | Pattern library reference |
 | 07-schema-reference.md | ~300 | Schema documentation pointer |
-| **Total** | **~4000** | All documentation combined |
+| screenshot-data-merging.md | ~600 | Vision data merging helpers |
+| screenshot-screen-generation.md | ~800 | Screen file generation helpers |
+| screenshot-validation-functions.md | ~900 | Validation function implementations |
+| **Total (Core)** | **~4000** | Core documentation |
+| **Total (With Screenshot)** | **~6300** | Including screenshot helpers |
 
 ### Loading Strategies by Task
 
@@ -41,8 +45,23 @@ This index helps you load only the documentation you need, saving context tokens
 **Total**: ~1800 tokens
 **Why**: Progressive introduction to concepts
 
+#### Screenshot Import (Vision Analysis)
+**Load**: screenshot-data-merging.md
+**Total**: ~600 tokens
+**Why**: Helper functions for merging vision agent outputs
+
+#### Screenshot Import (Screen Generation)
+**Load**: screenshot-screen-generation.md
+**Total**: ~800 tokens
+**Why**: Helper functions for generating screen files
+
+#### Screenshot Import (Validation)
+**Load**: screenshot-validation-functions.md
+**Total**: ~900 tokens
+**Why**: Validation function implementations
+
 #### Deep Dive / Reference
-**Load**: All files
+**Load**: All core files
 **Total**: ~4000 tokens
 **Use**: When you need comprehensive understanding
 
@@ -68,6 +87,15 @@ ASCII character patterns library. Box-drawing characters, states, form elements,
 
 ### 07-schema-reference.md
 Points to the definitive schema file and explains how to use it.
+
+### screenshot-data-merging.md
+Helper functions for merging vision agent outputs during screenshot import. Includes: findSectionForComponent, categorizeComponents, generateScreenName, enrichComponentWithVisualProps.
+
+### screenshot-screen-generation.md
+Helper functions for generating screen files (.uxm, .md, .rendered.md) during screenshot import. Includes complete workflow for screen generation with example data.
+
+### screenshot-validation-functions.md
+Complete validation function implementations for screenshot import: validateSchema, validateFileIntegrity, validateVariableConsistency, validateComponentReferences, validateBestPractices.
 
 ## Additional Resources
 

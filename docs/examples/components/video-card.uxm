@@ -1,0 +1,157 @@
+{
+  "id": "video-card",
+  "type": "card",
+  "version": "1.0.0",
+  "metadata": {
+    "name": "Video Card",
+    "description": "Complete video card with thumbnail, title, channel, and metadata for video feed display",
+    "author": "Fluxwing Screenshot Import",
+    "created": "2025-10-13T09:36:54Z",
+    "modified": "2025-10-13T09:36:54Z",
+    "tags": ["card", "video", "composite", "feed", "imported", "screenshot-generated"],
+    "category": "layout"
+  },
+  "props": {
+    "videoId": "",
+    "thumbnailUrl": "",
+    "title": "",
+    "channelName": "",
+    "channelVerified": false,
+    "viewCount": "0",
+    "publishedAt": "",
+    "duration": "0:00",
+    "components": [
+      {
+        "id": "video-thumbnail",
+        "slot": "thumbnail"
+      },
+      {
+        "id": "video-title",
+        "slot": "title"
+      },
+      {
+        "id": "channel-name",
+        "slot": "channel"
+      },
+      {
+        "id": "view-count-badge",
+        "slot": "metadata"
+      }
+    ]
+  },
+  "behavior": {
+    "states": [
+      {
+        "name": "default",
+        "properties": {
+          "background": "transparent",
+          "border": "none"
+        }
+      },
+      {
+        "name": "hover",
+        "properties": {
+          "background": "hover-subtle",
+          "border": "none",
+          "cursor": "pointer"
+        },
+        "triggers": ["mouseenter"]
+      },
+      {
+        "name": "focus",
+        "properties": {
+          "background": "transparent",
+          "border": "focus",
+          "outline": "primary"
+        },
+        "triggers": ["focus"]
+      }
+    ],
+    "interactions": [
+      {
+        "trigger": "click",
+        "action": "navigate-to-video"
+      },
+      {
+        "trigger": "keydown",
+        "action": "navigate-to-video",
+        "condition": "key === 'Enter'"
+      }
+    ],
+    "accessibility": {
+      "role": "article",
+      "focusable": true,
+      "keyboardSupport": ["Enter"],
+      "ariaLabel": "{{title}} by {{channelName}}, {{viewCount}} views"
+    }
+  },
+  "layout": {
+    "display": "block",
+    "positioning": "static",
+    "spacing": {
+      "margin": {
+        "bottom": 2
+      },
+      "padding": {
+        "top": 0,
+        "right": 0,
+        "bottom": 1,
+        "left": 0
+      }
+    },
+    "sizing": {
+      "width": 40,
+      "height": 28,
+      "minWidth": 30,
+      "maxWidth": 60
+    }
+  },
+  "ascii": {
+    "templateFile": "video-card.md",
+    "width": 40,
+    "height": 28,
+    "variables": [
+      {
+        "name": "title",
+        "type": "string",
+        "defaultValue": "Video Title",
+        "description": "The video title",
+        "required": true
+      },
+      {
+        "name": "channelName",
+        "type": "string",
+        "defaultValue": "Channel Name",
+        "description": "The channel or creator name",
+        "required": true
+      },
+      {
+        "name": "viewCount",
+        "type": "string",
+        "defaultValue": "0",
+        "description": "Number of views formatted",
+        "required": true
+      },
+      {
+        "name": "timeAgo",
+        "type": "string",
+        "defaultValue": "0 seconds ago",
+        "description": "Time since publication",
+        "required": true
+      },
+      {
+        "name": "duration",
+        "type": "string",
+        "defaultValue": "0:00",
+        "description": "Video duration",
+        "required": true
+      },
+      {
+        "name": "verified",
+        "type": "boolean",
+        "defaultValue": false,
+        "description": "Whether the channel is verified"
+      }
+    ]
+  }
+}

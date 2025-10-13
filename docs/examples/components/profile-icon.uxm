@@ -1,0 +1,71 @@
+{
+  "id": "profile-icon",
+  "type": "icon",
+  "version": "1.0.0",
+  "metadata": {
+    "name": "Profile Icon",
+    "description": "User profile avatar icon, opens account menu when clicked",
+    "author": "Fluxwing Screenshot Import",
+    "created": "2025-10-13T16:36:00Z",
+    "modified": "2025-10-13T16:36:00Z",
+    "tags": ["icon", "profile", "avatar", "navigation", "imported"],
+    "category": "display"
+  },
+  "props": {
+    "icon": "👤",
+    "variant": "rounded"
+  },
+  "behavior": {
+    "states": [
+      {
+        "name": "default",
+        "properties": {
+          "border": "rounded",
+          "background": "filled",
+          "textColor": "default"
+        }
+      },
+      {
+        "name": "hover",
+        "properties": {
+          "border": "rounded",
+          "background": "filled",
+          "textColor": "default",
+          "opacity": 0.8
+        }
+      }
+    ],
+    "interactions": ["click", "keyboard"],
+    "accessibility": {
+      "role": "button",
+      "focusable": true,
+      "keyboardSupport": ["Enter", "Space"],
+      "ariaLabel": "User profile"
+    }
+  },
+  "layout": {
+    "display": "inline-block",
+    "positioning": "static",
+    "spacing": {
+      "padding": { "x": 0, "y": 0 }
+    },
+    "sizing": {
+      "width": 4,
+      "height": 3
+    }
+  },
+  "ascii": {
+    "templateFile": "profile-icon.md",
+    "width": 4,
+    "height": 3,
+    "variables": [
+      {
+        "name": "icon",
+        "type": "string",
+        "required": false,
+        "default": "👤",
+        "description": "User avatar icon"
+      }
+    ]
+  }
+}
