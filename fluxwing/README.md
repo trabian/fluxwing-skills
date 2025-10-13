@@ -294,6 +294,30 @@ cd claude-code-plugins
 
 **Note**: Replace `/path/to/claude-code-plugins` with the absolute path to the marketplace directory (containing `.claude-plugin/marketplace.json`).
 
+### Local Development Setup
+
+When developing the plugin locally, you need to copy the built-in components to Claude's plugin cache directory:
+
+**1. Navigate to the marketplace root:**
+
+```bash
+cd fluxwing-marketplace
+```
+
+**2. Run the setup script (first time only):**
+
+```bash
+npm run dev:setup
+```
+
+**3. After modifying built-in components, sync them:**
+
+```bash
+npm run dev:sync-components
+```
+
+This script copies the built-in components from `fluxwing/data/examples/` to the well-known location (`~/.claude/plugins/cache/fluxwing/data/examples/`) where Claude Code expects to find them.
+
 ---
 
 ## Requirements
