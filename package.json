@@ -1,0 +1,18 @@
+{
+  "name": "fluxwing-marketplace",
+  "version": "1.0.0",
+  "description": "Fluxwing Claude Code Plugin Marketplace",
+  "scripts": {
+    "dev:setup": "mkdir -p ~/.claude/plugins/cache/fluxwing && cp -r ./fluxwing/* ~/.claude/plugins/cache/fluxwing/",
+    "dev:sync-components": "rsync -av ./fluxwing/data/examples/ ~/.claude/plugins/cache/fluxwing/data/examples/",
+    "test": "cd tests && pnpm test",
+    "test:watch": "cd tests && pnpm test:watch",
+    "test:coverage": "cd tests && pnpm test:coverage",
+    "test:report": "cd tests && pnpm test:report",
+    "test:build": "cd tests && pnpm build",
+    "test:clean": "cd tests && pnpm clean"
+  },
+  "keywords": ["fluxwing", "uxscii", "claude-code", "plugin", "marketplace"],
+  "author": "",
+  "license": "MIT"
+}
