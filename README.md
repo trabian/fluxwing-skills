@@ -16,6 +16,24 @@ Think of it this way:
 
 ---
 
+## Installation
+
+Get started in 30 seconds:
+
+```bash
+# Add the marketplace
+/plugin marketplace add fluxwing/claude-code-plugins
+
+# Install the plugin
+/plugin install fluxwing
+```
+
+That's it! Start designing with `/fluxwing-create` or `/fluxwing-library`
+
+**[See detailed installation options →](#full-installation-guide)**
+
+---
+
 ## Quick Start
 
 ### Create Your First Component
@@ -245,7 +263,48 @@ Dispatch fluxwing-designer agent with:
 
 ---
 
-## Installation
+## Contributing
+
+Contributions welcome! To add features or improvements:
+
+1. Read **[CONTRIBUTING.md](fluxwing/CONTRIBUTING.md)** for guidelines
+2. Fork the repository
+3. Create a feature branch
+4. Make your changes
+5. Submit a pull request
+
+---
+
+## Support
+
+### Having Issues?
+
+Check **[TROUBLESHOOTING.md](fluxwing/TROUBLESHOOTING.md)** for solutions to common problems.
+
+### Need Help?
+
+- **Issues**: Report bugs or request features on GitHub
+- **Discussions**: Ask questions and share ideas on GitHub Discussions
+- **Examples**: Browse `fluxwing/data/examples/` for component patterns
+- **Documentation**: Check `fluxwing/data/docs/00-INDEX.md` for all guides
+
+---
+
+## License
+
+MIT License - free to use and modify
+
+---
+
+## Credits
+
+Built on the **uxscii standard** - an open, AI-native design markup language.
+
+Fluxwing brings uxscii to Claude Code, making AI-powered UX design accessible to everyone.
+
+---
+
+## Full Installation Guide
 
 ### Cloud Installation (Recommended)
 
@@ -321,76 +380,33 @@ npm run dev:sync-components
 
 This script copies the built-in components from `fluxwing/data/examples/` to the well-known location (`~/.claude/plugins/cache/fluxwing/data/examples/`) where Claude Code expects to find them.
 
----
-
-## Requirements
+### Requirements
 
 - Claude Code (any version with plugin support)
 - No external dependencies required
 - Everything you need is bundled in the plugin
 
----
-
-## Project Structure
+### Project Structure
 
 ```
-plugin/
-├── .claude-plugin/          # Plugin manifest
-├── commands/                # 4 slash commands
-├── agents/                  # 3 autonomous agents
-├── data/                    # All uxscii assets (portable)
-│   ├── schema/              # JSON Schema validation
-│   ├── examples/            # 11 component templates
-│   ├── screens/             # 2 screen examples
-│   ├── docs/                # Modular documentation
-│   └── helpers/             # (Reserved)
-├── hooks/                   # (Available for extension)
-├── mcp/                     # (Available for extension)
-└── [Documentation files]
+fluxwing-marketplace/
+├── .claude-plugin/          # Marketplace manifest
+├── package.json             # Development scripts
+├── tests/                   # Automated tests
+├── docs/                    # Development documentation
+└── fluxwing/               # The plugin
+    ├── .claude-plugin/      # Plugin manifest
+    ├── commands/            # 4 slash commands
+    ├── agents/              # 3 autonomous agents
+    ├── data/                # All uxscii assets (portable)
+    │   ├── schema/          # JSON Schema validation
+    │   ├── examples/        # 11 component templates
+    │   ├── screens/         # 2 screen examples
+    │   └── docs/            # Documentation modules
+    └── [Documentation files]
 ```
 
 **[See complete structure →](fluxwing/PLUGIN_STRUCTURE.md)**
-
----
-
-## Contributing
-
-Contributions welcome! To add features or improvements:
-
-1. Read **[CONTRIBUTING.md](fluxwing/CONTRIBUTING.md)** for guidelines
-2. Fork the repository
-3. Create a feature branch
-4. Make your changes
-5. Submit a pull request
-
----
-
-## Support
-
-### Having Issues?
-
-Check **[TROUBLESHOOTING.md](fluxwing/TROUBLESHOOTING.md)** for solutions to common problems.
-
-### Need Help?
-
-- **Issues**: Report bugs or request features on GitHub
-- **Discussions**: Ask questions and share ideas on GitHub Discussions
-- **Examples**: Browse `fluxwing/data/examples/` for component patterns
-- **Documentation**: Check `fluxwing/data/docs/00-INDEX.md` for all guides
-
----
-
-## License
-
-MIT License - free to use and modify
-
----
-
-## Credits
-
-Built on the **uxscii standard** - an open, AI-native design markup language.
-
-Fluxwing brings uxscii to Claude Code, making AI-powered UX design accessible to everyone.
 
 ---
 
