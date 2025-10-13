@@ -1,0 +1,135 @@
+name: Fluxwing Consistency Tests
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'fluxwing/**'
+      - 'tests/**'
+      - '.github/workflows/fluxwing-consistency-tests.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'fluxwing/**'
+      - 'tests/**'
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Run Consistency Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: tests/package-lock.json
+
+      - name: Install dependencies
+        working-directory: tests
+        run: npm ci
+
+      - name: Build TypeScript
+        working-directory: tests
+        run: npm run build
+
+      - name: Run static tests (no API key required)
+        working-directory: tests
+        run: |
+          npm test -- --testPathPattern="(01-command|02-agent|05-documentation)" --json --outputFile=jest-output.json || true
+
+      - name: Run SDK tests (requires API key)
+        if: ${{ secrets.ANTHROPIC_API_KEY != '' }}
+        working-directory: tests
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          npm test -- --testPathPattern="(03-functional|04-functional|06-integration)" --json --outputFile=jest-output-sdk.json || true
+
+      - name: Generate test reports
+        if: always()
+        working-directory: tests
+        run: npm run test:report || true
+
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: tests/reports/
+          retention-days: 30
+
+      - name: Upload coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: tests/coverage/
+          retention-days: 30
+
+      - name: Comment PR with results
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            try {
+              const reportPath = path.join('tests', 'reports', 'test-results.json');
+              const report = JSON.parse(fs.readFileSync(reportPath, 'utf8'));
+
+              const body = `## 🧪 Fluxwing Consistency Test Results
+
+              **Summary:**
+              - ✅ Passed: ${report.summary.passed}
+              - ❌ Failed: ${report.summary.failed}
+              - ⊘ Skipped: ${report.summary.skipped}
+              - 📊 Total: ${report.summary.total}
+              - ⏱️ Duration: ${(report.summary.duration / 1000).toFixed(2)}s
+
+              **By Category:**
+              ${report.categories.map(cat =>
+                `- **${cat.category}:** ${cat.passed}/${cat.total} passed`
+              ).join('\n')}
+
+              ${report.summary.failed > 0 ? `
+              **⚠️ Failed Tests:**
+              ${report.results
+                .filter(r => r.status === 'failed')
+                .slice(0, 5)
+                .map(r => `- ${r.category}: ${r.testName}`)
+                .join('\n')}
+              ${report.summary.failed > 5 ? `\n... and ${report.summary.failed - 5} more` : ''}
+              ` : '✨ All tests passed!'}
+
+              [View detailed HTML report in artifacts](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+              `;
+
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: body
+              });
+            } catch (error) {
+              console.log('Could not post comment:', error.message);
+            }
+
+      - name: Fail if tests failed
+        if: always()
+        working-directory: tests
+        run: |
+          if [ -f reports/test-results.json ]; then
+            FAILED=$(node -p "require('./reports/test-results.json').summary.failed")
+            if [ "$FAILED" != "0" ]; then
+              echo "❌ $FAILED test(s) failed"
+              exit 1
+            fi
+          fi
