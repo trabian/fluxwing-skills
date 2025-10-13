@@ -2,7 +2,9 @@
 
 **Design beautiful UX and screens with AI using the uxscii standard.**
 
-Fluxwing is your AI design assistant that creates production-ready UI components and complete screen designs using ASCII art and structured metadata. Built on the open **uxscii standard**, Fluxwing enables AI agents to design, validate, and compose interfaces that are human-readable, version-control friendly, and machine-parseable.
+Fluxwing leverages AI's natural ability to create ASCII art specifications that humans can instantly understand and provide feedback on. Built on the open **uxscii standard**, it enables a rapid design feedback loop: AI generates visual specs using ASCII, humans review and iterate naturally, and the system captures increasing levels of fidelity through structured metadata.
+
+**The perfect collaboration:** AI excels at creating ASCII layouts. Humans excel at giving feedback on ASCII drawings. Together, they create production-ready designs through progressive refinement.
 
 ---
 
@@ -183,53 +185,134 @@ Every component consists of two files:
 
 ## Why Fluxwing?
 
-### AI-Native Design
-Optimized for AI agents to create and understand. No visual tools required - pure text and structure.
+### The AI-Human Feedback Loop
 
-### Version Control Friendly
-Text-based format with meaningful diffs. Collaborative editing without binary conflicts.
+**AI's Superpower:** Modern AI models are exceptional at generating ASCII art and visual layouts. They can instantly create boxes, borders, layouts, and structured visual representations.
 
-### Production Ready
-Schema validation ensures quality. Accessibility built-in (ARIA roles, keyboard support). Multiple states for all interactive elements.
+**Human's Superpower:** Humans can instantly parse ASCII drawings and provide immediate, intuitive feedback: "move this left", "make that bigger", "add spacing here".
 
-### Tool Independent
-Open uxscii standard, not proprietary. Works with any text editor. No vendor lock-in.
+**The Magic:** This creates a natural feedback loop where:
+1. AI generates ASCII specs in seconds
+2. Humans review visually and comment naturally
+3. AI iterates based on feedback
+4. Designs converge rapidly through conversation
 
-### Portable & Self-Contained
-Everything needed is in the plugin. No external dependencies on uxscii CLI. Works in any Claude Code installation.
+### Progressive Fidelity
+
+Start simple, add detail as needed:
+
+**Level 1: ASCII Layout**
+```
+╭────────────────────╮
+│  Login             │
+│  ┌──────────────┐  │
+│  │ Email        │  │
+│  └──────────────┘  │
+│  [    Login    ]   │
+╰────────────────────╯
+```
+Quick visual feedback, instant iteration.
+
+**Level 2: Structured Metadata**
+Add component types, props, states, and behavior through the `.uxm` file.
+
+**Level 3: Enhanced Details**
+Add accessibility, interactions, animations, responsive behavior, and design tokens.
+
+**You control the fidelity.** Start with quick ASCII sketches, refine progressively as the design solidifies.
+
+### Additional Benefits
+
+**Version Control Friendly** - Text-based format with meaningful diffs. Collaborative editing without binary conflicts.
+
+**Production Ready** - Schema validation ensures quality. Accessibility built-in (ARIA roles, keyboard support). Multiple states for all interactive elements.
+
+**Tool Independent** - Open uxscii standard, not proprietary. Works with any text editor. No vendor lock-in.
+
+**Portable & Self-Contained** - Everything needed is in the plugin. No external dependencies. Works in any Claude Code installation.
 
 ---
 
 ## Example Workflow
 
-**Design a Login Screen:**
+### Rapid Iteration with AI
 
+**Natural conversation-based design:**
+
+```
+You: "Create a login screen with email, password, and a submit button"
+
+AI: [Generates ASCII layout]
+╭──────────────────────╮
+│  Welcome Back        │
+│  ┌────────────────┐  │
+│  │ Email          │  │
+│  └────────────────┘  │
+│  ┌────────────────┐  │
+│  │ Password       │  │
+│  └────────────────┘  │
+│  [    Sign In    ]   │
+╰──────────────────────╯
+
+You: "Add a forgot password link and make the button more prominent"
+
+AI: [Iterates instantly]
+╭──────────────────────╮
+│  Welcome Back        │
+│  ┌────────────────┐  │
+│  │ Email          │  │
+│  └────────────────┘  │
+│  ┌────────────────┐  │
+│  │ Password       │  │
+│  └────────────────┘  │
+│  Forgot password?    │
+│  ╔════════════════╗  │
+│  ║   SIGN IN      ║  │
+│  ╚════════════════╝  │
+╰──────────────────────╋
+
+You: "Perfect! Now add the metadata for accessibility"
+
+AI: [Adds structured .uxm metadata with ARIA labels, roles, keyboard navigation]
+```
+
+**Design converges through natural feedback on ASCII drawings.**
+
+### Using Commands
+
+**Quick single component:**
 ```bash
-# 1. Create the screen (auto-creates missing components)
-/fluxwing-scaffold login-screen
+/fluxwing-create button
+```
 
-# 2. Validate quality
+**Full screen with multiple components:**
+```bash
+/fluxwing-scaffold dashboard
+```
+
+**Browse the library:**
+```bash
+/fluxwing-library
+```
+
+**Validate your work:**
+```bash
 /fluxwing-validate
-
-# 3. Review rendered example
-cat ./fluxwing/screens/login-screen.rendered.md
-
-# ✓ Ready for development!
 ```
 
-**Build a Complete Design System:**
+### Using Agents
 
+**Let AI design autonomously:**
 ```
-Dispatch fluxwing-designer agent with:
-"Create a dashboard with revenue metrics, user stats, and activity feed"
+"Create a complete dashboard with revenue cards, user activity chart, and recent notifications"
+```
 
-# Agent autonomously:
-# - Creates all needed components
-# - Designs layouts
-# - Composes screens
-# - Validates everything
-# - Provides rendered examples
-```
+The agent will:
+- Generate ASCII layouts for review
+- Create all necessary components
+- Compose them into screens
+- Add progressive levels of fidelity
+- Validate everything
 
 ---
 
