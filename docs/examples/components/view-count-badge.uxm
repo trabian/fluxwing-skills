@@ -1,0 +1,74 @@
+{
+  "id": "view-count-badge",
+  "type": "badge",
+  "version": "1.0.0",
+  "metadata": {
+    "name": "View Count Badge",
+    "description": "Badge displaying video view count and age metadata",
+    "author": "Fluxwing Screenshot Import",
+    "created": "2025-10-13T09:36:54Z",
+    "modified": "2025-10-13T09:36:54Z",
+    "tags": ["badge", "metadata", "views", "video", "imported", "screenshot-generated"],
+    "category": "display"
+  },
+  "props": {
+    "viewCount": "0",
+    "timeAgo": "0 seconds ago",
+    "compact": false
+  },
+  "behavior": {
+    "states": [
+      {
+        "name": "default",
+        "properties": {
+          "textColor": "secondary",
+          "fontSize": "small"
+        }
+      }
+    ],
+    "interactions": [],
+    "accessibility": {
+      "role": "text",
+      "focusable": false,
+      "keyboardSupport": [],
+      "ariaLabel": "{{viewCount}} views, {{timeAgo}}"
+    }
+  },
+  "layout": {
+    "display": "inline-block",
+    "positioning": "static",
+    "spacing": {
+      "padding": {
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      }
+    },
+    "sizing": {
+      "width": 30,
+      "height": 1
+    }
+  },
+  "ascii": {
+    "templateFile": "view-count-badge.md",
+    "width": 30,
+    "height": 1,
+    "variables": [
+      {
+        "name": "viewCount",
+        "type": "string",
+        "defaultValue": "0",
+        "description": "Number of views (formatted, e.g., '1.2M', '543K')",
+        "required": true
+      },
+      {
+        "name": "timeAgo",
+        "type": "string",
+        "defaultValue": "0 seconds ago",
+        "description": "Time since video was published",
+        "required": true
+      }
+    ]
+  }
+}

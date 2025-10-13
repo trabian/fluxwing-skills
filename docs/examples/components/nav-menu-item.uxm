@@ -1,0 +1,86 @@
+{
+  "id": "nav-menu-item",
+  "type": "button",
+  "version": "1.0.0",
+  "metadata": {
+    "name": "Navigation Menu Item",
+    "description": "Sidebar navigation menu item for platform sections like Home, Trending, Subscriptions",
+    "author": "Fluxwing Screenshot Import",
+    "created": "2025-10-13T16:36:00Z",
+    "modified": "2025-10-13T16:36:00Z",
+    "tags": ["navigation", "menu", "sidebar", "imported"],
+    "category": "navigation"
+  },
+  "props": {
+    "label": "Home",
+    "icon": "🏠",
+    "isActive": false
+  },
+  "behavior": {
+    "states": [
+      {
+        "name": "default",
+        "properties": {
+          "border": "none",
+          "background": "transparent",
+          "textColor": "default"
+        }
+      },
+      {
+        "name": "hover",
+        "properties": {
+          "border": "none",
+          "background": "subtle",
+          "textColor": "default"
+        }
+      },
+      {
+        "name": "active",
+        "properties": {
+          "border": "none",
+          "background": "filled",
+          "textColor": "accent"
+        }
+      }
+    ],
+    "interactions": ["click", "keyboard"],
+    "accessibility": {
+      "role": "button",
+      "focusable": true,
+      "keyboardSupport": ["Enter", "Space"],
+      "ariaLabel": "Navigate to section"
+    }
+  },
+  "layout": {
+    "display": "block",
+    "positioning": "static",
+    "spacing": {
+      "padding": { "x": 2, "y": 1 }
+    },
+    "sizing": {
+      "width": 20,
+      "height": 3
+    }
+  },
+  "ascii": {
+    "templateFile": "nav-menu-item.md",
+    "width": 20,
+    "height": 3,
+    "variables": [
+      {
+        "name": "icon",
+        "type": "string",
+        "required": false,
+        "default": "🏠",
+        "description": "Icon for the menu item"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "default": "Home",
+        "description": "Label text for the menu item"
+      }
+    ]
+  }
+}

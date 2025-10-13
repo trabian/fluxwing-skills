@@ -1,0 +1,70 @@
+{
+  "id": "notification-icon",
+  "type": "icon",
+  "version": "1.0.0",
+  "metadata": {
+    "name": "Notification Icon",
+    "description": "Icon button to view notifications",
+    "author": "Fluxwing Screenshot Import",
+    "created": "2025-10-13T16:36:00Z",
+    "modified": "2025-10-13T16:36:00Z",
+    "tags": ["icon", "notification", "navigation", "imported"],
+    "category": "display"
+  },
+  "props": {
+    "icon": "🔔",
+    "hasNotifications": false
+  },
+  "behavior": {
+    "states": [
+      {
+        "name": "default",
+        "properties": {
+          "border": "none",
+          "background": "transparent",
+          "textColor": "default"
+        }
+      },
+      {
+        "name": "hover",
+        "properties": {
+          "border": "none",
+          "background": "subtle",
+          "textColor": "default"
+        }
+      }
+    ],
+    "interactions": ["click", "keyboard"],
+    "accessibility": {
+      "role": "button",
+      "focusable": true,
+      "keyboardSupport": ["Enter", "Space"],
+      "ariaLabel": "Notifications"
+    }
+  },
+  "layout": {
+    "display": "inline-block",
+    "positioning": "static",
+    "spacing": {
+      "padding": { "x": 1, "y": 0 }
+    },
+    "sizing": {
+      "width": 4,
+      "height": 3
+    }
+  },
+  "ascii": {
+    "templateFile": "notification-icon.md",
+    "width": 4,
+    "height": 3,
+    "variables": [
+      {
+        "name": "icon",
+        "type": "string",
+        "required": false,
+        "default": "🔔",
+        "description": "Notification bell icon"
+      }
+    ]
+  }
+}

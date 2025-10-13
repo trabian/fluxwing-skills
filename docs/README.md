@@ -1,43 +1,31 @@
-# Development Documentation
+# Fluxwing GitHub Pages Prototype
 
-This directory contains internal development documentation, planning materials, and historical records for the Fluxwing marketplace project.
+This directory contains the in-progress marketing site for Fluxwing. The current build focuses on scaffolding the structure, aesthetic foundation, and progressive enhancement hooks required for the retro terminal experience.
 
-## Contents
+## Working Locally
 
-- **CLEANUP_SUMMARY.md** - Summary of plugin cleanup work
-- **CONSISTENCY_IMPROVEMENT_PLAN.md** - Plan for improving consistency across the plugin
-- **CONSISTENCY_TEST_PLAN.md** - Detailed test plan for consistency validation
-- **CONSISTENCY_TODO.md** - TODO items for consistency improvements
-- **FINAL_FIX.md** - Documentation of final fixes
-- **FIXES_SUMMARY.md** - Summary of various fixes applied
-- **PLUGIN_FIXES.md** - Specific plugin-related fixes
-- **claude_code_plugin_guide.md** - Guide for Claude Code plugin development
-- **plugin_review.md** - Review of plugin structure and implementation
-
-## Project Structure
-
-The marketplace repository is organized as follows:
-
-```
-fluxwing-marketplace/        # Repository root
-├── README.md               # Main documentation (marketplace + plugin)
-├── package.json            # NPM scripts for dev and testing
-├── INSTALLATION_GUIDE.md   # Installation instructions
-├── docs/                   # This directory - development docs
-├── tests/                  # Automated consistency tests
-└── fluxwing/              # The actual plugin
-    ├── README.md          # (Kept for plugin-specific context)
-    ├── commands/          # Slash commands
-    ├── agents/            # AI agents
-    ├── data/              # Schemas, examples, docs
-    └── [other files]
+```bash
+npm run ghpages:serve
 ```
 
-## For Contributors
+The command serves the static site at `http://localhost:4173`. It uses Python's built-in HTTP server, so no additional dependencies are required.
 
-When contributing to the project:
+## Immediate Next Steps
 
-1. User-facing documentation should reference the root `README.md`
-2. Plugin-specific technical docs live in `fluxwing/`
-3. Development/planning docs belong here in `docs/`
-4. See `fluxwing/CONTRIBUTING.md` for contribution guidelines
+- Replace hero and validator fallbacks with live xterm.js sessions sourced from recorded Fluxwing transcripts.
+- Populate the component gallery with real assets from `fluxwing/data/examples/` and add ASCII/metadata toggles.
+- Extract marketing copy blocks from the root `README.md` to keep tone and messaging consistent.
+- Continue refining copy so the narrative emphasizes Fluxwing’s role in design guidance rather than direct implementation.
+- Implement reduced-motion handling for terminal animations and add manual playback controls.
+- Add responsive refinements for small screens (nav collapse, tighter spacing, gallery carousel affordances).
+
+## Verification Checklist (v1 Launch)
+
+- [ ] Lighthouse scores ≥ 90 (Performance, Accessibility, Best Practices, SEO).
+- [ ] axe-core or manual screen reader review passes (focus order, landmarks, skip link).
+- [ ] All documentation and installation links resolve correctly.
+- [ ] Open Graph/Twitter cards render expected preview.
+- [ ] `CNAME`, DNS, and HTTPS enforcement confirmed in GitHub Pages settings.
+- [ ] Manual tests on Chrome, Firefox, Safari, Edge, and mobile breakpoints.
+
+Track additional refinements in `thoughts/shared/plans/2025-10-13-fluxwing-github-pages-site.md`.

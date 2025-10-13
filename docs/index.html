@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fluxwing — AI-Native ASCII UX Design</title>
+    <meta name="description" content="Design beautiful ASCII-first UX with Fluxwing, the AI-native uxscii designer for Claude Code. See Fluxwing in action and install in minutes.">
+    <link rel="preload" href="css/base.css" as="style">
+    <link rel="stylesheet" href="css/base.css">
+  </head>
+  <body class="crt-bg">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="hero">
+      <div class="hero__terminal-shell" data-terminal>
+        <div class="hero__terminal-fallback" role="img" aria-label="Fluxwing terminal demonstration">
+          <pre>
+╔════════════════════════════════════════════════════════════════════╗
+║ /fluxwing-scaffold login-screen                                    ║
+║ ─ Building: header, form, footer                                   ║
+║ ─ Rendering ASCII preview...                                       ║
+║                                                                    ║
+║ [ Login Screen ]                                                   ║
+║ ┌──────────────────────────────┐                                   ║
+║ │  Welcome back to Fluxwing    │                                   ║
+║ │  [ email@example.com      ]  │                                   ║
+║ │  [ ********             ]    │                                   ║
+║ │  ( ) Remember me             │                                   ║
+║ │  [ Sign In ]   [ Reset ]     │                                   ║
+║ └──────────────────────────────┘                                   ║
+║                                                                    ║
+║ ✔ Validated against uxscii schema                                  ║
+╚════════════════════════════════════════════════════════════════════╝
+          </pre>
+        </div>
+      </div>
+      <div class="hero__content">
+        <p class="eyebrow">Claude Code Plugin</p>
+        <h1 class="hero__headline" aria-label="Fluxwing ASCII UX agent"><span aria-hidden="true">┌─ FLUXWING / ASCII UX AGENT ───────────────┐<br>│ Meet Fluxwing, your ASCII-first terminal  │<br>│ designer for Claude Code.                 │<br>└───────────────────────────────────────────┘</span></h1>
+        <p class="lede">The <span class="fluxwing-inline"><span class="fluxwing-inline__brace">==</span><span class="fluxwing-inline__text">FL<span class="fluxwing-inline__u">U</span><span class="fluxwing-inline__x">X</span>W<span class="fluxwing-inline__i">I</span>NG</span><span class="fluxwing-inline__brace">==</span></span> agent speaks uxscii so you can sketch interface mocks in minutes. Watch the terminal craft components you can critique, validate for consistency, and hand back to your AI agents for real implementation.</p>
+        <div class="hero__install" data-typed-terminal data-typed-commands="/plugin marketplace add fluxwing/claude-code-plugins|/plugin install fluxwing">
+          <h2 class="hero__install-label">Quick install</h2>
+          <div class="hero__install-screen" aria-live="polite" aria-atomic="true">
+            <pre class="hero__install-pre"><code data-typed-output>fluxwing@cli % /plugin marketplace add fluxwing/claude-code-plugins
+→ marketplace registry synced
+fluxwing@cli % /plugin install fluxwing
+→ fluxwing plugin installed
+✔ ready: fluxwing</code></pre>
+          </div>
+          <pre class="hero__install-banner" data-typed-banner aria-hidden="true">
+┌───────────────────────────────┐
+│ fluxwing plugin installed    │
+│ launch with /fluxwing-create │
+└───────────────────────────────┘
+</pre>
+          <button class="copy-btn" type="button" data-copy="/plugin marketplace add fluxwing/claude-code-plugins&#10;/plugin install fluxwing">Copy</button>
+        </div>
+        <p class="hero__note">Fluxwing produces conceptual ASCII specs for design guidance. Pair the output with your implementation agents to build the real experience.</p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#loop">See how it works</a>
+          <a class="btn btn--ghost" href="#docs">Explore docs</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="ascii-palette ascii-stop is-template" data-title="/fluxwing ascii palette" data-ascii-section aria-labelledby="palette-title">
+        <div class="ascii-palette__header">
+          <h2 id="palette-title">ASCII-first palette</h2>
+          <p>Flip between the token template Fluxwing emits and the same layout with mock values. Everything stays ASCII so downstream agents share the exact contract.</p>
+          <div class="ascii-palette__toggle" role="group" aria-label="View modes">
+            <button type="button" class="ascii-palette__btn is-active" data-ascii-mode="template" aria-pressed="true">Template</button>
+            <button type="button" class="ascii-palette__btn" data-ascii-mode="sample" aria-pressed="false">Sample Data</button>
+          </div>
+        </div>
+        <div class="ascii-palette__display" data-ascii-panel>
+          <pre class="ascii-palette__ascii" data-template-view aria-hidden="false">┌──────────────────────────────────────────┐
+│  {{CARD_TITLE}}                          │
+│  ─────────────────────────────────────  │
+│  {{PRIMARY_BUTTON}}  {{SECONDARY_BTN}}   │
+│  Total due: {{TOTAL_AMOUNT}}             │
+│  Next cycle: {{DATE}} → {{REMINDER_TIP}} │
+└──────────────────────────────────────────┘</pre>
+          <pre class="ascii-palette__ascii ascii-palette__ascii--sample" data-sample-view aria-hidden="true">┌──────────────────────────────────────────┐
+│  Fluxwing Billing Summary               │
+│  ─────────────────────────────────────  │
+│  [ Pay balance ]  [ View details ]      │
+│  Total due: $2,450.00                   │
+│  Next cycle: Apr 26 → Remind team? (y)  │
+└──────────────────────────────────────────┘</pre>
+        </div>
+      </section>
+      <section class="value-grid ascii-stop" data-title="/fluxwing benefits" aria-labelledby="value-title">
+        <h2 id="value-title">Why teams choose Fluxwing</h2>
+        <div class="value-grid__cards">
+          <article class="value-card">
+            <h3>Create in ASCII</h3>
+            <p>Generate structured uxscii mockups with a single command. Fluxwing drafts components, states, and annotation notes so you can react quickly.</p>
+          </article>
+          <article class="value-card">
+            <h3>Validate in JSON</h3>
+            <p>Every mock ships with machine-readable metadata. Validate against the uxscii schema before you brief an implementation agent.</p>
+          </article>
+          <article class="value-card">
+            <h3>Ship faster together</h3>
+            <p>Humans critique the ASCII, Fluxwing iterates, AI agents implement. Capture the feedback loop without touching production code.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="loop" class="how-it-works ascii-stop" data-title="/fluxwing loop" aria-labelledby="flow-title">
+        <h2 id="flow-title">The Fluxwing feedback loop</h2>
+        <ol class="timeline">
+          <li>
+            <h3>Describe</h3>
+            <p>Kick off with a prompt or run <code>/fluxwing-create</code>. Fluxwing sketches the ASCII anatomy and intent for the mock.</p>
+          </li>
+          <li>
+            <h3>Review</h3>
+            <p>Stakeholders react directly to ASCII visuals. Capture edits inline and track reasoning through the metadata.</p>
+          </li>
+          <li>
+            <h3>Validate</h3>
+            <p>Ensure compliance with <code>/fluxwing-validate</code>. Automated schema checks keep expectations aligned for downstream agents.</p>
+          </li>
+          <li>
+            <h3>Ship</h3>
+            <p>Fluxwing stores components as portable JSON + ASCII bundles so builders know exactly what to create next.</p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="gallery ascii-stop" data-title="/fluxwing library" aria-labelledby="gallery-title">
+        <div class="gallery__heading">
+          <h2 id="gallery-title">Component showcase</h2>
+          <p>Browse the mock library of buttons, cards, forms, modals, lists, and full screens. Toggle between ASCII and metadata to see how uxscii keeps design feedback human-friendly and agent-ready.</p>
+        </div>
+        <div class="gallery__grid" data-gallery>
+          <!-- Placeholder cards populated by scripts -->
+        </div>
+      </section>
+
+      <section class="validator ascii-stop" data-title="/fluxwing validate" aria-labelledby="validator-title">
+        <div class="validator__content">
+          <h2 id="validator-title">Quality reports, terminal-style</h2>
+          <p>Fluxwing’s validator agent audits accessibility, states, and schema completeness so your guidance stays clear. Review the diff, accept suggestions, and hand it off with confidence.</p>
+        </div>
+        <div class="validator__panel">
+          <pre aria-hidden="true" data-validator-fallback>
+╔════════════════════════════════════════╗
+║ /fluxwing-validate dashboard.uxm       ║
+║ ─ Checking required states...          ║
+║ ─ Verifying accessibility roles...     ║
+║ ─ Ensuring metadata completeness...    ║
+║                                        ║
+║ ✔ No issues found                      ║
+║ Tip: Add onboarding spotlight state    ║
+╚════════════════════════════════════════╝
+          </pre>
+        </div>
+      </section>
+
+      <section id="install" class="install ascii-stop" data-title="/fluxwing install" aria-labelledby="install-title">
+        <h2 id="install-title">Install in 30 seconds</h2>
+        <p>Add the Fluxwing marketplace and enable the plugin inside Claude Code to brief your design agents with consistent mocks.</p>
+        <div class="code-block">
+          <button class="copy-btn" type="button" data-copy="/plugin marketplace add fluxwing/claude-code-plugins&#10;/plugin install fluxwing">Copy</button>
+          <pre><code>/plugin marketplace add fluxwing/claude-code-plugins
+/plugin install fluxwing</code></pre>
+        </div>
+        <p class="install__note">Need more options? <a href="#docs">See full installation guide.</a></p>
+      </section>
+
+      <section id="docs" class="docs ascii-stop" data-title="/fluxwing docs" aria-labelledby="docs-title">
+        <h2 id="docs-title">Documentation hub</h2>
+        <ul class="docs__links">
+          <li><a href="../fluxwing/COMMANDS.md">Command reference</a></li>
+          <li><a href="../fluxwing/AGENTS.md">Agent capabilities</a></li>
+          <li><a href="../fluxwing/ARCHITECTURE.md">Architecture deep dive</a></li>
+          <li><a href="../README.md">Full README</a></li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__grid">
+        <div>
+          <h2 class="site-footer__title">Fluxwing</h2>
+          <p>Designed for ASCII-native UX workflows. Built on the open uxscii standard.</p>
+        </div>
+        <nav aria-label="Footer">
+          <ul>
+            <li><a href="https://github.com/fluxwing/fluxwing-marketplace">GitHub</a></li>
+            <li><a href="https://github.com/fluxwing/fluxwing-marketplace/issues/new?template=feedback.md">Feedback</a></li>
+            <li><a href="#docs">Documentation</a></li>
+            <li><a href="#install">Install</a></li>
+          </ul>
+        </nav>
+      </div>
+      <p class="site-footer__legal">© <span data-year></span> Fluxwing. ASCII-first design, powered by AI.</p>
+    </footer>
+
+    <script src="js/main.js" type="module"></script>
+  </body>
+</html>

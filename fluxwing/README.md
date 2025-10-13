@@ -296,7 +296,7 @@ cd claude-code-plugins
 
 ### Local Development Setup
 
-When developing the plugin locally, you need to copy the built-in components to Claude's plugin cache directory:
+When developing the plugin locally, you need to copy the built-in assets to Claude's plugin cache directory:
 
 **1. Navigate to the marketplace root:**
 
@@ -310,13 +310,22 @@ cd fluxwing-marketplace
 npm run dev:setup
 ```
 
-**3. After modifying built-in components, sync them:**
+**3. After modifying built-in assets, sync them:**
 
 ```bash
+# Sync just components
 npm run dev:sync-components
+
+# Sync just documentation
+npm run dev:sync-docs
+
+# Sync everything (components + docs)
+npm run dev:sync-all
 ```
 
-This script copies the built-in components from `fluxwing/data/examples/` to the well-known location (`~/.claude/plugins/cache/fluxwing/data/examples/`) where Claude Code expects to find them.
+These scripts copy the built-in assets from `fluxwing/data/` to the well-known location (`~/.claude/plugins/fluxwing/data/`) where Claude Code expects to find them.
+
+**Important for screenshot import**: The screenshot-to-uxscii agents require the documentation files to be synced. Run `npm run dev:sync-all` before using `/fluxwing-import-screenshot`.
 
 ---
 
