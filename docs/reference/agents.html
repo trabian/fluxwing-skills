@@ -21,8 +21,9 @@
       <p class="subpage__eyebrow">Fluxwing Documentation</p>
       <h1 class="subpage__title">Autonomous Agents</h1>
       <p class="subpage__lede">
-        Fluxwing’s agents handle multi-step design work, deep validation, and screen composition without manual
-        prompting. Use this guide to decide when to dispatch each agent and what to expect from their output.
+        Fluxwing's agents handle multi-step design work, deep validation, and screen composition without manual
+        prompting. Every agent produces human-readable ASCII for team design reviews and machine-readable JSON for AI implementation.
+        Use this guide to decide when to dispatch each agent and what to expect from their output.
       </p>
     </header>
 
@@ -150,7 +151,8 @@
         <h2><code>fluxwing-designer</code></h2>
         <p>
           The designer agent interprets high-level briefs and turns them into complete component and screen suites.
-          It balances reuse with net-new creation and finishes with a comprehensive status report.
+          It balances reuse with net-new creation and finishes with a comprehensive status report. Perfect for generating
+          complete design systems to review with your team before implementation.
         </p>
         <h3>How to Dispatch</h3>
         <p>
@@ -158,6 +160,11 @@
           request it explicitly:
         </p>
         <pre><code>Dispatch fluxwing-designer to create a revenue dashboard with metrics, charts, and activity feed.</code></pre>
+        <div class="doc-callout">
+          Team Use Case: Dispatch the designer to generate a complete feature set (e.g., user onboarding flow with 5 screens).
+          Present all ASCII mocks in a design review, gather feedback from stakeholders on flow and interactions, iterate,
+          then hand validated specs to developers or AI agents.
+        </div>
         <h3>Execution Phases</h3>
         <ol>
           <li><strong>Requirements</strong> — analyze the request, plan deliverables, build TodoWrite list.</li>
@@ -174,21 +181,28 @@
       <section class="doc-section" id="validator">
         <h2><code>fluxwing-validator</code></h2>
         <p>
-          When your library matures, the validator agent ensures everything still meets Fluxwing’s standards. It
+          When your library matures, the validator agent ensures everything still meets Fluxwing's standards. It
           reviews ASCII fidelity, schema compliance, accessibility, and metadata completeness, then recommends fixes.
+          Perfect for pre-review quality checks before stakeholder presentations.
         </p>
         <ul>
           <li>Ideal before shipping a new feature or publishing docs.</li>
           <li>Produces a prioritized checklist with pass/fail details.</li>
           <li>Pairs well with <code>/fluxwing-validate</code> for spot checks during development.</li>
+          <li>Great for demonstrating quality standards to non-technical stakeholders.</li>
         </ul>
+        <div class="doc-callout">
+          Team Use Case: Run the validator before a design review to ensure all components meet accessibility standards
+          and consistency guidelines. Share the validation report with the team to demonstrate quality and identify areas for improvement together.
+        </div>
       </section>
 
       <section class="doc-section" id="composer">
         <h2><code>fluxwing-composer</code></h2>
         <p>
           The composer agent stitches together existing components into coherent screens or flows. It respects your
-          naming conventions, detects gaps, and uses library assets before reaching for bundled templates.
+          naming conventions, detects gaps, and uses library assets before reaching for bundled templates. Ideal for
+          rapid prototyping and exploring different layouts with your team.
         </p>
         <h3>Typical Session</h3>
         <ol>
@@ -197,6 +211,11 @@
           <li>Assemble screen metadata, template, and rendered example.</li>
           <li>Return a narrative explaining layout decisions and follow-up actions.</li>
         </ol>
+        <div class="doc-callout">
+          Team Use Case: Use the composer to explore 3 different dashboard layouts using the same components. Present all
+          three options to stakeholders as ASCII mocks, facilitate discussion on information hierarchy, choose the best layout,
+          then iterate and finalize.
+        </div>
       </section>
 
       <section class="doc-section" id="screenshot-workflow">
@@ -217,14 +236,40 @@
       </section>
 
       <section class="doc-section">
+        <h2>Team Collaboration with Agents</h2>
+        <p>
+          Agents excel at creating complete design systems for team review workflows:
+        </p>
+        <h3>Design Review Meeting Flow</h3>
+        <ol>
+          <li><strong>Pre-meeting:</strong> Dispatch designer agent to generate complete feature mockups</li>
+          <li><strong>Validation:</strong> Run validator to ensure quality before presenting</li>
+          <li><strong>Meeting:</strong> Share ASCII screens with all attendees—no special tools needed</li>
+          <li><strong>Live iteration:</strong> Edit ASCII directly based on feedback, changes visible immediately</li>
+          <li><strong>Decision capture:</strong> Update metadata with rationale and decisions</li>
+          <li><strong>Post-meeting:</strong> Validate changes, commit to git, hand specs to implementation team</li>
+        </ol>
+        <h3>Cross-Functional Benefits</h3>
+        <ul>
+          <li><strong>Product Managers:</strong> Review user flows and feature completeness without technical knowledge</li>
+          <li><strong>Designers:</strong> Critique visual hierarchy, spacing, and component relationships</li>
+          <li><strong>Engineers:</strong> Understand implementation requirements from structured metadata</li>
+          <li><strong>Stakeholders:</strong> Provide business feedback on features before development begins</li>
+          <li><strong>QA Teams:</strong> Plan test scenarios from component states and interactions</li>
+        </ul>
+      </section>
+
+      <section class="doc-section">
         <h2>Agent Tips</h2>
         <ul>
-          <li>Share real data examples so rendered screens feel grounded.</li>
+          <li>Share real data examples so rendered screens feel grounded in your domain.</li>
           <li>Group related asks into one agent dispatch instead of many micro-requests.</li>
-          <li>Run validator after large designer sessions to catch regressions.</li>
+          <li>Run validator after large designer sessions to catch regressions before team reviews.</li>
           <li>Leverage <code>./fluxwing/library/</code> for reusable variants the composer can pull from.</li>
           <li>For screenshot imports, use clear, well-lit images focused on single features or screens.</li>
           <li>Review imported components and customize them to match your brand guidelines.</li>
+          <li>Schedule design reviews after agent runs—ASCII mocks are ready to share immediately.</li>
+          <li>Commit agent outputs to git so the whole team can review diffs and provide async feedback.</li>
         </ul>
       </section>
 

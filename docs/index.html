@@ -38,7 +38,7 @@
       <div class="hero__content">
         <p class="eyebrow">Claude Code Plugin</p>
         <h1 class="hero__headline" aria-label="Fluxwing ASCII UX agent"><span aria-hidden="true">┌─ FLUXWING / ASCII UX AGENT ───────────────┐<br>│ Meet Fluxwing, your ASCII-first terminal  │<br>│ designer for Claude Code.                 │<br>└───────────────────────────────────────────┘</span></h1>
-        <p class="lede">The <span class="fluxwing-inline"><span class="fluxwing-inline__brace">==</span><span class="fluxwing-inline__text">FL<span class="fluxwing-inline__u">U</span><span class="fluxwing-inline__x">X</span>W<span class="fluxwing-inline__i">I</span>NG</span><span class="fluxwing-inline__brace">==</span></span> agent speaks uxscii so you can sketch interface mocks in minutes. Watch the terminal craft components you can critique, validate for consistency, and hand back to your AI agents for real implementation.</p>
+        <p class="lede">The <span class="fluxwing-inline"><span class="fluxwing-inline__brace">==</span><span class="fluxwing-inline__text">FL<span class="fluxwing-inline__u">U</span><span class="fluxwing-inline__x">X</span>W<span class="fluxwing-inline__i">I</span>NG</span><span class="fluxwing-inline__brace">==</span></span> agent speaks uxscii so you can sketch interface mocks in minutes. Run design reviews with your team using instantly-readable ASCII, gather feedback from stakeholders, validate for consistency, then hand specs to AI agents for implementation.</p>
         <div class="hero__install" data-typed-terminal data-typed-commands="/plugin marketplace add fluxwing/claude-code-plugins|/plugin install fluxwing">
           <h2 class="hero__install-label">Quick install</h2>
           <div class="hero__install-screen" aria-live="polite" aria-atomic="true">
@@ -56,7 +56,7 @@ fluxwing@cli % /plugin install fluxwing
 </pre>
           <button class="copy-btn" type="button" data-copy="/plugin marketplace add fluxwing/claude-code-plugins&#10;/plugin install fluxwing">Copy</button>
         </div>
-        <p class="hero__note">Fluxwing produces conceptual ASCII specs for design guidance. Pair the output with your implementation agents to build the real experience.</p>
+        <p class="hero__note">Fluxwing produces conceptual ASCII specs for team design reviews and AI implementation. Share mocks with stakeholders, iterate rapidly, then hand validated designs to your implementation agents.</p>
         <div class="hero__actions">
           <a class="btn btn--primary" href="#loop">See how it works</a>
           <a class="btn btn--ghost" href="#docs">Explore docs</a>
@@ -99,6 +99,10 @@ fluxwing@cli % /plugin install fluxwing
             <p>Generate structured uxscii mockups with a single command. Fluxwing drafts components, states, and annotation notes so you can react quickly.</p>
           </article>
           <article class="value-card">
+            <h3>Review with Teams</h3>
+            <p>ASCII mocks are instantly readable by everyone—designers, developers, product managers, and stakeholders. Run design reviews without waiting for implementation.</p>
+          </article>
+          <article class="value-card">
             <h3>Import from Screenshots</h3>
             <p>Drop in a UI screenshot and watch Fluxwing extract every component, generate ASCII representations, and create complete uxscii files automatically.</p>
           </article>
@@ -107,8 +111,8 @@ fluxwing@cli % /plugin install fluxwing
             <p>Every mock ships with machine-readable metadata. Validate against the uxscii schema before you brief an implementation agent.</p>
           </article>
           <article class="value-card">
-            <h3>Ship faster together</h3>
-            <p>Humans critique the ASCII, Fluxwing iterates, AI agents implement. Capture the feedback loop without touching production code.</p>
+            <h3>Design for AI + Humans</h3>
+            <p>Teams critique and refine ASCII designs together, then hand off validated specs to AI agents for implementation. Fast feedback loops without touching code.</p>
           </article>
         </div>
       </section>
@@ -117,20 +121,20 @@ fluxwing@cli % /plugin install fluxwing
         <h2 id="flow-title">The Fluxwing feedback loop</h2>
         <ol class="timeline">
           <li>
-            <h3>Start</h3>
+            <h3>Design</h3>
             <p>Kick off with a prompt, run <code>/fluxwing-create</code>, or import a screenshot with <code>/fluxwing-import-screenshot</code>. Fluxwing sketches the ASCII anatomy and intent.</p>
           </li>
           <li>
-            <h3>Review</h3>
-            <p>Stakeholders react directly to ASCII visuals. Capture edits inline and track reasoning through the metadata.</p>
+            <h3>Review with Team</h3>
+            <p>Share ASCII mocks with designers, developers, PMs, and stakeholders. Everyone can read and critique the visuals instantly—no technical knowledge required. Capture edits inline and track reasoning through the metadata.</p>
           </li>
           <li>
             <h3>Validate</h3>
-            <p>Ensure compliance with <code>/fluxwing-validate</code>. Automated schema checks keep expectations aligned for downstream agents.</p>
+            <p>Ensure compliance with <code>/fluxwing-validate</code>. Automated schema checks keep expectations aligned across the team and for downstream AI agents.</p>
           </li>
           <li>
-            <h3>Ship</h3>
-            <p>Fluxwing stores components as portable JSON + ASCII bundles so builders know exactly what to create next.</p>
+            <h3>Implement</h3>
+            <p>Hand validated uxscii specs to AI agents or developers. Components are stored as portable JSON + ASCII bundles so builders know exactly what to create.</p>
           </li>
         </ol>
       </section>

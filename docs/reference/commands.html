@@ -32,6 +32,7 @@
         <p>
           Fluxwing ships with six high-impact commands. Use them to create components, scaffold entire screens,
           validate quality, explore the bundled library, inspect existing assets, and import UI screenshots—all without leaving the terminal.
+          Every output is human-readable ASCII perfect for team design reviews and machine-readable JSON ready for AI implementation.
         </p>
         <table class="doc-table">
           <thead>
@@ -109,9 +110,13 @@
         <h2><code>/fluxwing-create</code>: Component Builder</h2>
         <p>
           The fastest way to craft structured components. Fluxwing guides you through naming, states, props, and
-          templating, then delivers ASCII and metadata files ready for iteration.
+          templating, then delivers ASCII and metadata files ready for team review and iteration.
         </p>
         <pre><code>/fluxwing-create pricing-card</code></pre>
+        <div class="doc-callout">
+          Use Case: Create a button component, share the ASCII mockup with your product team for feedback on labeling and states,
+          iterate based on their input, then validate and hand off to AI agents for implementation.
+        </div>
         <h3>Workflow</h3>
         <ol>
           <li>Plan name, component type, props, and required states.</li>
@@ -131,9 +136,13 @@
         <h2><code>/fluxwing-scaffold</code>: Screen Composer</h2>
         <p>
           Build full screens with one command. Fluxwing inventories required components, creates missing pieces, and
-          assembles everything into a complete screen package.
+          assembles everything into a complete screen package ready for team design reviews.
         </p>
         <pre><code>/fluxwing-scaffold onboarding-wizard</code></pre>
+        <div class="doc-callout">
+          Use Case: Generate a dashboard screen, present the ASCII layout in a design review meeting, gather stakeholder feedback
+          on information hierarchy and component placement, iterate live, then ship validated specs to developers.
+        </div>
         <h3>What You Get</h3>
         <ul>
           <li><code>{screen}.uxm</code> — Screen metadata with component references.</li>
@@ -150,12 +159,16 @@
         <h2><code>/fluxwing-validate</code>: Quality Reports</h2>
         <p>
           Run validation whenever you need confidence in a component or screen. Fluxwing checks schema compliance,
-          accessibility attributes, and metadata completeness before highlighting next steps.
+          accessibility attributes, and metadata completeness before highlighting next steps. Perfect for pre-review quality checks.
         </p>
         <pre><code>/fluxwing-validate screens/login-screen.uxm</code></pre>
         <p>
           Pair validations with the designer or composer agents to keep large projects harmonized as they grow.
         </p>
+        <div class="doc-callout">
+          Use Case: Before presenting to stakeholders, validate all components to ensure consistency and accessibility compliance.
+          Show the validation report to demonstrate quality standards are met before implementation begins.
+        </div>
       </section>
 
       <section class="doc-section" id="library">
@@ -210,10 +223,29 @@
       </section>
 
       <section class="doc-section">
+        <h2>Team Collaboration Workflows</h2>
+        <p>
+          Fluxwing's ASCII-first approach makes design reviews collaborative and inclusive:
+        </p>
+        <ul>
+          <li><strong>No specialized tools required</strong> — Stakeholders view ASCII mocks in any text editor, email, or chat</li>
+          <li><strong>Fast iteration cycles</strong> — Edit ASCII directly during review meetings, see changes instantly</li>
+          <li><strong>Version control friendly</strong> — Track design evolution in git, review changes in pull requests</li>
+          <li><strong>Non-technical feedback</strong> — PMs and stakeholders critique visual layouts without understanding code</li>
+          <li><strong>Cross-functional alignment</strong> — Designers, developers, and product teams work from the same specs</li>
+          <li><strong>Async-friendly</strong> — Leave comments in the metadata, async team members can review and respond</li>
+        </ul>
+        <p>
+          Generate mocks with Fluxwing, review with your team, iterate based on feedback, validate for quality, then hand off to
+          AI agents or developers for implementation—all without writing a single line of production code.
+        </p>
+      </section>
+
+      <section class="doc-section">
         <h2>Where to Go Next</h2>
         <p>
           Commands handle focused tasks. When a project demands autonomous exploration or multi-step orchestration,
-          hand things off to Fluxwing’s agents.
+          hand things off to Fluxwing's agents.
         </p>
         <ul>
           <li><a href="agents.html">Meet the autonomous agents →</a></li>
