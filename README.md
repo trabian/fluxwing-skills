@@ -1,10 +1,11 @@
 # Fluxwing - AI-Native UX Design Plugin
 
-<div align="left">
-  <img src="docs/assets/trabian.svg" alt="Trabian logo" width="160">
-</div>
-
-*A product by [Trabian](https://www.trabian.com).*
+<p align="left">
+  <a href="https://www.trabian.com">
+    <img src="docs/assets/trabian.svg" alt="Trabian logo" width="150" style="vertical-align:middle; margin-right:12px;">
+  </a>
+  <span style="vertical-align:middle; font-size:1rem;">A product by <a href="https://www.trabian.com">Trabian</a>.</span>
+</p>
 
 **Design beautiful UX and screens with AI using the uxscii standard.**
 
