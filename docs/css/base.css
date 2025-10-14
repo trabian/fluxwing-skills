@@ -41,7 +41,6 @@ body.crt-bg {
   background-image: var(--fw-pattern);
   background-size: 12px 12px;
   position: relative;
-  overflow-x: hidden;
 }
 
 a {
@@ -365,7 +364,8 @@ a:focus-visible {
 [data-typed-output] {
   position: relative;
   display: inline-block;
-  min-width: 100%;
+  width: 100%;
+  min-width: 0;
   min-height: 6.5rem;
 }
 
@@ -511,6 +511,7 @@ a:focus-visible {
   border: 1px dashed rgba(94, 247, 194, 0.35);
   padding: 1.5rem;
   box-shadow: 0 26px 46px rgba(0, 0, 0, 0.45);
+  overflow-x: auto;
 }
 
 .ascii-palette__ascii--sample {
@@ -1043,14 +1044,99 @@ a:focus-visible {
     gap: 0.5rem 0.75rem;
   }
 
+  .brand-badge__logo {
+    height: 28px;
+  }
+
   .hero__terminal-shell::before,
   .hero__terminal-shell::after {
     content: none;
   }
 
   .hero__terminal-fallback pre {
+    font-size: 0.8rem;
+    min-width: 0;
+  }
+
+  .hero__install {
+    width: 100%;
+  }
+
+  .hero__install-screen {
+    overflow-x: auto;
+  }
+
+  .hero__install-pre {
     font-size: 0.82rem;
-    min-width: max-content;
+  }
+
+  .hero__install .copy-btn {
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+
+  .ascii-stop {
+    --section-pad-inline: 1.25rem;
+    --section-pad-block: 2.35rem;
+    margin: 2.5rem auto;
+  }
+
+  .ascii-stop::before,
+  .ascii-stop::after {
+    content: none;
+  }
+
+  .ascii-palette {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .ascii-palette::before {
+    display: none;
+  }
+
+  .ascii-palette__ascii {
+    font-size: 0.9rem;
+  }
+
+  .value-grid__cards {
+    grid-template-columns: 1fr;
+  }
+
+  .value-card::before,
+  .value-card::after,
+  .timeline li::before,
+  .timeline li::after {
+    content: none;
+  }
+
+  .value-card,
+  .timeline li {
+    padding: 1.25rem;
+  }
+
+  .timeline {
+    gap: 1.1rem;
+  }
+
+  .install pre,
+  .validator pre,
+  .hero__install-pre,
+  .hero__install-banner,
+  .ascii-palette__ascii {
+    white-space: pre;
+    overflow-x: auto;
+  }
+
+  .site-footer {
+    padding: 2.25rem 1.5rem;
+  }
+
+  pre {
+    font-size: 0.85rem;
+  }
+
+  .hero__note {
+    font-size: 0.9rem;
   }
 }
 
