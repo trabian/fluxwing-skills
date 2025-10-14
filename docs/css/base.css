@@ -89,6 +89,8 @@ a:focus-visible {
   padding: 1rem;
   box-shadow: none;
   position: relative;
+  max-width: 100%;
+  overflow-x: auto;
 }
 
 .hero__terminal-shell::before,
@@ -1022,6 +1024,34 @@ a:focus-visible {
   margin: 2rem 0 0;
   font-size: 0.85rem;
   color: rgba(210, 248, 255, 0.6);
+}
+
+@media (max-width: 640px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding: clamp(2rem, 6vw, 2.5rem) clamp(1rem, 5vw, 1.5rem);
+  }
+
+  .hero__headline {
+    white-space: normal;
+    font-size: clamp(1.35rem, 7vw, 1.85rem);
+  }
+
+  .brand-badge {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 0.5rem 0.75rem;
+  }
+
+  .hero__terminal-shell::before,
+  .hero__terminal-shell::after {
+    content: none;
+  }
+
+  .hero__terminal-fallback pre {
+    font-size: 0.82rem;
+    min-width: max-content;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
