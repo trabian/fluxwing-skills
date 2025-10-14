@@ -138,6 +138,37 @@ a:focus-visible {
   margin: 0 0 0.75rem;
 }
 
+.brand-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 0 1.5rem;
+  padding: 0.5rem 0.85rem;
+  background: rgba(2, 5, 9, 0.85);
+  border: 1px dashed rgba(94, 247, 194, 0.25);
+  border-radius: var(--fw-radius);
+  font-family: var(--fw-sans);
+  font-size: 0.95rem;
+  color: var(--fw-text);
+}
+
+.brand-badge__link {
+  display: inline-flex;
+  align-items: center;
+}
+
+.brand-badge__logo {
+  height: 32px;
+  width: auto;
+  display: block;
+}
+
+.brand-badge__text {
+  line-height: 1.2;
+  font-weight: 500;
+  color: var(--fw-text);
+}
+
 .hero__headline {
   margin: 0 0 2rem;
   font-family: var(--fw-font);

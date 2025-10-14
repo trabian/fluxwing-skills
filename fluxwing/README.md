@@ -1,5 +1,11 @@
 # Fluxwing - AI-Native UX Design Plugin
 
+<div align="left">
+  <img src="../docs/assets/trabian.svg" alt="Trabian logo" width="160">
+</div>
+
+*A product by [Trabian](https://www.trabian.com).*
+
 **Design beautiful UX and screens with AI using the uxscii standard.**
 
 Fluxwing is your AI design assistant that creates production-ready UI components and complete screen designs using ASCII art and structured metadata. Built on the open **uxscii standard**, Fluxwing enables AI agents to design, validate, and compose interfaces that are human-readable, version-control friendly, and machine-parseable.
@@ -276,8 +282,8 @@ For development or offline use, install from a local directory:
 **1. Clone or download the marketplace:**
 
 ```bash
-git clone https://github.com/fluxwing/claude-code-plugins.git
-cd claude-code-plugins
+git clone https://github.com/trabian/fluxwing-plugin.git
+cd fluxwing-plugin
 ```
 
 **2. Add the marketplace:**
