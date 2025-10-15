@@ -65,10 +65,14 @@ Create components in dependency order:
 Examples: button, input, badge, icon, label
 
 For each atomic component:
-1. Create `.uxm` file (JSON metadata)
-2. Create `.md` file (ASCII template)
+1. Create `.uxm` file (**MUST be valid JSON format, not YAML** - default state only for fast MVP creation)
+2. Create `.md` file (ASCII template - default state only)
 3. **Save to `./fluxwing/components/`** (project workspace - NOT plugin directory)
 4. Mark TodoWrite task complete
+
+**CRITICAL**: Use proper JSON syntax with double quotes, no trailing commas, valid structure.
+
+**Note:** Components are created with default state only for fast prototyping. Mention `/fluxwing-expand-component` in final report for adding interaction states.
 
 #### Composite Components Second
 Examples: form (inputs + buttons), card (container + content), navigation (menu + items)
@@ -130,8 +134,9 @@ Total: 18 files created
 ## Next Steps
 
 1. Review the rendered screen examples in ./fluxwing/screens/*.rendered.md
-2. Customize any components to match your brand
-3. Extend the design with additional screens or components
+2. Add interaction states to components: `/fluxwing-expand-component {component-name}`
+3. Customize any components to match your brand
+4. Extend the design with additional screens or components
 
 ## Preview
 
@@ -170,7 +175,8 @@ Load documentation modularly as needed (all READ-ONLY):
 - ✓ ASCII dimensions accurate
 
 ### Design Quality
-- ✓ Multiple states defined (default, hover, focus, disabled)
+- ✓ Default state defined for MVP functionality
+- ✓ Ready for expansion with `/fluxwing-expand-component`
 - ✓ Accessibility attributes complete (ARIA roles, keyboard support)
 - ✓ Rich metadata (description, tags, author, category)
 - ✓ Usage examples in templates
@@ -193,20 +199,14 @@ Use consistent box-drawing characters:
 - Light: `░░░░`
 
 ### State Representation
-Always show multiple states:
+Create components with default state initially:
 ```
 Default:  ┌─────┐
           │Click │
           └─────┘
-
-Hover:    ┏━━━━━┓
-          ┃Click ┃
-          ┗━━━━━┛
-
-Disabled: ┌ ─ ─ ┐
-          │Click │
-          └ ─ ─ ┘
 ```
+
+To add interaction states (hover, focus, disabled), use `/fluxwing-expand-component` after MVP validation.
 
 ### Rendered Examples Must Show Reality
 Bad:

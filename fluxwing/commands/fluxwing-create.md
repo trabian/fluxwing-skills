@@ -32,9 +32,10 @@ Help the user create a uxscii component (a reusable UI element defined with ASCI
 Ask the user what component they want to create:
 - **Component name** (will be converted to kebab-case, e.g., "Submit Button" → "submit-button")
 - **Component type**: button, input, card, navigation, form, list, modal, table, badge, alert, container, text, image, divider, or custom
-- **Key properties**: What should be configurable? (text, colors, sizes, states, etc.)
-- **Interactive states**: default, hover, focus, disabled, error, success, etc.
+- **Key properties**: What should be configurable? (text, colors, sizes, etc.)
 - **Visual style preferences**: rounded, sharp, minimal, detailed, etc.
+
+**Note**: Components are created with default state only for fast MVP prototyping. Use `/fluxwing-expand-component` afterward to add interactive states (hover, focus, disabled, etc.).
 
 ### 2. Offer Template Options
 
@@ -50,6 +51,8 @@ Offer to **start from a template** (faster - copy bundled template to library fi
 Every uxscii component consists of TWO files:
 
 #### A. The `.uxm` file (JSON metadata)
+**CRITICAL: This file MUST be valid JSON format (not YAML)**
+
 Contains:
 - Component ID and type
 - Version and metadata (name, description, author, tags)
@@ -57,12 +60,15 @@ Contains:
 - Behavior (states, interactions, animations, accessibility)
 - ASCII reference (template file, dimensions, variables)
 
+Use proper JSON syntax with double quotes, no trailing commas, and valid JSON structure.
+
 #### B. The `.md` file (ASCII template)
 Contains:
-- ASCII art representation of the component
+- ASCII art representation of the component in default state
 - Variables using `{{variableName}}` syntax
-- Multiple state representations (default, hover, focus, etc.)
 - Documentation and usage examples
+
+**Note**: To add interactive states (hover, focus, disabled), use `/fluxwing-expand-component` after creation.
 
 ### 4. Save to Project
 
@@ -77,8 +83,9 @@ If the `./fluxwing/components/` directory doesn't exist, create it.
 ### 5. Guide Next Steps
 
 After creation:
-1. Show a preview of the component
-2. Explain how to use this component in a screen with `/fluxwing-scaffold`
+1. Show a preview of the component (default state)
+2. Explain how to add interaction states with `/fluxwing-expand-component`
+3. Explain how to use this component in a screen with `/fluxwing-scaffold`
 
 ## Resources Available
 
@@ -97,8 +104,7 @@ User: Create a submit button
 You: I'll create a submit button component! Let me ask a few questions:
 
 1. Should I base this on the primary-button template (faster) or create a custom design?
-2. What states should it have? (I recommend: default, hover, focus, disabled)
-3. Any specific styling? (rounded corners, filled, outlined, etc.)
+2. Any specific styling? (rounded corners, filled, outlined, etc.)
 
 [User responds]
 
@@ -109,13 +115,14 @@ You: Perfect! Creating submit-button component...
 ✓ Created: ./fluxwing/components/submit-button.uxm
 ✓ Created: ./fluxwing/components/submit-button.md
 
-Here's a preview:
+Here's a preview (default state):
 
 ╭──────────────────╮
 │   Submit Form    │
 ╰──────────────────╯
 
 Next steps:
+- Add interaction states: `/fluxwing-expand-component submit-button`
 - Use this button in a screen with `/fluxwing-scaffold`
 - View all components with `/fluxwing-library`
 ```
@@ -125,14 +132,16 @@ Next steps:
 Ensure every component includes:
 - ✓ Valid JSON schema compliance
 - ✓ All required metadata fields
-- ✓ Multiple interaction states
+- ✓ Default state with MVP-ready functionality
 - ✓ Accessibility attributes (ARIA roles, keyboard support)
 - ✓ Clear documentation and examples
 - ✓ Consistent naming conventions (kebab-case IDs, camelCase variables)
+- ✓ Ready to expand with `/fluxwing-expand-component`
 
 ## Important Notes
 
 - Always create BOTH .uxm and .md files together
+- **The .uxm file MUST be valid JSON** (not YAML) - use Write tool with proper JSON formatting
 - Template filename in .uxm must match actual .md filename
 - All variables in template must be defined in .uxm file
 - Follow the uxscii standard strictly for compatibility

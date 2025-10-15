@@ -175,14 +175,15 @@ function buildASCIIBox(
 
 ### generateASCII()
 
-Main ASCII generation function:
+Main ASCII generation function with optional minimal mode:
 
 ```typescript
 function generateASCII(
   componentId: string,
   state: string,
   visualProperties: any,
-  componentType: string
+  componentType: string,
+  minimalMode: boolean = false  // NEW: Enable single-state generation
 ): string {
   // Special component handlers
   if (componentType === 'checkbox') {
@@ -224,6 +225,32 @@ function generateASCII(
   );
 }
 ```
+
+**Minimal Mode Usage**:
+
+When `minimalMode` is `true`, this function is typically only called for the 'default' state during initial component creation. This enables fast MVP component generation.
+
+```typescript
+// Minimal mode - only generate default state
+const defaultOnlyASCII = generateASCII(
+  'submit-button',
+  'default',
+  visualProperties,
+  'button',
+  true  // minimalMode = true
+);
+
+// Full mode - generate any state
+const hoverASCII = generateASCII(
+  'submit-button',
+  'hover',
+  visualProperties,
+  'button',
+  false  // minimalMode = false (default)
+);
+```
+
+The `minimalMode` parameter doesn't change the function behavior directly, but signals intent for documentation. When creating components in minimal mode, only call this function once for 'default' state instead of looping through all states.
 
 ## Special Component Generators
 

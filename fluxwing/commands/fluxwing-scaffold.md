@@ -54,11 +54,13 @@ List what exists vs what needs to be created.
 ### 3. Create Missing Components First
 
 For any components the screen needs that don't exist:
-1. Create them using the same workflow as `/fluxwing-create`
+1. Create them using the same workflow as `/fluxwing-create` (default state only for fast prototyping)
 2. **Save to `./fluxwing/components/`** (project workspace)
 3. Validate they work correctly
 
 Do NOT proceed to screen creation until all required components exist.
+
+**Note**: Components are created with default state only for fast MVP composition. Use `/fluxwing-expand-component` after screen validation to add interaction states to individual components.
 
 **Note**: If a bundled template is close, you can copy it to `./fluxwing/library/` first, then customize it.
 
@@ -67,12 +69,16 @@ Do NOT proceed to screen creation until all required components exist.
 Create THREE files for the screen:
 
 #### A. `[screen-name].uxm` - Screen metadata
+**CRITICAL: This file MUST be valid JSON format (not YAML)**
+
 Contains:
 - Screen ID, type, and version
 - Metadata (name, description, purpose)
 - Component references (which components are used)
 - Layout specifications (positioning, spacing, flow)
 - Screen-level behaviors and routing
+
+Use proper JSON syntax with double quotes, no trailing commas, and valid JSON structure.
 
 #### B. `[screen-name].md` - Screen template
 Contains:
@@ -102,7 +108,8 @@ If the `./fluxwing/screens/` directory doesn't exist, create it.
 
 After creation:
 1. Show a preview of the screen (use the .rendered.md version)
-2. Explain how to modify components or create variations
+2. Suggest expanding components with interactive states: `/fluxwing-expand-component {component-name}`
+3. Explain how to modify components or create variations
 
 ## Resources Available
 
@@ -163,6 +170,7 @@ Here's the rendered preview:
 ╰────────────────────────────────╯
 
 Next steps:
+- Add interaction states to components: `/fluxwing-expand-component submit-button`
 - View all screens and components with `/fluxwing-library`
 - Modify individual components in ./fluxwing/components/
 ```

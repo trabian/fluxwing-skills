@@ -63,6 +63,8 @@ Before composing anything, catalog what's available **in this specific order**:
 
 **Search Order**: Always check components → library → bundled templates.
 
+**Note**: Available components will have default state only. Mention `/fluxwing-expand-component` in final report for adding interaction states if needed.
+
 **Use TodoWrite** to track inventory and composition tasks.
 
 ### Phase 2: Screen Design
@@ -98,6 +100,10 @@ Create THREE files for every screen:
 
 #### A. `[screen-name].uxm` - Screen Metadata
 
+**CRITICAL: This file MUST be valid JSON format (not YAML)**
+
+Use proper JSON syntax with double quotes, no trailing commas, and valid JSON structure.
+
 **Structure:**
 ```json
 {
@@ -127,17 +133,11 @@ Create THREE files for every screen:
   "behavior": {
     "states": [
       {
-        "name": "loading",
-        "properties": {"showSpinner": true}
-      },
-      {
-        "name": "loaded",
+        "name": "default",
         "properties": {"showContent": true}
-      },
-      {
-        "name": "error",
-        "properties": {"showErrorMessage": true}
       }
+      // Note: Create screens with default state for fast MVP composition
+      // Add additional states after screen validation if needed
     ],
     "accessibility": {
       "role": "main",
@@ -362,6 +362,7 @@ Preview:
 
 Next Steps:
 - View the rendered example: cat ./fluxwing/screens/dashboard.rendered.md
+- Add interaction states to components: /fluxwing-expand-component {component-name}
 - Customize: Edit component styles in ./fluxwing/components/
 - Extend: Add more screens with /fluxwing-scaffold
 ```

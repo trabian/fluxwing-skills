@@ -211,7 +211,9 @@ For each component in `composition.atomicComponents`:
 
 #### Step 1: Create .uxm File
 
-Use helper functions from `screenshot-import-helpers.md`:
+**CRITICAL: The `.uxm` file MUST be valid JSON format (not YAML)**
+
+Use helper functions from `screenshot-import-helpers.md` and write proper JSON with double quotes, no trailing commas:
 
 ```typescript
 const timestamp = new Date().toISOString();
@@ -231,16 +233,11 @@ const uxmData = {
   "props": extractPropsFromVisualProperties(visualProperties, type),
   "behavior": {
     "states": [
-      {
-        "name": "default",
-        "properties": {
-          "border": visualProperties.borderStyle,
-          "background": inferBackground(type),
-          "textColor": "default"
-        }
-      },
-      ...generateStatesFromList(states.filter(s => s !== 'default'), baseProps, type)
+      generateMinimalDefaultState(visualProperties, type)
+      // Note: Only generate default state for fast import
+      // Detected states stored in metadata for expansion later
     ],
+    "detectedStates": states,  // Store for /fluxwing-expand-component
     "interactions": generateInteractions(type),
     "accessibility": {
       "role": accessibility.role,
@@ -272,7 +269,8 @@ const uxmData = {
 - `generateComponentDescription()` - Create description
 - `mapTypeToCategory()` - Map type to category
 - `inferBackground()` - Determine fill pattern
-- `generateStatesFromList()` - Create state objects
+- `generateMinimalDefaultState()` - Create single default state (NEW - use this for fast import)
+- `generateStatesFromList()` - Create state objects (use only when expanding)
 - `generateInteractions()` - Generate interaction array
 - `isFocusable()` - Check if focusable
 - `generateKeyboardSupport()` - Generate keyboard shortcuts
@@ -288,18 +286,23 @@ Use ASCII generation functions from `screenshot-import-ascii.md`:
 ```typescript
 let markdown = `# ${componentName}\n\n${description}\n\n`;
 
-// Generate ASCII for each state
-for (const state of states) {
-  markdown += `## ${capitalize(state)} State\n\n\`\`\`\n`;
+// Generate ASCII for DEFAULT STATE ONLY (minimal mode)
+markdown += `## Default State\n\n\`\`\`\n`;
 
-  const ascii = generateASCII(
-    id,
-    state,
-    visualProperties,
-    type
-  );
+const ascii = generateASCII(
+  id,
+  'default',
+  visualProperties,
+  type,
+  true  // minimalMode = true for fast import
+);
 
-  markdown += ascii + '\n\`\`\`\n\n';
+markdown += ascii + '\n\`\`\`\n\n';
+
+// Add note about detected states
+if (detectedStates.length > 1) {
+  markdown += `**Detected States:** ${detectedStates.join(', ')}\n`;
+  markdown += `Run \`/fluxwing-expand-component ${id}\` to add them.\n\n`;
 }
 
 // Add Variables, Accessibility, and Usage sections
@@ -605,8 +608,9 @@ All files are valid and ready to use!
 ## Next Steps
 
 1. Review generated files in ./fluxwing/components/ and ./fluxwing/screens/
-2. Customize components to match your brand
-3. Use `/fluxwing-library` to browse all components
+2. Add interaction states to components: `/fluxwing-expand-component {component-name}`
+3. Customize components to match your brand
+4. Use `/fluxwing-library` to browse all components
 ```
 
 ---
@@ -648,11 +652,14 @@ All files are valid and ready to use!
 
 Every generated component must include:
 - ✓ Valid JSON schema compliance
-- ✓ Multiple interaction states (min: 2, recommended: 3+)
+- ✓ Default state with MVP functionality
+- ✓ Detected states stored in metadata for expansion
 - ✓ Accessibility attributes (role, focusable, keyboard support)
 - ✓ Clear variable documentation
 - ✓ Consistent ASCII patterns from library
 - ✓ Proper component type from allowed list
+
+**Note:** Components are created with default state only for fast import. Use `/fluxwing-expand-component` to add detected interaction states.
 
 ---
 

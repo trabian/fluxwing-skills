@@ -242,6 +242,40 @@ function generateStatesFromList(
 }
 ```
 
+### generateMinimalDefaultState()
+
+Creates a single default state object for MVP component creation (fast mode):
+
+```typescript
+function generateMinimalDefaultState(
+  visualProperties: any,
+  componentType: string
+): any {
+  return {
+    name: 'default',
+    properties: {
+      border: visualProperties.borderStyle || 'light',
+      background: inferBackground(componentType),
+      textColor: 'default'
+    }
+  };
+}
+```
+
+**Usage**: This function creates ONLY the default state, enabling fast MVP component creation. Use `generateStatesFromList()` later when expanding components with `/fluxwing-expand-component`.
+
+**Example**:
+```typescript
+// Minimal mode - single state
+const minimalStates = [generateMinimalDefaultState(visualProps, 'button')];
+
+// Full mode - multiple states
+const fullStates = [
+  generateMinimalDefaultState(visualProps, 'button'),
+  ...generateStatesFromList(['hover', 'active', 'disabled'], baseProps, 'button')
+];
+```
+
 ## Layout Helpers
 
 ### inferDisplay()
