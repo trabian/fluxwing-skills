@@ -17,3 +17,6 @@ Thumbs.db
 dist/
 build/
 node_modules/
+
+# Marketing materials (keep local only)
+marketing/
