@@ -22,9 +22,9 @@ fluxwing-marketplace/            # Marketplace root (THIS REPO)
 └── fluxwing/                   # The plugin
     ├── .claude-plugin/         # Plugin manifest
     ├── commands/               # 4 slash commands
-    ├── agents/                 # 3 autonomous agents
+    ├── agents/                 # 2 autonomous agents
     ├── data/                   # All uxscii assets (portable)
-    │   ├── schema/             # JSON Schema validation
+    │   ├── schema/             # JSON Schema
     │   ├── examples/           # 11 component templates
     │   ├── screens/            # 2 screen examples
     │   └── docs/               # Modular documentation
@@ -98,7 +98,7 @@ Similar structure but for autonomous workflows:
 - **Test commands**: Reference command markdown files in `commands/`
 - **Test agents**: Reference agent markdown files in `agents/`
 
-## Schema and Validation
+## Schema
 
 **Definitive source of truth**: `data/schema/uxm-component.schema.json`
 
@@ -106,12 +106,6 @@ This JSON Schema (Draft-07) defines:
 - Required fields (id, type, version, metadata, props, ascii)
 - Field constraints (patterns, lengths, types)
 - Optional fields (behavior, layout, extends, slots)
-- Validation rules for all `.uxm` files
-
-**Validation levels**:
-1. **Schema** - Structure correct, fields present
-2. **Semantic** - Template exists, variables match
-3. **Quality** - Multiple states, accessibility complete
 
 ## Component Types
 
@@ -237,10 +231,6 @@ All interactive components should include:
 ### When Building Screens
 - `data/docs/04-screen-composition.md` - Screen building guide
 - `data/screens/` - Complete screen examples with rendered versions
-
-### When Validating
-- `data/docs/05-validation-guide.md` - Quality standards
-- Schema validation levels and criteria
 
 ### When Working with ASCII
 - `data/docs/06-ascii-patterns.md` - Box-drawing characters and patterns

@@ -4,12 +4,11 @@ Complete reference for all Fluxwing autonomous agents.
 
 ## Overview
 
-Fluxwing provides 3 autonomous agents for complex UX design work:
+Fluxwing provides 2 autonomous agents for complex UX design work:
 
 | Agent | Purpose | When to Use |
 |-------|---------|-------------|
 | **fluxwing-designer** | Create multi-component designs autonomously | Complete design systems from scratch |
-| **fluxwing-validator** | Deep quality analysis with recommendations | Pre-production quality checks |
 | **fluxwing-composer** | Assemble screens from existing components | Compose layouts from available components |
 
 ## Data Location Rules for Agents
@@ -45,13 +44,11 @@ This ensures agents prefer your project components over bundled templates.
 
 ### Use Slash Commands When:
 - Creating single component
-- Quick validation check
 - Browsing library
 - Building one screen at a time
 
 ### Use Agents When:
 - Designing complete systems (5+ components)
-- Need comprehensive quality analysis
 - Composing complex multi-screen flows
 - Want autonomous, hands-off execution
 
@@ -113,18 +110,10 @@ The designer agent works through 5 phases autonomously:
 - Rendered examples use REAL data
 - Saved to `./fluxwing/screens/`
 
-#### Phase 4: Quality Assurance
-- Validates all files against schema
-- Checks naming consistency
-- Verifies accessibility attributes
-- Tests component references
-- Reviews completeness
-
-#### Phase 5: Documentation & Reporting
+#### Phase 4: Documentation & Reporting
 Provides comprehensive summary with:
 - What was created (atomic, composite, screens)
 - File locations
-- Validation results
 - Warnings/issues
 - Next steps
 - ASCII preview
@@ -166,12 +155,6 @@ Create a complete e-commerce product page with:
 ✓ product-page.md - Template with variables
 ✓ product-page.rendered.md - Example with "Wireless Headphones" data
 
-## Validation
-Schema: ✓ 100% (11/11)
-Files: ✓ 100%
-Accessibility: ✓ 100%
-Quality: ⚠️ 95% (1 suggestion)
-
 ## Files Created
 ./fluxwing/components/ - 22 files (11 .uxm + 11 .md)
 ./fluxwing/screens/ - 3 files (.uxm, .md, .rendered.md)
@@ -203,12 +186,6 @@ Total: 25 files
 
 The designer agent follows strict standards:
 
-**Schema Compliance**:
-- All required fields present
-- Valid data types and formats
-- Proper naming conventions
-- Semantic versioning
-
 **Design Quality**:
 - Multiple states (default, hover, focus, disabled)
 - Complete accessibility attributes
@@ -237,287 +214,6 @@ The designer agent follows strict standards:
 ### Related
 - For single components: Use `/fluxwing-create`
 - For composing from existing: Use `fluxwing-composer` agent
-- For quality check: Use `fluxwing-validator` agent
-
----
-
-## `fluxwing-validator` - Deep Quality Analysis Agent
-
-**Purpose**: Perform comprehensive analysis of uxscii components with actionable recommendations.
-
-### Dispatching the Agent
-
-**When to dispatch**:
-- Before production deployment
-- After major design changes
-- When you want detailed improvement suggestions
-- For accessibility audits
-
-**How to dispatch**:
-```
-Dispatch fluxwing-validator agent to analyze all components in ./fluxwing/
-```
-
-Or specific file:
-```
-Dispatch fluxwing-validator agent to validate ./fluxwing/components/submit-button.uxm
-```
-
-### 5 Validation Levels
-
-The validator performs analysis across 5 levels:
-
-#### Level 1: Schema Compliance (CRITICAL)
-**Must Pass** - Blocks usage if failed
-
-**Checks**:
-- Valid JSON structure
-- All required fields present
-- Correct data types
-- ID format (kebab-case, 2-64 chars)
-- Version format (semantic)
-- Component type enum valid
-- Metadata complete
-- ASCII dimensions valid
-
-**Example Error**:
-```
-❌ ./fluxwing/components/search-box.uxm
-   Issue: Missing required field 'metadata.modified'
-   Impact: Schema validation will fail
-   Fix: Add timestamp in ISO 8601 format
-   Example:
-     "metadata": {
-       "modified": "2024-10-11T15:30:00Z"
-     }
-```
-
-#### Level 2: File Integrity (CRITICAL)
-**Must Pass** - Causes runtime failures
-
-**Checks**:
-- Template file exists
-- Template is readable
-- All `{{variables}}` defined in .uxm
-- All variables used in template
-- Variable naming (camelCase)
-- No orphaned files
-
-**Example Error**:
-```
-❌ ./fluxwing/components/user-card.uxm
-   Line: ascii.templateFile
-   Issue: Template file not found: "user-car.md" (typo?)
-   Impact: Runtime error when rendering
-   Fix: Rename file or update reference
-   Suggestion: Did you mean "user-card.md"?
-```
-
-#### Level 3: Best Practices (IMPORTANT)
-**Should Pass** - Quality issues
-
-**Checks**:
-- Description meaningful
-- Multiple states defined
-- Accessibility attributes present
-- Tags for searchability
-- Category set
-- Author documented
-- Interaction triggers defined
-- State triggers clear
-
-**Example Warning**:
-```
-⚠️ ./fluxwing/components/submit-button.uxm
-   Issue: Only 2 states defined (default, focus)
-   Impact: Poor UX - no hover feedback
-   Recommendation: Add hover and disabled states
-   Example:
-     {
-       "name": "hover",
-       "properties": {"background": "highlighted"},
-       "triggers": ["mouseenter"]
-     }
-```
-
-#### Level 4: Quality & Consistency (RECOMMENDED)
-**Nice to Have** - Maintainability improvements
-
-**Checks**:
-- Usage examples in template
-- Variables documented
-- Consistent ASCII characters
-- Consistent spacing
-- Disabled state for interactive
-- Error/success states for inputs
-- Keyboard support documented
-- Animation properties defined
-- Sensible prop defaults
-
-**Example Suggestion**:
-```
-💡 ./fluxwing/components/submit-button.md
-   Suggestion: Add usage examples section
-   Why: Helps other agents understand intended use
-   Example:
-     ## Usage Examples
-
-     Basic Submit:
-     ╭────────────────╮
-     │ Submit Form    │
-     ╰────────────────╯
-```
-
-#### Level 5: Accessibility (ESSENTIAL)
-**Critical for Public Use** - WCAG 2.1 AA compliance
-
-**Checks**:
-- ARIA role appropriate
-- Labels present for non-text
-- Focusable for interactive
-- Keyboard support documented
-- Not color-dependent
-- Focus states visually distinct
-- Error associations correct
-- Sufficient contrast
-
-**Example Warning**:
-```
-⚠️ ./fluxwing/components/email-input.uxm
-   Issue: Missing accessibility.ariaLabel
-   Impact: Screen readers won't announce field purpose
-   Fix: Add ariaLabel to accessibility configuration
-   Example:
-     "accessibility": {
-       "role": "textbox",
-       "ariaLabel": "Email address input field",
-       "focusable": true
-     }
-```
-
-### Comprehensive Report Structure
-
-The validator provides detailed reports:
-
-#### Summary
-```
-FLUXWING VALIDATION REPORT
-==========================
-Generated: 2024-10-11 15:30:00
-Scope: ./fluxwing/ (recursive)
-
-Files Analyzed: 8 components, 2 screens (10 total)
-
-OVERALL STATUS: Good (needs minor fixes)
-OVERALL SCORE: 82/100
-
-✓ PASSED: 7 files ready for production
-⚠️ WARNINGS: 3 files need improvements
-❌ ERRORS: 2 files need fixes
-```
-
-#### Errors (Must Fix)
-Critical issues blocking usage, with:
-- File path
-- Specific line/field
-- Impact description
-- Fix instructions
-- Code examples
-
-#### Warnings (Should Fix)
-UX and quality issues, with:
-- Issue description
-- Impact assessment
-- Recommendations
-- Code examples
-
-#### Suggestions (Nice to Have)
-Polish improvements, with:
-- Enhancement ideas
-- Reasoning
-- Implementation examples
-
-#### Project Health Metrics
-```
-Schema Compliance:     100% (10/10) ✓
-File Integrity:         80% (8/10) ⚠️
-Best Practices:         70% (7/10) ⚠️
-Quality & Consistency:  85% (17/20) ✓
-Accessibility:          90% (18/20) ✓
-
-STRENGTHS:
-  ✓ All components follow schema
-  ✓ Consistent ASCII styling
-  ✓ Good accessibility coverage
-
-AREAS FOR IMPROVEMENT:
-  ⚠️ Some components lack multiple states
-  ⚠️ Accessibility labels incomplete on 2 inputs
-
-TOP PRIORITIES:
-  1. Fix 2 errors (search-box, user-card)
-  2. Add accessibility labels
-  3. Define hover/disabled states
-```
-
-#### Recommended Actions
-Prioritized by urgency:
-- **IMMEDIATE** - Blocks production
-- **HIGH PRIORITY** - This week
-- **MEDIUM PRIORITY** - This month
-- **BACKLOG** - Future enhancements
-
-### Scoring System
-
-- **90-100**: Excellent (production-ready)
-- **80-89**: Good (minor improvements)
-- **70-79**: Acceptable (needs work)
-- **60-69**: Poor (significant issues)
-- **< 60**: Failing (major rework needed)
-
-### Cross-Component Analysis
-
-Beyond individual validation, analyzes:
-- Naming consistency across similar components
-- Pattern reuse consistency
-- ASCII style consistency
-- Variable naming conventions
-- Metadata completeness patterns
-
-### Tips for Using the Validator
-
-**Run it frequently**:
-```
-# After creating components
-Dispatch fluxwing-validator
-
-# Before committing
-Dispatch fluxwing-validator
-
-# Before production
-Dispatch fluxwing-validator
-```
-
-**Fix errors first, then warnings**:
-1. Errors (block usage)
-2. Accessibility (legal/ethical)
-3. Best practices (UX quality)
-4. Consistency (maintainability)
-5. Suggestions (polish)
-
-**Use specific validation for focused work**:
-```
-# Just this file
-Dispatch fluxwing-validator to check ./fluxwing/components/new-button.uxm
-
-# Entire directory
-Dispatch fluxwing-validator to analyze ./fluxwing/
-```
-
-### Related
-- For quick checks: Use `/fluxwing-validate`
-- For creating components: Use `fluxwing-designer` agent
-- For validation docs: See `data/docs/05-validation-guide.md`
 
 ---
 
@@ -713,16 +409,7 @@ The composer follows proven patterns:
 ╰──────────────────────────────────╯
 ```
 
-#### Phase 5: Validation
-
-Before completing:
-1. All referenced components exist
-2. Layout makes logical sense
-3. Rendered example is realistic
-4. All three files created
-5. Metadata complete
-
-#### Phase 6: Reporting
+#### Phase 5: Reporting
 
 Provides clear summary:
 ```
@@ -747,7 +434,6 @@ Layout: Vertical with header, metric grid, activity
 
 Next Steps:
 - View: cat ./fluxwing/screens/dashboard.rendered.md
-- Validate: /fluxwing-validate
 - Customize: Edit components
 ```
 
@@ -785,14 +471,6 @@ The rendered example should:
 
 Recommendation: Dispatch fluxwing-designer agent to create these first,
 then return to compose the screen.
-```
-
-**Quality issues**:
-```
-⚠️ Some components have validation warnings.
-
-Recommendation: Dispatch fluxwing-validator agent for detailed analysis
-before proceeding with screen composition.
 ```
 
 ### Tips for Best Results
@@ -836,15 +514,14 @@ with realistic timestamps"
 
 ## Agent Comparison Matrix
 
-| Feature | Designer | Validator | Composer |
-|---------|----------|-----------|----------|
-| **Creates components** | ✅ Yes, from scratch | ❌ No | ❌ No |
-| **Creates screens** | ✅ Yes | ❌ No | ✅ Yes |
-| **Validates** | ✅ Basic | ✅ Comprehensive | ✅ Basic |
-| **Works autonomously** | ✅ Yes | ✅ Yes | ✅ Yes |
-| **Needs existing components** | ❌ No | ✅ Yes | ✅ Yes |
-| **Best for beginners** | ✅ Yes | ⚠️ Advanced | ⚠️ Intermediate |
-| **Output volume** | High (many files) | Low (report) | Medium (3 files) |
+| Feature | Designer | Composer |
+|---------|----------|----------|
+| **Creates components** | ✅ Yes, from scratch | ❌ No |
+| **Creates screens** | ✅ Yes | ✅ Yes |
+| **Works autonomously** | ✅ Yes | ✅ Yes |
+| **Needs existing components** | ❌ No | ✅ Yes |
+| **Best for beginners** | ✅ Yes | ⚠️ Intermediate |
+| **Output volume** | High (many files) | Medium (3 files) |
 
 ---
 
@@ -858,11 +535,7 @@ with realistic timestamps"
 
 2. Wait for designer to complete
 
-3. Dispatch fluxwing-validator to check quality
-
-4. Fix any issues flagged by validator
-
-5. Ready for development!
+3. Ready for development!
 ```
 
 ### Workflow 2: Compose from Existing
@@ -877,40 +550,18 @@ with realistic timestamps"
    "Create login screen using the submit-button, email-input, and password-input"
 
 3. Review rendered example
-
-4. Dispatch fluxwing-validator for quality check
 ```
 
-### Workflow 3: Quality Audit Before Launch
-
-```
-1. All design work complete
-
-2. Dispatch fluxwing-validator to analyze everything
-
-3. Review comprehensive report
-
-4. Fix ERRORS and WARNINGS
-
-5. Re-validate
-
-6. Deploy with confidence
-```
-
-### Workflow 4: Iterative Refinement
+### Workflow 3: Iterative Refinement
 
 ```
 1. Dispatch fluxwing-designer for initial design
 
-2. Dispatch fluxwing-validator for analysis
+2. Review suggestions
 
-3. Review suggestions
+3. Make manual refinements to components
 
-4. Make manual refinements to components
-
-5. Dispatch fluxwing-composer to create additional screens
-
-6. Final validation with fluxwing-validator
+4. Dispatch fluxwing-composer to create additional screens
 ```
 
 ---
@@ -933,11 +584,10 @@ Target: technical users, enterprise context."
 
 **Review outputs**:
 - Always check rendered examples
-- Validate before considering complete
 - Customize to match your brand
 
 **Chain agents appropriately**:
-- Designer → Validator → Composer
+- Designer → Composer
 - Not: Composer → Designer (wrong order)
 
 ### Common Mistakes to Avoid
@@ -950,19 +600,6 @@ Dispatch fluxwing-composer to "create a complete design system"
 
 # Right
 Dispatch fluxwing-designer to "create a complete design system"
-```
-
-**Skipping validation**:
-```
-# Wrong
-1. Design components
-2. Deploy to production ❌
-
-# Right
-1. Design components
-2. Validate with fluxwing-validator
-3. Fix issues
-4. Deploy to production ✅
 ```
 
 **Not providing enough detail**:

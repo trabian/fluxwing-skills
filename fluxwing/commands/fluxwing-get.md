@@ -154,15 +154,13 @@ What would you like to do?
 1️⃣ Copy to project library (makes it editable)
 2️⃣ View full template file (all states)
 3️⃣ View full metadata (complete .uxm)
-4️⃣ Validate quality (/fluxwing-validate)
-5️⃣ Back to library browser (/fluxwing-library)
+4️⃣ Back to library browser (/fluxwing-library)
 ```
 
 **Action Details:**
 - **Copy**: Copy both .uxm and .md to `./fluxwing/library/`
 - **View full template**: Display complete .md file (no truncation)
 - **View full metadata**: Display complete .uxm JSON
-- **Validate**: Run validation checks
 - **Back**: Return to library browser
 
 ### For Project Files (./fluxwing/library/ or ./fluxwing/components/)
@@ -173,9 +171,8 @@ What would you like to do?
 1️⃣ Edit component (modify .uxm and .md)
 2️⃣ View full template file (all states)
 3️⃣ View full metadata (complete .uxm)
-4️⃣ Validate quality (/fluxwing-validate)
-5️⃣ Delete component (manual: remove files from filesystem)
-6️⃣ Back to library browser (/fluxwing-library)
+4️⃣ Delete component (manual: remove files from filesystem)
+5️⃣ Back to library browser (/fluxwing-library)
 ```
 
 **Action Details:**
@@ -325,8 +322,7 @@ What would you like to do?
 1️⃣ Copy to project library
 2️⃣ View full template
 3️⃣ View full metadata
-4️⃣ Validate quality
-5️⃣ Back to library browser
+4️⃣ Back to library browser
 
 User: 1
 
@@ -355,11 +351,10 @@ What would you like to do?
 1️⃣ Edit component
 2️⃣ View full template
 3️⃣ View full metadata
-4️⃣ Validate quality
-5️⃣ Delete component
-6️⃣ Back to library browser
+4️⃣ Delete component
+5️⃣ Back to library browser
 
-User: 5
+User: 4
 
 You: To delete this component, remove these files from your filesystem:
   • ./fluxwing/components/user-card.uxm

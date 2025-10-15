@@ -698,22 +698,6 @@ for (const compositeId of composition.compositeComponents) {
 await generateScreen(screenData, composition);
 ```
 
-### Pattern 3: Validate After Generation
-
-```typescript
-// Run validation on generated files
-const validationResults = await validateAllComponents([
-  'email-input.uxm',
-  'password-input.uxm',
-  'submit-button.uxm',
-  'login-form.uxm'
-]);
-
-if (validationResults.errors.length === 0) {
-  console.log('✓ All components valid');
-}
-```
-
 ---
 
 ## Reference
@@ -726,6 +710,6 @@ These examples demonstrate the complete screenshot-to-uxscii workflow:
 4. **File generation** produces valid .uxm + .md pairs
 5. **Validation** ensures quality and schema compliance
 
-All generated files validate against:
+All generated files conform to:
 - `fluxwing/data/schema/uxm-component.schema.json` - JSON Schema
-- `fluxwing/data/docs/05-validation-guide.md` - Quality standards
+- Quality standards documented in the schema

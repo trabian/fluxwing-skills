@@ -98,12 +98,11 @@ If the `./fluxwing/screens/` directory doesn't exist, create it.
 
 **CRITICAL**: Never save screens to `{PLUGIN_ROOT}/data/screens/` - that's read-only.
 
-### 6. Validate & Guide Next Steps
+### 6. Guide Next Steps
 
 After creation:
 1. Show a preview of the screen (use the .rendered.md version)
-2. Suggest running `/fluxwing-validate ./fluxwing/screens/[screen-name].uxm`
-3. Explain how to modify components or create variations
+2. Explain how to modify components or create variations
 
 ## Resources Available
 
@@ -164,7 +163,6 @@ Here's the rendered preview:
 ╰────────────────────────────────╯
 
 Next steps:
-- Run `/fluxwing-validate ./fluxwing/screens/login-screen.uxm`
 - View all screens and components with `/fluxwing-library`
 - Modify individual components in ./fluxwing/components/
 ```

@@ -6,7 +6,7 @@ Automated test suite for validating consistency improvements across all Fluxwing
 
 This test suite validates all aspects of the Fluxwing plugin consistency improvements, including:
 
-- **28 total test cases** across 6 categories
+- **25 total test cases** across 6 categories
 - **Static tests** (file structure, documentation)
 - **SDK-based tests** (command execution, agent behavior)
 - **Integration tests** (end-to-end workflows)
@@ -83,31 +83,29 @@ Validates that all agent files have:
 
 ---
 
-### Category 3: Functional Commands (5 tests)
+### Category 3: Functional Commands (4 tests)
 **Type:** SDK-based
-**Duration:** ~10 minutes
+**Duration:** ~8 minutes
 **Requires API Key:** Yes
 
 Tests command execution:
 - `/fluxwing-create` saves to correct location
 - `/fluxwing-scaffold` saves screens and components correctly
 - `/fluxwing-library` displays all three sources
-- `/fluxwing-validate` only checks project files
 - `/fluxwing-get` follows correct search order
 
 **Test Files:** `03-functional-commands.test.ts`
 
 ---
 
-### Category 4: Functional Agents (3 tests)
+### Category 4: Functional Agents (2 tests)
 **Type:** SDK-based
-**Duration:** ~15 minutes
+**Duration:** ~10 minutes
 **Requires API Key:** Yes
 
 Tests agent behavior:
 - `fluxwing-designer` saves to correct locations
 - `fluxwing-composer` checks all three component sources
-- `fluxwing-validator` only validates project files
 
 **Test Files:** `04-functional-agents.test.ts`
 
@@ -421,11 +419,11 @@ ls -la ~/.claude/plugins/cache/fluxwing/
 |----------|----------|------|
 | Category 1 | ~30s | Static |
 | Category 2 | ~30s | Static |
-| Category 3 | ~10min | SDK |
-| Category 4 | ~15min | SDK |
+| Category 3 | ~8min | SDK |
+| Category 4 | ~10min | SDK |
 | Category 5 | ~1min | Static |
 | Category 6 | ~10min | SDK |
-| **Total** | **~37min** | Mixed |
+| **Total** | **~31min** | Mixed |
 
 **Optimization tips:**
 - Run static tests first (fast feedback)
@@ -444,13 +442,12 @@ When adding new features to Fluxwing:
 
 ## Success Criteria
 
-All 28 tests must pass for consistency improvements to be considered complete:
+All 25 tests must pass for consistency improvements to be considered complete:
 
 - ✅ All files have "Data Location Rules" headers
 - ✅ All path references use consistent variables
 - ✅ All commands save to correct locations
 - ✅ All agents follow correct search order
-- ✅ Validation only checks project files
 - ✅ Documentation is updated and consistent
 - ✅ Plugin directory is never written to
 - ✅ Error messages use correct paths

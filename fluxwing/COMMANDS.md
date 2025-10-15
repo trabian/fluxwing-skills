@@ -4,13 +4,12 @@ Complete reference for all Fluxwing slash commands.
 
 ## Overview
 
-Fluxwing provides 5 slash commands for quick UX design tasks:
+Fluxwing provides 4 slash commands for quick UX design tasks:
 
 | Command | Purpose | Output |
 |---------|---------|--------|
 | `/fluxwing-create` | Create single component | component.{uxm,md} |
 | `/fluxwing-scaffold` | Build complete screen | screen.{uxm,md,rendered.md} |
-| `/fluxwing-validate` | Validate components | Validation report |
 | `/fluxwing-library` | Browse library | Interactive menu |
 | `/fluxwing-get` | View single component details | Component display |
 
@@ -43,7 +42,6 @@ When commands check for available components, they look in this order:
 3. COPY      → Copy bundled template to ./fluxwing/library/
 4. CREATE    → /fluxwing-create (new component to ./fluxwing/components/)
 5. COMPOSE   → /fluxwing-scaffold (screens to ./fluxwing/screens/)
-6. VALIDATE  → /fluxwing-validate (check quality)
 ```
 
 ---
@@ -82,7 +80,6 @@ When commands check for available components, they look in this order:
    - Saves to `./fluxwing/components/`
 
 4. **Post-Creation**
-   - Validates against schema
    - Displays file paths
    - Offers to create another
 
@@ -149,7 +146,6 @@ When commands check for available components, they look in this order:
 2. **Component Creation**
    - Creates missing components first
    - Uses atomic → composite pattern
-   - Validates each component
 
 3. **Screen Composition**
    - Designs layout structure
@@ -238,103 +234,6 @@ Password: ••••••••
 
 ---
 
-## `/fluxwing-validate` - Validate Components
-
-**Purpose**: Quick validation check for schema compliance and quality
-
-**Usage**:
-```bash
-/fluxwing-validate              # Validate all files
-/fluxwing-validate [file-path]  # Validate specific file
-```
-
-**Examples**:
-```bash
-/fluxwing-validate
-/fluxwing-validate ./fluxwing/components/submit-button.uxm
-/fluxwing-validate ./fluxwing/screens/login-screen.uxm
-```
-
-### Validation Levels
-
-**1. Schema Compliance** (MUST PASS)
-- Valid JSON structure
-- Required fields present
-- Type correctness
-- Pattern validation
-
-**2. File Integrity** (MUST PASS)
-- `.uxm` ↔ `.md` file pairs exist
-- `templateFile` references valid file
-- No orphaned files
-- Consistent naming
-
-**3. Best Practices** (SHOULD PASS)
-- Proper naming conventions
-- Complete metadata
-- Multiple states defined
-- Accessibility attributes
-
-**4. Quality Check** (RECOMMENDED)
-- Props have descriptions
-- States have clear purposes
-- ASCII dimensions accurate
-- Component type appropriate
-
-### Output Format
-
-**Success**:
-```
-✅ Validation Results
-
-Schema Compliance: ✅ PASS
-File Integrity: ✅ PASS
-Best Practices: ✅ PASS (12/12)
-Quality: ⚠️  GOOD (8/10)
-
-Issues:
-- [RECOMMENDATION] Add aria-label to submit-button
-- [RECOMMENDATION] Define error state for email-input
-
-Summary: 2 components validated, 2 recommendations
-```
-
-**Failure**:
-```
-❌ Validation Results
-
-Schema Compliance: ❌ FAIL
-- submit-button.uxm: Missing required field 'metadata.created'
-- email-input.uxm: Invalid version format '1.0' (must be semantic)
-
-File Integrity: ❌ FAIL
-- card.uxm references 'card-template.md' but file not found
-
-Fix these issues before proceeding.
-```
-
-### When to Validate
-
-- **After creating components** - Ensure schema compliance
-- **Before committing** - Catch issues early
-- **After major changes** - Verify integrity
-- **Before production** - Final quality check
-
-### Tips
-
-- Run validation frequently during development
-- Fix FAIL issues immediately
-- Address SHOULD PASS for production code
-- Use `fluxwing-validator` agent for deep analysis
-
-### Related
-
-- For comprehensive analysis: dispatch `fluxwing-validator` agent
-- For fixing issues: see `data/docs/05-validation-guide.md`
-- For schema reference: see `data/docs/07-schema-reference.md`
-
----
-
 ## `/fluxwing-library` - Browse Component Library
 
 **Purpose**: Explore available components and templates
@@ -368,7 +267,6 @@ Fix these issues before proceeding.
 **For each component**:
 - `view` - Show full details (.uxm + .md content)
 - `copy` - Copy bundled template to `./fluxwing/library/`
-- `validate` - Run quick validation
 - `edit` - Open in editor (project components only)
 
 **Global actions**:
@@ -494,7 +392,6 @@ After displaying, offers context-aware actions:
 
 **For project components**:
 - Edit component files
-- Validate component
 - Delete component (with confirmation)
 
 ### Tips
@@ -508,7 +405,6 @@ After displaying, offers context-aware actions:
 
 - To browse all components: use `/fluxwing-library`
 - To create new component: use `/fluxwing-create`
-- To validate component: use `/fluxwing-validate`
 
 ---
 
@@ -521,7 +417,6 @@ After displaying, offers context-aware actions:
 | "I need a button" | `/fluxwing-create` | Single component |
 | "I need a login screen" | `/fluxwing-scaffold` | Complete screen with dependencies |
 | "What components exist?" | `/fluxwing-library` | Browse available components |
-| "Is my design valid?" | `/fluxwing-validate` | Quick quality check |
 | "Design a system from scratch" | `fluxwing-designer` agent | Complex multi-component work |
 
 ### Command Output Locations
@@ -549,9 +444,6 @@ After displaying, offers context-aware actions:
 
 # 3. Build screen
 /fluxwing-scaffold login-screen
-
-# 4. Validate everything
-/fluxwing-validate
 ```
 
 ### Integration with Agents
@@ -559,7 +451,6 @@ After displaying, offers context-aware actions:
 **Commands are for quick tasks**:
 - Single component creation
 - One screen at a time
-- Quick validation check
 - Library browsing
 
 **Agents are for complex work**:
@@ -605,18 +496,6 @@ mkdir -p ./fluxwing/components
 mkdir -p ./fluxwing/screens
 ```
 
-### Validation always fails
-```bash
-❌ Schema validation failed on all files
-```
-
-**Solution**: Check schema file exists
-```bash
-ls ~/.claude/plugins/cache/fluxwing/data/schema/uxm-component.schema.json
-```
-
-If missing, reinstall plugin.
-
 ### Template file not found
 ```bash
 Error: Cannot load bundled template 'primary-button'
@@ -636,4 +515,3 @@ Error: Cannot load bundled template 'primary-button'
 - **ARCHITECTURE.md** - Plugin design and structure
 - **data/docs/03-component-creation.md** - Component creation workflow
 - **data/docs/04-screen-composition.md** - Screen composition patterns
-- **data/docs/05-validation-guide.md** - Validation rules and standards

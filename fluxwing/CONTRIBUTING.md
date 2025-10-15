@@ -97,7 +97,7 @@ Make changes → Reload → Test → Repeat
 - Format: Markdown with frontmatter + instructions
 
 **Data** (`data/`):
-- `schema/` - JSON Schema for validation
+- `schema/` - JSON Schema
 - `examples/` - Component templates
 - `screens/` - Screen examples
 - `docs/` - Documentation modules
@@ -111,8 +111,7 @@ Make changes → Reload → Test → Repeat
 1. **Self-contained**: No external dependencies
 2. **Modular**: Load only what's needed
 3. **Documented**: Every feature has docs
-4. **Validated**: Schema-driven quality
-5. **AI-friendly**: Optimized for agent consumption
+4. **AI-friendly**: Optimized for agent consumption
 
 ---
 
@@ -207,7 +206,7 @@ while preserving all other attributes.
 
 2. **Get New Name**
    - Ask for new component ID (kebab-case)
-   - Validate format: ^[a-z0-9]+(?:-[a-z0-9]+)*$
+   - Check format: ^[a-z0-9]+(?:-[a-z0-9]+)*$
    - Check no conflict with existing components
 
 3. **Copy and Modify**
@@ -221,18 +220,16 @@ while preserving all other attributes.
 4. **Write New Files**
    - Write new `.uxm` to `./fluxwing/components/{new-id}.uxm`
    - Write new `.md` to `./fluxwing/components/{new-id}.md`
-   - Validate both files
 
 5. **Report**
    - Confirm creation with file paths
-   - Suggest next steps (customize, validate, etc.)
+   - Suggest next steps (customize, etc.)
 
 ## Success Criteria
 
 - [ ] New component files created
 - [ ] ID and name updated correctly
 - [ ] No conflicts with existing components
-- [ ] Files validate against schema
 ```
 
 **Register Command**:
@@ -408,15 +405,7 @@ Apply safe optimizations:
 - Merge identical states
 - Remove unreachable states
 
-### Phase 4: Validation
-
-After optimization:
-1. Validate against schema
-2. Check file integrity (.uxm ↔ .md sync)
-3. Ensure no visual changes to ASCII
-4. Verify all variables still work
-
-### Phase 5: Reporting
+### Phase 4: Reporting
 
 ```
 # Optimization Report
@@ -452,13 +441,11 @@ Saved: 47 KB (32% reduction)
 ## Resources
 
 - Schema: `{PLUGIN_ROOT}/data/schema/uxm-component.schema.json`
-- Validation guide: `{PLUGIN_ROOT}/data/docs/05-validation-guide.md`
 
 ## Success Criteria
 
 - [ ] All optimizations are safe (no breaking changes)
 - [ ] File size reduced by at least 10%
-- [ ] All components still validate
 - [ ] Detailed report shows improvements
 ```
 
@@ -565,14 +552,7 @@ touch data/examples/your-component.md
 
 **2. Fill in metadata and ASCII art**
 
-**3. Validate**:
-
-```bash
-/plugin reload fluxwing
-/fluxwing-validate data/examples/your-component.uxm
-```
-
-**4. Test usage**:
+**3. Test usage**:
 
 ```bash
 /fluxwing-library
@@ -732,7 +712,6 @@ Load: 08-component-testing.md (~600 tokens)
 - [ ] Command appears in `/` autocomplete
 - [ ] Command executes without errors
 - [ ] Output files created in correct locations
-- [ ] Output files validate against schema
 - [ ] Help text is clear and accurate
 - [ ] Edge cases handled (missing files, invalid input, etc.)
 
@@ -740,14 +719,12 @@ Load: 08-component-testing.md (~600 tokens)
 - [ ] Agent can be dispatched
 - [ ] TodoWrite tasks created and tracked
 - [ ] All phases complete successfully
-- [ ] Output validated automatically
 - [ ] Comprehensive report generated
 - [ ] No errors in console
 
 **For Examples**:
 - [ ] Files appear in `/fluxwing-library`
 - [ ] Can be copied successfully
-- [ ] Copied files validate
 - [ ] ASCII art renders correctly
 - [ ] All variables defined and used
 
@@ -758,32 +735,12 @@ Load: 08-component-testing.md (~600 tokens)
 - [ ] No typos or formatting errors
 - [ ] Referenced in 00-INDEX.md
 
-### Validation Testing
-
-**Schema validation**:
-```bash
-# Validate all examples
-/fluxwing-validate data/examples/
-
-# Validate specific file
-/fluxwing-validate data/examples/your-component.uxm
-```
-
-**Agent validation**:
-```bash
-# Dispatch validator agent
-# Provide comprehensive analysis of your changes
-```
-
 ### Integration Testing
 
-**Create → Validate workflow**:
+**Create workflow**:
 ```bash
 # Create using your command
 /fluxwing-your-command
-
-# Validate output
-/fluxwing-validate
 
 # Check files manually
 cat ./fluxwing/components/output.uxm
@@ -794,7 +751,6 @@ cat ./fluxwing/components/output.md
 ```bash
 # Dispatch your agent
 # Then use command to modify output
-# Validate final state
 ```
 
 ---
@@ -805,13 +761,7 @@ cat ./fluxwing/components/output.md
 
 **1. Test thoroughly** using checklist above
 
-**2. Validate all files**:
-```bash
-/fluxwing-validate data/examples/
-# Fix any errors
-```
-
-**3. Update documentation**:
+**2. Update documentation**:
 - Add new command/agent to README.md quick reference
 - Update COMMANDS.md or AGENTS.md with details
 - Add example usage to relevant docs
@@ -821,7 +771,7 @@ cat ./fluxwing/components/output.md
 feat(commands): Add /fluxwing-duplicate command
 
 - Duplicates components with new ID
-- Validates new name format
+- Checks new name format
 - Updates metadata timestamps
 - Includes comprehensive error handling
 

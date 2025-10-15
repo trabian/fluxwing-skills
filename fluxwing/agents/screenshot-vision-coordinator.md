@@ -10,10 +10,8 @@ You are the Vision Coordinator Agent for Fluxwing screenshot import. Your missio
 
 1. Launch 3 vision agents in parallel (layout, components, visual properties)
 2. Wait for all agents to complete
-3. Validate each agent's output (fail-fast on errors)
-4. Merge results into unified structure
-5. Validate merged data comprehensively
-6. Return enriched component data ready for generation
+3. Merge results into unified structure
+4. Return enriched component data ready for generation
 
 ## Input
 
@@ -205,28 +203,7 @@ Return JSON matching this structure:
 })
 ```
 
-### Step 2: Validate Agent Outputs
-
-**CRITICAL**: Validate ALL agent outputs before merging. Fail-fast on any invalid data.
-
-```typescript
-// Validate Layout Discovery output
-if (!layoutResult || !layoutResult.screenType || !layoutResult.layoutStructure) {
-  throw new Error("Layout Discovery Agent failed: Invalid output structure. Expected {screenType, layoutStructure, hierarchy}");
-}
-
-// Validate Component Detection output
-if (!componentResult || !Array.isArray(componentResult.components) || componentResult.components.length === 0) {
-  throw new Error("Component Detection Agent failed: No components detected. Expected {components: [...]}");
-}
-
-// Validate Visual Properties output
-if (!visualResult || !visualResult.visualProperties || Object.keys(visualResult.visualProperties).length === 0) {
-  throw new Error("Visual Properties Agent failed: No properties extracted. Expected {visualProperties: {...}}");
-}
-```
-
-### Step 3: Merge Results
+### Step 2: Merge Results
 
 Load helper functions from `{PLUGIN_ROOT}/data/docs/screenshot-data-merging.md` and use them to combine agent outputs into the unified structure shown in the Output section above.
 
@@ -236,79 +213,18 @@ Key merging steps:
 3. Use `categorizeComponents()` to split into atomic/composite/screen
 4. Generate screen metadata with `generateScreenName()` and `generateScreenDescription()`
 
-### Step 4: Validate Merged Data
+### Step 3: Return Result
 
-Run comprehensive validation checks (fail-fast on errors):
-
-```typescript
-const errors = [];
-
-// Check required fields
-if (!mergedData.screen.type || !mergedData.screen.name) {
-  errors.push("Missing required screen fields");
-}
-
-if (!mergedData.components || mergedData.components.length === 0) {
-  errors.push("No components in merged data");
-}
-
-// Validate each component
-for (const comp of mergedData.components) {
-  if (!comp.id || !comp.type || !comp.category) {
-    errors.push(`Component missing required fields: ${comp.id}`);
-  }
-
-  if (!comp.id.match(/^[a-z0-9]+(?:-[a-z0-9]+)*$/)) {
-    errors.push(`Invalid component ID format: ${comp.id}`);
-  }
-
-  if (comp.visualProperties.width < 1 || comp.visualProperties.width > 200) {
-    errors.push(`Invalid width for ${comp.id}: ${comp.visualProperties.width}`);
-  }
-
-  const validBorderStyles = ["light", "rounded", "double", "heavy", "none"];
-  if (!validBorderStyles.includes(comp.visualProperties.borderStyle)) {
-    errors.push(`Invalid borderStyle for ${comp.id}: ${comp.visualProperties.borderStyle}`);
-  }
-}
-
-// Check for duplicate IDs
-const componentIds = mergedData.components.map(c => c.id);
-const uniqueIds = new Set(componentIds);
-if (componentIds.length !== uniqueIds.size) {
-  const duplicates = componentIds.filter((id, index) => componentIds.indexOf(id) !== index);
-  errors.push(`Duplicate component IDs: ${duplicates.join(", ")}`);
-}
-
-// Check composition consistency
-for (const atomicId of mergedData.composition.atomicComponents) {
-  if (!componentIds.includes(atomicId)) {
-    errors.push(`Atomic component in composition not found: ${atomicId}`);
-  }
-}
-
-// Fail-fast: Halt on any validation error
-if (errors.length > 0) {
-  throw new Error(`Vision analysis validation failed with ${errors.length} errors: ${errors.join('; ')}`);
-}
-```
-
-### Step 5: Return Result
-
-Return the validated merged data structure as shown in the Output section.
+Return the merged data structure as shown in the Output section.
 
 ## Success Criteria
 
 - All 3 vision agents completed successfully
-- All agent outputs validated (no missing/invalid data)
 - All components enriched with visual properties
-- No duplicate component IDs
-- All composition references valid
 - Screen metadata generated correctly
 
 ## Error Handling
 
 - Fail immediately if any vision agent fails
-- Fail immediately if any validation check fails
 - Provide detailed error messages with context
 - Do NOT return partial results on failure

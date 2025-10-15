@@ -319,51 +319,6 @@ Generate distinct ASCII for each state:
 └┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┘
 ```
 
-## Validation Checks
-
-Before returning, validate the generated component:
-
-```typescript
-const errors = [];
-
-// Check required fields
-if (!uxmData.id || !uxmData.type || !uxmData.version || !uxmData.metadata) {
-  errors.push("Missing required top-level fields");
-}
-
-// Check ID format
-if (!uxmData.id.match(/^[a-z0-9]+(?:-[a-z0-9]+)*$/)) {
-  errors.push(`Invalid ID format: ${uxmData.id}`);
-}
-
-// Check version format
-if (!uxmData.version.match(/^\d+\.\d+\.\d+$/)) {
-  errors.push(`Invalid version format: ${uxmData.version}`);
-}
-
-// Check dimensions
-if (uxmData.ascii.width < 1 || uxmData.ascii.width > 120) {
-  errors.push(`Invalid width: ${uxmData.ascii.width} (must be 1-120)`);
-}
-
-if (uxmData.ascii.height < 1 || uxmData.ascii.height > 50) {
-  errors.push(`Invalid height: ${uxmData.ascii.height} (must be 1-50)`);
-}
-
-// Check variables match
-const definedVars = uxmData.ascii.variables.map(v => v.name);
-const usedVars = [...markdown.matchAll(/\{\{(?!component:)(\w+)\}\}/g)].map(m => m[1]);
-const undefinedVars = usedVars.filter(v => !definedVars.includes(v));
-
-if (undefinedVars.length > 0) {
-  errors.push(`Undefined variables in template: ${undefinedVars.join(', ')}`);
-}
-
-if (errors.length > 0) {
-  throw new Error(`Component validation failed:\n${errors.map(e => `  - ${e}`).join('\n')}`);
-}
-```
-
 ## Success Response
 
 Return structured result:
@@ -382,11 +337,6 @@ Return structured result:
   "dimensions": {
     "width": 40,
     "height": 3
-  },
-  "validation": {
-    "schema": "passed",
-    "variables": "passed",
-    "accessibility": "passed"
   }
 }
 ```
@@ -410,11 +360,10 @@ Common failure reasons:
 
 1. **Read helper docs first**: Load all 3 helper documents before generation
 2. **Use helper functions**: Don't reimplement logic, use provided functions
-3. **Validate before writing**: Check all fields and constraints
-4. **Write to correct location**: `./fluxwing/components/` (NOT plugin directory)
-5. **Generate both files**: Always create .uxm AND .md together
-6. **Include all states**: Generate ASCII for every state in the states array
-7. **Match schema**: Follow `data/schema/uxm-component.schema.json` structure
+3. **Write to correct location**: `./fluxwing/components/` (NOT plugin directory)
+4. **Generate both files**: Always create .uxm AND .md together
+5. **Include all states**: Generate ASCII for every state in the states array
+6. **Match schema**: Follow `data/schema/uxm-component.schema.json` structure
 
 ## Success Criteria
 
@@ -427,7 +376,6 @@ Your generation is successful when:
 - ✓ Component references use `{{component:id}}` syntax (composites only)
 - ✓ Accessibility attributes complete
 - ✓ Dimensions within valid ranges (width: 1-120, height: 1-50)
-- ✓ Validation checks pass
 
 ## Example Complete Output
 
@@ -439,7 +387,7 @@ Your generation is successful when:
   "version": "1.0.0",
   "metadata": {
     "name": "Email Input",
-    "description": "Text input field for email address entry with validation states",
+    "description": "Text input field for email address entry with focus and error states",
     "author": "Fluxwing Screenshot Import",
     "created": "2025-10-13T10:30:00.000Z",
     "modified": "2025-10-13T10:30:00.000Z",
@@ -487,7 +435,8 @@ Your generation is successful when:
       },
       {
         "event": "blur",
-        "action": "validate"
+        "action": "setState",
+        "params": {"state": "default"}
       }
     ],
     "accessibility": {
@@ -541,7 +490,7 @@ Your generation is successful when:
 ```markdown
 # Email Input
 
-Text input field for email address entry with validation states
+Text input field for email address entry with focus and error states
 
 ## Default State
 

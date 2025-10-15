@@ -14,12 +14,11 @@ plugin/
 ├── commands/                           # 4 Slash Commands (Quick Tasks)
 │   ├── fluxwing-create.md            # Create single component
 │   ├── fluxwing-scaffold.md          # Build complete screen
-│   ├── fluxwing-validate.md          # Validate components
-│   └── fluxwing-library.md           # Browse library
+│   ├── fluxwing-library.md           # Browse library
+│   └── fluxwing-get.md               # View component details
 │
-├── agents/                             # 3 Autonomous Agents (Complex Work)
+├── agents/                             # 2 Autonomous Agents (Complex Work)
 │   ├── fluxwing-designer.md          # Multi-component design
-│   ├── fluxwing-validator.md         # Deep quality analysis
 │   └── fluxwing-composer.md          # Screen composition
 │
 ├── data/                               # All uxscii assets (portable)
@@ -75,13 +74,13 @@ plugin/
 ## File Counts
 
 - **Commands**: 4
-- **Agents**: 3
+- **Agents**: 2
 - **Component Examples**: 11 (22 files: .uxm + .md pairs)
 - **Screen Examples**: 2 (6 files: .uxm + .md + .rendered.md)
 - **Module Documentation**: 10 files (in data/docs/)
 - **Root Documentation**: 6 files (README, COMMANDS, AGENTS, ARCHITECTURE, CONTRIBUTING, TROUBLESHOOTING)
 - **Schema**: 1 definitive JSON Schema
-- **Total Assets**: ~50 files (excluding source)
+- **Total Assets**: ~48 files (excluding source)
 
 ## Key Features
 
@@ -105,10 +104,9 @@ plugin/
 - Real data examples (not just {{variables}})
 
 ### ✅ Quality Built-In
-- JSON Schema validation
+- JSON Schema
 - Accessibility attributes
 - Multiple component states
-- Best practices enforcement
 
 ## User Workflows
 
@@ -134,12 +132,6 @@ plugin/
 ```
 Dispatch fluxwing-designer agent
 → Creates entire design system from description
-```
-
-### Workflow 5: Quality Assurance
-```
-Dispatch fluxwing-validator agent
-→ Comprehensive analysis + recommendations
 ```
 
 ## Output Structure (User Project)
@@ -236,13 +228,12 @@ Or (when published):
 
 - `/fluxwing-create [name]` - Create component
 - `/fluxwing-scaffold [screen]` - Build screen
-- `/fluxwing-validate [file]` - Validate
 - `/fluxwing-library` - Browse library
+- `/fluxwing-get [name]` - View component details
 
 ## Agents Quick Reference
 
 - **fluxwing-designer** - Autonomous design from description
-- **fluxwing-validator** - Quality analysis & recommendations
 - **fluxwing-composer** - Screen assembly from components
 
 ---

@@ -2,12 +2,12 @@
 
 ## Executive Summary
 
-Successfully created a comprehensive automated test suite for Fluxwing consistency improvements with **41 test cases** across 6 categories.
+Successfully created a comprehensive automated test suite for Fluxwing consistency improvements with **36 test cases** across 6 categories (validation tests removed).
 
 **Initial Test Run Results:**
-- ✅ **33 tests PASSED**
-- ❌ **8 tests FAILED** (revealing real issues to fix)
-- 📊 **80% pass rate** on first run
+- ✅ **29 tests PASSED**
+- ❌ **7 tests FAILED** (revealing real issues to fix)
+- 📊 **81% pass rate** on first run
 
 ## What Was Built
 
@@ -28,19 +28,22 @@ Successfully created a comprehensive automated test suite for Fluxwing consisten
 - No hardcoded plugin paths found
 - Project-relative paths used correctly
 
-#### Category 2: Agent File Consistency (10 tests)
-**Status:** ⚠️ **6 passed, 4 failed**
+#### Category 2: Agent File Consistency (8 tests)
+**Status:** ⚠️ **5 passed, 3 failed**
 - ✅ All agent files have "Data Location Rules" headers
 - ✅ All follow correct search order (components → library → bundled)
 - ❌ Need to add READ-ONLY specifications in composer and designer agents
+- ✅ Validator agent tests removed
 
-#### Category 3: Functional Commands (5 tests)
+#### Category 3: Functional Commands (4 tests)
 **Status:** ⏸️ **Skipped** (requires API key + ES module fix)
-- Tests ready for: /fluxwing-create, /fluxwing-scaffold, /fluxwing-library, /fluxwing-validate, /fluxwing-get
+- Tests ready for: /fluxwing-create, /fluxwing-scaffold, /fluxwing-library, /fluxwing-get
+- ✅ Validation command tests removed
 
-#### Category 4: Functional Agents (3 tests)
+#### Category 4: Functional Agents (2 tests)
 **Status:** ⏸️ **Skipped** (requires API key + ES module fix)
-- Tests ready for: fluxwing-designer, fluxwing-composer, fluxwing-validator
+- Tests ready for: fluxwing-designer, fluxwing-composer
+- ✅ Validator agent tests removed
 
 #### Category 5: Documentation Consistency (11 tests)
 **Status:** ⚠️ **7 passed, 4 failed**
@@ -67,6 +70,11 @@ Successfully created a comprehensive automated test suite for Fluxwing consisten
 **3. Test File Glob Pattern**
 - Finding non-existent `TROUBLESHOOTING.md` file
 - Need to filter or fix glob pattern
+
+**4. Validation Cleanup Complete**
+- ✅ All validation-related tests removed from test suite
+- ✅ Test counts updated in documentation
+- ✅ Test numbering updated sequentially
 
 ### Medium Priority
 
@@ -98,12 +106,12 @@ tests/
 │   │   ├── assertions.ts           # Custom assertions
 │   │   └── reporters.ts            # HTML/JSON report generators
 │   └── tests/
-│       ├── 01-command-consistency.test.ts  ✅ 18/18 passed
-│       ├── 02-agent-consistency.test.ts    ⚠️ 6/10 passed
-│       ├── 03-functional-commands.test.ts  ⏸️ Ready
-│       ├── 04-functional-agents.test.ts    ⏸️ Ready
+│       ├── 01-command-consistency.test.ts  ✅ 18/18 passed (validate removed)
+│       ├── 02-agent-consistency.test.ts    ⚠️ 5/8 passed (validator removed)
+│       ├── 03-functional-commands.test.ts  ⏸️ Ready (validate test removed)
+│       ├── 04-functional-agents.test.ts    ⏸️ Ready (validator test removed)
 │       ├── 05-documentation.test.ts        ⚠️ 7/11 passed
-│       └── 06-integration.test.ts          ⏸️ Ready
+│       └── 06-integration.test.ts          ⏸️ Ready (validate steps removed)
 └── .github/workflows/
     └── fluxwing-consistency-tests.yml      # CI/CD workflow
 
@@ -184,25 +192,27 @@ open reports/test-results.html
 
 ### Current Status
 - ✅ Test infrastructure: **100% complete**
-- ✅ Test coverage: **41/41 tests implemented**
-- ✅ Static tests: **31/33 passing** (94%)
+- ✅ Test coverage: **36/36 tests implemented** (validation removed)
+- ✅ Static tests: **27/29 passing** (93%)
 - ⏸️ SDK tests: **Ready** (pending ES module fix)
 - ✅ Documentation: **Complete**
 - ✅ CI/CD workflow: **Ready**
+- ✅ Validation cleanup: **Complete**
 
 ### Target Status (After Fixes)
-- 🎯 Static tests: **33/33 passing** (100%)
-- 🎯 Full suite: **41/41 passing** (100%)
+- 🎯 Static tests: **29/29 passing** (100%)
+- 🎯 Full suite: **36/36 passing** (100%)
 - 🎯 CI/CD: **Automated and active**
 
 ## Key Features
 
-1. **Fast Static Tests** - No API key needed for 33/41 tests (~2 seconds)
-2. **Comprehensive SDK Tests** - Full command/agent validation (8 tests)
+1. **Fast Static Tests** - No API key needed for 29/36 tests (~2 seconds)
+2. **Comprehensive SDK Tests** - Full command/agent validation (7 tests)
 3. **Beautiful Reports** - HTML + JSON output with visual summaries
 4. **CI/CD Ready** - GitHub Actions workflow included
 5. **Developer Friendly** - Shell script, pnpm support, clear docs
 6. **Maintainable** - TypeScript, modular utilities, easy to extend
+7. **Clean Architecture** - Validation tests removed as per project requirements
 
 ## Files Created
 
@@ -227,9 +237,30 @@ This test suite was built following the **CONSISTENCY_TEST_PLAN.md** specificati
 
 ---
 
-**Status:** ✅ Implementation Complete
+**Status:** ✅ Implementation Complete + Validation Tests Removed
 **Next:** Fix identified issues to reach 100% pass rate
 **Time Invested:** ~3 hours
-**Value:** Automated validation of 28+ test scenarios, saving 2-3 hours per manual test run
+**Value:** Automated validation of 25+ test scenarios, saving 2-3 hours per manual test run
 
 🎉 **The automated test suite is ready to use!**
+
+## Changes Made - Validation Removal
+
+### Test Files Updated
+1. **01-command-consistency.test.ts** - Removed 'fluxwing-validate.md' from expected commands (5→4 commands)
+2. **02-agent-consistency.test.ts** - Removed 'fluxwing-validator.md' from expected agents (3→2 agents)
+3. **03-functional-commands.test.ts** - Removed Test 3.4 (validate scope), renumbered 3.5→3.4
+4. **04-functional-agents.test.ts** - Removed Test 4.3 (validator agent scope)
+5. **06-integration.test.ts** - Removed validation steps from integration tests
+
+### Documentation Updated
+6. **tests/README.md** - Updated test counts (28→25), removed validation scope notes, updated durations
+7. **tests/TEST_RESULTS_SUMMARY.md** - Updated all test counts, added validation cleanup notes
+
+### Summary of Changes
+- Total tests: 41 → 36 (5 validation tests removed)
+- Command tests: 5 → 4
+- Agent tests: 3 → 2
+- Integration tests updated to remove validation workflow steps
+- All test numbering updated sequentially
+- Documentation reflects new test counts throughout

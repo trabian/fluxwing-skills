@@ -14,14 +14,13 @@ This index helps you load only the documentation you need, saving context tokens
 | 02-core-concepts.md | ~600 | UXM + template system basics |
 | 03-component-creation.md | ~800 | Full creation workflow |
 | 04-screen-composition.md | ~700 | Building complete screens |
-| 05-validation-guide.md | ~600 | Quality standards |
 | 06-ascii-patterns.md | ~500 | Pattern library reference |
 | 07-schema-reference.md | ~300 | Schema documentation pointer |
 | screenshot-data-merging.md | ~600 | Vision data merging helpers |
 | screenshot-screen-generation.md | ~800 | Screen file generation helpers |
 | screenshot-validation-functions.md | ~900 | Validation function implementations |
-| **Total (Core)** | **~4000** | Core documentation |
-| **Total (With Screenshot)** | **~6300** | Including screenshot helpers |
+| **Total (Core)** | **~3400** | Core documentation |
+| **Total (With Screenshot)** | **~5700** | Including screenshot helpers |
 
 ### Loading Strategies by Task
 
@@ -29,11 +28,6 @@ This index helps you load only the documentation you need, saving context tokens
 **Load**: 01 → 03 → 06
 **Total**: ~1700 tokens
 **Why**: Quick start + creation workflow + ASCII patterns
-
-#### Validating Components
-**Load**: 05 → 07
-**Total**: ~900 tokens
-**Why**: Validation rules + schema reference
 
 #### Composing Screens
 **Load**: 04 → 03 → 06
@@ -62,7 +56,7 @@ This index helps you load only the documentation you need, saving context tokens
 
 #### Deep Dive / Reference
 **Load**: All core files
-**Total**: ~4000 tokens
+**Total**: ~3400 tokens
 **Use**: When you need comprehensive understanding
 
 ## Documentation Files
@@ -78,9 +72,6 @@ Complete step-by-step workflow for creating components. Load this when actively 
 
 ### 04-screen-composition.md
 How to compose complete screens from components. Layout patterns and best practices.
-
-### 05-validation-guide.md
-All validation rules, quality checks, and common errors. Essential for QA work.
 
 ### 06-ascii-patterns.md
 ASCII character patterns library. Box-drawing characters, states, form elements, etc.
@@ -132,7 +123,6 @@ The plugin also includes the complete UXSCII agent guide:
 2. Read: 03-component-creation.md (full workflow)
 3. Load: ../examples/primary-button.{uxm,md} (see example)
 4. Create: Your component files
-5. Validate: 05-validation-guide.md (check quality)
 ```
 
 ### Workflow 2: Build a Complete Screen
@@ -146,11 +136,10 @@ The plugin also includes the complete UXSCII agent guide:
 
 ### Workflow 3: Ensure Quality
 ```
-1. Read: 05-validation-guide.md (validation levels)
-2. Load: ../schema/uxm-component.schema.json (schema)
-3. Check: All validation levels
-4. Fix: Errors and warnings
-5. Document: Any exceptions or deviations
+1. Load: ../schema/uxm-component.schema.json (schema)
+2. Check: All validation levels
+3. Fix: Errors and warnings
+4. Document: Any exceptions or deviations
 ```
 
 ## Context-Saving Tips
@@ -169,16 +158,14 @@ The plugin also includes the complete UXSCII agent guide:
 ├─ 02-core-concepts.md ──────→ Foundation (read first for learning)
 ├─ 03-component-creation.md ─→ Implementation (references 02, 06)
 ├─ 04-screen-composition.md ─→ Assembly (references 03, 06)
-├─ 05-validation-guide.md ───→ Quality (references 07)
 ├─ 06-ascii-patterns.md ─────→ Toolkit (referenced by 03, 04)
-└─ 07-schema-reference.md ───→ Spec (referenced by 03, 05)
+└─ 07-schema-reference.md ───→ Spec (referenced by 03)
 ```
 
 ## Getting Help
 
 - **Confused?** Start with 01-quick-start.md for a concrete example
 - **Stuck?** Check 03-component-creation.md troubleshooting section
-- **Validation errors?** See 05-validation-guide.md common issues
 - **Need inspiration?** Browse ../examples/ for patterns
 - **Deep dive needed?** Load UXSCII_AGENT_GUIDE.md
 

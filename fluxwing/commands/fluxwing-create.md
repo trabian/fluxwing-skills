@@ -74,12 +74,11 @@ If the `./fluxwing/components/` directory doesn't exist, create it.
 
 **Note**: If you're customizing a bundled template, you may copy it to `./fluxwing/library/` first for reference, but new components should go to `./fluxwing/components/`.
 
-### 5. Validate & Guide Next Steps
+### 5. Guide Next Steps
 
 After creation:
 1. Show a preview of the component
-2. Suggest running `/fluxwing-validate` to check quality
-3. Explain how to use this component in a screen with `/fluxwing-scaffold`
+2. Explain how to use this component in a screen with `/fluxwing-scaffold`
 
 ## Resources Available
 
@@ -117,7 +116,6 @@ Here's a preview:
 ╰──────────────────╯
 
 Next steps:
-- Run `/fluxwing-validate` to check component quality
 - Use this button in a screen with `/fluxwing-scaffold`
 - View all components with `/fluxwing-library`
 ```

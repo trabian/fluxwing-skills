@@ -19,15 +19,6 @@ The schema specifies:
 
 ## How to Use the Schema
 
-### For Validation
-
-The schema is used by validation tools to check if your `.uxm` files are correct.
-
-```bash
-# Validate against schema
-/fluxwing-validate ./fluxwing/components/my-component.uxm
-```
-
 ### For Reference
 
 When creating components, refer to the schema to understand:
@@ -210,6 +201,5 @@ For comprehensive schema documentation, see:
 
 - **View schema**: Open `../schema/uxm-component.schema.json`
 - **See examples**: Browse `../examples/*.uxm`
-- **Validate**: Use `/fluxwing-validate` command
 
 The schema ensures all uxscii components are compatible and machine-readable!

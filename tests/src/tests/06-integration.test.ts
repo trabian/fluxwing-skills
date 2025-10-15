@@ -30,7 +30,7 @@ describe('Category 6: Integration & Edge Cases', () => {
   describe('Test 6.1: Complete Component Lifecycle End-to-End', () => {
     const skipIfNoApiKey = process.env.ANTHROPIC_API_KEY ? test : test.skip;
 
-    skipIfNoApiKey('should complete full workflow: browse → view → copy → create → validate', async () => {
+    skipIfNoApiKey('should complete full workflow: browse → view → copy → create', async () => {
       // Step 1: Browse library
       const lib1 = await client.executeCommand('/fluxwing-library');
       FluxwingAssertions.assertContains(lib1, '11', 'Should show 11 bundled templates');
@@ -62,15 +62,7 @@ describe('Category 6: Integration & Edge Cases', () => {
         'Should find custom-card in components'
       );
 
-      // Step 6: Validate everything
-      const validation = await client.executeCommand('/fluxwing-validate');
-      FluxwingAssertions.assertContains(
-        validation,
-        'custom-card',
-        'Validation should include custom-card'
-      );
-
-      // Step 7: Browse library again
+      // Step 6: Browse library again
       const lib2 = await client.executeCommand('/fluxwing-library');
 
       // Should show all sources
@@ -148,57 +140,36 @@ describe('Category 6: Integration & Edge Cases', () => {
   describe('Test 6.3: Error Messages Show Correct Paths', () => {
     const skipIfNoApiKey = process.env.ANTHROPIC_API_KEY ? test : test.skip;
 
-    skipIfNoApiKey('should show project-relative paths in validation errors', async () => {
-      // Create invalid component
-      const badComponentPath = path.join(
+    skipIfNoApiKey('should show project-relative paths in error messages', async () => {
+      // Create a component with invalid path reference
+      const testComponentPath = path.join(
         testWorkspace,
         'fluxwing/components',
-        'bad-test.uxm'
+        'test-error.uxm'
       );
 
       await fileUtils.writeFile(
-        badComponentPath,
+        testComponentPath,
         JSON.stringify({
-          id: 'bad-test',
+          id: 'test-error',
           type: 'button',
-          // Missing required fields
+          // Valid component
         })
       );
 
-      // Run validation
-      const output = await client.executeCommand(
-        '/fluxwing-validate ./fluxwing/components/bad-test.uxm'
-      );
+      // Try to get a non-existent component (should produce error)
+      const output = await client.executeCommand('/fluxwing-get non-existent-component');
 
-      // Should show project-relative path
-      FluxwingAssertions.assertContains(
-        output,
-        './fluxwing/components/bad-test.uxm',
-        'Error should show project-relative path'
-      );
-
-      // Should NOT show plugin directory paths
+      // Error messages should NOT show plugin directory paths
       expect(output).not.toMatch(/\.claude\/plugins/);
     });
 
     skipIfNoApiKey('should provide actionable error messages', async () => {
-      // Create component with issue
-      const problematicComponent = path.join(
-        testWorkspace,
-        'fluxwing/components',
-        'issue-test.uxm'
-      );
-
-      await fileUtils.writeFile(problematicComponent, '{ invalid json');
-
-      // Run validation
-      const output = await client.executeCommand('/fluxwing-validate');
+      // Try to get a non-existent component
+      const output = await client.executeCommand('/fluxwing-get non-existent-test-component');
 
       // Should have specific error message
-      expect(output).toMatch(/error|invalid|issue|problem/i);
-
-      // Should reference the problematic file
-      expect(output).toMatch(/issue-test/);
+      expect(output).toMatch(/not found|doesn't exist|cannot find/i);
     });
   });
 
@@ -235,7 +206,6 @@ describe('Category 6: Integration & Edge Cases', () => {
         () => client.executeCommand('/fluxwing-create integrity-test-1'),
         () => client.executeCommand('/fluxwing-scaffold integrity-screen'),
         () => client.executeCommand('/fluxwing-library'),
-        () => client.executeCommand('/fluxwing-validate'),
         () => client.dispatchAgent('fluxwing-designer', 'Create a card component'),
       ];
 

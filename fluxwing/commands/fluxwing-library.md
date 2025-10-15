@@ -156,9 +156,8 @@ What would you like to do?
 1️⃣ View component details (/fluxwing-get [name])
 2️⃣ Copy a template to your project (bundled → ./fluxwing/library/)
 3️⃣ Create a new component (/fluxwing-create)
-4️⃣ Validate existing components (/fluxwing-validate)
-5️⃣ Scaffold a new screen (/fluxwing-scaffold)
-6️⃣ Search for a specific pattern (e.g., "button", "input", "card")
+4️⃣ Scaffold a new screen (/fluxwing-scaffold)
+5️⃣ Search for a specific pattern (e.g., "button", "input", "card")
 ```
 
 ## Detailed View
@@ -291,7 +290,6 @@ Get started:
 - **Your library** in `./fluxwing/library/` contains customized template copies (editable)
 - **Your screens** in `./fluxwing/screens/` are fully editable
 - Screens reference components by ID - ensure components exist first
-- Use `/fluxwing-validate` after copying/creating to ensure quality
 - Use `/fluxwing-get [name]` to view details of any component from any source
 
 You are helping users discover and leverage the complete uxscii component ecosystem!
