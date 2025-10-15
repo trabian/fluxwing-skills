@@ -7,7 +7,6 @@ Solutions to common issues when using Fluxwing.
 - [Installation Issues](#installation-issues)
 - [Command Issues](#command-issues)
 - [Agent Issues](#agent-issues)
-- [Validation Issues](#validation-issues)
 - [File Issues](#file-issues)
 - [Schema Issues](#schema-issues)
 - [Performance Issues](#performance-issues)
@@ -157,19 +156,13 @@ df -h .
 
 **Solutions**:
 
-**1. Check if components have errors**:
-```bash
-/fluxwing-validate
-# Fix any component errors first
-```
-
-**2. Verify screen template loading**:
+**1. Verify screen template loading**:
 ```bash
 ls ~/.claude/plugins/cache/fluxwing/data/screens/
 # Should show example screens
 ```
 
-**3. Check component references**:
+**2. Check component references**:
 - Ensure all referenced components exist
 - IDs match exactly (case-sensitive)
 
@@ -198,33 +191,6 @@ ls ~/.claude/plugins/cache/fluxwing/data/examples/
 ```bash
 /plugin reload fluxwing
 /fluxwing-library
-```
-
-### `/fluxwing-validate` Always Fails
-
-**Symptoms**:
-```
-Validation failed for all files
-Error: Cannot load schema
-```
-
-**Solutions**:
-
-**1. Check schema file exists**:
-```bash
-ls ~/.claude/plugins/cache/fluxwing/data/schema/uxm-component.schema.json
-```
-
-**2. Verify schema is valid JSON**:
-```bash
-cat ~/.claude/plugins/cache/fluxwing/data/schema/uxm-component.schema.json | jq .
-# Should parse without errors
-```
-
-**3. Reinstall plugin**:
-```bash
-/plugin uninstall fluxwing
-/plugin install fluxwing
 ```
 
 ---
@@ -294,37 +260,6 @@ ls ~/.claude/plugins/cache/fluxwing/agents/
 Using existing card and list components"
 ```
 
-### Agent Creates Invalid Files
-
-**Symptoms**:
-- Agent completes successfully
-- But validation fails on created files
-
-**Solutions**:
-
-**This is normal for first pass!**
-
-**1. Review validator output**:
-```bash
-/fluxwing-validate
-# See specific errors
-```
-
-**2. Fix flagged issues**:
-- Follow validator recommendations
-- Update files as suggested
-
-**3. Re-validate**:
-```bash
-/fluxwing-validate
-# Confirm fixes worked
-```
-
-**4. Report patterns** (if recurring):
-- Open GitHub issue
-- Include example of problem
-- Helps improve future agent performance
-
 ### Agent Reports Missing Resources
 
 **Symptoms**:
@@ -354,53 +289,7 @@ echo $CLAUDE_PLUGIN_ROOT
 
 ---
 
-## Validation Issues
-
-### Valid Files Fail Schema Validation
-
-**Symptoms**:
-```
-Schema validation failed: Missing required field 'id'
-But file clearly has "id" field!
-```
-
-**Solutions**:
-
-**1. Check JSON syntax**:
-```bash
-cat your-component.uxm | jq .
-# Should parse without errors
-
-# Common issues:
-# - Missing commas
-# - Trailing commas (not allowed)
-# - Unquoted property names
-# - Single quotes (must be double quotes)
-```
-
-**2. Verify field types**:
-```json
-{
-  "id": "my-component",        // ✓ String
-  "version": "1.0.0",          // ✓ String
-  "ascii": {
-    "width": 20,               // ✓ Number (not "20")
-    "height": 3                // ✓ Number (not "3")
-  }
-}
-```
-
-**3. Check required field locations**:
-```json
-{
-  "id": "component",           // ✓ Top level
-  "metadata": {
-    "name": "Component",       // ✓ Inside metadata
-    "created": "2024-10-11T12:00:00Z",  // ✓ ISO 8601 format
-    "modified": "2024-10-11T12:00:00Z"  // ✓ ISO 8601 format
-  }
-}
-```
+## File Issues
 
 ### Template File Not Found
 
@@ -489,10 +378,6 @@ Email: {{userEmail}}
 **4. Remove unused variables**:
 - Either use them in template
 - Or remove from props
-
----
-
-## File Issues
 
 ### Cannot Read/Write Files
 
@@ -728,40 +613,6 @@ find ./fluxwing -type f | wc -l
 - Remove unused states
 - Clean up metadata
 
-### Validation Takes Too Long
-
-**Symptoms**:
-```
-/fluxwing-validate
-... (takes >1 minute)
-```
-
-**Solutions**:
-
-**1. Validate specific files**:
-```bash
-# Instead of all files
-/fluxwing-validate
-
-# Validate just what changed
-/fluxwing-validate ./fluxwing/components/new-component.uxm
-```
-
-**2. Use quick command, not agent**:
-```bash
-# Quick check
-/fluxwing-validate
-
-# Comprehensive analysis (slower)
-# Dispatch fluxwing-validator agent
-```
-
-**3. Reduce file count**:
-```bash
-# Remove unused components
-rm ./fluxwing/components/old-*.{uxm,md}
-```
-
 ### Out of Memory Errors
 
 **Symptoms**:
@@ -780,16 +631,6 @@ export NODE_OPTIONS="--max-old-space-size=4096"
 - Simplify ASCII art
 - Remove trailing spaces
 - Reduce metadata verbosity
-
-**3. Process in batches**:
-```bash
-# Instead of all at once
-/fluxwing-validate
-
-# Process directories separately
-/fluxwing-validate ./fluxwing/components/
-/fluxwing-validate ./fluxwing/screens/
-```
 
 ---
 
@@ -859,7 +700,6 @@ It doesn't work. Help!
 - `AGENTS.md` - Agent reference
 - `ARCHITECTURE.md` - Technical details
 - `CONTRIBUTING.md` - Extending Fluxwing
-- `data/docs/` - uxscii documentation
 
 **Community**:
 - GitHub Issues - Bug reports, feature requests
@@ -889,10 +729,6 @@ It doesn't work. Help!
 ### `SyntaxError: Unexpected token`
 **Meaning**: Invalid JSON syntax
 **Fix**: Check JSON with `jq`, fix syntax errors
-
-### `ValidationError: requires property "..."`
-**Meaning**: Required field missing from .uxm
-**Fix**: Add missing field per schema
 
 ### `Error: Template file not found`
 **Meaning**: .md file missing or misnamed

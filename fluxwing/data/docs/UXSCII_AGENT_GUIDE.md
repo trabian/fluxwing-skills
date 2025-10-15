@@ -12,7 +12,6 @@ This document is a **UXSCII language specification reference** that describes th
 
 **For Fluxwing Plugin Users:**
 - Use `/fluxwing-create` to create components
-- Use `/fluxwing-validate` to validate components
 - Use `/fluxwing-scaffold` to build complete screens
 - Everything is self-contained in the plugin
 
@@ -27,7 +26,7 @@ This specification document is provided for reference and understanding the UXSC
 3. [Component Creation Workflow](#component-creation-workflow)
 4. [Template Design Patterns](#template-design-patterns)
 5. [Complete Examples](#complete-examples)
-6. [Validation & Quality](#validation--quality)
+6. [Quality Standards](#quality-standards)
 7. [Advanced Techniques](#advanced-techniques)
 8. [Troubleshooting](#troubleshooting)
 9. [Quick Reference](#quick-reference)
@@ -341,22 +340,6 @@ Animated spinner to indicate loading state.
     }
   }
 }
-```
-
-### Step 5: Validate and Test
-
-```bash
-# Check schema compliance
-uxscii validate your-component.uxm
-
-# Check quality and best practices
-uxscii lint your-component.uxm --strict
-
-# Validate template syntax
-uxscii template your-component.md
-
-# Test the complete component
-uxscii uxm get your-component
 ```
 
 ---
@@ -853,9 +836,9 @@ Dashboard widget for displaying key business metrics with trend visualization.
 
 ---
 
-## Validation & Quality
+## Quality Standards
 
-### Essential Validation Checklist
+### Essential Quality Checklist
 
 **Schema Compliance:**
 - [ ] All required fields present (`id`, `type`, `version`, `metadata`, `props`, `ascii`)
@@ -877,25 +860,9 @@ Dashboard widget for displaying key business metrics with trend visualization.
 - [ ] Keyboard support documented
 - [ ] Screen reader labels provided
 
-### Validation Commands
+### Common Schema Errors
 
-```bash
-# Complete validation suite
-uxscii validate component.uxm
-
-# Quality and best practices
-uxscii lint component.uxm --strict
-
-# Template syntax check
-uxscii template template.md --validate
-
-# Test complete integration
-uxscii uxm get component.uxm
-```
-
-### Common Validation Errors
-
-**Schema Errors:**
+**Structure Errors:**
 ```
 ❌ Missing required field: id
 ❌ Invalid ID format: 'MyComponent' (should be 'my-component')
@@ -910,15 +877,6 @@ uxscii uxm get component.uxm
 ❌ Undefined variable in template: '{{undefinedVar}}'
 ❌ Non-ASCII characters detected in line 5
 ❌ Template dimensions don't match declared size
-```
-
-**Quality Warnings:**
-```
-⚠️ Missing component description
-⚠️ No accessibility configuration
-⚠️ Template variable lacks validation
-⚠️ Missing interaction states
-⚠️ No usage examples in template
 ```
 
 ### Quality Improvement Tips
@@ -1158,43 +1116,16 @@ Design for different screen sizes:
 
 ### Debugging Workflows
 
-**1. Step-by-step Validation:**
+**1. Step-by-step Checking:**
 ```bash
 # 1. Check basic JSON syntax
 cat component.uxm | python -m json.tool
 
-# 2. Validate schema compliance
-uxscii validate component.uxm
+# 2. Check template syntax
+cat component.md
 
-# 3. Check template syntax
-uxscii template component.md
-
-# 4. Test complete integration
-uxscii uxm get component
-```
-
-**2. Template Debugging:**
-```bash
-# Check what variables are found
-grep -o '{{[^}]*}}' template.md
-
-# Validate template independently
-uxscii template template.md --validate
-
-# Test with sample data
-echo '{"text": "Test"}' | uxscii template template.md -
-```
-
-**3. Schema Debugging:**
-```bash
-# Get detailed validation errors
-uxscii validate component.uxm --verbose
-
-# Check against specific schema version
-uxscii schema --version 1.1.0
-
-# Lint with strict rules
-uxscii lint component.uxm --strict
+# 3. Verify variables match
+grep -o '{{[^}]*}}' component.md
 ```
 
 ---
@@ -1240,28 +1171,6 @@ ASCII art with {{variables}}
 - `variableName` (type): Description
 ```
 
-### CLI Command Quick Reference
-
-```bash
-# Validation
-uxscii validate file.uxm           # Validate component
-uxscii template file.md            # Validate template
-uxscii lint file.uxm --strict      # Quality check
-
-# Schema Management
-uxscii schema --list               # List schema versions
-uxscii schema --latest             # Get latest schema
-
-# Component Operations
-uxscii uxm get component           # Get component + template
-uxscii compress file.uxm           # Generate compressed format
-uxscii diff file1.uxm file2.uxm   # Compare components
-
-# Stdin Support (all commands)
-cat file.uxm | uxscii validate -
-echo '{}' | uxscii validate -
-```
-
 ### ASCII Pattern Library
 
 ```
@@ -1305,12 +1214,10 @@ backgroundColor, fontSize, marginTop
 **During Creation:**
 - [ ] Start with minimal required fields
 - [ ] Add one feature at a time
-- [ ] Validate frequently with CLI
 - [ ] Test template variable substitution
 
 **Before Committing:**
-- [ ] Full validation passes
-- [ ] Linting passes with --strict
+- [ ] Schema compliance verified
 - [ ] Template renders correctly
 - [ ] All variables documented
 - [ ] Usage examples included
@@ -1332,13 +1239,11 @@ backgroundColor, fontSize, marginTop
 ## Getting Help
 
 ### Community Resources
-- **Documentation**: [UXSCII Schema Guide](./UXSCII_SCHEMA_GUIDE.md)
+- **Documentation**: Browse `./docs/` directory
 - **Examples**: Browse `./examples/` directory
-- **CLI Help**: `uxscii --help` and `uxscii <command> --help`
 
 ### Advanced Topics
 - **Component Libraries**: Sharing and distributing components
-- **Extension Development**: Custom validation and processing
 - **Integration**: Using uxscii with build tools and frameworks
 - **Performance**: Optimizing component parsing and rendering
 

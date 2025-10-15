@@ -188,63 +188,7 @@ describe('Category 3: Functional Testing - Commands', () => {
     });
   });
 
-  describe('Test 3.4: /fluxwing-validate Scope', () => {
-    const skipIfNoApiKey = process.env.ANTHROPIC_API_KEY ? test : test.skip;
-
-    skipIfNoApiKey('should only validate project workspace files', async () => {
-      // Create a test component
-      await fileUtils.createTestComponent(
-        'validate-test',
-        path.join(testWorkspace, 'fluxwing/components')
-      );
-
-      const output = await client.executeCommand('/fluxwing-validate');
-
-      // Should show project file paths
-      FluxwingAssertions.assertContains(
-        output,
-        './fluxwing/components/',
-        'Should validate files in project components directory'
-      );
-
-      // Should NOT show plugin directory paths in validation results
-      FluxwingAssertions.assertNotContains(
-        output,
-        /.claude\/plugins/,
-        'Should not validate plugin directory files'
-      );
-    });
-
-    skipIfNoApiKey('should skip bundled templates', async () => {
-      const output = await client.executeCommand('/fluxwing-validate');
-
-      // Should mention that bundled templates are skipped
-      const skippedIndicators = [
-        /bundled.*skip/i,
-        /skip.*bundled/i,
-        /pre-validated/i,
-      ];
-
-      const mentionsSkipped = skippedIndicators.some((pattern) =>
-        pattern.test(output)
-      );
-
-      expect(mentionsSkipped).toBe(true);
-    });
-
-    skipIfNoApiKey('should show clear file paths in report', async () => {
-      const output = await client.executeCommand('/fluxwing-validate');
-
-      // Paths should be project-relative
-      expect(output).toMatch(/\.\/fluxwing\//);
-
-      // Should NOT contain absolute system paths
-      expect(output).not.toMatch(/\/Users\/.*\/\.claude/);
-      expect(output).not.toMatch(/\/home\/.*\/\.claude/);
-    });
-  });
-
-  describe('Test 3.5: /fluxwing-get Search Order', () => {
+  describe('Test 3.4: /fluxwing-get Search Order', () => {
     const skipIfNoApiKey = process.env.ANTHROPIC_API_KEY ? test : test.skip;
 
     skipIfNoApiKey('should find project component first (highest priority)', async () => {

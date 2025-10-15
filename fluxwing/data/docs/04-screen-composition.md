@@ -286,18 +286,6 @@ Show mobile and desktop layouts when needed:
 ```
 ````
 
-## Validation Checklist
-
-Before finalizing a screen:
-
-- [ ] All referenced component IDs exist
-- [ ] Layout is clear and well-aligned
-- [ ] All three files created (.uxm, .md, .rendered.md)
-- [ ] Rendered example uses real data
-- [ ] Accessibility attributes present
-- [ ] User flows documented
-- [ ] Screen metadata complete
-
 ## Tips for Great Screens
 
 1. **Start with wireframe**: Sketch layout before coding
@@ -325,7 +313,6 @@ Before finalizing a screen:
 
 ## Next Steps
 
-- **Validate**: Run `/fluxwing-validate ./fluxwing/screens/screen-name.uxm`
 - **View library**: Use `/fluxwing-library` to see all screens
 - **Create more**: Build additional screens for your app
 

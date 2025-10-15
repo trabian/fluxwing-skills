@@ -606,8 +606,7 @@ All files are valid and ready to use!
 
 1. Review generated files in ./fluxwing/components/ and ./fluxwing/screens/
 2. Customize components to match your brand
-3. Run `/fluxwing-validate` for detailed quality check
-4. Use `/fluxwing-library` to browse all components
+3. Use `/fluxwing-library` to browse all components
 ```
 
 ---

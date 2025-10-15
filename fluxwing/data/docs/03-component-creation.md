@@ -247,15 +247,6 @@ Create the directory if it doesn't exist:
 mkdir -p ./fluxwing/components
 ```
 
-### Step 8: Validate
-
-Check your component:
-```bash
-/fluxwing-validate ./fluxwing/components/my-component.uxm
-```
-
-Fix any errors before proceeding.
-
 ## Common Patterns
 
 ### Form Input
@@ -328,9 +319,6 @@ Fix any errors before proceeding.
 ### "ASCII art looks broken"
 **Fix**: Use monospace font, check for consistent character width
 
-### "Validation fails"
-**Fix**: Compare against schema at `../schema/uxm-component.schema.json`
-
 ## Quick Reference
 
 **Required .uxm fields**: id, type, version, metadata (name, created, modified), props, ascii (templateFile, width, height)
@@ -342,7 +330,6 @@ Fix any errors before proceeding.
 ## Next Steps
 
 - **Compose screens**: Use `/fluxwing-scaffold` to build complete screens
-- **Validate thoroughly**: Run `/fluxwing-validate` for quality check
 - **Browse library**: Use `/fluxwing-library` to see all components
 - **Learn patterns**: Check `06-ascii-patterns.md` for ASCII art reference
 

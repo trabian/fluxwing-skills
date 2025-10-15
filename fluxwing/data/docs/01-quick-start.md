@@ -80,13 +80,6 @@ And add to `.uxm`:
 }
 ```
 
-## Validate
-
-Check your component:
-```bash
-/fluxwing-validate ./fluxwing/components/submit-button.uxm
-```
-
 ## Next Steps
 
 - **More details?** Read `03-component-creation.md`

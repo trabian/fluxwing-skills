@@ -16,7 +16,6 @@ describe('Category 1: Command File Consistency', () => {
       'fluxwing-create.md',
       'fluxwing-library.md',
       'fluxwing-scaffold.md',
-      'fluxwing-validate.md',
       'fluxwing-get.md',
     ];
 
@@ -38,7 +37,7 @@ describe('Category 1: Command File Consistency', () => {
       }
     );
 
-    test('All 5 command files have Data Location Rules header', async () => {
+    test('All 4 command files have Data Location Rules header', async () => {
       const commandsDir = path.join(pluginRoot, 'commands');
       let allHaveHeader = true;
       const missingFiles: string[] = [];
@@ -70,7 +69,6 @@ describe('Category 1: Command File Consistency', () => {
       'fluxwing-create.md',
       'fluxwing-library.md',
       'fluxwing-scaffold.md',
-      'fluxwing-validate.md',
       'fluxwing-get.md',
     ];
 

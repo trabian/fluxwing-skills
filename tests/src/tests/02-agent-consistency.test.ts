@@ -15,7 +15,6 @@ describe('Category 2: Agent File Consistency', () => {
     const agentFiles = [
       'fluxwing-composer.md',
       'fluxwing-designer.md',
-      'fluxwing-validator.md',
     ];
 
     test.each(agentFiles)(
@@ -36,7 +35,7 @@ describe('Category 2: Agent File Consistency', () => {
       }
     );
 
-    test('All 3 agent files have Data Location Rules header with agent-focused tone', async () => {
+    test('All 2 agent files have Data Location Rules header with agent-focused tone', async () => {
       const agentsDir = path.join(pluginRoot, 'agents');
       const issues: string[] = [];
 
@@ -73,11 +72,6 @@ describe('Category 2: Agent File Consistency', () => {
         file: 'fluxwing-designer.md',
         section: 'Phase 2',
         description: 'designer Phase 2',
-      },
-      {
-        file: 'fluxwing-validator.md',
-        section: 'Phase 1',
-        description: 'validator Phase 1',
       },
     ];
 

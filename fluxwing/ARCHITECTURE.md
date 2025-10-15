@@ -104,12 +104,11 @@ plugin/
 ├── commands/                     # Slash Commands (4 total)
 │   ├── fluxwing-create.md       # Create single component
 │   ├── fluxwing-scaffold.md     # Build complete screen
-│   ├── fluxwing-validate.md     # Quick validation
-│   └── fluxwing-library.md      # Browse library
+│   ├── fluxwing-library.md      # Browse library
+│   └── fluxwing-get.md          # View component details
 │
-├── agents/                       # Autonomous Agents (3 total)
+├── agents/                       # Autonomous Agents (2 total)
 │   ├── fluxwing-designer.md     # Multi-component design
-│   ├── fluxwing-validator.md    # Deep quality analysis
 │   └── fluxwing-composer.md     # Screen composition
 │
 ├── data/                         # All uxscii assets (portable bundle)
@@ -185,12 +184,12 @@ When users create designs, files go to their project:
 ### File Count Summary
 
 - **Commands**: 4 slash commands
-- **Agents**: 3 autonomous agents
+- **Agents**: 2 autonomous agents
 - **Component Examples**: 11 (22 files: .uxm + .md pairs)
 - **Screen Examples**: 2 (6 files: .uxm + .md + .rendered.md)
 - **Documentation**: 10 modular docs + 3 full reference docs
 - **Schema**: 1 definitive JSON Schema
-- **Total**: ~45 plugin files (excluding node_modules, .git)
+- **Total**: ~43 plugin files (excluding node_modules, .git)
 
 ---
 
@@ -650,13 +649,11 @@ Data shown:
 
 **Commands are for quick tasks**:
 - Create one component
-- Validate one file
 - Browse library
 - Build one screen
 
 **Agents are for complex workflows**:
 - Create entire design systems (10+ components)
-- Comprehensive quality analysis
 - Multi-screen composition
 - Autonomous decision-making
 
@@ -870,9 +867,9 @@ User modifies 1 component
 ### Decision 2: Command Naming
 
 **Options Considered**:
-1. `/uxscii-create`, `/uxscii-validate` (standard-focused)
-2. `/create-component`, `/validate-component` (generic)
-3. `/fluxwing-create`, `/fluxwing-validate` (bot-focused)
+1. `/uxscii-create`, `/uxscii-library` (standard-focused)
+2. `/create-component`, `/browse-library` (generic)
+3. `/fluxwing-create`, `/fluxwing-library` (bot-focused)
 
 **Chosen**: Option 3 (fluxwing prefix)
 
