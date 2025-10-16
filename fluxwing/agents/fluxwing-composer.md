@@ -63,6 +63,8 @@ Before composing anything, catalog what's available **in this specific order**:
 
 **Search Order**: Always check components → library → bundled templates.
 
+**Note**: Available components will have default state only. Mention `/fluxwing-expand-component` in final report for adding interaction states if needed.
+
 **Use TodoWrite** to track inventory and composition tasks.
 
 ### Phase 2: Screen Design
@@ -90,13 +92,43 @@ For the requested screen:
    - Breakpoint considerations
    - Adaptive component sizing
 
-### Phase 3: Create Screen Files
+### Phase 3: Create Screen Files (IN PARALLEL)
+
+**CRITICAL**: Create ALL 3 screen files in a SINGLE message with multiple Write tool calls. This is the ONLY way to achieve parallel file creation.
+
+**DO THIS**: One message with 3 Write calls (.uxm + .md + .rendered.md)
+**DON'T DO THIS**: Separate messages for each file (runs sequentially)
 
 **IMPORTANT**: Save all screen files to `./fluxwing/screens/` ONLY. Never write to plugin data directory.
+
+Prepare content for all 3 files, then write them all at once:
+
+```
+Write({
+  file_path: "./fluxwing/screens/login-screen.uxm",
+  content: "{ valid JSON screen definition }"
+})
+
+Write({
+  file_path: "./fluxwing/screens/login-screen.md",
+  content: "# Login Screen\n\n[template]"
+})
+
+Write({
+  file_path: "./fluxwing/screens/login-screen.rendered.md",
+  content: "# Login Screen - Rendered\n\n[REAL data]"
+})
+
+... all Write calls in SAME message ...
+```
 
 Create THREE files for every screen:
 
 #### A. `[screen-name].uxm` - Screen Metadata
+
+**CRITICAL: This file MUST be valid JSON format (not YAML)**
+
+Use proper JSON syntax with double quotes, no trailing commas, and valid JSON structure.
 
 **Structure:**
 ```json
@@ -127,17 +159,11 @@ Create THREE files for every screen:
   "behavior": {
     "states": [
       {
-        "name": "loading",
-        "properties": {"showSpinner": true}
-      },
-      {
-        "name": "loaded",
+        "name": "default",
         "properties": {"showContent": true}
-      },
-      {
-        "name": "error",
-        "properties": {"showErrorMessage": true}
       }
+      // Note: Create screens with default state for fast MVP composition
+      // Add additional states after screen validation if needed
     ],
     "accessibility": {
       "role": "main",
@@ -362,6 +388,7 @@ Preview:
 
 Next Steps:
 - View the rendered example: cat ./fluxwing/screens/dashboard.rendered.md
+- Add interaction states to components: /fluxwing-expand-component {component-name}
 - Customize: Edit component styles in ./fluxwing/components/
 - Extend: Add more screens with /fluxwing-scaffold
 ```

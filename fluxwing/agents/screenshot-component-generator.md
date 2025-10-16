@@ -95,6 +95,10 @@ const patternsDoc = await read('{PLUGIN_ROOT}/data/docs/06-ascii-patterns.md');
 
 ### Step 2: Generate .uxm File
 
+**CRITICAL: The `.uxm` file MUST be valid JSON format (not YAML)**
+
+Use proper JSON syntax with double quotes, no trailing commas, and valid JSON structure.
+
 Use helper functions to build complete JSON structure:
 
 ```typescript
@@ -128,23 +132,14 @@ const uxmData = {
   ),
   "behavior": {
     "states": [
-      {
-        "name": "default",
-        "properties": {
-          "border": componentData.visualProperties.borderStyle,
-          "background": inferBackground(componentData.type),
-          "textColor": "default"
-        }
-      },
-      ...generateStatesFromList(
-        componentData.states.filter(s => s !== 'default'),
-        {
-          border: componentData.visualProperties.borderStyle,
-          background: inferBackground(componentData.type)
-        },
+      generateMinimalDefaultState(
+        componentData.visualProperties,
         componentData.type
       )
+      // Only generate default state for fast import
+      // Store detected states for later expansion
     ],
+    "detectedStates": componentData.states,  // For /fluxwing-expand-component
     "interactions": generateInteractions(componentData.type),
     "accessibility": {
       "role": componentData.accessibility.role,
@@ -187,18 +182,24 @@ const description = uxmData.metadata.description;
 
 let markdown = `# ${componentName}\n\n${description}\n\n`;
 
-// Generate ASCII for each state
-for (const state of componentData.states) {
-  markdown += `## ${state.charAt(0).toUpperCase() + state.slice(1)} State\n\n\`\`\`\n`;
+// Generate ASCII for DEFAULT STATE ONLY (minimal mode)
+markdown += `## Default State\n\n\`\`\`\n`;
 
-  const ascii = generateASCII(
-    componentData.id,
-    state,
-    componentData.visualProperties,
-    componentData.type
-  );
+const ascii = generateASCII(
+  componentData.id,
+  'default',
+  componentData.visualProperties,
+  componentData.type,
+  true  // minimalMode = true for fast generation
+);
 
-  markdown += ascii + '\n\`\`\`\n\n';
+markdown += ascii + '\n\`\`\`\n\n';
+
+// Add note about detected states
+if (componentData.states.length > 1) {
+  const additionalStates = componentData.states.filter(s => s !== 'default');
+  markdown += `**Detected States:** ${componentData.states.join(', ')}\n`;
+  markdown += `Run \`/fluxwing-expand-component ${componentData.id}\` to add: ${additionalStates.join(', ')}\n\n`;
 }
 
 // Add variables section
@@ -362,7 +363,7 @@ Common failure reasons:
 2. **Use helper functions**: Don't reimplement logic, use provided functions
 3. **Write to correct location**: `./fluxwing/components/` (NOT plugin directory)
 4. **Generate both files**: Always create .uxm AND .md together
-5. **Include all states**: Generate ASCII for every state in the states array
+5. **Generate default state only**: Create MVP-ready component with default state, store additional states in metadata
 6. **Match schema**: Follow `data/schema/uxm-component.schema.json` structure
 
 ## Success Criteria
@@ -371,7 +372,8 @@ Your generation is successful when:
 - ✓ Both .uxm and .md files created in `./fluxwing/components/`
 - ✓ .uxm file is valid JSON matching schema
 - ✓ All required fields present (id, type, version, metadata, props, ascii)
-- ✓ .md file contains ASCII for all states
+- ✓ .md file contains ASCII for default state
+- ✓ Detected states stored in metadata for expansion
 - ✓ All variables in .md are defined in .uxm
 - ✓ Component references use `{{component:id}}` syntax (composites only)
 - ✓ Accessibility attributes complete

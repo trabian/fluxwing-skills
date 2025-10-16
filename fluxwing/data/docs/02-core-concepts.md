@@ -155,6 +155,52 @@ Components can have multiple visual states:
 
 Each state can have a corresponding ASCII representation in the `.md` file.
 
+## Two-Phase Component Creation
+
+Fluxwing optimizes for fast MVP prototyping with a two-phase approach:
+
+### Phase 1: Create with Default State
+
+When you create a component, it starts with **only the default state**:
+- Fast creation for quick prototyping
+- MVP-ready for early discussions
+- Minimal file size and complexity
+
+```bash
+/fluxwing-create submit-button
+# Creates component with default state only
+```
+
+### Phase 2: Expand with Interactive States
+
+After MVP validation, add interaction states on demand:
+- Adds hover, focus, disabled states
+- Smart defaults based on component type
+- Preserves all existing data
+
+```bash
+/fluxwing-expand-component submit-button
+# Adds hover, active, disabled states
+```
+
+### Why Two Phases?
+
+**Benefits**:
+- **60-80% faster** component creation
+- Focus on core functionality first
+- Add polish when needed, not upfront
+- Cleaner diffs in version control
+
+**Workflow**:
+```
+1. Create → Default state only (fast)
+2. Discuss → Review with stakeholders
+3. Validate → Confirm design works
+4. Expand → Add interactive states (polish)
+```
+
+This approach aligns with agile development: ship fast, iterate based on feedback.
+
 ## Component Types
 
 Standard types:

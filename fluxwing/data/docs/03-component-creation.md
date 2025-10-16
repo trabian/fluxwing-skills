@@ -87,9 +87,9 @@ Define what users can configure:
 }
 ```
 
-### Step 4: Define States and Behaviors
+### Step 4: Define Default State and Behaviors
 
-Add interactivity:
+Components are created with **default state only** for fast MVP prototyping:
 
 ```json
 {
@@ -100,28 +100,6 @@ Add interactivity:
         "properties": {
           "border": "solid",
           "background": "primary"
-        }
-      },
-      {
-        "name": "hover",
-        "properties": {
-          "border": "highlighted",
-          "background": "primary-dark"
-        },
-        "triggers": ["mouseenter"]
-      },
-      {
-        "name": "focus",
-        "properties": {
-          "border": "focus-ring"
-        },
-        "triggers": ["focus"]
-      },
-      {
-        "name": "disabled",
-        "properties": {
-          "opacity": 0.5,
-          "cursor": "not-allowed"
         }
       }
     ],
@@ -140,6 +118,8 @@ Add interactivity:
   }
 }
 ```
+
+**Adding more states**: After MVP validation, use `/fluxwing-expand-component` to add hover, focus, disabled states. The command will automatically add appropriate states based on component type.
 
 ### Step 5: Add Metadata (Recommended)
 
@@ -176,30 +156,6 @@ Brief description of what this component does.
 ╰──────────────────╯
 ```
 
-## Hover State
-
-```
-░╭──────────────────╮░
-░│   {{text}}       │░
-░╰──────────────────╯░
-```
-
-## Focus State
-
-```
-┏━━━━━━━━━━━━━━━━━━┓✨
-┃   {{text}}       ┃
-┗━━━━━━━━━━━━━━━━━━┛
-```
-
-## Disabled State
-
-```
-┌ ─ ─ ─ ─ ─ ─ ─ ─ ┐
-│   {{text}}       │
-└ ─ ─ ─ ─ ─ ─ ─ ─ ┘
-```
-
 ## Variables
 
 - `text` (string, required): Button label text. Max 20 characters.
@@ -229,10 +185,12 @@ Brief description of what this component does.
 ````
 
 **Tips:**
-- Show ALL states visually
-- Document ALL variables
-- Include usage examples
-- Add accessibility notes
+- Start with default state only (fast MVP creation)
+- Document ALL variables used in template
+- Include usage examples with real data
+- Add accessibility notes for interactive components
+
+**Adding more states**: After creating the component, run `/fluxwing-expand-component my-component` to add hover, focus, disabled states automatically.
 
 ### Step 7: Save Files
 

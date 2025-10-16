@@ -4,5 +4,7 @@
   "version": "1.0.0",
   "author": {
     "name": "Fluxwing Team"
-  }
+  },
+  "keywords": ["fluxwing", "uxscii", "design", "ui", "components", "ascii"],
+  "license": "MIT"
 }

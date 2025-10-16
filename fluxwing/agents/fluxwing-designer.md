@@ -59,36 +59,108 @@ Identify:
 
 ### Phase 3: Systematic Creation
 
-Create components in dependency order:
+Create components in dependency order with **maximum parallelization**.
 
-#### Atomic Components First
+#### Atomic Components First (CREATE IN PARALLEL)
 Examples: button, input, badge, icon, label
 
-For each atomic component:
-1. Create `.uxm` file (JSON metadata)
-2. Create `.md` file (ASCII template)
-3. **Save to `./fluxwing/components/`** (project workspace - NOT plugin directory)
-4. Mark TodoWrite task complete
+**CRITICAL**: Create ALL atomic component files in a SINGLE message with multiple Write tool calls. This is the ONLY way to achieve parallel file creation.
 
-#### Composite Components Second
+**DO THIS**: One message with ALL Write calls for ALL atomic components
+**DON'T DO THIS**: Separate messages for each component (runs sequentially)
+
+For each atomic component, prepare the content, then write ALL files at once:
+
+```
+Write({
+  file_path: "./fluxwing/components/email-input.uxm",
+  content: "{ valid JSON for email-input }"
+})
+
+Write({
+  file_path: "./fluxwing/components/email-input.md",
+  content: "# Email Input\n\n[ASCII template]"
+})
+
+Write({
+  file_path: "./fluxwing/components/password-input.uxm",
+  content: "{ valid JSON for password-input }"
+})
+
+Write({
+  file_path: "./fluxwing/components/password-input.md",
+  content: "# Password Input\n\n[ASCII template]"
+})
+
+Write({
+  file_path: "./fluxwing/components/submit-button.uxm",
+  content: "{ valid JSON for submit-button }"
+})
+
+Write({
+  file_path: "./fluxwing/components/submit-button.md",
+  content: "# Submit Button\n\n[ASCII template]"
+})
+
+... all Write calls in the SAME message for ALL atomic components ...
+```
+
+**After parallel write completes**, mark all atomic components as complete in TodoWrite.
+
+**CRITICAL**: Use proper JSON syntax with double quotes, no trailing commas, valid structure.
+
+**Note:** Components are created with default state only for fast prototyping. Mention `/fluxwing-expand-component` in final report for adding interaction states.
+
+#### Composite Components Second (CREATE IN PARALLEL)
 Examples: form (inputs + buttons), card (container + content), navigation (menu + items)
 
-For each composite component:
-1. Reference atomic components by ID
-2. Create layout structure
-3. Define composition rules
-4. **Save to `./fluxwing/components/`** (project workspace)
-5. Mark TodoWrite task complete
+**CRITICAL**: After atomic components exist, create ALL composite component files in a SINGLE message with multiple Write tool calls.
 
-#### Screens Last
+Same parallel approach as atomic components:
+
+```
+Write({
+  file_path: "./fluxwing/components/login-form.uxm",
+  content: "{ valid JSON with component references }"
+})
+
+Write({
+  file_path: "./fluxwing/components/login-form.md",
+  content: "# Login Form\n\n[ASCII with {{component:id}} refs]"
+})
+
+... all Write calls in SAME message for ALL composite components ...
+```
+
+**After parallel write completes**, mark all composite components as complete in TodoWrite.
+
+#### Screens Last (CREATE IN PARALLEL)
 Examples: login screen, dashboard, profile page
 
-For each screen:
-1. Create `.uxm` with component references
-2. Create `.md` with layout template
-3. Create `.rendered.md` with **real example data**
-4. **Save to `./fluxwing/screens/`** (project workspace - NOT plugin directory)
-5. Mark TodoWrite task complete
+**CRITICAL**: After all components exist, create ALL screen files in a SINGLE message with multiple Write tool calls.
+
+Same parallel approach - all screens at once:
+
+```
+Write({
+  file_path: "./fluxwing/screens/login-screen.uxm",
+  content: "{ valid JSON screen definition }"
+})
+
+Write({
+  file_path: "./fluxwing/screens/login-screen.md",
+  content: "# Login Screen\n\n[template with {{component}} refs]"
+})
+
+Write({
+  file_path: "./fluxwing/screens/login-screen.rendered.md",
+  content: "# Login Screen - Rendered\n\n[with REAL data like john@example.com]"
+})
+
+... repeat for ALL screens in SAME message ...
+```
+
+**After parallel write completes**, mark all screens as complete in TodoWrite.
 
 ### Phase 4: Documentation & Reporting
 
@@ -130,8 +202,9 @@ Total: 18 files created
 ## Next Steps
 
 1. Review the rendered screen examples in ./fluxwing/screens/*.rendered.md
-2. Customize any components to match your brand
-3. Extend the design with additional screens or components
+2. Add interaction states to components: `/fluxwing-expand-component {component-name}`
+3. Customize any components to match your brand
+4. Extend the design with additional screens or components
 
 ## Preview
 
@@ -170,7 +243,8 @@ Load documentation modularly as needed (all READ-ONLY):
 - ✓ ASCII dimensions accurate
 
 ### Design Quality
-- ✓ Multiple states defined (default, hover, focus, disabled)
+- ✓ Default state defined for MVP functionality
+- ✓ Ready for expansion with `/fluxwing-expand-component`
 - ✓ Accessibility attributes complete (ARIA roles, keyboard support)
 - ✓ Rich metadata (description, tags, author, category)
 - ✓ Usage examples in templates
@@ -193,20 +267,14 @@ Use consistent box-drawing characters:
 - Light: `░░░░`
 
 ### State Representation
-Always show multiple states:
+Create components with default state initially:
 ```
 Default:  ┌─────┐
           │Click │
           └─────┘
-
-Hover:    ┏━━━━━┓
-          ┃Click ┃
-          ┗━━━━━┛
-
-Disabled: ┌ ─ ─ ┐
-          │Click │
-          └ ─ ─ ┘
 ```
+
+To add interaction states (hover, focus, disabled), use `/fluxwing-expand-component` after MVP validation.
 
 ### Rendered Examples Must Show Reality
 Bad:

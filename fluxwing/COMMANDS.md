@@ -4,14 +4,15 @@ Complete reference for all Fluxwing slash commands.
 
 ## Overview
 
-Fluxwing provides 4 slash commands for quick UX design tasks:
+Fluxwing provides 5 slash commands for quick UX design tasks:
 
 | Command | Purpose | Output |
 |---------|---------|--------|
-| `/fluxwing-create` | Create single component | component.{uxm,md} |
+| `/fluxwing-create` | Create component(s) (single or parallel) | component.{uxm,md} |
 | `/fluxwing-scaffold` | Build complete screen | screen.{uxm,md,rendered.md} |
 | `/fluxwing-library` | Browse library | Interactive menu |
 | `/fluxwing-get` | View single component details | Component display |
+| `/fluxwing-expand-component` | Add states to component | Updated component files |
 
 ## Data Location Philosophy
 
@@ -46,29 +47,39 @@ When commands check for available components, they look in this order:
 
 ---
 
-## `/fluxwing-create` - Create Component
+## `/fluxwing-create` - Create Component(s)
 
-**Purpose**: Quick component creation with guided workflow
+**Purpose**: Quick component creation with guided workflow - supports single or multiple components in parallel
 
 **Usage**:
 ```bash
+# Single component
 /fluxwing-create [component-name]
+
+# Multiple components (parallel execution)
+/fluxwing-create component-1, component-2, component-3
 ```
 
 **Examples**:
 ```bash
+# Single component
 /fluxwing-create button
 /fluxwing-create email-input
 /fluxwing-create pricing-card
+
+# Multiple components (3x faster via parallel execution)
+/fluxwing-create submit-button, cancel-button, email-input
+/fluxwing-create card, badge, alert
 ```
 
 ### Interactive Workflow
 
+**Single Component**:
 1. **Component Planning**
    - Name (kebab-case)
    - Type (button, input, card, etc.)
    - Props and variables
-   - Required states
+   - Visual style preferences
 
 2. **Template Selection**
    - Option to use bundled template
@@ -80,8 +91,29 @@ When commands check for available components, they look in this order:
    - Saves to `./fluxwing/components/`
 
 4. **Post-Creation**
-   - Displays file paths
+   - Displays file paths and preview
    - Offers to create another
+
+**Multiple Components (Parallel)**:
+1. **Parse Request**
+   - Detect multi-component intent
+   - Extract component names and types
+   - Make reasonable defaults for styling
+
+2. **Agent Orchestration**
+   - Spawns N designer agents in SINGLE message
+   - All agents run in parallel (not sequential)
+   - ~Nx faster than sequential creation
+
+3. **Batch File Creation**
+   - All components created simultaneously
+   - Each gets `.uxm` and `.md` files
+   - All saved to `./fluxwing/components/`
+
+4. **Summary Report**
+   - Shows all created components
+   - Lists any failures (partial success OK)
+   - Performance metrics (time saved)
 
 ### Output Structure
 
@@ -107,16 +139,40 @@ When commands check for available components, they look in this order:
 
 ### Tips
 
+**Single Component:**
 - Use descriptive names: `submit-button` not just `button`
 - Plan props before starting: What data does it need?
-- Include all interactive states (hover, focus, disabled)
+- Components created with default state only (use `/fluxwing-expand-component` to add states)
 - Reference bundled examples for patterns
+
+**Multiple Components:**
+- List all components upfront: "create A, B, and C"
+- Use commas or "and" to separate: `button, input, card`
+- Performance scales linearly: 5 components = ~5x faster than sequential
+- Partial failures are OK: successful components are still saved
+
+### Performance Benefits
+
+**Parallel execution example:**
+```bash
+# Sequential (old): 90 seconds total
+/fluxwing-create submit-button  # 30s
+/fluxwing-create cancel-button  # 30s
+/fluxwing-create email-input    # 30s
+
+# Parallel (new): 30 seconds total ⚡
+/fluxwing-create submit-button, cancel-button, email-input
+# All 3 created simultaneously!
+```
+
+**Speedup formula**: N components in parallel ≈ N× faster than sequential
 
 ### Related
 
 - For complete screens: use `/fluxwing-scaffold`
-- For multiple components: dispatch `fluxwing-designer` agent
+- For bulk component creation: use multi-component mode (comma-separated list)
 - To see examples: use `/fluxwing-library`
+- For complex designs: dispatch `fluxwing-designer` agent
 
 ---
 
@@ -405,6 +461,129 @@ After displaying, offers context-aware actions:
 
 - To browse all components: use `/fluxwing-library`
 - To create new component: use `/fluxwing-create`
+
+---
+
+## `/fluxwing-expand-component` - Add States to Component
+
+**Purpose**: Add interaction states to an existing component
+
+**Usage**:
+```bash
+/fluxwing-expand-component [component-name] [states...]
+```
+
+**Examples**:
+```bash
+# Add all standard states for component type
+/fluxwing-expand-component submit-button
+
+# Add specific states only
+/fluxwing-expand-component email-input focus error
+
+# Expand library component
+/fluxwing-expand-component my-custom-card
+```
+
+### When to Use
+
+- After creating a component with `/fluxwing-create`
+- After MVP validation when you need interactive states
+- When importing screenshots detected multiple states
+- To add polish to default-only components
+
+### What It Does
+
+1. **Locates component** in `./fluxwing/components/` or `./fluxwing/library/`
+2. **Reads current files** (`.uxm` and `.md`)
+3. **Generates new states** based on component type
+4. **Updates both files** with new state definitions and ASCII art
+5. **Preserves all data** - existing metadata, variables, props remain intact
+
+### Smart Defaults by Type
+
+When no states are specified, adds ALL standard states for the component type:
+
+- **button** → hover, active, disabled
+- **input** → focus, error, disabled
+- **checkbox/radio** → checked, disabled
+- **select** → open, disabled
+- **link** → hover, visited, active
+- **card** → hover, selected
+- **modal** → open, closing
+- **alert** → success, warning, error, info
+- **badge** → active, inactive
+- **navigation** → active, hover
+- **toggle** → on, off, disabled
+- **slider** → dragging, disabled
+
+### State Visual Patterns
+
+Each state uses specific ASCII box-drawing characters:
+
+- **hover**: Heavy border `┏━┓┃┗━┛`
+- **focus**: Double border `╔═╗║╚═╝`
+- **disabled**: Dashed border `┌┄┄┐┆└┄┄┘`
+- **error**: Heavy border with indicator `┏━┓┃┗━┛⚠`
+- **success**: Heavy border with indicator `┏━┓┃┗━┛✓`
+- **active**: Heavy border, filled background
+- **selected**: Highlighted background, border accent
+
+### Output
+
+**Updates existing component files**:
+```
+./fluxwing/components/{component-name}.uxm  # Updated with new states
+./fluxwing/components/{component-name}.md   # Updated with state ASCII
+```
+
+**Preserves**:
+- Component ID and version
+- All existing metadata
+- All existing variables
+- All existing props
+- All existing states
+- Modification timestamp updated
+
+**Adds**:
+- New state definitions in `behavior.states` array
+- New ASCII representations in `.md` file
+- State-specific properties (border, background, etc.)
+- Trigger events for interactive states
+
+### Example Session
+
+```bash
+/fluxwing-expand-component submit-button
+
+Found: submit-button in ./fluxwing/components/
+Current states: default
+
+Adding standard button states (hover, active, disabled)...
+
+✓ Expanded: ./fluxwing/components/submit-button
+✓ Added states: hover, active, disabled
+✓ Total states: 4 (default, hover, active, disabled)
+
+Preview of hover state:
+┏━━━━━━━━━━━━━━━━━━━━┓
+┃   Submit Form      ┃
+┗━━━━━━━━━━━━━━━━━━━━┛
+```
+
+### Tips
+
+- Use after MVP validation to add polish
+- Let smart defaults handle standard states
+- Specify custom states for unique interactions
+- Expansion is additive - never removes states
+- Duplicate states are automatically skipped
+
+### Related
+
+- To create component: use `/fluxwing-create`
+- To view component: use `/fluxwing-get`
+- For screen composition: use `/fluxwing-scaffold`
 
 ---
 
