@@ -5,60 +5,6 @@
   "author": {
     "name": "Fluxwing Team"
   },
-  "commands": [
-    {
-      "id": "fluxwing-create",
-      "file": "commands/fluxwing-create.md"
-    },
-    {
-      "id": "fluxwing-library",
-      "file": "commands/fluxwing-library.md"
-    },
-    {
-      "id": "fluxwing-get",
-      "file": "commands/fluxwing-get.md"
-    },
-    {
-      "id": "fluxwing-scaffold",
-      "file": "commands/fluxwing-scaffold.md"
-    },
-    {
-      "id": "fluxwing-import-screenshot",
-      "file": "commands/fluxwing-import-screenshot.md"
-    },
-    {
-      "id": "fluxwing-expand-component",
-      "file": "commands/fluxwing-expand-component.md"
-    }
-  ],
-  "agents": [
-    {
-      "id": "fluxwing-designer",
-      "file": "agents/fluxwing-designer.md"
-    },
-    {
-      "id": "fluxwing-composer",
-      "file": "agents/fluxwing-composer.md"
-    },
-    {
-      "id": "screenshot-component-generator",
-      "file": "agents/screenshot-component-generator.md"
-    },
-    {
-      "id": "screenshot-vision-coordinator",
-      "file": "agents/screenshot-vision-coordinator.md"
-    },
-    {
-      "id": "screenshot-component-detection",
-      "file": "agents/screenshot-component-detection.md"
-    },
-    {
-      "id": "screenshot-layout-discovery",
-      "file": "agents/screenshot-layout-discovery.md"
-    },
-    {
-      "id": "screenshot-visual-properties",
-      "file": "agents/screenshot-visual-properties.md"
-    }
-  ]
+  "keywords": ["fluxwing", "uxscii", "design", "ui", "components", "ascii"],
+  "license": "MIT"
 }
