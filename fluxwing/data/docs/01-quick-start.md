@@ -47,37 +47,48 @@ Every component needs exactly TWO files:
 
 ## That's It!
 
-Save both files to `./fluxwing/components/` and you have a working component.
+Save both files to `./fluxwing/components/` and you have a working MVP component.
 
-## Add More States (Optional)
+## Expanding States (When Needed)
 
-````markdown
-## Hover State
+Components are created with **default state only** for fast prototyping. After MVP validation, add interaction states:
 
-```
-░╭──────────────────╮░
-░│   {{text}}       │░
-░╰──────────────────╯░
+```bash
+/fluxwing-expand-component submit-button
 ```
 
-## Disabled State
+This automatically adds standard states for the component type:
+- **button** → hover, active, disabled
+- **input** → focus, error, disabled
+- **card** → hover, selected
 
-```
-┌ ─ ─ ─ ─ ─ ─ ─ ─ ┐
-│   {{text}}       │
-└ ─ ─ ─ ─ ─ ─ ─ ─ ┘
-```
-````
+The command updates both files:
+- `.uxm`: Adds state definitions to `behavior.states`
+- `.md`: Adds ASCII representations for each state
 
-And add to `.uxm`:
-```json
-"behavior": {
-  "states": [
-    {"name": "default", "properties": {}},
-    {"name": "hover", "properties": {}, "triggers": ["mouseenter"]},
-    {"name": "disabled", "properties": {}}
-  ]
-}
+**Before expansion** (default only):
+```
+╭──────────────────╮
+│   Submit         │
+╰──────────────────╯
+```
+
+**After expansion** (interactive states):
+```
+Default:
+╭──────────────────╮
+│   Submit         │
+╰──────────────────╯
+
+Hover:
+┏━━━━━━━━━━━━━━━━━━┓
+┃   Submit         ┃
+┗━━━━━━━━━━━━━━━━━━┛
+
+Disabled:
+┌┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┐
+┆   Submit         ┆
+└┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┘
 ```
 
 ## Next Steps

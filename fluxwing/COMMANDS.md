@@ -4,7 +4,7 @@ Complete reference for all Fluxwing slash commands.
 
 ## Overview
 
-Fluxwing provides 4 slash commands for quick UX design tasks:
+Fluxwing provides 5 slash commands for quick UX design tasks:
 
 | Command | Purpose | Output |
 |---------|---------|--------|
@@ -12,6 +12,7 @@ Fluxwing provides 4 slash commands for quick UX design tasks:
 | `/fluxwing-scaffold` | Build complete screen | screen.{uxm,md,rendered.md} |
 | `/fluxwing-library` | Browse library | Interactive menu |
 | `/fluxwing-get` | View single component details | Component display |
+| `/fluxwing-expand-component` | Add states to component | Updated component files |
 
 ## Data Location Philosophy
 
@@ -405,6 +406,129 @@ After displaying, offers context-aware actions:
 
 - To browse all components: use `/fluxwing-library`
 - To create new component: use `/fluxwing-create`
+
+---
+
+## `/fluxwing-expand-component` - Add States to Component
+
+**Purpose**: Add interaction states to an existing component
+
+**Usage**:
+```bash
+/fluxwing-expand-component [component-name] [states...]
+```
+
+**Examples**:
+```bash
+# Add all standard states for component type
+/fluxwing-expand-component submit-button
+
+# Add specific states only
+/fluxwing-expand-component email-input focus error
+
+# Expand library component
+/fluxwing-expand-component my-custom-card
+```
+
+### When to Use
+
+- After creating a component with `/fluxwing-create`
+- After MVP validation when you need interactive states
+- When importing screenshots detected multiple states
+- To add polish to default-only components
+
+### What It Does
+
+1. **Locates component** in `./fluxwing/components/` or `./fluxwing/library/`
+2. **Reads current files** (`.uxm` and `.md`)
+3. **Generates new states** based on component type
+4. **Updates both files** with new state definitions and ASCII art
+5. **Preserves all data** - existing metadata, variables, props remain intact
+
+### Smart Defaults by Type
+
+When no states are specified, adds ALL standard states for the component type:
+
+- **button** → hover, active, disabled
+- **input** → focus, error, disabled
+- **checkbox/radio** → checked, disabled
+- **select** → open, disabled
+- **link** → hover, visited, active
+- **card** → hover, selected
+- **modal** → open, closing
+- **alert** → success, warning, error, info
+- **badge** → active, inactive
+- **navigation** → active, hover
+- **toggle** → on, off, disabled
+- **slider** → dragging, disabled
+
+### State Visual Patterns
+
+Each state uses specific ASCII box-drawing characters:
+
+- **hover**: Heavy border `┏━┓┃┗━┛`
+- **focus**: Double border `╔═╗║╚═╝`
+- **disabled**: Dashed border `┌┄┄┐┆└┄┄┘`
+- **error**: Heavy border with indicator `┏━┓┃┗━┛⚠`
+- **success**: Heavy border with indicator `┏━┓┃┗━┛✓`
+- **active**: Heavy border, filled background
+- **selected**: Highlighted background, border accent
+
+### Output
+
+**Updates existing component files**:
+```
+./fluxwing/components/{component-name}.uxm  # Updated with new states
+./fluxwing/components/{component-name}.md   # Updated with state ASCII
+```
+
+**Preserves**:
+- Component ID and version
+- All existing metadata
+- All existing variables
+- All existing props
+- All existing states
+- Modification timestamp updated
+
+**Adds**:
+- New state definitions in `behavior.states` array
+- New ASCII representations in `.md` file
+- State-specific properties (border, background, etc.)
+- Trigger events for interactive states
+
+### Example Session
+
+```bash
+/fluxwing-expand-component submit-button
+
+Found: submit-button in ./fluxwing/components/
+Current states: default
+
+Adding standard button states (hover, active, disabled)...
+
+✓ Expanded: ./fluxwing/components/submit-button
+✓ Added states: hover, active, disabled
+✓ Total states: 4 (default, hover, active, disabled)
+
+Preview of hover state:
+┏━━━━━━━━━━━━━━━━━━━━┓
+┃   Submit Form      ┃
+┗━━━━━━━━━━━━━━━━━━━━┛
+```
+
+### Tips
+
+- Use after MVP validation to add polish
+- Let smart defaults handle standard states
+- Specify custom states for unique interactions
+- Expansion is additive - never removes states
+- Duplicate states are automatically skipped
+
+### Related
+
+- To create component: use `/fluxwing-create`
+- To view component: use `/fluxwing-get`
+- For screen composition: use `/fluxwing-scaffold`
 
 ---
 
