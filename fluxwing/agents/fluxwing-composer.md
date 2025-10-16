@@ -92,9 +92,35 @@ For the requested screen:
    - Breakpoint considerations
    - Adaptive component sizing
 
-### Phase 3: Create Screen Files
+### Phase 3: Create Screen Files (IN PARALLEL)
+
+**CRITICAL**: Create ALL 3 screen files in a SINGLE message with multiple Write tool calls. This is the ONLY way to achieve parallel file creation.
+
+**DO THIS**: One message with 3 Write calls (.uxm + .md + .rendered.md)
+**DON'T DO THIS**: Separate messages for each file (runs sequentially)
 
 **IMPORTANT**: Save all screen files to `./fluxwing/screens/` ONLY. Never write to plugin data directory.
+
+Prepare content for all 3 files, then write them all at once:
+
+```
+Write({
+  file_path: "./fluxwing/screens/login-screen.uxm",
+  content: "{ valid JSON screen definition }"
+})
+
+Write({
+  file_path: "./fluxwing/screens/login-screen.md",
+  content: "# Login Screen\n\n[template]"
+})
+
+Write({
+  file_path: "./fluxwing/screens/login-screen.rendered.md",
+  content: "# Login Screen - Rendered\n\n[REAL data]"
+})
+
+... all Write calls in SAME message ...
+```
 
 Create THREE files for every screen:
 

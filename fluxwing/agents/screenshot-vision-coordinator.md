@@ -77,7 +77,10 @@ Return JSON with this structure:
 
 ### Step 1: Launch 3 Vision Agents Concurrently
 
-**CRITICAL**: Launch ALL 3 agents in parallel using a SINGLE message with 3 Task tool calls.
+**CRITICAL**: YOU MUST launch ALL 3 agents in parallel using a SINGLE message with 3 Task tool calls. This is the ONLY way to achieve true parallel execution.
+
+**DO THIS**: Send ONE message with 3 Task calls (one for layout, one for components, one for visual)
+**DON'T DO THIS**: Send 3 separate messages (this runs them sequentially)
 
 #### Agent 1: Layout Discovery
 
@@ -202,6 +205,8 @@ Return JSON matching this structure:
 }`
 })
 ```
+
+**IMPORTANT**: All 3 Task calls above MUST be in a SINGLE message to run in parallel.
 
 ### Step 2: Merge Results
 
