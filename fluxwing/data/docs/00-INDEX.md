@@ -15,6 +15,7 @@ This index helps you load only the documentation you need, saving context tokens
 | 03-component-creation.md | ~800 | Full creation workflow |
 | 04-screen-composition.md | ~700 | Building complete screens |
 | 06-ascii-patterns.md | ~500 | Pattern library reference |
+| 07-examples-guide.md | ~400 | Guide to bundled examples |
 | 07-schema-reference.md | ~300 | Schema documentation pointer |
 | screenshot-data-merging.md | ~600 | Vision data merging helpers |
 | screenshot-screen-generation.md | ~800 | Screen file generation helpers |
@@ -75,6 +76,9 @@ How to compose complete screens from components. Layout patterns and best practi
 
 ### 06-ascii-patterns.md
 ASCII character patterns library. Box-drawing characters, states, form elements, etc.
+
+### 07-examples-guide.md
+Guide to using the bundled component examples. Explains the two-phase creation workflow (default state + expansion).
 
 ### 07-schema-reference.md
 Points to the definitive schema file and explains how to use it.

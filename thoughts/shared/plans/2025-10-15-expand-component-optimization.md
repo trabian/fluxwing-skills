@@ -915,7 +915,7 @@ Optionally simplify example components to show default-only structure. Keep exis
 
 **Recommendation**: Option A - Keep existing examples as expanded reference.
 
-**File to update if pursuing Option A**: `fluxwing/data/examples/README.md`
+**File to update if pursuing Option A**: `fluxwing/data/docs/07-examples-guide.md`
 
 ```markdown
 # Component Examples
