@@ -4,9 +4,24 @@
 
 Converting the Fluxwing Claude Code plugin from a plugin-based architecture to a skills-based architecture. This migration makes Fluxwing's capabilities discoverable and automatically activated by Claude based on natural language requests.
 
-**Status**: Implementation Complete - Ready for Manual Testing
+**Status**: Installation Scripts Complete - Ready for Manual Testing
 
-**Last Updated**: 2025-10-17
+**Last Updated**: 2025-10-18
+
+## Recent Progress (2025-10-18)
+
+✅ **Installation Infrastructure Complete**
+- Created `scripts/install.sh` with auto-detection, verification, and colored output
+- Created `scripts/uninstall.sh` with safe removal and user data preservation
+- Wrote comprehensive `INSTALL.md` documentation (405 lines)
+- All automated verification tests passing
+- Ready for local testing with `./scripts/install.sh`
+
+**Total Implementation**:
+- 6 skills (all phases complete)
+- 48 supporting files (templates, schemas, docs)
+- 2 installation scripts (755 lines total)
+- 1 comprehensive installation guide
 
 ---
 
@@ -221,7 +236,43 @@ Converting the Fluxwing Claude Code plugin from a plugin-based architecture to a
 
 ---
 
-## Post-Migration Tasks (Future)
+## Post-Migration Tasks
+
+### Installation Scripts ✅ COMPLETE
+
+**Status**: Complete (2025-10-18)
+
+- [x] Create installer script (`scripts/install.sh`)
+  - [x] Copy `.claude/skills/` directory to user's `~/.claude/skills/` or project `.claude/skills/`
+  - [x] Detect installation location (global vs project-local)
+  - [x] Verify all skill files copied successfully
+  - [x] Run automated verification tests
+  - [x] Display success message with next steps
+  - [x] Support multiple modes (--global, --local, --force)
+
+- [x] Create uninstaller script (`scripts/uninstall.sh`)
+  - [x] Remove `.claude/skills/uxscii-*` directories
+  - [x] Preserve user data in `./fluxwing/` (DO NOT DELETE)
+  - [x] Confirm removal with user (or use --force flag for non-interactive)
+  - [x] Display cleanup summary
+  - [x] Support multiple modes (--global, --local, --all, --dry-run)
+
+- [x] Add installation documentation (`INSTALL.md`)
+  - [x] Quick start guide with one-liner install
+  - [x] Manual installation instructions
+  - [x] Verification steps
+  - [x] Troubleshooting common issues
+  - [x] Uninstall instructions
+
+**Features Implemented:**
+- Auto-detection of installation location (prefers local if .claude/ exists)
+- Colored output with status indicators (✓, ✗, ⚠, ℹ)
+- Comprehensive automated verification (YAML, file counts, references)
+- Interactive usage examples after installation
+- Backup existing skills before overwriting
+- Dry-run mode for uninstaller
+- File count and summary reporting
+- User data preservation guarantees
 
 ### Documentation Updates (Not Started)
 - [ ] Update main README.md to mention skills
@@ -304,11 +355,91 @@ grep -r "SKILL_ROOT" .claude/skills/*/SKILL.md | head -5
 - [ ] Cross-skill references resolve
 - [ ] No regressions in plugin commands
 
+### Installation & Deployment ✅
+- [x] Installation scripts created
+- [x] Uninstallation scripts created
+- [x] Installation documentation written (INSTALL.md)
+- [x] Automated verification implemented
+- [ ] Remote installation support (curl one-liner)
+
 ### Documentation & Communication 📝
+- [x] Installation guide written (INSTALL.md - 405 lines)
 - [ ] Migration guide written
 - [ ] Users informed of new capabilities
 - [ ] Deprecation timeline communicated (if applicable)
 
 ---
 
+## Installation Script Details
+
+### Created Files
+- `scripts/install.sh` (10KB, 365 lines)
+- `scripts/uninstall.sh` (10KB, 380 lines)
+- `INSTALL.md` (405 lines)
+
+### Installation Script Features
+✅ Auto-detect installation location (global vs local)
+✅ Colored output with status indicators
+✅ Comprehensive verification (YAML, templates, schemas, references)
+✅ Interactive usage examples
+✅ Backup existing skills before overwriting
+✅ Multiple modes: --global, --local, --force
+✅ Error handling and validation
+
+### Uninstallation Script Features
+✅ Safe removal (preserves user data)
+✅ Confirmation prompts (or --force for non-interactive)
+✅ Dry-run mode (--dry-run to preview)
+✅ Multiple targets: --global, --local, --all
+✅ User data preservation checks
+✅ Summary reporting
+
+---
+
 **Next Step**: Begin manual testing with natural language prompts to verify skill activation and functionality.
+
+---
+
+## Quick Start - Testing the Skills
+
+### Install Skills
+```bash
+# Auto-detect location (recommended)
+./scripts/install.sh
+
+# Or install globally
+./scripts/install.sh --global
+
+# Or install locally to project
+./scripts/install.sh --local
+```
+
+### Test with Natural Language
+Once installed, try these prompts in Claude Code:
+1. **"Create a button"** → Should activate uxscii-component-creator
+2. **"Show me all components"** → Should activate uxscii-library-browser
+3. **"Add hover state to my button"** → Should activate uxscii-component-expander
+4. **"Build a login screen"** → Should activate uxscii-screen-scaffolder
+5. **"Show me the primary-button"** → Should activate uxscii-component-viewer
+6. **"Import this screenshot"** → Should activate uxscii-screenshot-importer
+
+### Uninstall Skills
+```bash
+# Preview what would be removed
+./scripts/uninstall.sh --dry-run
+
+# Uninstall (with confirmation)
+./scripts/uninstall.sh
+
+# Uninstall without confirmation
+./scripts/uninstall.sh --force
+```
+
+### Verify Installation
+```bash
+# Check all skills exist
+ls ~/.claude/skills/uxscii-*/SKILL.md
+
+# Or for local installation
+ls ./.claude/skills/uxscii-*/SKILL.md
+```

@@ -3,8 +3,8 @@
 Thumbs.db
 
 # Claude Code project configuration (NOT plugin config)
-.claude/
-!.claude-plugin/
+.claude/*
+!.claude/skills/
 
 # Git
 .git/

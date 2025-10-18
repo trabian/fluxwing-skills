@@ -1,0 +1,509 @@
+{
+  "version": "1.0.0",
+  "generated": "2025-10-18T13:02:14.626427Z",
+  "template_count": 11,
+  "bundled_templates": [
+    {
+      "id": "alert",
+      "type": "alert",
+      "name": "Alert/Notification Component",
+      "description": "Alert and notification messages for user feedback, system status, and important information display",
+      "file": "{SKILL_ROOT}/../uxscii-component-creator/templates/alert.uxm",
+      "md_file": "{SKILL_ROOT}/../uxscii-component-creator/templates/alert.md",
+      "states": [
+        "visible",
+        "entering",
+        "exiting",
+        "hidden"
+      ],
+      "props": [
+        "title",
+        "message",
+        "variant",
+        "icon",
+        "dismissible",
+        "persistent",
+        "position",
+        "duration",
+        "actions",
+        "showProgress",
+        "bordered",
+        "compact"
+      ],
+      "tags": [
+        "message",
+        "notification",
+        "alert",
+        "feedback"
+      ],
+      "preview": "\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502 \u2713 {{title}}                                   \u2502\u2715\u2502\n\u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\n\u2502                                                  \u2502\n\u2502 {{message}}                                      \u2502",
+      "interactive": false,
+      "has_accessibility": false
+    },
+    {
+      "id": "badge",
+      "type": "badge",
+      "name": "Badge/Tag Component",
+      "description": "Status indicators, labels, and informational tags with various styles and interactive capabilities",
+      "file": "{SKILL_ROOT}/../uxscii-component-creator/templates/badge.uxm",
+      "md_file": "{SKILL_ROOT}/../uxscii-component-creator/templates/badge.md",
+      "states": [
+        "default",
+        "hover",
+        "active",
+        "disabled"
+      ],
+      "props": [
+        "text",
+        "variant",
+        "size",
+        "removable",
+        "clickable",
+        "icon",
+        "color",
+        "outlined",
+        "pill",
+        "count",
+        "maxCount",
+        "dot"
+      ],
+      "tags": [
+        "badge",
+        "tag",
+        "label",
+        "indicator",
+        "status"
+      ],
+      "preview": "\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593    \u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591    \u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593    \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\n\u2593 {{text}} \u2593    \u2591 Secondary \u2591    \u2593 Primary \u2593    \u2588 Success \u2588\n\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593    \u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591    \u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593    \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588",
+      "interactive": false,
+      "has_accessibility": false
+    },
+    {
+      "id": "card",
+      "type": "card",
+      "name": "Card Component",
+      "description": "A flexible container for grouping related content with optional header, body, and footer sections",
+      "file": "{SKILL_ROOT}/../uxscii-component-creator/templates/card.uxm",
+      "md_file": "{SKILL_ROOT}/../uxscii-component-creator/templates/card.md",
+      "states": [
+        "default",
+        "hover",
+        "focus"
+      ],
+      "props": [
+        "title",
+        "subtitle",
+        "content",
+        "footer",
+        "elevated",
+        "padding",
+        "borderRadius",
+        "maxWidth",
+        "hasHeader",
+        "hasFooter"
+      ],
+      "tags": [
+        "layout",
+        "container",
+        "card"
+      ],
+      "preview": "\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502 {{title}}                            \u2502\n\u2502 {{subtitle}}                         \u2502\n\u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\n\u2502                                      \u2502",
+      "interactive": false,
+      "has_accessibility": false
+    },
+    {
+      "id": "custom-widget",
+      "type": "custom",
+      "name": "Custom Widget",
+      "description": "A specialized widget component that extends the basic card with custom properties",
+      "file": "{SKILL_ROOT}/../uxscii-component-creator/templates/custom-widget.uxm",
+      "md_file": "{SKILL_ROOT}/../uxscii-component-creator/templates/custom-widget.md",
+      "states": [
+        "loading",
+        "error"
+      ],
+      "props": [
+        "widgetType",
+        "data",
+        "refreshable",
+        "autoRefresh",
+        "compact"
+      ],
+      "tags": [
+        "custom",
+        "widget",
+        "card"
+      ],
+      "preview": "\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502 {{data.icon}} {{data.title}}    \u2502\u27f3\u2502\n\u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\n\u2502                                \u2502\n\u2502      {{data.value}}            \u2502",
+      "interactive": false,
+      "has_accessibility": false
+    },
+    {
+      "id": "email-input",
+      "type": "input",
+      "name": "Email Input Field",
+      "description": "A specialized input field for email addresses with built-in validation",
+      "file": "{SKILL_ROOT}/../uxscii-component-creator/templates/email-input.uxm",
+      "md_file": "{SKILL_ROOT}/../uxscii-component-creator/templates/email-input.md",
+      "states": [
+        "default",
+        "focus",
+        "valid",
+        "error",
+        "disabled"
+      ],
+      "props": [
+        "label",
+        "placeholder",
+        "value",
+        "disabled",
+        "required",
+        "autocomplete",
+        "ariaLabel",
+        "errorMessage",
+        "helpText"
+      ],
+      "tags": [
+        "input",
+        "validation",
+        "email",
+        "form"
+      ],
+      "preview": "{{label}} *\n\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502 {{value || placeholder}}       \u2502 @\n\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n{{helpText}}",
+      "interactive": false,
+      "has_accessibility": false
+    },
+    {
+      "id": "form",
+      "type": "form",
+      "name": "Form Container",
+      "description": "A form container with field grouping, validation state management, and submission handling",
+      "file": "{SKILL_ROOT}/../uxscii-component-creator/templates/form.uxm",
+      "md_file": "{SKILL_ROOT}/../uxscii-component-creator/templates/form.md",
+      "states": [
+        "default",
+        "valid",
+        "invalid",
+        "submitting"
+      ],
+      "props": [
+        "title",
+        "method",
+        "action",
+        "fields",
+        "submitText",
+        "resetText",
+        "showReset",
+        "layout",
+        "spacing"
+      ],
+      "tags": [
+        "container",
+        "validation",
+        "form"
+      ],
+      "preview": "\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502                 {{title}}                            \u2502\n\u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\n\u2502                                                      \u2502\n\u2502  {{fields[0].label}} {{fields[0].required ? '*' : ''}}      \u2502",
+      "interactive": false,
+      "has_accessibility": false
+    },
+    {
+      "id": "list",
+      "type": "list",
+      "name": "List Component",
+      "description": "Ordered and unordered list component with various display patterns and interaction support",
+      "file": "{SKILL_ROOT}/../uxscii-component-creator/templates/list.uxm",
+      "md_file": "{SKILL_ROOT}/../uxscii-component-creator/templates/list.md",
+      "states": [
+        "default",
+        "selected",
+        "hover",
+        "disabled"
+      ],
+      "props": [
+        "items",
+        "type",
+        "selectable",
+        "multiSelect",
+        "variant",
+        "marker",
+        "numbering",
+        "compact",
+        "bordered",
+        "striped"
+      ],
+      "tags": [
+        "menu",
+        "list",
+        "navigation",
+        "display"
+      ],
+      "preview": "\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502 {{marker}} {{items[0].text}}          \u2502\n\u2502 {{marker}} {{items[1].text}}          \u2502\n\u2502 {{marker}} {{items[2].text}}          \u2502\n\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518",
+      "interactive": false,
+      "has_accessibility": false
+    },
+    {
+      "id": "modal",
+      "type": "modal",
+      "name": "Modal Dialog",
+      "description": "Modal dialog overlay with focus management, backdrop, and configurable content areas",
+      "file": "{SKILL_ROOT}/../uxscii-component-creator/templates/modal.uxm",
+      "md_file": "{SKILL_ROOT}/../uxscii-component-creator/templates/modal.md",
+      "states": [
+        "closed",
+        "opening",
+        "open",
+        "closing"
+      ],
+      "props": [
+        "title",
+        "content",
+        "size",
+        "showCloseButton",
+        "closable",
+        "backdrop",
+        "backdropClosable",
+        "centered",
+        "buttons",
+        "icon",
+        "variant"
+      ],
+      "tags": [
+        "overlay",
+        "popup",
+        "modal",
+        "dialog",
+        "container"
+      ],
+      "preview": "\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\n\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\n\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\n\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2502 {{title}}                   \u2502\u2715\u2502\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\n\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591",
+      "interactive": false,
+      "has_accessibility": false
+    },
+    {
+      "id": "navigation",
+      "type": "navigation",
+      "name": "Navigation Menu",
+      "description": "A horizontal or vertical navigation component with active state management",
+      "file": "{SKILL_ROOT}/../uxscii-component-creator/templates/navigation.uxm",
+      "md_file": "{SKILL_ROOT}/../uxscii-component-creator/templates/navigation.md",
+      "states": [
+        "default",
+        "active",
+        "hover"
+      ],
+      "props": [
+        "items",
+        "orientation",
+        "variant",
+        "separator",
+        "activeIndicator"
+      ],
+      "tags": [
+        "menu",
+        "nav",
+        "navigation"
+      ],
+      "preview": "\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502 [*] {{items[0].label}} {{separator}} {{items[1].label}} {{separator}} {{items[2].label}} \u2502\n\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518",
+      "interactive": false,
+      "has_accessibility": false
+    },
+    {
+      "id": "primary-button",
+      "type": "button",
+      "name": "Primary Button",
+      "description": "A primary action button with emphasis styling for main user actions",
+      "file": "{SKILL_ROOT}/../uxscii-component-creator/templates/primary-button.uxm",
+      "md_file": "{SKILL_ROOT}/../uxscii-component-creator/templates/primary-button.md",
+      "states": [
+        "default",
+        "hover",
+        "active",
+        "disabled"
+      ],
+      "props": [
+        "text",
+        "disabled",
+        "size",
+        "fullWidth",
+        "ariaLabel"
+      ],
+      "tags": [
+        "button",
+        "action",
+        "primary",
+        "form"
+      ],
+      "preview": "\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\n\u2593   {{text}}   \u2593\n\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593\u2593",
+      "interactive": false,
+      "has_accessibility": false
+    },
+    {
+      "id": "secondary-button",
+      "type": "button",
+      "name": "Secondary Button",
+      "description": "A secondary action button with subtle styling for less prominent actions",
+      "file": "{SKILL_ROOT}/../uxscii-component-creator/templates/secondary-button.uxm",
+      "md_file": "{SKILL_ROOT}/../uxscii-component-creator/templates/secondary-button.md",
+      "states": [
+        "default",
+        "hover",
+        "active",
+        "disabled"
+      ],
+      "props": [
+        "text",
+        "disabled",
+        "size",
+        "fullWidth",
+        "ariaLabel"
+      ],
+      "tags": [
+        "secondary",
+        "button",
+        "action",
+        "form"
+      ],
+      "preview": "\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\n\u2591   {{text}}   \u2591\n\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591\u2591",
+      "interactive": false,
+      "has_accessibility": false
+    }
+  ],
+  "by_type": {
+    "alert": [
+      "alert"
+    ],
+    "badge": [
+      "badge"
+    ],
+    "card": [
+      "card"
+    ],
+    "custom": [
+      "custom-widget"
+    ],
+    "input": [
+      "email-input"
+    ],
+    "form": [
+      "form"
+    ],
+    "list": [
+      "list"
+    ],
+    "modal": [
+      "modal"
+    ],
+    "navigation": [
+      "navigation"
+    ],
+    "button": [
+      "primary-button",
+      "secondary-button"
+    ]
+  },
+  "by_tag": {
+    "message": [
+      "alert"
+    ],
+    "notification": [
+      "alert"
+    ],
+    "alert": [
+      "alert"
+    ],
+    "feedback": [
+      "alert"
+    ],
+    "badge": [
+      "badge"
+    ],
+    "tag": [
+      "badge"
+    ],
+    "label": [
+      "badge"
+    ],
+    "indicator": [
+      "badge"
+    ],
+    "status": [
+      "badge"
+    ],
+    "layout": [
+      "card"
+    ],
+    "container": [
+      "card",
+      "form",
+      "modal"
+    ],
+    "card": [
+      "card",
+      "custom-widget"
+    ],
+    "custom": [
+      "custom-widget"
+    ],
+    "widget": [
+      "custom-widget"
+    ],
+    "input": [
+      "email-input"
+    ],
+    "validation": [
+      "email-input",
+      "form"
+    ],
+    "email": [
+      "email-input"
+    ],
+    "form": [
+      "email-input",
+      "form",
+      "primary-button",
+      "secondary-button"
+    ],
+    "menu": [
+      "list",
+      "navigation"
+    ],
+    "list": [
+      "list"
+    ],
+    "navigation": [
+      "list",
+      "navigation"
+    ],
+    "display": [
+      "list"
+    ],
+    "overlay": [
+      "modal"
+    ],
+    "popup": [
+      "modal"
+    ],
+    "modal": [
+      "modal"
+    ],
+    "dialog": [
+      "modal"
+    ],
+    "nav": [
+      "navigation"
+    ],
+    "button": [
+      "primary-button",
+      "secondary-button"
+    ],
+    "action": [
+      "primary-button",
+      "secondary-button"
+    ],
+    "primary": [
+      "primary-button"
+    ],
+    "secondary": [
+      "secondary-button"
+    ]
+  }
+}

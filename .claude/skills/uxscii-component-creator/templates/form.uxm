@@ -1,0 +1,195 @@
+{
+  "id": "form",
+  "type": "form",
+  "version": "1.0.0",
+  "metadata": {
+    "name": "Form Container",
+    "description": "A form container with field grouping, validation state management, and submission handling",
+    "author": "UXscii Team",
+    "created": "2024-01-15T00:00:00Z",
+    "modified": "2024-01-15T00:00:00Z",
+    "tags": ["form", "container", "validation"],
+    "category": "input"
+  },
+  "props": {
+    "title": "Contact Form",
+    "method": "POST",
+    "action": "/submit",
+    "fields": [
+      {
+        "id": "name",
+        "type": "text",
+        "label": "Full Name",
+        "placeholder": "Enter your full name",
+        "required": true,
+        "validation": "text"
+      },
+      {
+        "id": "email", 
+        "type": "email",
+        "label": "Email Address",
+        "placeholder": "your@email.com",
+        "required": true,
+        "validation": "email"
+      },
+      {
+        "id": "message",
+        "type": "textarea",
+        "label": "Message",
+        "placeholder": "Your message here...",
+        "required": false,
+        "validation": "text"
+      }
+    ],
+    "submitText": "Submit",
+    "resetText": "Reset",
+    "showReset": true,
+    "layout": "vertical",
+    "spacing": "normal"
+  },
+  "behavior": {
+    "states": [
+      {
+        "name": "default",
+        "properties": {
+          "border": "solid",
+          "background": "white",
+          "textColor": "default"
+        }
+      },
+      {
+        "name": "valid",
+        "properties": {
+          "border": "solid",
+          "borderColor": "success",
+          "background": "success-light"
+        }
+      },
+      {
+        "name": "invalid",
+        "properties": {
+          "border": "solid", 
+          "borderColor": "error",
+          "background": "error-light"
+        }
+      },
+      {
+        "name": "submitting",
+        "properties": {
+          "background": "gray-light",
+          "textColor": "gray-dark",
+          "cursor": "wait"
+        }
+      }
+    ],
+    "interactions": [
+      {
+        "trigger": "submit",
+        "action": "validate-and-submit",
+        "condition": "form.valid"
+      },
+      {
+        "trigger": "reset",
+        "action": "clear-all-fields"
+      },
+      {
+        "trigger": "field-change",
+        "action": "validate-field",
+        "condition": "field.validation"
+      },
+      {
+        "trigger": "keydown",
+        "action": "submit-form",
+        "condition": "key === 'Enter' && ctrlKey"
+      }
+    ],
+    "validation": {
+      "realTime": true,
+      "showErrorsOnBlur": true,
+      "preventSubmitIfInvalid": true,
+      "customValidators": []
+    },
+    "accessibility": {
+      "role": "form",
+      "focusable": true,
+      "keyboardSupport": ["Tab", "Shift+Tab", "Enter"],
+      "ariaLabel": "{{title}}"
+    }
+  },
+  "layout": {
+    "display": "block",
+    "positioning": "static",
+    "spacing": {
+      "padding": {
+        "top": 2,
+        "right": 3,
+        "bottom": 2,
+        "left": 3
+      },
+      "margin": {
+        "bottom": 2
+      }
+    },
+    "sizing": {
+      "minWidth": 30,
+      "maxWidth": 80,
+      "height": "auto"
+    }
+  },
+  "ascii": {
+    "templateFile": "form.md",
+    "width": 50,
+    "height": 20,
+    "variables": [
+      {
+        "name": "title",
+        "type": "string",
+        "defaultValue": "Contact Form",
+        "description": "Form heading/title text",
+        "required": false,
+        "validation": {
+          "max": 50
+        }
+      },
+      {
+        "name": "fields",
+        "type": "array",
+        "defaultValue": [
+          {"id": "name", "type": "text", "label": "Full Name", "required": true},
+          {"id": "email", "type": "email", "label": "Email", "required": true},
+          {"id": "message", "type": "textarea", "label": "Message", "required": false}
+        ],
+        "description": "Form fields with labels, types, and validation",
+        "required": true,
+        "validation": {
+          "min": 1,
+          "max": 15
+        }
+      },
+      {
+        "name": "layout",
+        "type": "string",
+        "defaultValue": "vertical", 
+        "description": "Field layout arrangement",
+        "validation": {
+          "enum": ["vertical", "horizontal", "grid"]
+        }
+      },
+      {
+        "name": "submitText",
+        "type": "string",
+        "defaultValue": "Submit",
+        "description": "Submit button text",
+        "validation": {
+          "max": 20
+        }
+      },
+      {
+        "name": "showReset",
+        "type": "boolean",
+        "defaultValue": true,
+        "description": "Whether to show reset button"
+      }
+    ]
+  }
+}

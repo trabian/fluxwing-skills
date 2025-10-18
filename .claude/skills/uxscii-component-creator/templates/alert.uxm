@@ -1,0 +1,203 @@
+{
+  "id": "alert",
+  "type": "alert",
+  "version": "1.0.0",
+  "metadata": {
+    "name": "Alert/Notification Component",
+    "description": "Alert and notification messages for user feedback, system status, and important information display",
+    "author": "UXscii Team",
+    "created": "2024-01-15T00:00:00Z",
+    "modified": "2024-01-15T00:00:00Z",
+    "tags": ["alert", "notification", "message", "feedback"],
+    "category": "feedback"
+  },
+  "props": {
+    "title": "Success!",
+    "message": "Your changes have been saved successfully.",
+    "variant": "success",
+    "icon": "✓",
+    "dismissible": true,
+    "persistent": false,
+    "position": "top-right",
+    "duration": 5000,
+    "actions": [
+      {
+        "text": "Undo",
+        "action": "undo"
+      },
+      {
+        "text": "View",
+        "action": "view"
+      }
+    ],
+    "showProgress": false,
+    "bordered": true,
+    "compact": false
+  },
+  "behavior": {
+    "states": [
+      {
+        "name": "visible",
+        "properties": {
+          "opacity": 1,
+          "transform": "translateX(0)",
+          "zIndex": 1000
+        }
+      },
+      {
+        "name": "entering",
+        "properties": {
+          "opacity": 0.5,
+          "transform": "translateX(100%)",
+          "transition": "all 0.3s ease"
+        }
+      },
+      {
+        "name": "exiting",
+        "properties": {
+          "opacity": 0,
+          "transform": "translateX(100%)",
+          "transition": "all 0.3s ease"
+        }
+      },
+      {
+        "name": "hidden",
+        "properties": {
+          "display": "none"
+        }
+      }
+    ],
+    "interactions": [
+      {
+        "trigger": "click",
+        "action": "dismiss-alert",
+        "condition": "dismissible && target.isCloseButton"
+      },
+      {
+        "trigger": "click",
+        "action": "execute-action",
+        "condition": "target.isActionButton"
+      },
+      {
+        "trigger": "keydown",
+        "action": "dismiss-alert",
+        "condition": "key === 'Escape' && dismissible"
+      },
+      {
+        "trigger": "timeout",
+        "action": "auto-dismiss",
+        "condition": "!persistent && duration > 0"
+      }
+    ],
+    "timing": {
+      "autoDismiss": true,
+      "defaultDuration": 5000,
+      "pauseOnHover": true,
+      "resumeOnLeave": true
+    },
+    "accessibility": {
+      "role": "alert",
+      "focusable": true,
+      "keyboardSupport": ["Escape", "Tab", "Enter"],
+      "ariaLabel": "{{variant}} alert: {{title}}"
+    }
+  },
+  "layout": {
+    "display": "block",
+    "positioning": "fixed",
+    "spacing": {
+      "padding": {
+        "top": 2,
+        "right": 3,
+        "bottom": 2,
+        "left": 3
+      },
+      "margin": {
+        "bottom": 1
+      }
+    },
+    "sizing": {
+      "minWidth": 30,
+      "maxWidth": 50,
+      "height": "auto"
+    }
+  },
+  "ascii": {
+    "templateFile": "alert.md",
+    "width": 50,
+    "height": 8,
+    "variables": [
+      {
+        "name": "title",
+        "type": "string",
+        "defaultValue": "Success!",
+        "description": "Alert title/heading text",
+        "required": false,
+        "validation": {
+          "max": 50
+        }
+      },
+      {
+        "name": "message",
+        "type": "string",
+        "defaultValue": "Operation completed successfully.",
+        "description": "Main alert message content",
+        "required": true,
+        "validation": {
+          "max": 200
+        }
+      },
+      {
+        "name": "variant",
+        "type": "string",
+        "defaultValue": "success",
+        "description": "Alert type and styling",
+        "validation": {
+          "enum": ["success", "warning", "error", "info", "default"]
+        }
+      },
+      {
+        "name": "icon",
+        "type": "string",
+        "defaultValue": "✓",
+        "description": "Icon character for alert type",
+        "validation": {
+          "max": 5
+        }
+      },
+      {
+        "name": "dismissible",
+        "type": "boolean",
+        "defaultValue": true,
+        "description": "Whether alert can be manually dismissed"
+      },
+      {
+        "name": "persistent",
+        "type": "boolean",
+        "defaultValue": false,
+        "description": "Whether alert stays until manually dismissed"
+      },
+      {
+        "name": "actions",
+        "type": "array",
+        "defaultValue": [],
+        "description": "Action buttons for the alert",
+        "validation": {
+          "max": 3
+        }
+      },
+      {
+        "name": "compact",
+        "type": "boolean",
+        "defaultValue": false,
+        "description": "Use minimal spacing and height"
+      },
+      {
+        "name": "bordered",
+        "type": "boolean",
+        "defaultValue": true,
+        "description": "Show border around alert"
+      }
+    ]
+  }
+}

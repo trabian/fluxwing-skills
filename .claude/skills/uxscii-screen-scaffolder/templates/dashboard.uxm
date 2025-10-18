@@ -1,0 +1,65 @@
+{
+  "id": "dashboard",
+  "type": "container",
+  "version": "1.0.0",
+  "metadata": {
+    "name": "Dashboard",
+    "description": "Main application dashboard with metrics and activity feed",
+    "author": "Fluxwing Team",
+    "created": "2024-10-11T12:00:00Z",
+    "modified": "2024-10-11T12:00:00Z",
+    "tags": ["dashboard", "screen", "metrics", "analytics"],
+    "category": "display"
+  },
+  "props": {
+    "title": "Dashboard",
+    "userName": "User",
+    "components": [
+      "navigation",
+      "card",
+      "badge",
+      "list"
+    ]
+  },
+  "layout": {
+    "display": "grid",
+    "positioning": "relative",
+    "spacing": {
+      "padding": 16,
+      "margin": 0
+    }
+  },
+  "behavior": {
+    "states": [
+      {
+        "name": "loaded",
+        "properties": {
+          "showContent": true,
+          "loading": false
+        }
+      },
+      {
+        "name": "loading",
+        "properties": {
+          "showSpinner": true,
+          "hideContent": true
+        }
+      },
+      {
+        "name": "error",
+        "properties": {
+          "showError": true
+        }
+      }
+    ],
+    "accessibility": {
+      "role": "main",
+      "ariaLabel": "Dashboard main content"
+    }
+  },
+  "ascii": {
+    "templateFile": "dashboard.md",
+    "width": 80,
+    "height": 30
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "id": "card",
+  "type": "card",
+  "version": "1.0.0",
+  "metadata": {
+    "name": "Card Component",
+    "description": "A flexible container for grouping related content with optional header, body, and footer sections",
+    "author": "UXscii Team",
+    "created": "2024-01-15T00:00:00Z",
+    "modified": "2024-01-15T00:00:00Z",
+    "tags": ["card", "container", "layout"],
+    "category": "layout"
+  },
+  "props": {
+    "title": "",
+    "subtitle": "",
+    "content": "",
+    "footer": "",
+    "elevated": true,
+    "padding": "medium",
+    "borderRadius": "medium",
+    "maxWidth": 40,
+    "hasHeader": true,
+    "hasFooter": false
+  },
+  "behavior": {
+    "states": [
+      {
+        "name": "default",
+        "properties": {
+          "background": "white",
+          "border": "solid-gray-light",
+          "borderWidth": 1,
+          "shadow": "subtle"
+        }
+      },
+      {
+        "name": "hover",
+        "properties": {
+          "background": "white",
+          "border": "solid-gray-medium",
+          "borderWidth": 1,
+          "shadow": "elevated"
+        },
+        "triggers": ["hover"]
+      },
+      {
+        "name": "focus",
+        "properties": {
+          "background": "white",
+          "border": "solid-primary",
+          "borderWidth": 2,
+          "shadow": "elevated",
+          "outline": "primary"
+        },
+        "triggers": ["focus"]
+      }
+    ],
+    "interactions": [
+      {
+        "trigger": "click",
+        "action": "emit-card-click"
+      }
+    ],
+    "accessibility": {
+      "role": "article",
+      "focusable": false,
+      "keyboardSupport": [],
+      "ariaLabel": "{{title}}"
+    }
+  },
+  "layout": {
+    "display": "block",
+    "positioning": "static",
+    "spacing": {
+      "margin": {
+        "bottom": 2
+      },
+      "padding": {
+        "top": 1,
+        "right": 2,
+        "bottom": 1,
+        "left": 2
+      }
+    },
+    "sizing": {
+      "width": 40,
+      "height": "auto",
+      "minWidth": 20,
+      "maxWidth": 80
+    }
+  },
+  "ascii": {
+    "templateFile": "card.md",
+    "width": 40,
+    "height": 12,
+    "variables": [
+      {
+        "name": "title",
+        "type": "string",
+        "defaultValue": "Card Title",
+        "description": "The main heading of the card"
+      },
+      {
+        "name": "subtitle",
+        "type": "string",
+        "defaultValue": "",
+        "description": "Optional subtitle or secondary heading"
+      },
+      {
+        "name": "content",
+        "type": "string",
+        "defaultValue": "Card content goes here. This is the main body text that provides details or information.",
+        "description": "The main content or body text of the card"
+      },
+      {
+        "name": "footer",
+        "type": "string",
+        "defaultValue": "",
+        "description": "Optional footer content like actions or metadata"
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "defaultValue": 40,
+        "description": "Card width in characters",
+        "validation": {
+          "min": 20,
+          "max": 80
+        }
+      },
+      {
+        "name": "hasHeader",
+        "type": "boolean",
+        "defaultValue": true,
+        "description": "Whether to show the header section"
+      },
+      {
+        "name": "hasFooter",
+        "type": "boolean",
+        "defaultValue": false,
+        "description": "Whether to show the footer section"
+      }
+    ]
+  }
+}

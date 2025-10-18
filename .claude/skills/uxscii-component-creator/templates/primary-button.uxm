@@ -1,0 +1,119 @@
+{
+  "id": "primary-button",
+  "type": "button",
+  "version": "1.0.0",
+  "metadata": {
+    "name": "Primary Button",
+    "description": "A primary action button with emphasis styling for main user actions",
+    "author": "UXscii Team",
+    "created": "2024-01-01T00:00:00Z",
+    "modified": "2024-01-01T00:00:00Z",
+    "tags": ["button", "primary", "action"],
+    "category": "input"
+  },
+  "props": {
+    "text": "Button",
+    "disabled": false,
+    "size": "medium",
+    "fullWidth": false,
+    "ariaLabel": ""
+  },
+  "behavior": {
+    "states": [
+      {
+        "name": "default",
+        "properties": {
+          "background": "primary",
+          "textColor": "white",
+          "border": "solid"
+        }
+      },
+      {
+        "name": "hover",
+        "properties": {
+          "background": "primary-dark",
+          "textColor": "white",
+          "border": "solid"
+        },
+        "triggers": ["mouseenter"]
+      },
+      {
+        "name": "active",
+        "properties": {
+          "background": "primary-darker",
+          "textColor": "white",
+          "border": "inset"
+        },
+        "triggers": ["mousedown"]
+      },
+      {
+        "name": "disabled",
+        "properties": {
+          "background": "gray-light",
+          "textColor": "gray-dark",
+          "border": "dashed"
+        }
+      }
+    ],
+    "interactions": [
+      {
+        "trigger": "click",
+        "action": "emit-click-event"
+      },
+      {
+        "trigger": "keydown",
+        "action": "emit-click-event",
+        "condition": "key === 'Enter' || key === ' '"
+      }
+    ],
+    "accessibility": {
+      "role": "button",
+      "focusable": true,
+      "keyboardSupport": ["Enter", "Space"],
+      "ariaLabel": "{{ariaLabel || text}}"
+    }
+  },
+  "layout": {
+    "display": "inline-block",
+    "positioning": "static",
+    "spacing": {
+      "padding": {
+        "top": 1,
+        "right": 2,
+        "bottom": 1,
+        "left": 2
+      }
+    },
+    "sizing": {
+      "minWidth": 8,
+      "height": 3
+    }
+  },
+  "ascii": {
+    "templateFile": "primary-button.md",
+    "width": 16,
+    "height": 3,
+    "variables": [
+      {
+        "name": "text",
+        "type": "string",
+        "defaultValue": "Button",
+        "description": "The text displayed on the button",
+        "required": true,
+        "validation": {
+          "max": 20
+        }
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "defaultValue": 16,
+        "description": "Button width in characters",
+        "validation": {
+          "min": 8,
+          "max": 40
+        }
+      }
+    ]
+  }
+}
