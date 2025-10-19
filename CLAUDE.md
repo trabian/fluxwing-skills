@@ -122,6 +122,7 @@ The six skills handle different aspects of UX design:
 2. **WRITE to project workspace**: All outputs go to `./fluxwing/`
 3. **NEVER mix**: Never write to skill directory, never assume skill files are editable
 4. **Inventory check order**: components → library → bundled templates (preference for user files)
+5. **Git operations**: Never add claude code attribution to commits or prs
 
 ## Development Workflows
 
