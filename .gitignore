@@ -2,21 +2,22 @@
 .DS_Store
 Thumbs.db
 
-# Claude Code project configuration (NOT plugin config)
-.claude/
-!.claude-plugin/
+# Claude Code configuration
+.claude/*
+!.claude/skills/
 
-# Git
-.git/
+# User project workspace (NOT part of this repo)
+# Users create their own ./fluxwing/ directory when using skills
+fluxwing/
 
 # Temporary files
 *.tmp
 *.log
 
-# Build artifacts (if any in future)
+# Build artifacts
 dist/
 build/
 node_modules/
 
-# Marketing materials (keep local only)
+# Marketing materials
 marketing/

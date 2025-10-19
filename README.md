@@ -1,15 +1,8 @@
-# Fluxwing - AI-Native UX Design Plugin
-
-<p align="left">
-  <a href="https://www.trabian.com">
-    <img src="docs/assets/trabian.svg" alt="Trabian logo" width="150" style="vertical-align:middle; margin-right:12px;">
-  </a>
-  <span style="vertical-align:middle; font-size:1rem;">A product by <a href="https://www.trabian.com">Trabian</a>.</span>
-</p>
+# Fluxwing Skills - AI-Native UX Design for Claude Code
 
 **Design beautiful UX and screens with AI using the uxscii standard.**
 
-Fluxwing leverages AI's natural ability to create ASCII art specifications that humans can instantly understand and provide feedback on. Built on the open **uxscii standard**, it enables a rapid design feedback loop: AI generates visual specs using ASCII, humans review and iterate naturally, and the system captures increasing levels of fidelity through structured metadata.
+Fluxwing Skills brings AI-native UX design to Claude Code through six specialized skills. Built on the open **uxscii standard**, it enables a rapid design feedback loop: AI generates visual specs using ASCII art, humans review and iterate naturally, and the system captures increasing levels of fidelity through structured metadata.
 
 **The perfect collaboration:** AI excels at creating ASCII layouts. Humans excel at giving feedback on ASCII drawings. Together, they create production-ready designs through progressive refinement.
 
@@ -17,7 +10,7 @@ Fluxwing leverages AI's natural ability to create ASCII art specifications that 
 
 ## What is Fluxwing?
 
-**Fluxwing** is the AI agent that helps you design. **uxscii** is the standard format it uses.
+**Fluxwing** is the AI agent system that helps you design. **uxscii** is the standard format it uses.
 
 Think of it this way:
 - **uxscii** = The language (like HTML/CSS)
@@ -30,16 +23,23 @@ Think of it this way:
 Get started in 30 seconds:
 
 ```bash
-# Add the marketplace
-/plugin marketplace add fluxwing/claude-code-plugins
+# Clone the repository
+git clone https://github.com/trabian/fluxwing-skills.git
+cd fluxwing-skills
 
-# Install the plugin
-/plugin install fluxwing
+# Run the installation script
+./scripts/install.sh
 ```
 
-That's it! Start designing with `/fluxwing-create` or `/fluxwing-library`
+The installer will:
+- Auto-detect installation location (global or local project)
+- Copy skills to the appropriate location
+- Verify all templates and schemas
+- Provide usage examples
 
-**[See detailed installation options →](#full-installation-guide)**
+**That's it!** Start designing by talking to Claude naturally.
+
+**See [INSTALL.md](INSTALL.md) for detailed installation options.**
 
 ---
 
@@ -47,74 +47,54 @@ That's it! Start designing with `/fluxwing-create` or `/fluxwing-library`
 
 ### Create Your First Component
 
-```bash
-/fluxwing-create button
+Simply ask Claude:
+```
+"Create a button component"
 ```
 
-Fluxwing guides you through creating a button with interactive states, accessibility attributes, and clean ASCII visualization.
+The **uxscii-component-creator** skill activates and guides you through creating a button with interactive states, accessibility attributes, and clean ASCII visualization.
 
 ### Browse the Library
 
-```bash
-/fluxwing-library
+Ask Claude:
+```
+"Show me all available components"
 ```
 
-Explore 11 bundled templates (buttons, inputs, cards, modals, etc.) and your project components.
+The **uxscii-library-browser** skill shows you 11 bundled templates (buttons, inputs, cards, modals, etc.) and your project components.
 
 ### Build a Complete Screen
 
-```bash
-/fluxwing-scaffold login-screen
+Ask Claude:
+```
+"Build a login screen"
 ```
 
-Fluxwing creates missing components, composes them into a screen, and generates rendered examples with real data.
+The **uxscii-screen-scaffolder** skill creates missing components, composes them into a screen, and generates rendered examples with real data.
 
-### Validate Your Work
+### Add Component States
 
-```bash
-/fluxwing-validate
+Ask Claude:
+```
+"Add hover state to my button"
 ```
 
-Get instant feedback on schema compliance, accessibility, and best practices.
+The **uxscii-component-expander** skill adds interactive states (hover, focus, disabled, active, error) to existing components.
 
 ---
 
-## Features
+## The Six Skills
 
-### Slash Commands (Quick Tasks)
+| Skill | Triggers | Purpose |
+|-------|----------|---------|
+| **uxscii-component-creator** | "Create a button", "I need an input component" | Create new components (buttons, inputs, cards, etc.) |
+| **uxscii-library-browser** | "Show me all components", "Browse the library" | Browse available templates and user components |
+| **uxscii-component-expander** | "Add hover state", "Make this interactive" | Add states to existing components |
+| **uxscii-screen-scaffolder** | "Create a login screen", "Build a dashboard" | Build complete screens from components |
+| **uxscii-component-viewer** | "Show me the submit-button", "View details" | View component details and metadata |
+| **uxscii-screenshot-importer** | "Import this screenshot", "Convert screenshot" | Convert screenshots to uxscii components |
 
-| Command | Purpose |
-|---------|---------|
-| `/fluxwing-create [name]` | Create a single component |
-| `/fluxwing-scaffold [screen]` | Build a complete screen |
-| `/fluxwing-validate [file]` | Validate components |
-| `/fluxwing-library` | Browse all components |
-
-📖 **[See detailed command reference →](fluxwing/COMMANDS.md)**
-
-### AI Agents (Complex Work)
-
-| Agent | Purpose |
-|-------|---------|
-| **fluxwing-designer** | Autonomous multi-component design from descriptions |
-| **fluxwing-validator** | Deep quality analysis with recommendations |
-| **fluxwing-composer** | Assemble screens from existing components |
-
-🤖 **[See detailed agent reference →](fluxwing/AGENTS.md)**
-
-### What's Included
-
-**11 Curated Component Templates:**
-Buttons, inputs, cards, modals, navigation, alerts, badges, lists, forms, and more.
-
-**2 Complete Screen Examples:**
-Login screen and dashboard with rendered examples showing real data.
-
-**Complete Documentation:**
-Modular guides optimized for AI agents, full uxscii reference, ASCII pattern library, and validation standards.
-
-**Production-Ready Schema:**
-JSON Schema for validation with complete field reference and extensible architecture.
+**Skills activate automatically** based on your natural language requests to Claude.
 
 ---
 
@@ -158,35 +138,27 @@ Every component consists of two files:
 ```
 ````
 
-### Output Structure & Data Locations
+### Output Structure
 
-**Critical Understanding**: Fluxwing has TWO separate file locations:
+**All component and screen outputs are saved to your project:**
 
-#### Plugin Data (READ-ONLY)
 ```
-{PLUGIN_ROOT}/data/          # Bundled with plugin - reference only
-├── schema/                  # JSON Schema for validation
-├── examples/                # 11 component templates (READ-ONLY)
-├── screens/                 # 2 screen examples (READ-ONLY)
+./fluxwing/                  # Your project files
+├── components/              # Your created components (.uxm + .md)
+├── screens/                 # Your created screens (.uxm + .md + .rendered.md)
+└── library/                 # Customized copies of templates
+```
+
+**Skills include bundled templates** (READ-ONLY reference materials):
+
+```
+.claude/skills/{skill-name}/
+├── templates/               # 11 component templates
+├── schemas/                 # JSON Schema validation
 └── docs/                    # Documentation modules
 ```
 
-**These are bundled reference materials - NEVER modified by commands or agents.**
-
-#### Your Project Workspace (READ-WRITE)
-```
-./fluxwing/                  # Your project files - ALL outputs go here
-├── components/              # Your created components
-├── screens/                 # Your created screens
-│   └── *.rendered.md        # Examples with REAL data
-└── library/                 # Your customized template copies
-```
-
-**All command and agent outputs are saved here. These are YOUR files.**
-
-**The Golden Rule**: READ from plugin data, WRITE to project workspace.
-
-🏗️ **[See complete architecture →](fluxwing/ARCHITECTURE.md)**
+**The Golden Rule**: Skills READ from bundled templates, WRITE to your project workspace.
 
 ---
 
@@ -236,7 +208,7 @@ Add accessibility, interactions, animations, responsive behavior, and design tok
 
 **Tool Independent** - Open uxscii standard, not proprietary. Works with any text editor. No vendor lock-in.
 
-**Portable & Self-Contained** - Everything needed is in the plugin. No external dependencies. Works in any Claude Code installation.
+**Portable & Self-Contained** - Everything needed is bundled in the skills. No external dependencies. Works in any Claude Code installation.
 
 ---
 
@@ -276,7 +248,7 @@ AI: [Iterates instantly]
 │  ╔════════════════╗  │
 │  ║   SIGN IN      ║  │
 │  ╚════════════════╝  │
-╰──────────────────────╋
+╰──────────────────────╯
 
 You: "Perfect! Now add the metadata for accessibility"
 
@@ -285,41 +257,24 @@ AI: [Adds structured .uxm metadata with ARIA labels, roles, keyboard navigation]
 
 **Design converges through natural feedback on ASCII drawings.**
 
-### Using Commands
+---
 
-**Quick single component:**
-```bash
-/fluxwing-create button
-```
+## What's Included
 
-**Full screen with multiple components:**
-```bash
-/fluxwing-scaffold dashboard
-```
+**Six Specialized Skills:**
+Component creation, library browsing, state expansion, screen scaffolding, component viewing, and screenshot importing.
 
-**Browse the library:**
-```bash
-/fluxwing-library
-```
+**11 Curated Component Templates:**
+Buttons, inputs, cards, modals, navigation, alerts, badges, lists, forms, and more.
 
-**Validate your work:**
-```bash
-/fluxwing-validate
-```
+**2 Complete Screen Examples:**
+Login screen and dashboard with rendered examples showing real data.
 
-### Using Agents
+**Complete Documentation:**
+Modular guides optimized for AI agents, full uxscii reference, ASCII pattern library, and validation standards.
 
-**Let AI design autonomously:**
-```
-"Create a complete dashboard with revenue cards, user activity chart, and recent notifications"
-```
-
-The agent will:
-- Generate ASCII layouts for review
-- Create all necessary components
-- Compose them into screens
-- Add progressive levels of fidelity
-- Validate everything
+**Production-Ready Schema:**
+JSON Schema for validation with complete field reference and extensible architecture.
 
 ---
 
@@ -327,56 +282,40 @@ The agent will:
 
 ### Getting Started
 - **[README.md](README.md)** (you are here) - Overview and quick start
-- **[00-INDEX.md](fluxwing/data/docs/00-INDEX.md)** - Documentation navigation
-
-### Reference
-- **[COMMANDS.md](fluxwing/COMMANDS.md)** - Complete command reference
-- **[AGENTS.md](fluxwing/AGENTS.md)** - Complete agent reference
-- **[ARCHITECTURE.md](fluxwing/ARCHITECTURE.md)** - Technical design and decisions
-
-### Guides
-- **[Quick Start](fluxwing/data/docs/01-quick-start.md)** - 30-second component creation
-- **[Core Concepts](fluxwing/data/docs/02-core-concepts.md)** - Understanding uxscii
-- **[Component Creation](fluxwing/data/docs/03-component-creation.md)** - Step-by-step workflow
-- **[Screen Composition](fluxwing/data/docs/04-screen-composition.md)** - Building complete screens
-- **[Validation Guide](fluxwing/data/docs/05-validation-guide.md)** - Quality standards
-- **[ASCII Patterns](fluxwing/data/docs/06-ascii-patterns.md)** - Visual toolkit
-- **[Schema Reference](fluxwing/data/docs/07-schema-reference.md)** - Schema documentation
-
-### Help
-- **[TROUBLESHOOTING.md](fluxwing/TROUBLESHOOTING.md)** - Common issues and solutions
-- **[CONTRIBUTING.md](fluxwing/CONTRIBUTING.md)** - How to extend and contribute
-- **[PLUGIN_STRUCTURE.md](fluxwing/PLUGIN_STRUCTURE.md)** - Complete structure reference
+- **[INSTALL.md](INSTALL.md)** - Comprehensive installation guide
 
 ### Development
-- **[Development Docs](docs/)** - Internal development documentation and planning
+- **[CLAUDE.md](CLAUDE.md)** - Guidance for Claude Code when working with this repository
+- **[TODO.md](TODO.md)** - Current development status and tasks
+
+### Skill Documentation
+Each skill includes its own documentation:
+- `.claude/skills/{skill-name}/SKILL.md` - Skill workflow and instructions
+- `.claude/skills/{skill-name}/docs/` - Modular documentation modules
+- `.claude/skills/{skill-name}/templates/` - Component templates
+- `.claude/skills/{skill-name}/schemas/` - JSON Schema validation
 
 ---
 
-## Contributing
+## Uninstallation
 
-Contributions welcome! To add features or improvements:
+To remove the skills:
 
-1. Read **[CONTRIBUTING.md](fluxwing/CONTRIBUTING.md)** for guidelines
-2. Fork the repository
-3. Create a feature branch
-4. Make your changes
-5. Submit a pull request
+```bash
+./scripts/uninstall.sh
+```
+
+Your project data in `./fluxwing/` is **never deleted** during uninstallation.
 
 ---
 
 ## Support
 
-### Having Issues?
-
-Check **[TROUBLESHOOTING.md](fluxwing/TROUBLESHOOTING.md)** for solutions to common problems.
-
 ### Need Help?
 
 - **Issues**: Report bugs or request features on GitHub
-- **Discussions**: Ask questions and share ideas on GitHub Discussions
-- **Examples**: Browse `fluxwing/data/examples/` for component patterns
-- **Documentation**: Check `fluxwing/data/docs/00-INDEX.md` for all guides
+- **Documentation**: Check [INSTALL.md](INSTALL.md) and [CLAUDE.md](CLAUDE.md)
+- **Examples**: Browse `.claude/skills/*/templates/` for component patterns
 
 ---
 
@@ -394,122 +333,12 @@ Fluxwing brings uxscii to Claude Code, making AI-powered UX design accessible to
 
 ---
 
-## Full Installation Guide
-
-### Cloud Installation (Recommended)
-
-Install Fluxwing directly from the plugin marketplace:
-
-**1. Add the Fluxwing marketplace:**
-
-```bash
-/plugin marketplace add fluxwing/claude-code-plugins
-```
-
-**2. Install the plugin:**
-
-```bash
-/plugin install fluxwing
-```
-
-That's it! Fluxwing is now available across all your Claude Code sessions (terminal and VS Code).
-
-**Toggle the plugin on/off as needed:**
-
-```bash
-/plugin disable fluxwing
-/plugin enable fluxwing
-```
-
-### Local Installation
-
-For development or offline use, install from a local directory:
-
-**1. Clone or download the marketplace:**
-
-```bash
-git clone https://github.com/trabian/fluxwing-plugin.git
-cd fluxwing-plugin
-```
-
-**2. Add the marketplace:**
-
-```bash
-/plugin marketplace add /path/to/claude-code-plugins
-```
-
-**3. Install the plugin:**
-
-```bash
-/plugin install fluxwing@fluxwing-marketplace
-```
-
-**Note**: Replace `/path/to/claude-code-plugins` with the absolute path to the marketplace directory (containing `.claude-plugin/marketplace.json`).
-
-### Local Development Setup
-
-When developing the plugin locally, you need to copy the built-in components to Claude's plugin cache directory:
-
-**1. Navigate to the marketplace root:**
-
-```bash
-cd fluxwing-marketplace
-```
-
-**2. Run the setup script (first time only):**
-
-```bash
-npm run dev:setup
-```
-
-**3. After modifying built-in components, sync them:**
-
-```bash
-npm run dev:sync-components
-```
-
-This script copies the built-in components from `fluxwing/data/examples/` to the well-known location (`~/.claude/plugins/cache/fluxwing/data/examples/`) where Claude Code expects to find them.
-
-### Requirements
-
-- Claude Code (any version with plugin support)
-- No external dependencies required
-- Everything you need is bundled in the plugin
-
-### Project Structure
-
-```
-fluxwing-marketplace/
-├── .claude-plugin/          # Marketplace manifest
-├── package.json             # Development scripts
-├── tests/                   # Automated tests
-├── docs/                    # Development documentation
-└── fluxwing/               # The plugin
-    ├── .claude-plugin/      # Plugin manifest
-    ├── commands/            # 4 slash commands
-    ├── agents/              # 3 autonomous agents
-    ├── data/                # All uxscii assets (portable)
-    │   ├── schema/          # JSON Schema validation
-    │   ├── examples/        # 11 component templates
-    │   ├── screens/         # 2 screen examples
-    │   └── docs/            # Documentation modules
-    └── [Documentation files]
-```
-
-**[See complete structure →](fluxwing/PLUGIN_STRUCTURE.md)**
-
----
-
 <div align="center">
 
 **Ready to design with AI?**
 
-Start with: `/fluxwing-create` or `/fluxwing-library`
+Install with `./scripts/install.sh` and start talking to Claude naturally.
 
 *Design beautiful UX with Fluxwing - your AI design assistant*
-
----
-
-**[Commands](fluxwing/COMMANDS.md)** • **[Agents](fluxwing/AGENTS.md)** • **[Architecture](fluxwing/ARCHITECTURE.md)** • **[Contributing](fluxwing/CONTRIBUTING.md)** • **[Troubleshooting](fluxwing/TROUBLESHOOTING.md)**
 
 </div>

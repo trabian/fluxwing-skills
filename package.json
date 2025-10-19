@@ -1,20 +1,24 @@
 {
-  "name": "fluxwing-marketplace",
+  "name": "fluxwing-skills",
   "version": "1.0.0",
-  "description": "Fluxwing Claude Code Plugin Marketplace",
+  "description": "Claude Code skills for AI-native UX design using the uxscii standard",
   "scripts": {
-    "dev:link": "rm -rf ~/.claude/plugins/fluxwing && ln -s \"$PWD/fluxwing\" ~/.claude/plugins/fluxwing && echo '✓ Plugin symlinked for development. Restart Claude Code to load changes.'",
-    "dev:unlink": "rm ~/.claude/plugins/fluxwing && echo '✓ Plugin unlinked. Run dev:link to restore development mode.'",
-    "dev:status": "ls -la ~/.claude/plugins/fluxwing 2>/dev/null && echo '' && echo '✓ Plugin is symlinked for development' || echo '✗ Plugin not linked. Run npm run dev:link'",
-    "test": "cd tests && pnpm test",
-    "test:watch": "cd tests && pnpm test:watch",
-    "test:coverage": "cd tests && pnpm test:coverage",
-    "test:report": "cd tests && pnpm test:report",
-    "test:build": "cd tests && pnpm build",
-    "test:clean": "cd tests && pnpm clean",
-    "ghpages:serve": "python3 -m http.server 4173 --directory docs"
+    "install": "./scripts/install.sh",
+    "uninstall": "./scripts/uninstall.sh"
   },
-  "keywords": ["fluxwing", "uxscii", "claude-code", "plugin", "marketplace"],
-  "author": "",
-  "license": "MIT"
+  "keywords": [
+    "fluxwing",
+    "uxscii",
+    "claude-code",
+    "skills",
+    "ux-design",
+    "ui-components",
+    "ascii-art"
+  ],
+  "author": "Trabian",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trabian/fluxwing-skills"
+  }
 }
