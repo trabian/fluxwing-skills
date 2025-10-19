@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Why Fluxwing — The Universal Interface for Human-AI Collaboration</title>
+    <meta name="description" content="Why ASCII is the universal interface. Learn how Fluxwing enables design systems that both humans and AI agents understand natively through derivation, not duplication.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fluxwing.com/why.html">
+    <meta property="og:title" content="Why Fluxwing — The Universal Interface for Human-AI Collaboration">
+    <meta property="og:description" content="Why ASCII is the universal interface. Design systems that both humans and AI agents understand natively.">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://fluxwing.com/why.html">
+    <meta property="twitter:title" content="Why Fluxwing — The Universal Interface for Human-AI Collaboration">
+    <meta property="twitter:description" content="Why ASCII is the universal interface. Design systems that both humans and AI agents understand natively.">
+
+    <link rel="stylesheet" href="css/base.css">
+  </head>
+  <body class="crt-bg">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header style="padding: 2rem clamp(1.5rem, 6vw, 6rem); background: rgba(2, 5, 8, 0.95); border-bottom: 1px dashed rgba(94, 247, 194, 0.35);">
+      <nav style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <a href="/" style="font-size: 1.25rem; font-weight: 700; color: var(--fw-accent-strong);">Fluxwing</a>
+        <ul style="display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; flex-wrap: wrap;">
+          <li><a href="/why.html">Why Fluxwing</a></li>
+          <li><a href="/#install">Install</a></li>
+          <li><a href="/#docs">Docs</a></li>
+          <li><a href="https://github.com/trabian/fluxwing-plugin">GitHub</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="ascii-stop" data-title="/why fluxwing" style="max-width: 1200px; margin: 3rem auto;">
+        <h1 style="font-size: clamp(2.5rem, 4vw, 3.5rem); margin-bottom: 1rem; color: var(--fw-accent);">Why Fluxwing?</h1>
+        <p style="font-size: 1.25rem; color: rgba(210, 248, 255, 0.85); margin-bottom: 3rem;">ASCII is the universal interface. Humans see it instantly. AI reads it perfectly. One format for both audiences.</p>
+      </section>
+
+      <section class="ascii-stop" data-title="/the problem" style="max-width: 1200px; margin: 3rem auto;">
+        <h2>Traditional Design Tools Weren't Built for the AI Age</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 2rem;">
+          <div style="padding: 1.5rem; background: rgba(2, 5, 9, 0.85); border: 1px dashed rgba(94, 247, 194, 0.25); border-radius: 0;">
+            <h3>For Humans Only</h3>
+            <p>Design tools like Figma are optimized for human manipulation—clicking, dragging, pixel-pushing. But AI agents can't understand them. Binary files. Visual interfaces. Closed formats.</p>
+          </div>
+          <div style="padding: 1.5rem; background: rgba(2, 5, 9, 0.85); border: 1px dashed rgba(94, 247, 194, 0.25); border-radius: 0;">
+            <h3>Duplication Nightmare</h3>
+            <p>Want a button variation? Copy-paste. Another variation? Copy-paste again. Soon you have 47 button copies. Good luck keeping them in sync. Evolution through duplication creates chaos.</p>
+          </div>
+          <div style="padding: 1.5rem; background: rgba(2, 5, 9, 0.85); border: 1px dashed rgba(94, 247, 194, 0.25); border-radius: 0;">
+            <h3>Not Version Control Friendly</h3>
+            <p>Binary files don't diff well. Collaborative editing causes conflicts. Design history is opaque. PRs can't show meaningful visual changes in code review.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="ascii-stop" data-title="/the solution" style="max-width: 1200px; margin: 3rem auto;">
+        <h2>ASCII: The Universal Interface</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3rem; margin-top: 2rem;">
+          <div>
+            <h3 style="margin-bottom: 1rem;">For Humans</h3>
+            <pre style="font-family: var(--fw-font); font-size: 0.95rem; line-height: 1.5; padding: 1.5rem; background: rgba(2, 5, 9, 0.92); border: 1px dashed rgba(94, 247, 194, 0.35); color: var(--fw-accent); margin: 1rem 0;">╭──────────────────╮
+│   Submit Form    │
+╰──────────────────╯</pre>
+            <p style="margin-top: 1rem;">Humans parse ASCII layouts instantly. You look at a box with borders and immediately see:</p>
+            <ul style="margin-top: 1rem; padding-left: 1.5rem; color: rgba(210, 248, 255, 0.85);">
+              <li>Structure and hierarchy</li>
+              <li>Layout relationships</li>
+              <li>Component boundaries</li>
+              <li>Visual feedback is natural</li>
+            </ul>
+            <p style="margin-top: 1rem; font-weight: 600;">No learning curve. Just vision.</p>
+          </div>
+          <div>
+            <h3 style="margin-bottom: 1rem;">For AI Agents</h3>
+            <pre style="font-family: var(--fw-font); font-size: 0.9rem; line-height: 1.5; padding: 1.5rem; background: rgba(2, 5, 9, 0.92); border: 1px dashed rgba(94, 247, 194, 0.35); color: var(--fw-accent); margin: 1rem 0;">{
+  "id": "submit-button",
+  "type": "button",
+  "props": {
+    "text": "Submit Form",
+    "variant": "primary"
+  }
+}</pre>
+            <p style="margin-top: 1rem;">AI agents understand ASCII perfectly:</p>
+            <ul style="margin-top: 1rem; padding-left: 1.5rem; color: rgba(210, 248, 255, 0.85);">
+              <li>No vision models needed</li>
+              <li>Zero ambiguity in specs</li>
+              <li>Structured text they reason about natively</li>
+              <li>Generate implementations directly</li>
+            </ul>
+            <p style="margin-top: 1rem; font-weight: 600;">Perfect comprehension without interpretation layers.</p>
+          </div>
+        </div>
+        <p style="font-size: 1.25rem; font-weight: 600; text-align: center; color: var(--fw-accent-strong); margin-top: 3rem;">One format. Two audiences. Perfect clarity for both.</p>
+      </section>
+
+      <section class="ascii-stop" data-title="/why teams choose" style="max-width: 1200px; margin: 3rem auto;">
+        <h2>Why Teams Choose Fluxwing</h2>
+        <div style="display: grid; gap: 2rem; margin-top: 2rem;">
+          <div style="padding: 2rem; background: rgba(2, 5, 9, 0.85); border: 1px dashed rgba(94, 247, 194, 0.25); border-radius: 0;">
+            <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--fw-accent);">"Our AI agents finally understand our design system."</h3>
+            <p>Specifications that AI can read natively. No interpretation layer. No ambiguity. Perfect comprehension. Generate implementations directly from specs.</p>
+          </div>
+          <div style="padding: 2rem; background: rgba(2, 5, 9, 0.85); border: 1px dashed rgba(94, 247, 194, 0.25); border-radius: 0;">
+            <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--fw-accent);">"We stopped duplicating components."</h3>
+            <p>Derivation model means change base once, all variations inherit. No more keeping 47 button copies in sync. Libraries grow organically through references.</p>
+          </div>
+          <div style="padding: 2rem; background: rgba(2, 5, 9, 0.85); border: 1px dashed rgba(94, 247, 194, 0.25); border-radius: 0;">
+            <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--fw-accent);">"Design reviews happen in PRs now."</h3>
+            <p>Text-based format shows meaningful diffs in code review. Visual changes visible in version control. Collaborative iteration. Single source of truth.</p>
+          </div>
+          <div style="padding: 2rem; background: rgba(2, 5, 9, 0.85); border: 1px dashed rgba(94, 247, 194, 0.25); border-radius: 0;">
+            <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--fw-accent);">"We iterate 10x faster."</h3>
+            <p>ASCII layouts converge fast through human feedback. Derive variations in seconds. Compose screens in minutes. Add fidelity progressively as design solidifies.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="ascii-stop" data-title="/comparison" style="max-width: 1200px; margin: 3rem auto;">
+        <h2>How Fluxwing Compares</h2>
+        <div style="overflow-x: auto; margin-top: 2rem;">
+          <table style="width: 100%; border-collapse: collapse; min-width: 600px;">
+            <thead>
+              <tr style="background: rgba(94, 247, 194, 0.15);">
+                <th style="padding: 1rem; text-align: left; border: 1px solid rgba(94, 247, 194, 0.35); font-weight: 700;">Feature</th>
+                <th style="padding: 1rem; text-align: left; border: 1px solid rgba(94, 247, 194, 0.35); font-weight: 700;">Fluxwing</th>
+                <th style="padding: 1rem; text-align: left; border: 1px solid rgba(94, 247, 194, 0.35); font-weight: 700;">Figma</th>
+                <th style="padding: 1rem; text-align: left; border: 1px solid rgba(94, 247, 194, 0.35); font-weight: 700;">Sketch</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding: 1rem; border: 1px solid rgba(94, 247, 194, 0.25);">AI Agent Readable</td>
+                <td style="padding: 1rem; border: 1px solid rgba(94, 247, 194, 0.25);">✅ Native</td>
+                <td style="padding: 1rem; border: 1px solid rgba(94, 247, 194, 0.25);">❌ No</td>
+                <td style="padding: 1rem; border: 1px solid rgba(94, 247, 194, 0.25);">❌ No</td>
+              </tr>
+              <tr>
+                <td style="padding: 1rem; border: 1px solid rgba(94, 247, 194, 0.25);">Human Readable</td>
+                <td style="padding: 1rem; border: 1px solid rgba(94, 247, 194, 0.25);">✅ ASCII</td>
+                <td style="padding: 1rem; border: 1px solid rgba(94, 247, 194, 0.25);">✅ Visual</td>
+                <td style="padding: 1rem; border: 1px solid rgba(94, 247, 194, 0.25);">✅ Visual</td>
+              </tr>
+              <tr>
+                <td style="padding: 1rem; border: 1px solid rgba(94, 247, 194, 0.25);">Derivation Model</td>
+                <td style="padding: 1rem; border: 1px solid rgba(94, 247, 194, 0.25);">✅ Inheritance</td>
+                <td style="padding: 1rem; border: 1px solid rgba(94, 247, 194, 0.25);">❌ Duplication</td>
+                <td style="padding: 1rem; border: 1px solid rgba(94, 247, 194, 0.25);">❌ Duplication</td>
+              </tr>
+              <tr>
+                <td style="padding: 1rem; border: 1px solid rgba(94, 247, 194, 0.25);">Version Control</td>
+                <td style="padding: 1rem; border: 1px solid rgba(94, 247, 194, 0.25);">✅ Text diffs</td>
+                <td style="padding: 1rem; border: 1px solid rgba(94, 247, 194, 0.25);">⚠️ Binary</td>
+                <td style="padding: 1rem; border: 1px solid rgba(94, 247, 194, 0.25);">⚠️ Binary</td>
+              </tr>
+              <tr>
+                <td style="padding: 1rem; border: 1px solid rgba(94, 247, 194, 0.25);">Living Docs</td>
+                <td style="padding: 1rem; border: 1px solid rgba(94, 247, 194, 0.25);">✅ Executable specs</td>
+                <td style="padding: 1rem; border: 1px solid rgba(94, 247, 194, 0.25);">❌ Separate</td>
+                <td style="padding: 1rem; border: 1px solid rgba(94, 247, 194, 0.25);">❌ Separate</td>
+              </tr>
+              <tr>
+                <td style="padding: 1rem; border: 1px solid rgba(94, 247, 194, 0.25);">PR Reviews</td>
+                <td style="padding: 1rem; border: 1px solid rgba(94, 247, 194, 0.25);">✅ Code review</td>
+                <td style="padding: 1rem; border: 1px solid rgba(94, 247, 194, 0.25);">❌ External</td>
+                <td style="padding: 1rem; border: 1px solid rgba(94, 247, 194, 0.25);">❌ External</td>
+              </tr>
+              <tr>
+                <td style="padding: 1rem; border: 1px solid rgba(94, 247, 194, 0.25);">Cost</td>
+                <td style="padding: 1rem; border: 1px solid rgba(94, 247, 194, 0.25);">✅ Free/Open</td>
+                <td style="padding: 1rem; border: 1px solid rgba(94, 247, 194, 0.25);">💰 $12-45/mo</td>
+                <td style="padding: 1rem; border: 1px solid rgba(94, 247, 194, 0.25);">💰 $99</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(94, 247, 194, 0.08); border: 1px dashed rgba(94, 247, 194, 0.35); border-radius: 0;">
+          <p style="font-weight: 600; margin-bottom: 0.5rem;">Different tools for different stages:</p>
+          <p style="color: rgba(210, 248, 255, 0.85);"><strong>Fluxwing:</strong> Rapid iteration, AI collaboration, design systems</p>
+          <p style="color: rgba(210, 248, 255, 0.85); margin-top: 0.5rem;"><strong>Figma/Sketch:</strong> Pixel perfection, visual design, client presentations</p>
+          <p style="margin-top: 1rem; font-weight: 600;">Use both. Start with Fluxwing for structure. Move to visual tools for polish.</p>
+        </div>
+      </section>
+
+      <section style="max-width: 1200px; margin: 4rem auto; padding: 3rem; text-align: center; background: rgba(94, 247, 194, 0.08); border: 1px dashed rgba(94, 247, 194, 0.35);">
+        <h2 style="font-size: 2rem; margin-bottom: 1rem;">Start Building Design Systems That AI Understands</h2>
+        <p style="font-size: 1.1rem; color: rgba(210, 248, 255, 0.85); margin-bottom: 2rem;">Install Fluxwing in 30 seconds. Create your first component. Derive variations. Compose screens.</p>
+        <a href="/#install" class="btn btn--primary" style="display: inline-flex; font-size: 1.1rem; padding: 0.75rem 1.5rem;">Get Started Now</a>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__grid">
+        <div>
+          <h2 class="site-footer__title">Fluxwing</h2>
+          <p><strong>Design systems that humans AND AI agents understand natively.</strong></p>
+          <p style="margin-top: 0.5rem; font-size: 0.95rem;">Built on the open uxscii standard. ASCII is the universal interface.</p>
+        </div>
+        <nav aria-label="Footer">
+          <ul>
+            <li><a href="https://github.com/trabian/fluxwing-plugin">GitHub</a></li>
+            <li><a href="/#docs">Documentation</a></li>
+            <li><a href="/#install">Install</a></li>
+          </ul>
+        </nav>
+      </div>
+      <p class="site-footer__legal">© <span data-year></span> Fluxwing. Build component libraries through derivation, not duplication. A product by <a href="https://www.trabian.com">Trabian</a>.</p>
+    </footer>
+
+    <script>document.querySelector('[data-year]').textContent = new Date().getFullYear();</script>
+  </body>
+</html>
