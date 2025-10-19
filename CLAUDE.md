@@ -11,14 +11,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **uxscii** = The standard format (the language)
 - Think: Figma vs HTML/CSS
 
-**Development Location**: This repository (`fluxwing-skills`) is the primary development location for both:
-1. Six Claude Code skills (in `.claude/skills/`)
-2. The legacy Fluxwing plugin (in `fluxwing/`) - maintained for backwards compatibility
+**Development Location**: This repository (`fluxwing-skills`) is the development location for six Claude Code skills (in `.claude/skills/`).
 
 ## Repository Structure
 
 ```
-fluxwing-skills/                # Repository root (THIS REPO)
+fluxwing-skills/                # Repository root
 ├── .claude/
 │   └── skills/                 # 6 Skills (primary focus)
 │       ├── uxscii-component-creator/
@@ -27,15 +25,16 @@ fluxwing-skills/                # Repository root (THIS REPO)
 │       ├── uxscii-screen-scaffolder/
 │       ├── uxscii-component-viewer/
 │       └── uxscii-screenshot-importer/
-├── fluxwing/                   # Legacy plugin (backwards compatible)
-│   ├── commands/               # 6 slash commands
-│   ├── agents/                 # 7 autonomous agents
-│   └── data/                   # Bundled assets (schemas, templates, docs)
 ├── scripts/
 │   ├── install.sh              # Skills installation script
 │   └── uninstall.sh            # Skills removal script
-├── tests/                      # Automated test suite
-└── docs/                       # Development documentation
+├── .gitignore
+├── CLAUDE.md                   # This file
+├── INSTALL.md                  # Comprehensive installation guide
+├── LICENSE
+├── package.json                # Minimal metadata
+├── README.md                   # User-facing overview
+└── TODO.md                     # Development tasks
 ```
 
 ## Core Architecture - Skills System
@@ -195,46 +194,6 @@ The installer:
 3. Document in skill's `SKILL.md` if notable
 4. Reinstall skills to apply changes
 
-### Working with the Legacy Plugin
-
-The `fluxwing/` directory contains the legacy plugin for backwards compatibility:
-
-```bash
-# Link plugin for development
-npm run dev:link
-
-# Check development status
-npm run dev:status
-
-# Unlink plugin
-npm run dev:unlink
-```
-
-Changes to plugin files are instantly available after restarting Claude Code.
-
-### Testing
-
-```bash
-# Run all automated tests
-npm test
-
-# Watch mode for development
-npm run test:watch
-
-# Generate coverage report
-npm run test:coverage
-
-# Generate HTML report
-npm run test:report
-```
-
-Test files are in `tests/src/tests/`:
-- `01-command-consistency.test.ts` - Command validation
-- `02-agent-consistency.test.ts` - Agent validation
-- `03-functional-commands.test.ts` - Command execution
-- `04-functional-agents.test.ts` - Agent execution
-- `05-documentation.test.ts` - Documentation completeness
-- `06-integration.test.ts` - End-to-end workflows
 
 ## Schema and Validation
 
@@ -317,20 +276,12 @@ Follow uxscii standard strictly.`
 })
 ```
 
-### Agent Reference Documentation
-
-The `fluxwing/agents/` directory contains reference documentation for complex workflows:
-- `fluxwing-designer.md` - Component creation workflows (reference only)
-- `fluxwing-composer.md` - Screen composition workflows (reference only)
-- `screenshot-*.md` - Screenshot analysis workflows (reference only)
-
-**These files are NOT custom agent types**, but rather documentation that skills can reference when constructing prompts for the `general-purpose` agent. The plugin slash commands can reference these as autonomous agent workflows, but the skills system cannot register custom agents.
 
 ## Key Architectural Principles
 
 ### 1. Fluxwing vs uxscii Naming
 - Skills use `uxscii-*` prefix for skill names
-- Agents use `fluxwing-*` prefix for agent names
+- Agents use `fluxwing-*` prefix for agent names (historical)
 - This distinguishes tool from standard
 
 ### 2. Self-Contained Portability
@@ -363,17 +314,6 @@ All interactive components should include:
 - Focusable flag for keyboard navigation
 - ARIA labels for screen readers
 - Keyboard shortcuts where applicable
-
-## Migration Status
-
-**Current State**: Skills system complete and ready for testing
-- ✅ All 6 skills implemented
-- ✅ Installation scripts created (`install.sh`, `uninstall.sh`)
-- ✅ Automated verification implemented
-- ⏳ Manual testing pending
-- 📝 Documentation updates needed
-
-**See**: `TODO.md` for detailed migration status and testing checklist
 
 ## File References by Task
 
@@ -410,18 +350,8 @@ All interactive components should include:
 
 ### Repository Documentation
 - `README.md` - High-level overview and quick start
-- `TODO.md` - Migration status and testing checklist
+- `TODO.md` - Development status and tasks
 - `INSTALL.md` - Comprehensive installation guide (405 lines)
-- `DEVELOPMENT.md` - Development guide for plugin
-- `IMPLEMENTATION_SUMMARY.md` - Skills migration summary
-
-### Plugin Documentation (Legacy)
-- `fluxwing/ARCHITECTURE.md` - Technical design decisions (~1000 lines)
-- `fluxwing/COMMANDS.md` - Slash command reference (~3400 lines)
-- `fluxwing/AGENTS.md` - Agent reference (~900 lines)
-- `fluxwing/CONTRIBUTING.md` - Contribution guidelines
-- `fluxwing/TROUBLESHOOTING.md` - Common issues
-- `fluxwing/PLUGIN_STRUCTURE.md` - Plugin structure reference
 
 ## Performance Considerations
 
@@ -438,15 +368,8 @@ All interactive components should include:
 # Install skills locally
 ./scripts/install.sh
 
-# Run tests
-npm test
-
-# Generate test report
-npm run test:report
-
-# Development mode (plugin)
-npm run dev:link
-npm run dev:status
+# Uninstall skills
+./scripts/uninstall.sh
 ```
 
 ### Natural Language Testing

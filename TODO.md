@@ -1,314 +1,187 @@
-# Fluxwing Plugin to Skills Migration - Task Tracker
+# Fluxwing Skills - Development Tasks
 
 ## Overview
 
-Converting the Fluxwing Claude Code plugin from a plugin-based architecture to a skills-based architecture. This migration makes Fluxwing's capabilities discoverable and automatically activated by Claude based on natural language requests.
+Development tracker for the Fluxwing Skills system - six Claude Code skills that enable AI-native UX design using the uxscii standard.
 
-**Status**: Installation Scripts Complete - Ready for Manual Testing
+**Status**: Skills Complete - Testing & Documentation Phase
 
-**Last Updated**: 2025-10-18
-
-## Recent Progress (2025-10-18)
-
-✅ **Installation Infrastructure Complete**
-- Created `scripts/install.sh` with auto-detection, verification, and colored output
-- Created `scripts/uninstall.sh` with safe removal and user data preservation
-- Wrote comprehensive `INSTALL.md` documentation (405 lines)
-- All automated verification tests passing
-- Ready for local testing with `./scripts/install.sh`
-
-**Total Implementation**:
-- 6 skills (all phases complete)
-- 48 supporting files (templates, schemas, docs)
-- 2 installation scripts (755 lines total)
-- 1 comprehensive installation guide
+**Last Updated**: 2025-10-19
 
 ---
 
-## Phase 1: Component Creator Skill ✅
+## Current Status
 
-**Status**: Complete
+### Implementation Complete ✅
+- ✅ All 6 skills implemented and tested
+- ✅ Installation scripts created (`scripts/install.sh`, `scripts/uninstall.sh`)
+- ✅ Automated verification implemented
+- ✅ Comprehensive installation guide (`INSTALL.md`)
+- ✅ Repository cleaned (plugin files removed)
+- ✅ Documentation updated for skills-only focus
 
-### Implementation Tasks
-- [x] Create skill directory structure (.claude/skills/uxscii-component-creator/)
-- [x] Create SKILL.md with proper YAML frontmatter
-- [x] Copy 11 component templates (.uxm + .md files)
-- [x] Copy schema (uxm-component.schema.json)
-- [x] Copy documentation (03-component-creation.md, 06-ascii-patterns.md, 07-schema-reference.md)
-- [x] Update all {PLUGIN_ROOT} references to {SKILL_ROOT}
-- [x] Preserve agent invocation pattern (fluxwing:fluxwing-designer)
+### The Six Skills
 
-### Automated Verification ✅
-- [x] YAML validates correctly
-- [x] All 11 templates exist in templates/
-- [x] Schema file exists
-- [x] No PLUGIN_ROOT references in SKILL.md
-- [x] Uses SKILL_ROOT correctly
-
-### Manual Verification (Pending)
-- [ ] Trigger: "Create a button" → Skill activates
-- [ ] Trigger: "I need an input component" → Skill activates
-- [ ] Trigger: "Design a card" → Skill activates
-- [ ] Files created in ./fluxwing/components/ (not in skill directory)
-- [ ] Templates readable from {SKILL_ROOT}/templates/
-- [ ] Schema validation works
+1. **uxscii-component-creator** - Create new components
+2. **uxscii-library-browser** - Browse available templates
+3. **uxscii-component-expander** - Add states to components
+4. **uxscii-screen-scaffolder** - Build complete screens
+5. **uxscii-component-viewer** - View component details
+6. **uxscii-screenshot-importer** - Convert screenshots to uxscii
 
 ---
 
-## Phase 2: Library Browser Skill ✅
+## Active Tasks
 
-**Status**: Complete
+### Manual Testing (In Progress)
 
-### Implementation Tasks
-- [x] Create skill directory structure (.claude/skills/uxscii-library-browser/)
-- [x] Create SKILL.md with read-only tools (Read, Glob, Grep)
-- [x] Copy documentation (07-examples-guide.md)
-- [x] Set up cross-skill template references ({SKILL_ROOT}/../uxscii-component-creator/templates/)
-- [x] Update all {PLUGIN_ROOT} references to relative paths
+Test each skill with natural language triggers:
 
-### Automated Verification ✅
-- [x] YAML validates correctly
-- [x] Skill file exists
-- [x] Read-only tools confirmed (no Write/Edit)
+- [ ] **Component Creator**
+  - [ ] "Create a button"
+  - [ ] "I need an input component"
+  - [ ] Verify files created in `./fluxwing/components/`
 
-### Manual Verification (Pending)
-- [ ] Trigger: "Show me all components" → Skill activates
-- [ ] Trigger: "What components are available?" → Skill activates
-- [ ] Trigger: "Browse the library" → Skill activates
-- [ ] Displays bundled templates correctly
-- [ ] Displays user components if they exist
-- [ ] Search functionality works
+- [ ] **Library Browser**
+  - [ ] "Show me all components"
+  - [ ] "Browse the library"
+  - [ ] Verify displays bundled templates
 
----
+- [ ] **Component Expander**
+  - [ ] "Add hover state to my button"
+  - [ ] "Make this component interactive"
+  - [ ] Verify updates existing files correctly
 
-## Phase 3: Component Expander Skill ✅
+- [ ] **Screen Scaffolder**
+  - [ ] "Build a login screen"
+  - [ ] "Create a dashboard"
+  - [ ] Verify creates `.uxm`, `.md`, `.rendered.md`
 
-**Status**: Complete
+- [ ] **Component Viewer**
+  - [ ] "Show me the submit-button"
+  - [ ] "View component details"
+  - [ ] Verify displays metadata and ASCII
 
-### Implementation Tasks
-- [x] Create skill directory structure (.claude/skills/uxscii-component-expander/)
-- [x] Create SKILL.md with write permissions (Read, Write, Edit, Glob, Grep)
-- [x] Copy documentation (03-component-creation.md, 06-ascii-patterns.md)
-- [x] Adapt workflow for direct file manipulation (no agent spawning)
-- [x] Update all {PLUGIN_ROOT} references to {SKILL_ROOT}
+- [ ] **Screenshot Importer**
+  - [ ] "Import this screenshot"
+  - [ ] "Convert screenshot to uxscii"
+  - [ ] Verify extracts components from image
 
-### Automated Verification ✅
-- [x] YAML validates correctly
-- [x] Skill file exists
-- [x] Can modify files (Write, Edit permissions)
+### Integration Testing
 
-### Manual Verification (Pending)
-- [ ] Trigger: "Add hover state to my button" → Skill activates
-- [ ] Trigger: "Expand email-input with focus and error" → Skill activates
-- [ ] Trigger: "Make this component interactive" → Skill activates
-- [ ] Correctly reads existing component
-- [ ] Adds new states without losing existing data
-- [ ] Updates modification timestamp
-- [ ] ASCII patterns match state properties
+- [ ] Cross-skill workflows
+  - [ ] Create component → View it → Expand it
+  - [ ] Build screen → View components → Modify them
+  - [ ] Import screenshot → Browse generated components
 
----
+- [ ] File operations
+  - [ ] Skills READ from bundled templates correctly
+  - [ ] Skills WRITE to project workspace (`./fluxwing/`)
+  - [ ] No writes to skill directories
+  - [ ] Proper file permissions
 
-## Phase 4: Screen Scaffolder Skill ✅
+### Performance Testing
 
-**Status**: Complete
-
-### Implementation Tasks
-- [x] Create skill directory structure (.claude/skills/uxscii-screen-scaffolder/)
-- [x] Create SKILL.md with agent spawning capability
-- [x] Copy 2 screen templates (.uxm + .md + .rendered.md files)
-- [x] Copy documentation (04-screen-composition.md)
-- [x] Set up cross-skill template references
-- [x] Update agent invocation (fluxwing:fluxwing-designer, fluxwing:fluxwing-composer)
-
-### Automated Verification ✅
-- [x] YAML validates correctly
-- [x] Skill file exists
-- [x] 2 screen templates exist
-- [x] Can spawn agents (Task tool in allowed-tools)
-
-### Manual Verification (Pending)
-- [ ] Trigger: "Create a login screen" → Skill activates
-- [ ] Trigger: "Build a dashboard" → Skill activates
-- [ ] Trigger: "Scaffold a profile page" → Skill activates
-- [ ] Correctly inventories existing components
-- [ ] Spawns designer agent for missing components
-- [ ] Spawns composer agent for screen assembly
-- [ ] Creates .uxm, .md, and .rendered.md files
-- [ ] Screens saved to ./fluxwing/screens/
+- [ ] Skill activation speed
+- [ ] Template loading performance
+- [ ] Agent spawning efficiency
+- [ ] Large screen composition performance
 
 ---
 
-## Phase 5: Component Viewer Skill ✅
+## Documentation Tasks
 
-**Status**: Complete
+### High Priority
 
-### Implementation Tasks
-- [x] Create skill directory structure (.claude/skills/uxscii-component-viewer/)
-- [x] Create SKILL.md with read-only tools (Read, Glob, Grep)
-- [x] Copy documentation (02-core-concepts.md)
-- [x] Set up multi-location component search (project → library → bundled)
-- [x] Update all {PLUGIN_ROOT} references to relative paths
+- [ ] Create migration guide for existing users
+- [ ] Add troubleshooting section to README
+- [ ] Document common workflows and examples
+- [ ] Create video walkthrough of skills in action
 
-### Automated Verification ✅
-- [x] YAML validates correctly
-- [x] Skill file exists
-- [x] Read-only tools confirmed
+### Medium Priority
 
-### Manual Verification (Pending)
-- [ ] Trigger: "Show me the submit-button" → Skill activates
-- [ ] Trigger: "What's in the primary-button component?" → Skill activates
-- [ ] Trigger: "View component details for card" → Skill activates
-- [ ] Displays all metadata correctly
-- [ ] Shows ASCII preview for all states
-- [ ] Fuzzy search works for component names
+- [ ] Add contributing guidelines for skills development
+- [ ] Document skill architecture patterns
+- [ ] Create FAQ section
+- [ ] Add changelog
+
+### Low Priority
+
+- [ ] Create advanced usage guide
+- [ ] Document extension points
+- [ ] Add performance tuning guide
 
 ---
 
-## Phase 6: Screenshot Importer Skill ✅
+## Enhancement Ideas
 
-**Status**: Complete
+### Skill Improvements
 
-### Implementation Tasks
-- [x] Create skill directory structure (.claude/skills/uxscii-screenshot-importer/)
-- [x] Create SKILL.md with agent orchestration capability
-- [x] Copy all 6 screenshot documentation files
-- [x] Update agent invocation (screenshot-vision-coordinator, screenshot-component-generator)
-- [x] Adapt workflow for vision agent orchestration
+- [ ] Add validation skill (dedicated schema validation)
+- [ ] Add export skill (convert to different formats)
+- [ ] Add theme skill (design tokens and theming)
+- [ ] Add animation skill (interaction patterns)
 
-### Automated Verification ✅
-- [x] YAML validates correctly
-- [x] Skill file exists
-- [x] Can spawn agents (Task tool in allowed-tools)
-- [x] All 6 screenshot docs exist
+### Template Additions
 
-### Manual Verification (Pending)
-- [ ] Trigger: "Import this screenshot" → Skill activates
-- [ ] Trigger: "Generate components from this UI image" → Skill activates
-- [ ] Trigger: "Convert screenshot to uxscii" → Skill activates
-- [ ] Correctly reads screenshot file
-- [ ] Spawns vision coordinator agent
-- [ ] Generates components from detected UI elements
-- [ ] Creates valid .uxm and .md files
-- [ ] Components saved to ./fluxwing/components/
+- [ ] Add more component templates (20+ total)
+- [ ] Add more screen examples (5+ total)
+- [ ] Create domain-specific templates (e-commerce, SaaS, etc.)
+- [ ] Add responsive layout examples
 
----
+### Tooling
 
-## Overall Migration Verification
+- [ ] Create CLI validator for .uxm files
+- [ ] Add schema linting
+- [ ] Create component preview tool
+- [ ] Add automated testing for templates
 
-### Automated Checks ✅
-- [x] All SKILL.md files have valid YAML frontmatter
-- [x] All 6 skill directories exist
-- [x] Supporting files copied (14 templates + schema)
-- [x] No {PLUGIN_ROOT} references in SKILL.md files
-- [x] All skills use {SKILL_ROOT} correctly
-- [x] Cross-skill references use relative paths
+### Documentation Modules
 
-### Manual Integration Tests (Pending)
-- [ ] Natural language activation works for all 6 skills
-- [ ] Skills load and execute without errors
-- [ ] Supporting files (templates, schemas) are accessible
-- [ ] File creation works in user's project workspace
-- [ ] Agents can be spawned from skills
-- [ ] Plugin commands still work (coexistence)
+- [ ] Add design system guide
+- [ ] Add responsive design patterns
+- [ ] Add accessibility best practices
+- [ ] Add component composition guide
 
 ---
 
-## File Summary
+## Known Issues
 
-### Created Skill Files (6 total)
-1. `.claude/skills/uxscii-component-creator/SKILL.md`
-2. `.claude/skills/uxscii-library-browser/SKILL.md`
-3. `.claude/skills/uxscii-component-expander/SKILL.md`
-4. `.claude/skills/uxscii-screen-scaffolder/SKILL.md`
-5. `.claude/skills/uxscii-component-viewer/SKILL.md`
-6. `.claude/skills/uxscii-screenshot-importer/SKILL.md`
+### To Investigate
 
-### Supporting Files Copied
-- **Templates**: 11 component templates (22 files: .uxm + .md)
-- **Schemas**: 1 JSON Schema file
-- **Screen Examples**: 2 screen templates (6 files: .uxm + .md + .rendered.md)
-- **Documentation**: 13 documentation files across all skills
+- [ ] Skill activation reliability with various phrasings
+- [ ] Cross-skill template references on Windows
+- [ ] Large file handling (100+ component libraries)
+- [ ] Concurrent skill activation behavior
 
-### Total Files Created
-- 6 SKILL.md files
-- 42 supporting files (templates + schemas + docs)
-- **Total: 48 files**
+### To Fix
+
+- [ ] None currently identified
 
 ---
 
-## Post-Migration Tasks
+## Future Considerations
 
-### Installation Scripts ✅ COMPLETE
+### Community
 
-**Status**: Complete (2025-10-18)
+- [ ] Set up community contribution workflow
+- [ ] Create template submission guidelines
+- [ ] Establish code review process
+- [ ] Plan for template marketplace
 
-- [x] Create installer script (`scripts/install.sh`)
-  - [x] Copy `.claude/skills/` directory to user's `~/.claude/skills/` or project `.claude/skills/`
-  - [x] Detect installation location (global vs project-local)
-  - [x] Verify all skill files copied successfully
-  - [x] Run automated verification tests
-  - [x] Display success message with next steps
-  - [x] Support multiple modes (--global, --local, --force)
+### Ecosystem
 
-- [x] Create uninstaller script (`scripts/uninstall.sh`)
-  - [x] Remove `.claude/skills/uxscii-*` directories
-  - [x] Preserve user data in `./fluxwing/` (DO NOT DELETE)
-  - [x] Confirm removal with user (or use --force flag for non-interactive)
-  - [x] Display cleanup summary
-  - [x] Support multiple modes (--global, --local, --all, --dry-run)
+- [ ] Integration with design tools (Figma, Sketch)
+- [ ] Export to frontend frameworks (React, Vue, etc.)
+- [ ] Import from other formats (HTML, Penpot)
+- [ ] API for programmatic access
 
-- [x] Add installation documentation (`INSTALL.md`)
-  - [x] Quick start guide with one-liner install
-  - [x] Manual installation instructions
-  - [x] Verification steps
-  - [x] Troubleshooting common issues
-  - [x] Uninstall instructions
+### Standards
 
-**Features Implemented:**
-- Auto-detection of installation location (prefers local if .claude/ exists)
-- Colored output with status indicators (✓, ✗, ⚠, ℹ)
-- Comprehensive automated verification (YAML, file counts, references)
-- Interactive usage examples after installation
-- Backup existing skills before overwriting
-- Dry-run mode for uninstaller
-- File count and summary reporting
-- User data preservation guarantees
-
-### Documentation Updates (Not Started)
-- [ ] Update main README.md to mention skills
-- [ ] Add skills migration guide
-- [ ] Update CONTRIBUTING.md with skills development guidelines
-- [ ] Create skills usage examples
-
-### Deprecation Plan (Not Started)
-- [ ] Add deprecation notices to plugin commands
-- [ ] Create migration guide for users
-- [ ] Set timeline for slash command removal
-- [ ] Plan major version bump
-
-### Testing & Quality (Not Started)
-- [ ] Create automated test suite for skills
-- [ ] Performance benchmarking (skills vs commands)
-- [ ] User acceptance testing
-- [ ] Documentation accuracy review
-
-### Future Enhancements (Not Started)
-- [ ] Consider converting agents to skills
-- [ ] Create shared skill resources directory
-- [ ] Add skill-to-skill communication
-- [ ] Implement skill versioning strategy
-
----
-
-## Known Issues / Notes
-
-1. **PLUGIN_ROOT in Docs**: Some copied documentation files contain `{PLUGIN_ROOT}` references. This is acceptable as they are reference materials, not skill instructions.
-
-2. **Agent Location**: All 7 agents remain in the plugin directory (`fluxwing/agents/`) and are invoked by skills using the `fluxwing:agent-name` pattern.
-
-3. **Cross-Skill Dependencies**: Library Browser and Screen Scaffolder reference Component Creator's templates using relative paths.
-
-4. **Coexistence**: Both slash commands (`/fluxwing-*`) and skills can coexist during the transition period.
+- [ ] uxscii spec versioning strategy
+- [ ] Breaking change migration path
+- [ ] Backward compatibility plan
+- [ ] Schema evolution process
 
 ---
 
@@ -321,9 +194,6 @@ ls .claude/skills/uxscii-*/SKILL.md
 
 # Count supporting files
 find .claude/skills/uxscii-* -name "*.uxm" -o -name "*.schema.json" | wc -l
-
-# Verify no PLUGIN_ROOT in SKILL.md files
-grep -r "PLUGIN_ROOT" .claude/skills/*/SKILL.md
 
 # Verify SKILL_ROOT usage
 grep -r "SKILL_ROOT" .claude/skills/*/SKILL.md | head -5
@@ -341,62 +211,29 @@ grep -r "SKILL_ROOT" .claude/skills/*/SKILL.md | head -5
 
 ## Success Criteria
 
-### Implementation Complete ✅
-- [x] All 6 skills created
-- [x] All supporting files copied
-- [x] All automated verification tests passing
-- [x] No breaking changes to plugin
-- [x] Agents preserved in plugin
-
-### Manual Testing Required ⏳
-- [ ] All natural language triggers work
-- [ ] File operations work correctly
-- [ ] Agent spawning works from skills
-- [ ] Cross-skill references resolve
-- [ ] No regressions in plugin commands
-
-### Installation & Deployment ✅
+### Phase 1: Core Functionality ✅
+- [x] All 6 skills implemented
 - [x] Installation scripts created
-- [x] Uninstallation scripts created
-- [x] Installation documentation written (INSTALL.md)
-- [x] Automated verification implemented
-- [ ] Remote installation support (curl one-liner)
+- [x] Basic documentation complete
+- [x] Repository cleaned of plugin files
 
-### Documentation & Communication 📝
-- [x] Installation guide written (INSTALL.md - 405 lines)
-- [ ] Migration guide written
-- [ ] Users informed of new capabilities
-- [ ] Deprecation timeline communicated (if applicable)
+### Phase 2: Validation (Current)
+- [ ] All natural language triggers work reliably
+- [ ] File operations verified
+- [ ] Cross-skill workflows tested
+- [ ] Performance acceptable
 
----
+### Phase 3: Polish
+- [ ] Comprehensive documentation
+- [ ] Community guidelines established
+- [ ] Migration guides complete
+- [ ] Examples and tutorials available
 
-## Installation Script Details
-
-### Created Files
-- `scripts/install.sh` (10KB, 365 lines)
-- `scripts/uninstall.sh` (10KB, 380 lines)
-- `INSTALL.md` (405 lines)
-
-### Installation Script Features
-✅ Auto-detect installation location (global vs local)
-✅ Colored output with status indicators
-✅ Comprehensive verification (YAML, templates, schemas, references)
-✅ Interactive usage examples
-✅ Backup existing skills before overwriting
-✅ Multiple modes: --global, --local, --force
-✅ Error handling and validation
-
-### Uninstallation Script Features
-✅ Safe removal (preserves user data)
-✅ Confirmation prompts (or --force for non-interactive)
-✅ Dry-run mode (--dry-run to preview)
-✅ Multiple targets: --global, --local, --all
-✅ User data preservation checks
-✅ Summary reporting
-
----
-
-**Next Step**: Begin manual testing with natural language prompts to verify skill activation and functionality.
+### Phase 4: Growth
+- [ ] Template library expanded
+- [ ] Community contributions accepted
+- [ ] Ecosystem integrations available
+- [ ] Standards established
 
 ---
 
@@ -409,37 +246,26 @@ grep -r "SKILL_ROOT" .claude/skills/*/SKILL.md | head -5
 
 # Or install globally
 ./scripts/install.sh --global
-
-# Or install locally to project
-./scripts/install.sh --local
 ```
 
 ### Test with Natural Language
-Once installed, try these prompts in Claude Code:
-1. **"Create a button"** → Should activate uxscii-component-creator
-2. **"Show me all components"** → Should activate uxscii-library-browser
-3. **"Add hover state to my button"** → Should activate uxscii-component-expander
-4. **"Build a login screen"** → Should activate uxscii-screen-scaffolder
-5. **"Show me the primary-button"** → Should activate uxscii-component-viewer
-6. **"Import this screenshot"** → Should activate uxscii-screenshot-importer
+Try these prompts in Claude Code:
+1. **"Create a button"** → uxscii-component-creator
+2. **"Show me all components"** → uxscii-library-browser
+3. **"Add hover state to my button"** → uxscii-component-expander
+4. **"Build a login screen"** → uxscii-screen-scaffolder
+5. **"Show me the primary-button"** → uxscii-component-viewer
+6. **"Import this screenshot"** → uxscii-screenshot-importer
 
 ### Uninstall Skills
 ```bash
 # Preview what would be removed
 ./scripts/uninstall.sh --dry-run
 
-# Uninstall (with confirmation)
+# Uninstall with confirmation
 ./scripts/uninstall.sh
-
-# Uninstall without confirmation
-./scripts/uninstall.sh --force
 ```
 
-### Verify Installation
-```bash
-# Check all skills exist
-ls ~/.claude/skills/uxscii-*/SKILL.md
+---
 
-# Or for local installation
-ls ./.claude/skills/uxscii-*/SKILL.md
-```
+**Next Steps**: Complete manual testing phase and document any issues found.
