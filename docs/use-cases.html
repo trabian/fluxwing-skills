@@ -11,15 +11,18 @@
   <a class="skip-link" href="#main">Skip to content</a>
   
   <header style="padding: 2rem clamp(1.5rem, 6vw, 6rem); background: rgba(2, 5, 8, 0.95); border-bottom: 1px dashed rgba(94, 247, 194, 0.35);">
-    <nav style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+    <div class="mobile-nav-wrapper" style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
       <a href="/" style="font-size: 1.25rem; font-weight: 700; color: var(--fw-accent-strong);">Fluxwing</a>
-      <ul style="display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; flex-wrap: wrap;">
-        <li><a href="/why.html">Why</a></li>
-        <li><a href="/use-cases.html">Use Cases</a></li>
-        <li><a href="/#install">Install</a></li>
-        <li><a href="/#docs">Docs</a></li>
-      </ul>
-    </nav>
+      <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+      <nav style="display: flex; align-items: center;">
+        <ul style="display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; flex-wrap: wrap;">
+          <li><a href="/why.html">Why</a></li>
+          <li><a href="/use-cases.html">Use Cases</a></li>
+          <li><a href="/#install">Install</a></li>
+          <li><a href="/#docs">Docs</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
   <main id="main">
@@ -36,6 +39,18 @@
         <li>Generate implementations directly from specs</li>
         <li>No vision models needed—perfect comprehension</li>
       </ul>
+
+      <h3 style="margin-top: 2rem; color: var(--fw-accent);">Example: Agent reads button spec</h3>
+      <pre style="font-family: var(--fw-font); font-size: 0.9rem; line-height: 1.5; padding: 1.5rem; background: rgba(2, 5, 9, 0.92); border: 1px dashed rgba(94, 247, 194, 0.35); color: var(--fw-accent); margin: 1rem 0; overflow-x: auto;">{
+  "id": "submit-button",
+  "type": "button",
+  "props": { "text": "Submit" },
+  "accessibility": {
+    "role": "button",
+    "keyboardShortcuts": ["Enter", "Space"]
+  }
+}</pre>
+      <p style="margin-top: 1rem; color: rgba(210, 248, 255, 0.85);">Agent understands: This is a button. It says "Submit". It responds to Enter and Space keys. Perfect clarity—no interpretation needed.</p>
     </section>
 
     <section class="ascii-stop" data-title="/rapid prototyping" style="max-width: 1200px; margin: 3rem auto;">
@@ -47,6 +62,28 @@
         <li>Compose screens in minutes</li>
         <li>Add fidelity progressively as design solidifies</li>
       </ul>
+
+      <h3 style="margin-top: 2rem; color: var(--fw-accent);">Example: Login screen in 60 seconds</h3>
+      <div class="use-cases-grid-2col" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem;">
+        <div>
+          <p style="font-weight: 600; margin-bottom: 0.5rem; color: var(--fw-accent-strong);">You say:</p>
+          <pre style="font-family: var(--fw-font); font-size: 0.85rem; line-height: 1.4; padding: 1rem; background: rgba(2, 5, 9, 0.92); border: 1px dashed rgba(94, 247, 194, 0.35); color: rgba(210, 248, 255, 0.85);">"Create a login screen"</pre>
+        </div>
+        <div>
+          <p style="font-weight: 600; margin-bottom: 0.5rem; color: var(--fw-accent-strong);">Claude generates:</p>
+          <pre style="font-family: var(--fw-font); font-size: 0.85rem; line-height: 1.4; padding: 1rem; background: rgba(2, 5, 9, 0.92); border: 1px dashed rgba(94, 247, 194, 0.35); color: var(--fw-accent);">┌──────────────────────┐
+│  Welcome Back        │
+│  ┌────────────────┐  │
+│  │ Email          │  │
+│  └────────────────┘  │
+│  ┌────────────────┐  │
+│  │ Password       │  │
+│  └────────────────┘  │
+│  [    Sign In    ]   │
+└──────────────────────┘</pre>
+        </div>
+      </div>
+      <p style="margin-top: 1rem; color: rgba(210, 248, 255, 0.85);">Give feedback: "Add a forgot password link". Iterate until perfect.</p>
     </section>
 
     <section class="ascii-stop" data-title="/design systems" style="max-width: 1200px; margin: 3rem auto;">
@@ -58,6 +95,33 @@
         <li>No more keeping 47 button copies in sync</li>
         <li>Component graph scales without chaos</li>
       </ul>
+
+      <h3 style="margin-top: 2rem; color: var(--fw-accent);">Example: Derivation vs Duplication</h3>
+      <div class="use-cases-grid-2col" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem;">
+        <div>
+          <p style="font-weight: 600; margin-bottom: 0.5rem; color: rgba(255, 100, 100, 0.9);">❌ Traditional (Duplication)</p>
+          <pre style="font-family: var(--fw-font); font-size: 0.8rem; line-height: 1.4; padding: 1rem; background: rgba(2, 5, 9, 0.92); border: 1px dashed rgba(255, 100, 100, 0.35); color: rgba(210, 248, 255, 0.75);">primary-button (copy)
+large-button (copy)
+small-button (copy)
+danger-button (copy)
+
+→ Change base style?
+→ Update 4 files manually
+→ Hope nothing breaks</pre>
+        </div>
+        <div>
+          <p style="font-weight: 600; margin-bottom: 0.5rem; color: var(--fw-accent-strong);">✅ Fluxwing (Derivation)</p>
+          <pre style="font-family: var(--fw-font); font-size: 0.8rem; line-height: 1.4; padding: 1rem; background: rgba(2, 5, 9, 0.92); border: 1px dashed rgba(94, 247, 194, 0.35); color: var(--fw-accent);">primary-button (base)
+  ↓ extends
+large-button
+small-button
+danger-button
+
+→ Change base once
+→ All variations inherit
+→ Single source of truth</pre>
+        </div>
+      </div>
     </section>
 
     <section class="ascii-stop" data-title="/living docs" style="max-width: 1200px; margin: 3rem auto;">
@@ -69,6 +133,18 @@
         <li>Always in sync—no documentation drift</li>
         <li>Text-based diffs show actual design changes</li>
       </ul>
+
+      <h3 style="margin-top: 2rem; color: var(--fw-accent);">Example: Design review in a PR</h3>
+      <pre style="font-family: var(--fw-font); font-size: 0.85rem; line-height: 1.4; padding: 1.5rem; background: rgba(2, 5, 9, 0.92); border: 1px dashed rgba(94, 247, 194, 0.35); margin: 1rem 0; overflow-x: auto;"><span style="color: rgba(100, 200, 100, 0.9);">+ ## Hover State</span>
+<span style="color: rgba(100, 200, 100, 0.9);">+ ```</span>
+<span style="color: rgba(100, 200, 100, 0.9);">+ ╔══════════════════╗</span>
+<span style="color: rgba(100, 200, 100, 0.9);">+ ║   {{text}}       ║</span>
+<span style="color: rgba(100, 200, 100, 0.9);">+ ╚══════════════════╝</span>
+<span style="color: rgba(100, 200, 100, 0.9);">+ ```</span>
+
+<span style="color: rgba(200, 100, 100, 0.9);">- "border": "thin"</span>
+<span style="color: rgba(100, 200, 100, 0.9);">+ "border": "heavy"</span></pre>
+      <p style="margin-top: 1rem; color: rgba(210, 248, 255, 0.85);">Reviewers see: "Added hover state with heavy border". Visual change visible in git diff. No separate Figma link. No docs to update. The spec IS the docs.</p>
     </section>
 
     <section style="max-width: 1200px; margin: 4rem auto; padding: 3rem; text-align: center; background: rgba(94, 247, 194, 0.08); border: 1px dashed rgba(94, 247, 194, 0.35);">
@@ -94,6 +170,28 @@
     <p class="site-footer__legal">© <span data-year></span> Fluxwing. A product by <a href="https://www.trabian.com">Trabian</a>.</p>
   </footer>
   
-  <script>document.querySelector('[data-year]').textContent = new Date().getFullYear();</script>
+  <script>
+    document.querySelector('[data-year]').textContent = new Date().getFullYear();
+
+    // Mobile menu toggle
+    const menuToggle = document.querySelector('.mobile-menu-toggle');
+    const navWrapper = document.querySelector('.mobile-nav-wrapper');
+    if (menuToggle && navWrapper) {
+      menuToggle.addEventListener('click', () => {
+        const isOpen = navWrapper.classList.contains('is-open');
+        navWrapper.classList.toggle('is-open');
+        menuToggle.setAttribute('aria-expanded', !isOpen);
+        menuToggle.textContent = isOpen ? '☰' : '✕';
+      });
+
+      navWrapper.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('click', () => {
+          navWrapper.classList.remove('is-open');
+          menuToggle.setAttribute('aria-expanded', 'false');
+          menuToggle.textContent = '☰';
+        });
+      });
+    }
+  </script>
 </body>
 </html>

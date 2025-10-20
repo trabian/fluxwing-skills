@@ -24,15 +24,18 @@
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header style="padding: 2rem clamp(1.5rem, 6vw, 6rem); background: rgba(2, 5, 8, 0.95); border-bottom: 1px dashed rgba(94, 247, 194, 0.35);">
-      <nav style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <div class="mobile-nav-wrapper" style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
         <a href="/" style="font-size: 1.25rem; font-weight: 700; color: var(--fw-accent-strong);">Fluxwing</a>
-        <ul style="display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; flex-wrap: wrap;">
-          <li><a href="/why.html">Why Fluxwing</a></li>
-          <li><a href="/#install">Install</a></li>
-          <li><a href="/#docs">Docs</a></li>
-          <li><a href="https://github.com/fluxwing/fluxwing-skills">GitHub</a></li>
-        </ul>
-      </nav>
+        <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+        <nav style="display: flex; align-items: center;">
+          <ul style="display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; flex-wrap: wrap;">
+            <li><a href="/why.html">Why Fluxwing</a></li>
+            <li><a href="/#install">Install</a></li>
+            <li><a href="/#docs">Docs</a></li>
+            <li><a href="https://github.com/fluxwing/fluxwing-skills">GitHub</a></li>
+          </ul>
+        </nav>
+      </div>
     </header>
 
     <main id="main">
@@ -123,7 +126,7 @@
 
       <section class="ascii-stop" data-title="/comparison" style="max-width: 1200px; margin: 3rem auto;">
         <h2>How Fluxwing Compares</h2>
-        <div style="overflow-x: auto; margin-top: 2rem;">
+        <div class="comparison-table-wrapper" style="overflow-x: auto; margin-top: 2rem; -webkit-overflow-scrolling: touch;">
           <table style="width: 100%; border-collapse: collapse; min-width: 600px;">
             <thead>
               <tr style="background: rgba(94, 247, 194, 0.15);">
@@ -212,6 +215,29 @@
       <p class="site-footer__legal">© <span data-year></span> Fluxwing. Build component libraries through derivation, not duplication. A product by <a href="https://www.trabian.com">Trabian</a>.</p>
     </footer>
 
-    <script>document.querySelector('[data-year]').textContent = new Date().getFullYear();</script>
+    <script>
+      document.querySelector('[data-year]').textContent = new Date().getFullYear();
+
+      // Mobile menu toggle
+      const menuToggle = document.querySelector('.mobile-menu-toggle');
+      const navWrapper = document.querySelector('.mobile-nav-wrapper');
+      if (menuToggle && navWrapper) {
+        menuToggle.addEventListener('click', () => {
+          const isOpen = navWrapper.classList.contains('is-open');
+          navWrapper.classList.toggle('is-open');
+          menuToggle.setAttribute('aria-expanded', !isOpen);
+          menuToggle.textContent = isOpen ? '☰' : '✕';
+        });
+
+        // Close menu when clicking a link
+        navWrapper.querySelectorAll('nav a').forEach(link => {
+          link.addEventListener('click', () => {
+            navWrapper.classList.remove('is-open');
+            menuToggle.setAttribute('aria-expanded', 'false');
+            menuToggle.textContent = '☰';
+          });
+        });
+      }
+    </script>
   </body>
 </html>
