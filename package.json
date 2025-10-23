@@ -4,7 +4,8 @@
   "description": "Claude Code skills for AI-native UX design using the uxscii standard",
   "scripts": {
     "install": "./scripts/install.sh",
-    "uninstall": "./scripts/uninstall.sh"
+    "uninstall": "./scripts/uninstall.sh",
+    "docs:dev": "npx http-server docs -p 8080 -o"
   },
   "keywords": [
     "fluxwing",

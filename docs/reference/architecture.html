@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Architecture Overview — Fluxwing Skills</title>
+    <meta name="description" content="Deep dive into Fluxwing Skills architecture: the two-file system, data location philosophy, schema validation, and component derivation model.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fluxwing.com/reference/architecture.html">
+    <meta property="og:title" content="Architecture Overview — Fluxwing Skills">
+    <meta property="og:description" content="Deep dive into Fluxwing Skills architecture and the uxscii standard.">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://fluxwing.com/reference/architecture.html">
+    <meta property="twitter:title" content="Architecture Overview — Fluxwing Skills">
+    <meta property="twitter:description" content="Deep dive into Fluxwing Skills architecture and the uxscii standard.">
+
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/docs.css">
+  </head>
+  <body class="crt-bg subpage">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header style="padding: 2rem clamp(1.5rem, 6vw, 6rem); background: rgba(2, 5, 8, 0.95); border-bottom: 1px dashed rgba(94, 247, 194, 0.35);">
+      <div class="mobile-nav-wrapper" style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <a href="/" style="font-size: 1.25rem; font-weight: 700; color: var(--fw-accent-strong);">Fluxwing</a>
+        <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+        <nav style="display: flex; align-items: center;">
+          <ul style="display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; flex-wrap: wrap;">
+            <li><a href="/why.html">Why Fluxwing</a></li>
+            <li><a href="/use-cases.html">Use Cases</a></li>
+            <li><a href="/#install">Install</a></li>
+            <li><a href="/#docs">Docs</a></li>
+            <li><a href="https://github.com/fluxwing/fluxwing-skills">GitHub</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <div class="subpage__header">
+      <p class="doc-breadcrumbs">
+        <a href="/">Home</a> / <a href="/#docs">Documentation</a> / Architecture
+      </p>
+      <h1 class="subpage__title">Architecture Overview</h1>
+      <p class="subpage__lede">How Fluxwing Skills works: the two-file system, data philosophy, and derivation model.</p>
+    </div>
+
+    <main id="main" class="doc-page">
+
+      <section class="doc-section">
+        <h2>Core Concepts</h2>
+
+        <h3>Fluxwing vs uxscii</h3>
+        <table class="doc-table">
+          <thead>
+            <tr>
+              <th>Term</th>
+              <th>What It Is</th>
+              <th>Analogy</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>uxscii</strong></td>
+              <td>The standard format for UI components</td>
+              <td>Like HTML/CSS</td>
+            </tr>
+            <tr>
+              <td><strong>Fluxwing</strong></td>
+              <td>The AI agent system that creates uxscii</td>
+              <td>Like Figma (the tool)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>Think: <strong>uxscii</strong> is the language. <strong>Fluxwing</strong> is the designer who speaks that language.</p>
+      </section>
+
+      <section class="doc-section">
+        <h2>The Two-File System</h2>
+        <p>Every uxscii component consists of exactly two files that work together:</p>
+
+        <h3>1. The .uxm File (JSON Metadata)</h3>
+        <p>Contains structured data about the component:</p>
+        <pre>{
+  "id": "submit-button",
+  "type": "button",
+  "version": "1.0.0",
+  "metadata": {
+    "name": "Submit Button",
+    "description": "Primary action button",
+    "created": "2024-10-11T12:00:00Z",
+    "author": "Fluxwing Designer"
+  },
+  "props": {
+    "text": "Submit"
+  },
+  "behavior": {
+    "states": [
+      {
+        "name": "default",
+        "properties": {
+          "border": "rounded",
+          "background": "primary",
+          "textColor": "white"
+        }
+      }
+    ]
+  },
+  "accessibility": {
+    "role": "button",
+    "focusable": true,
+    "keyboardShortcuts": ["Enter", "Space"]
+  },
+  "ascii": {
+    "templateFile": "submit-button.md",
+    "width": 20,
+    "height": 3
+  }
+}</pre>
+
+        <h3>2. The .md File (ASCII Template)</h3>
+        <p>Contains visual representation with variable placeholders:</p>
+        <pre># Submit Button
+
+## Default State
+
+```
+╭──────────────────╮
+│   {{text}}       │
+╰──────────────────╯
+```
+
+## Hover State
+
+```
+╔══════════════════╗
+║   {{text}}       ║
+╚══════════════════╝
+```</pre>
+
+        <h3>Why Two Files?</h3>
+        <ul>
+          <li><strong>Separation of concerns:</strong> Data (what) vs Presentation (how)</li>
+          <li><strong>Human + AI readable:</strong> JSON for machines, ASCII for humans</li>
+          <li><strong>Progressive fidelity:</strong> Start with ASCII, add metadata later</li>
+          <li><strong>Version control friendly:</strong> Text diffs show meaningful changes</li>
+        </ul>
+      </section>
+
+      <section class="doc-section">
+        <h2>Data Location Philosophy</h2>
+        <p>Understanding where files live and why is critical to using Fluxwing effectively.</p>
+
+        <h3>Bundled Templates (READ-ONLY)</h3>
+        <pre>~/.claude/skills/{skill-name}/
+├── templates/               # 11 component templates
+├── schemas/                 # JSON Schema validation
+└── docs/                    # Documentation</pre>
+
+        <p><strong>These are reference materials:</strong></p>
+        <ul>
+          <li>✅ Pre-validated and tested</li>
+          <li>✅ Bundled with skill installation</li>
+          <li>❌ NEVER modified by skills or users</li>
+          <li>❌ NEVER written to</li>
+        </ul>
+
+        <h3>Project Workspace (READ-WRITE)</h3>
+        <pre>./fluxwing/
+├── components/              # Your created components
+│   ├── submit-button.uxm
+│   ├── submit-button.md
+│   └── ...
+├── screens/                 # Your created screens
+│   ├── login-screen.uxm
+│   ├── login-screen.md
+│   ├── login-screen.rendered.md
+│   └── ...
+└── library/                 # Customized template copies
+    └── ...</pre>
+
+        <p><strong>This is YOUR workspace:</strong></p>
+        <ul>
+          <li>✅ Fully editable</li>
+          <li>✅ Version controlled with your code</li>
+          <li>✅ Where ALL skill/agent outputs go</li>
+          <li>✅ Never deleted during uninstallation</li>
+        </ul>
+
+        <div class="doc-callout">
+          <strong>The Golden Rule:</strong> Skills READ from bundled templates, WRITE to project workspace. Never mix the two.
+        </div>
+      </section>
+
+      <section class="doc-section">
+        <h2>Component Hierarchy</h2>
+
+        <h3>Atomic Components</h3>
+        <p>Self-contained with no dependencies:</p>
+        <ul>
+          <li>button</li>
+          <li>input</li>
+          <li>badge</li>
+          <li>icon</li>
+          <li>text</li>
+        </ul>
+
+        <h3>Composite Components</h3>
+        <p>Reference other components:</p>
+        <pre>{
+  "id": "login-form",
+  "type": "form",
+  "components": [
+    { "ref": "email-input" },
+    { "ref": "password-input" },
+    { "ref": "submit-button" }
+  ]
+}</pre>
+
+        <h3>Screens (Top-Level)</h3>
+        <p>Complete UI layouts using type "container":</p>
+        <pre>{
+  "id": "login-screen",
+  "type": "container",
+  "layout": "vertical",
+  "components": [
+    { "ref": "navigation-header" },
+    { "ref": "login-form" },
+    { "ref": "footer" }
+  ]
+}</pre>
+
+        <h3>Screens Add a Third File</h3>
+        <p>Screens include <code>.rendered.md</code> to show visual intent:</p>
+        <pre>login-screen.md          # Template with {{variables}}
+login-screen.rendered.md # Example with REAL data</pre>
+
+        <p>Templates with variables don't show visual intent. Rendered examples use actual names, emails, numbers to show spacing and layout.</p>
+      </section>
+
+      <section class="doc-section">
+        <h2>Schema Validation</h2>
+        <p>All components must validate against the JSON Schema:</p>
+        <p><code>.claude/skills/uxscii-component-creator/schemas/uxm-component.schema.json</code></p>
+
+        <h3>Validation Rules</h3>
+        <table class="doc-table">
+          <thead>
+            <tr>
+              <th>Field</th>
+              <th>Rule</th>
+              <th>Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>id</td>
+              <td>kebab-case, 2-64 chars</td>
+              <td>submit-button</td>
+            </tr>
+            <tr>
+              <td>type</td>
+              <td>button, input, card, etc.</td>
+              <td>button</td>
+            </tr>
+            <tr>
+              <td>version</td>
+              <td>Semantic versioning</td>
+              <td>1.0.0</td>
+            </tr>
+            <tr>
+              <td>metadata.created</td>
+              <td>ISO 8601 datetime</td>
+              <td>2024-10-11T12:00:00Z</td>
+            </tr>
+            <tr>
+              <td>ascii.width</td>
+              <td>1-120 characters</td>
+              <td>40</td>
+            </tr>
+            <tr>
+              <td>ascii.height</td>
+              <td>1-50 lines</td>
+              <td>5</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Required Fields</h3>
+        <ul>
+          <li>id, type, version</li>
+          <li>metadata (name, created)</li>
+          <li>props</li>
+          <li>ascii (templateFile, width, height)</li>
+        </ul>
+
+        <h3>Optional Fields</h3>
+        <ul>
+          <li>behavior (states, interactions)</li>
+          <li>layout (alignment, spacing)</li>
+          <li>extends (parent component)</li>
+          <li>slots (content insertion points)</li>
+        </ul>
+      </section>
+
+      <section class="doc-section">
+        <h2>Variable Substitution</h2>
+
+        <p>Templates use <code>{{variableName}}</code> syntax for dynamic content:</p>
+
+        <h3>In .md File</h3>
+        <pre>```
+╭──────────────────╮
+│ {{username}}     │
+│ {{email}}        │
+╰──────────────────╯
+```</pre>
+
+        <h3>In .uxm File</h3>
+        <pre>"props": {
+  "username": "John Doe",
+  "email": "john@example.com"
+}</pre>
+
+        <h3>Rules</h3>
+        <ul>
+          <li>All template variables MUST be defined in .uxm</li>
+          <li>Variables in .uxm but not .md are OK (runtime binding)</li>
+          <li>Variables in .md but not .uxm cause validation errors</li>
+        </ul>
+      </section>
+
+      <section class="doc-section">
+        <h2>The Derivation Model</h2>
+        <p>Fluxwing uses inheritance instead of duplication.</p>
+
+        <h3>Traditional Tools (Duplication)</h3>
+        <pre>primary-button (original)
+  → Copy to create large-button
+  → Copy to create small-button
+  → Copy to create danger-button
+
+Result: 4 separate files that drift apart</pre>
+
+        <h3>Fluxwing (Derivation)</h3>
+        <pre>primary-button (base)
+  ↓
+large-button (extends: "primary-button", size: "large")
+small-button (extends: "primary-button", size: "small")
+danger-button (extends: "primary-button", variant: "danger")
+
+Result: Single source of truth, variations inherit changes</pre>
+
+        <h3>Using extends</h3>
+        <pre>{
+  "id": "large-button",
+  "extends": "primary-button",
+  "props": {
+    "size": "large"
+  }
+}</pre>
+
+        <p>Change the base, all derived components inherit the change automatically.</p>
+      </section>
+
+      <section class="doc-section">
+        <h2>Accessibility Requirements</h2>
+        <p>All interactive components should include:</p>
+
+        <pre>"accessibility": {
+  "role": "button",
+  "ariaLabel": "Submit form",
+  "focusable": true,
+  "keyboardShortcuts": ["Enter", "Space"]
+}</pre>
+
+        <h3>Recommended Fields</h3>
+        <table class="doc-table">
+          <thead>
+            <tr>
+              <th>Field</th>
+              <th>Purpose</th>
+              <th>Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>role</td>
+              <td>ARIA role</td>
+              <td>button, input, navigation</td>
+            </tr>
+            <tr>
+              <td>ariaLabel</td>
+              <td>Screen reader text</td>
+              <td>"Close dialog"</td>
+            </tr>
+            <tr>
+              <td>focusable</td>
+              <td>Keyboard navigation</td>
+              <td>true</td>
+            </tr>
+            <tr>
+              <td>keyboardShortcuts</td>
+              <td>Key bindings</td>
+              <td>["Enter", "Space"]</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="doc-section">
+        <h2>Repository Structure</h2>
+
+        <pre>fluxwing-skills/
+├── .claude/
+│   └── skills/                  # 6 Skills (development location)
+│       ├── uxscii-component-creator/
+│       │   ├── SKILL.md         # Skill workflow
+│       │   ├── templates/       # 11 component templates
+│       │   ├── schemas/         # JSON Schema
+│       │   └── docs/            # Documentation modules
+│       ├── uxscii-library-browser/
+│       ├── uxscii-component-expander/
+│       ├── uxscii-screen-scaffolder/
+│       ├── uxscii-component-viewer/
+│       └── uxscii-screenshot-importer/
+├── scripts/
+│   ├── install.sh               # Installation script
+│   └── uninstall.sh             # Removal script
+├── README.md                    # User-facing overview
+├── INSTALL.md                   # Installation guide
+└── CLAUDE.md                    # This architecture guide</pre>
+      </section>
+
+      <section class="doc-section">
+        <h2>Performance Considerations</h2>
+
+        <h3>Documentation Loading</h3>
+        <p>Load docs from skills as needed, not all upfront. Skills include modular documentation (500-800 tokens each).</p>
+
+        <h3>Schema Validation</h3>
+        <p>Compile schema once, reuse validator across components.</p>
+
+        <h3>File Operations</h3>
+        <p>Batch reads/writes when possible. Use pre-built indexes (library browser uses template index for 10x speedup).</p>
+
+        <h3>Agent Spawning</h3>
+        <p>Use parallel Task calls for independent operations. Screen Scaffolder spawns N agents in parallel (one per component).</p>
+      </section>
+
+      <section class="doc-section">
+        <h2>Design Principles</h2>
+
+        <h3>1. Self-Contained Portability</h3>
+        <ul>
+          <li>All schemas, examples, docs bundled in skills</li>
+          <li>No external dependencies at runtime</li>
+          <li>Single-script installation</li>
+        </ul>
+
+        <h3>2. Progressive Fidelity</h3>
+        <ul>
+          <li>Start with ASCII layout (fast iteration)</li>
+          <li>Add structured metadata (component types, props)</li>
+          <li>Enhance with accessibility, interactions, animations</li>
+        </ul>
+
+        <h3>3. AI-Human Collaboration</h3>
+        <ul>
+          <li>AI generates ASCII layouts instantly</li>
+          <li>Humans give natural feedback on visuals</li>
+          <li>Designs converge through conversation</li>
+        </ul>
+
+        <h3>4. Derivation Not Duplication</h3>
+        <ul>
+          <li>Components extend base components</li>
+          <li>Change base once, variations inherit</li>
+          <li>Libraries grow organically through references</li>
+        </ul>
+      </section>
+
+      <section class="doc-section">
+        <h2>Next Steps</h2>
+        <ul>
+          <li><a href="getting-started.html">Getting Started</a> - Installation and first component</li>
+          <li><a href="commands.html">Command Reference</a> - All 6 skills documented</li>
+          <li><a href="how-skills-work.html">How Skills Work</a> - Understanding the agent system</li>
+          <li><a href="/">Back to Home</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__grid">
+        <div>
+          <h2 class="site-footer__title">Fluxwing</h2>
+          <p><strong>Design systems that humans AND AI agents understand natively.</strong></p>
+          <p style="margin-top: 0.5rem; font-size: 0.95rem;">Built on the open uxscii standard. ASCII is the universal interface.</p>
+        </div>
+        <nav aria-label="Footer">
+          <ul>
+            <li><a href="https://github.com/fluxwing/fluxwing-skills">GitHub</a></li>
+            <li><a href="/#docs">Documentation</a></li>
+            <li><a href="/#install">Install</a></li>
+          </ul>
+        </nav>
+      </div>
+      <p class="site-footer__legal">© <span data-year></span> Fluxwing. Build component libraries through derivation, not duplication. A product by <a href="https://www.trabian.com">Trabian</a>.</p>
+    </footer>
+
+    <script>
+      document.querySelector('[data-year]').textContent = new Date().getFullYear();
+
+      // Mobile menu toggle
+      const menuToggle = document.querySelector('.mobile-menu-toggle');
+      const navWrapper = document.querySelector('.mobile-nav-wrapper');
+      if (menuToggle && navWrapper) {
+        menuToggle.addEventListener('click', () => {
+          const isOpen = navWrapper.classList.contains('is-open');
+          navWrapper.classList.toggle('is-open');
+          menuToggle.setAttribute('aria-expanded', !isOpen);
+          menuToggle.textContent = isOpen ? '☰' : '✕';
+        });
+
+        navWrapper.querySelectorAll('nav a').forEach(link => {
+          link.addEventListener('click', () => {
+            navWrapper.classList.remove('is-open');
+            menuToggle.setAttribute('aria-expanded', 'false');
+            menuToggle.textContent = '☰';
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

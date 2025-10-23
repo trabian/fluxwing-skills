@@ -1,0 +1,151 @@
+:root {
+  --doc-body-max: 960px;
+}
+
+.subpage {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: rgba(4, 9, 14, 0.97);
+}
+
+.subpage__header {
+  padding: clamp(2.5rem, 4vw, 4rem) clamp(1.5rem, 5vw, 4.5rem) 2rem;
+  border-bottom: 1px dashed rgba(94, 247, 194, 0.35);
+  background: rgba(6, 12, 18, 0.85);
+}
+
+.subpage__eyebrow {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--fw-amber);
+  margin: 0 0 0.5rem;
+}
+
+.subpage__title {
+  margin: 0;
+  font-size: clamp(1.65rem, 3vw, 2.25rem);
+  font-weight: 600;
+  color: var(--fw-text);
+}
+
+.subpage__lede {
+  max-width: 720px;
+  margin: 1rem 0 0;
+  font-size: 1rem;
+  color: rgba(210, 248, 255, 0.85);
+}
+
+.doc-page {
+  flex: 1;
+  padding: clamp(2.5rem, 4vw, 4rem) clamp(1.5rem, 6vw, 5rem) clamp(3rem, 5vw, 5rem);
+  display: grid;
+  gap: 2.5rem;
+}
+
+.doc-section {
+  max-width: var(--doc-body-max);
+  margin: 0 auto;
+  background: rgba(10, 16, 24, 0.85);
+  border: 1px dashed rgba(94, 247, 194, 0.25);
+  border-radius: 16px;
+  padding: clamp(1.75rem, 3vw, 2.75rem);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.35);
+}
+
+.doc-section h2 {
+  margin-top: 0;
+  font-size: 1.45rem;
+  color: var(--fw-accent);
+}
+
+.doc-section h3 {
+  margin-top: 2rem;
+  font-size: 1.1rem;
+  color: var(--fw-amber);
+}
+
+.doc-section p {
+  margin: 0 0 1rem;
+  color: rgba(210, 248, 255, 0.95);
+}
+
+.doc-section ul,
+.doc-section ol {
+  margin: 0 0 1.25rem 1.25rem;
+  padding: 0;
+  color: rgba(210, 248, 255, 0.95);
+}
+
+.doc-section li {
+  margin-bottom: 0.5rem;
+}
+
+.doc-section pre,
+.doc-section code {
+  font-family: var(--fw-font);
+  background: rgba(3, 6, 10, 0.9);
+  border: 1px dashed rgba(94, 247, 194, 0.35);
+  border-radius: 12px;
+}
+
+.doc-section pre {
+  margin: 1rem 0;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+}
+
+.doc-section code {
+  padding: 0.15rem 0.35rem;
+  border-radius: 6px;
+}
+
+.doc-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.25rem 0;
+  font-size: 0.95rem;
+}
+
+.doc-table th,
+.doc-table td {
+  padding: 0.75rem 0.85rem;
+  text-align: left;
+  border-bottom: 1px dashed rgba(94, 247, 194, 0.2);
+  color: rgba(210, 248, 255, 0.92);
+}
+
+.doc-table th {
+  color: var(--fw-accent);
+  font-weight: 600;
+}
+
+.doc-callout {
+  border-left: 4px solid var(--fw-accent);
+  padding: 0.75rem 1rem;
+  margin: 1.5rem 0;
+  background: rgba(4, 12, 18, 0.9);
+  color: rgba(210, 248, 255, 0.9);
+}
+
+.doc-breadcrumbs {
+  margin: 0;
+  padding: 0;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(210, 248, 255, 0.6);
+}
+
+.doc-breadcrumbs a {
+  color: inherit;
+}
+
+.doc-footer {
+  border-top: 1px dashed rgba(94, 247, 194, 0.25);
+  padding: 1.5rem clamp(1.5rem, 6vw, 5rem);
+  text-align: center;
+  font-size: 0.85rem;
+  color: rgba(210, 248, 255, 0.6);
+}

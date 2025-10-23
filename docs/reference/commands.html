@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Command Reference — Fluxwing Skills</title>
+    <meta name="description" content="Complete reference for all 6 Fluxwing Skills: component creator, library browser, expander, screen scaffolder, viewer, and screenshot importer.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fluxwing.com/reference/commands.html">
+    <meta property="og:title" content="Command Reference — Fluxwing Skills">
+    <meta property="og:description" content="Complete reference for all 6 Fluxwing Skills.">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://fluxwing.com/reference/commands.html">
+    <meta property="twitter:title" content="Command Reference — Fluxwing Skills">
+    <meta property="twitter:description" content="Complete reference for all 6 Fluxwing Skills.">
+
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/docs.css">
+  </head>
+  <body class="crt-bg subpage">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header style="padding: 2rem clamp(1.5rem, 6vw, 6rem); background: rgba(2, 5, 8, 0.95); border-bottom: 1px dashed rgba(94, 247, 194, 0.35);">
+      <div class="mobile-nav-wrapper" style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <a href="/" style="font-size: 1.25rem; font-weight: 700; color: var(--fw-accent-strong);">Fluxwing</a>
+        <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+        <nav style="display: flex; align-items: center;">
+          <ul style="display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; flex-wrap: wrap;">
+            <li><a href="/why.html">Why Fluxwing</a></li>
+            <li><a href="/use-cases.html">Use Cases</a></li>
+            <li><a href="/#install">Install</a></li>
+            <li><a href="/#docs">Docs</a></li>
+            <li><a href="https://github.com/fluxwing/fluxwing-skills">GitHub</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <div class="subpage__header">
+      <p class="doc-breadcrumbs">
+        <a href="/">Home</a> / <a href="/#docs">Documentation</a> / Command Reference
+      </p>
+      <h1 class="subpage__title">Command Reference</h1>
+      <p class="subpage__lede">Complete guide to all 6 Fluxwing Skills and how to use them.</p>
+    </div>
+
+    <main id="main" class="doc-page">
+
+      <section class="doc-section">
+        <h2>Overview</h2>
+        <p>Fluxwing Skills activate automatically based on natural language. Just ask Claude what you want to do, and the appropriate skill will handle it.</p>
+
+        <table class="doc-table">
+          <thead>
+            <tr>
+              <th>Skill</th>
+              <th>Triggers</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>uxscii-component-creator</td>
+              <td>"Create a button", "I need an input"</td>
+              <td>Create new components</td>
+            </tr>
+            <tr>
+              <td>uxscii-library-browser</td>
+              <td>"Show all components", "Browse library"</td>
+              <td>Browse available components</td>
+            </tr>
+            <tr>
+              <td>uxscii-component-expander</td>
+              <td>"Add hover state", "Make it interactive"</td>
+              <td>Add states to components</td>
+            </tr>
+            <tr>
+              <td>uxscii-screen-scaffolder</td>
+              <td>"Create login screen", "Build dashboard"</td>
+              <td>Build complete screens</td>
+            </tr>
+            <tr>
+              <td>uxscii-component-viewer</td>
+              <td>"Show me the button", "View details"</td>
+              <td>View component details</td>
+            </tr>
+            <tr>
+              <td>uxscii-screenshot-importer</td>
+              <td>"Import screenshot", "Convert image"</td>
+              <td>Extract components from screenshots</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="doc-section">
+        <h2 id="component-creator">UXscii Component Creator</h2>
+        <p class="subpage__eyebrow" style="margin: 0 0 1rem;">Skill #1</p>
+
+        <h3>Purpose</h3>
+        <p>Create new uxscii components with ASCII art and structured metadata. Supports both single and multi-component creation.</p>
+
+        <h3>Triggers</h3>
+        <ul>
+          <li>"Create a button"</li>
+          <li>"I need an input component"</li>
+          <li>"Make a card component"</li>
+          <li>"Create submit-button, cancel-button, and email-input" (parallel creation)</li>
+        </ul>
+
+        <h3>What It Does</h3>
+        <ol>
+          <li>Gathers requirements (name, type, properties, visual style)</li>
+          <li>Checks for similar templates to offer starting points</li>
+          <li>Spawns designer agent(s) to create component files</li>
+          <li>Generates two files: <code>.uxm</code> (JSON metadata) + <code>.md</code> (ASCII template)</li>
+          <li>Saves to <code>./fluxwing/components/</code></li>
+        </ol>
+
+        <h3>Component Types</h3>
+        <p>button, input, checkbox, radio, select, slider, toggle, text, heading, label, badge, icon, image, divider, container, card, modal, panel, tabs, navigation, breadcrumb, pagination, link, alert, toast, progress, spinner, list, table, tree, chart, form, fieldset, legend, custom</p>
+
+        <h3>Output</h3>
+        <pre>./fluxwing/components/
+├── submit-button.uxm      # JSON metadata
+└── submit-button.md       # ASCII template</pre>
+
+        <h3>Example</h3>
+        <pre>You: "Create a submit button"
+
+Claude: [Activates uxscii-component-creator]
+        [Creates submit-button.uxm and submit-button.md]
+
+Component created successfully!</pre>
+
+        <div class="doc-callout">
+          <strong>💡 Tip:</strong> Components are created with default state only for fast MVP prototyping. Use the Component Expander to add interactive states later.
+        </div>
+      </section>
+
+      <section class="doc-section">
+        <h2 id="library-browser">UXscii Library Browser</h2>
+        <p class="subpage__eyebrow" style="margin: 0 0 1rem;">Skill #2</p>
+
+        <h3>Purpose</h3>
+        <p>Browse all available uxscii components from four sources: bundled templates, user components, library copies, and complete screens.</p>
+
+        <h3>Triggers</h3>
+        <ul>
+          <li>"Show me all components"</li>
+          <li>"Browse the library"</li>
+          <li>"List available templates"</li>
+          <li>"What components do I have?"</li>
+        </ul>
+
+        <h3>What It Does</h3>
+        <ol>
+          <li>Loads pre-built template index for instant browsing (10x faster)</li>
+          <li>Scans project workspace for custom components</li>
+          <li>Groups components by type and tags</li>
+          <li>Displays hierarchical structure with ASCII previews</li>
+        </ol>
+
+        <h3>Data Sources</h3>
+        <table class="doc-table">
+          <thead>
+            <tr>
+              <th>Source</th>
+              <th>Location</th>
+              <th>Editable</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Bundled Templates</td>
+              <td><code>{SKILL_ROOT}/templates/</code></td>
+              <td>❌ Read-only</td>
+            </tr>
+            <tr>
+              <td>User Components</td>
+              <td><code>./fluxwing/components/</code></td>
+              <td>✅ Yes</td>
+            </tr>
+            <tr>
+              <td>Library Copies</td>
+              <td><code>./fluxwing/library/</code></td>
+              <td>✅ Yes</td>
+            </tr>
+            <tr>
+              <td>Screens</td>
+              <td><code>./fluxwing/screens/</code></td>
+              <td>✅ Yes</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Bundled Templates (11 components)</h3>
+        <p>Starter templates you can copy and customize:</p>
+        <ul>
+          <li>primary-button, secondary-button</li>
+          <li>email-input, password-input</li>
+          <li>login-form</li>
+          <li>user-profile-card</li>
+          <li>success-alert</li>
+          <li>loading-spinner</li>
+          <li>navigation-menu</li>
+          <li>And more...</li>
+        </ul>
+
+        <div class="doc-callout">
+          <strong>⚡ Performance:</strong> Uses pre-built index for instant browsing - 1 file read vs 11+ file reads.
+        </div>
+      </section>
+
+      <section class="doc-section">
+        <h2 id="component-expander">UXscii Component Expander</h2>
+        <p class="subpage__eyebrow" style="margin: 0 0 1rem;">Skill #3</p>
+
+        <h3>Purpose</h3>
+        <p>Add interaction states (hover, focus, disabled, active, error) to existing uxscii components.</p>
+
+        <h3>Triggers</h3>
+        <ul>
+          <li>"Add hover state to my button"</li>
+          <li>"Make this component interactive"</li>
+          <li>"Add focus and disabled states"</li>
+          <li>"Expand the email-input component"</li>
+        </ul>
+
+        <h3>What It Does</h3>
+        <ol>
+          <li>Locates the component in <code>./fluxwing/components/</code> or <code>./fluxwing/library/</code></li>
+          <li>Determines which states to add (smart defaults by component type)</li>
+          <li>Generates state definitions in .uxm file</li>
+          <li>Creates ASCII representations in .md file</li>
+          <li>Updates both files in place</li>
+        </ol>
+
+        <h3>Smart Defaults by Type</h3>
+        <table class="doc-table">
+          <thead>
+            <tr>
+              <th>Component Type</th>
+              <th>Default States</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>button</td>
+              <td>hover, active, disabled</td>
+            </tr>
+            <tr>
+              <td>input</td>
+              <td>focus, error, disabled</td>
+            </tr>
+            <tr>
+              <td>checkbox/radio</td>
+              <td>checked, disabled</td>
+            </tr>
+            <tr>
+              <td>link</td>
+              <td>hover, visited, active</td>
+            </tr>
+            <tr>
+              <td>card</td>
+              <td>hover, selected</td>
+            </tr>
+            <tr>
+              <td>alert</td>
+              <td>success, warning, error, info</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Example</h3>
+        <pre>You: "Add hover and focus states to submit-button"
+
+Claude: [Activates uxscii-component-expander]
+        [Reads submit-button.uxm and submit-button.md]
+        [Adds hover and focus states with visual variations]
+
+States added successfully!</pre>
+
+        <div class="doc-callout">
+          <strong>💡 Override defaults:</strong> Say "Only add hover" or "Add error state only" to customize which states are added.
+        </div>
+      </section>
+
+      <section class="doc-section">
+        <h2 id="screen-scaffolder">UXscii Screen Scaffolder</h2>
+        <p class="subpage__eyebrow" style="margin: 0 0 1rem;">Skill #4</p>
+
+        <h3>Purpose</h3>
+        <p>Build complete UI screens by composing multiple components. Creates missing components in parallel, then assembles them into a cohesive screen.</p>
+
+        <h3>Triggers</h3>
+        <ul>
+          <li>"Create a login screen"</li>
+          <li>"Build a dashboard"</li>
+          <li>"Make a user profile page"</li>
+          <li>"Scaffold a checkout flow"</li>
+        </ul>
+
+        <h3>What It Does</h3>
+        <ol>
+          <li>Understands screen requirements (name, purpose, components, layout)</li>
+          <li>Checks component inventory (user components → library → bundled templates)</li>
+          <li>Creates missing components in parallel (6 components = 6 agents = ~6x faster)</li>
+          <li>Composes screen from available + newly created components</li>
+          <li>Generates three files: <code>.uxm</code>, <code>.md</code>, and <code>.rendered.md</code></li>
+        </ol>
+
+        <h3>Parallel Component Creation</h3>
+        <p>The Screen Scaffolder spawns multiple designer agents in parallel:</p>
+        <pre>Missing: email-input, password-input, submit-button
+
+→ Spawn 3 agents simultaneously
+→ Wait for all to complete
+→ Compose screen from results
+
+Time: ~30s (vs ~90s sequential)</pre>
+
+        <h3>Output</h3>
+        <pre>./fluxwing/screens/
+├── login-screen.uxm        # Screen metadata
+├── login-screen.md         # ASCII template with {{variables}}
+└── login-screen.rendered.md # Example with REAL data</pre>
+
+        <h3>Screen Structure</h3>
+        <p>Screens use <code>type: "container"</code> and reference child components:</p>
+        <pre>{
+  "id": "login-screen",
+  "type": "container",
+  "components": [
+    { "ref": "email-input" },
+    { "ref": "password-input" },
+    { "ref": "submit-button" }
+  ],
+  "layout": "vertical"
+}</pre>
+
+        <div class="doc-callout">
+          <strong>🚀 Performance:</strong> The Screen Scaffolder orchestrates agents - it doesn't create components itself. This enables true parallel execution.
+        </div>
+      </section>
+
+      <section class="doc-section">
+        <h2 id="component-viewer">UXscii Component Viewer</h2>
+        <p class="subpage__eyebrow" style="margin: 0 0 1rem;">Skill #5</p>
+
+        <h3>Purpose</h3>
+        <p>View detailed information about a specific uxscii component including metadata, states, props, and ASCII preview.</p>
+
+        <h3>Triggers</h3>
+        <ul>
+          <li>"Show me the submit-button"</li>
+          <li>"View component details for primary-button"</li>
+          <li>"Inspect the email-input"</li>
+          <li>"Display the login-form component"</li>
+        </ul>
+
+        <h3>What It Does</h3>
+        <ol>
+          <li>Searches for component in priority order (project → library → bundled)</li>
+          <li>Reads both <code>.uxm</code> and <code>.md</code> files</li>
+          <li>Extracts all metadata, states, and properties</li>
+          <li>Displays formatted view with ASCII preview</li>
+        </ol>
+
+        <h3>Search Priority</h3>
+        <ol>
+          <li><code>./fluxwing/components/[name].uxm</code> - Your components</li>
+          <li><code>./fluxwing/library/[name].uxm</code> - Your library</li>
+          <li><code>{SKILL_ROOT}/templates/[name].uxm</code> - Bundled templates</li>
+        </ol>
+
+        <h3>Display Format</h3>
+        <pre>📄 PRIMARY-BUTTON
+─────────────────────────────────────
+📦 Source: Bundled Template
+📍 Location: Component Creator Templates
+🔖 Version: 1.0.0
+
+Description:
+Standard clickable button with interactive states
+
+Component Details:
+• Type: button
+• Props: text, variant, disabled
+• States: default, hover, focus, disabled
+• Accessibility: ✓ Role, ✓ Focusable, ✓ Keyboard
+
+ASCII Template Preview:
+[Shows first 20 lines of all states]</pre>
+
+        <div class="doc-callout">
+          <strong>🔍 Read-only:</strong> The Component Viewer never modifies files. It's a pure inspection tool.
+        </div>
+      </section>
+
+      <section class="doc-section">
+        <h2 id="screenshot-importer">UXscii Screenshot Importer</h2>
+        <p class="subpage__eyebrow" style="margin: 0 0 1rem;">Skill #6</p>
+
+        <h3>Purpose</h3>
+        <p>Import UI screenshots and automatically generate uxscii components using vision analysis.</p>
+
+        <h3>Triggers</h3>
+        <ul>
+          <li>"Import this screenshot: /path/to/design.png"</li>
+          <li>"Convert screenshot to uxscii"</li>
+          <li>"Generate components from image"</li>
+          <li>"Extract UI from screenshot.jpg"</li>
+        </ul>
+
+        <h3>What It Does</h3>
+        <ol>
+          <li>Reads screenshot image file (PNG, JPG, JPEG, WebP, GIF)</li>
+          <li>Spawns vision coordinator agent for parallel analysis</li>
+          <li>Analyzes layout structure, detects components, extracts properties</li>
+          <li>Generates atomic components in parallel</li>
+          <li>Creates composite components and screen composition</li>
+          <li>Outputs to <code>./fluxwing/components/</code> and <code>./fluxwing/screens/</code></li>
+        </ol>
+
+        <h3>Vision Analysis Pipeline</h3>
+        <pre>Screenshot → Vision Coordinator
+              ├─ Layout Discovery (structure, hierarchy)
+              ├─ Component Detection (buttons, inputs, cards)
+              └─ Visual Properties (colors, spacing, borders)
+
+Results → Component Generators (parallel)
+              ├─ Atomic Components (buttons, inputs)
+              ├─ Composite Components (forms, cards)
+              └─ Screen Composition (full layout)</pre>
+
+        <h3>What Gets Detected</h3>
+        <ul>
+          <li>Navigation elements (top, left, right, bottom)</li>
+          <li>Interactive components (buttons, inputs, links)</li>
+          <li>Content containers (cards, panels, modals)</li>
+          <li>Small elements (icons, badges, status indicators)</li>
+          <li>Layout relationships (grid, flex, sidebar)</li>
+        </ul>
+
+        <h3>Output</h3>
+        <pre>./fluxwing/
+├── components/
+│   ├── submit-button.uxm      # Extracted from screenshot
+│   ├── email-input.uxm
+│   └── ...
+└── screens/
+    ├── extracted-screen.uxm   # Full screen composition
+    ├── extracted-screen.md
+    └── extracted-screen.rendered.md</pre>
+
+        <div class="doc-callout">
+          <strong>⚡ Parallel vision:</strong> Spawns 3 vision agents simultaneously for faster analysis.
+        </div>
+      </section>
+
+      <section class="doc-section">
+        <h2>Common Patterns</h2>
+
+        <h3>Sequential Workflow</h3>
+        <p>Build up from components to screens:</p>
+        <pre>1. "Create a button"              → component-creator
+2. "Add hover state"              → component-expander
+3. "Show me the button"           → component-viewer
+4. "Create a login screen"        → screen-scaffolder</pre>
+
+        <h3>Import & Customize</h3>
+        <p>Start with a screenshot, then refine:</p>
+        <pre>1. "Import screenshot.png"        → screenshot-importer
+2. "Show all components"          → library-browser
+3. "Add focus to email-input"     → component-expander
+4. "View the submit-button"       → component-viewer</pre>
+
+        <h3>Browse & Derive</h3>
+        <p>Explore templates, then create variations:</p>
+        <pre>1. "Show all components"          → library-browser
+2. "Create a large primary button" → component-creator
+3. "Add disabled state"           → component-expander</pre>
+      </section>
+
+      <section class="doc-section">
+        <h2>Next Steps</h2>
+        <ul>
+          <li><a href="getting-started.html">Getting Started</a> - Installation and first component</li>
+          <li><a href="architecture.html">Architecture Overview</a> - How Fluxwing works</li>
+          <li><a href="how-skills-work.html">How Skills Work</a> - Understanding the agent system</li>
+          <li><a href="/">Back to Home</a></li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__grid">
+        <div>
+          <h2 class="site-footer__title">Fluxwing</h2>
+          <p><strong>Design systems that humans AND AI agents understand natively.</strong></p>
+          <p style="margin-top: 0.5rem; font-size: 0.95rem;">Built on the open uxscii standard. ASCII is the universal interface.</p>
+        </div>
+        <nav aria-label="Footer">
+          <ul>
+            <li><a href="https://github.com/fluxwing/fluxwing-skills">GitHub</a></li>
+            <li><a href="/#docs">Documentation</a></li>
+            <li><a href="/#install">Install</a></li>
+          </ul>
+        </nav>
+      </div>
+      <p class="site-footer__legal">© <span data-year></span> Fluxwing. Build component libraries through derivation, not duplication. A product by <a href="https://www.trabian.com">Trabian</a>.</p>
+    </footer>
+
+    <script>
+      document.querySelector('[data-year]').textContent = new Date().getFullYear();
+
+      // Mobile menu toggle
+      const menuToggle = document.querySelector('.mobile-menu-toggle');
+      const navWrapper = document.querySelector('.mobile-nav-wrapper');
+      if (menuToggle && navWrapper) {
+        menuToggle.addEventListener('click', () => {
+          const isOpen = navWrapper.classList.contains('is-open');
+          navWrapper.classList.toggle('is-open');
+          menuToggle.setAttribute('aria-expanded', !isOpen);
+          menuToggle.textContent = isOpen ? '☰' : '✕';
+        });
+
+        navWrapper.querySelectorAll('nav a').forEach(link => {
+          link.addEventListener('click', () => {
+            navWrapper.classList.remove('is-open');
+            menuToggle.setAttribute('aria-expanded', 'false');
+            menuToggle.textContent = '☰';
+          });
+        });
+      }
+    </script>
+  </body>
+</html>
