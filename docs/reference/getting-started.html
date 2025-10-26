@@ -110,26 +110,27 @@
             <!-- Quick Start -->
             <section id="quick-start" class="doc-section">
               <h2>Quick Start</h2>
-              <p>Get up and running with Fluxwing Skills in three simple steps:</p>
+              <p>Get up and running with Fluxwing Skills in two simple steps:</p>
 
-              <h3>1. Clone the Repository</h3>
-              <pre class="terminal-window"><code>git clone https://github.com/trabian/fluxwing-skills.git
-cd fluxwing-skills</code></pre>
-
-              <h3>2. Run the Installer</h3>
-              <pre class="terminal-window"><code>./scripts/install.sh</code></pre>
-              <p>The installer will automatically:</p>
+              <h3>1. Install Skills</h3>
+              <p><strong>For Claude Code (CLI):</strong></p>
+              <pre class="terminal-window"><code>/plugin marketplace add trabian/fluxwing-skills
+/plugin install fluxwing-skills</code></pre>
+              <p>The plugin system will automatically:</p>
               <ul class="ascii-list">
-                <li>→ Detect the best installation location (global or local)</li>
-                <li>→ Copy all 6 skills to Claude Code</li>
+                <li>→ Install all 6 skills to Claude Code</li>
                 <li>→ Verify templates and schemas</li>
-                <li>→ Show usage examples</li>
+                <li>→ Make skills available immediately</li>
+                <li>→ Enable easy updates with /plugin update</li>
               </ul>
 
-              <h3>3. Start Designing</h3>
-              <p>Open Claude Code and say:</p>
+              <p style="margin-top: 1.5rem;"><strong>For Claude Desktop App (GUI):</strong></p>
+              <p>Download ZIP files from <a href="https://github.com/trabian/fluxwing-skills/releases/latest" target="_blank" rel="noopener noreferrer">releases</a> and upload via Settings &gt; Capabilities. See <a href="#installation">Installation Options</a> below for details.</p>
+
+              <h3>2. Start Designing</h3>
+              <p>Open Claude and say:</p>
               <pre class="terminal-window"><code>"Create a button component"</code></pre>
-              <p>The <strong>uxscii-component-creator</strong> skill will activate and guide you through creating your first component with ASCII art and structured metadata.</p>
+              <p>The <strong>fluxwing-component-creator</strong> skill will activate and guide you through creating your first component with ASCII art and structured metadata.</p>
             </section>
 
             <div class="section-divider" aria-hidden="true">
@@ -140,26 +141,56 @@ cd fluxwing-skills</code></pre>
             <section id="installation" class="doc-section">
               <h2>Installation Options</h2>
 
-              <h3>Auto-Detect Mode (Recommended)</h3>
-              <pre class="terminal-window"><code>./scripts/install.sh</code></pre>
+              <h3>Plugin Installation (Recommended)</h3>
+              <pre class="terminal-window"><code>/plugin marketplace add trabian/fluxwing-skills
+/plugin install fluxwing-skills</code></pre>
               <div class="ascii-box">
-                <p><strong>Logic:</strong> If <code>.claude/</code> exists in current directory → Install locally (project-specific).<br>
-                Otherwise → Install globally (<code>~/.claude/skills/</code>)</p>
+                <p><strong>Best for:</strong> Production use, automatic updates, managed installation</p>
+                <p><strong>Location:</strong> Managed by Claude Code plugin system</p>
               </div>
 
-              <h3>Global Installation</h3>
-              <pre class="terminal-window"><code>./scripts/install.sh --global</code></pre>
-              <p>Install skills for all Claude Code sessions.<br>
-              <strong>Location:</strong> <code>~/.claude/skills/</code></p>
+              <h3>Verify Installation</h3>
+              <pre class="terminal-window"><code>/plugin list</code></pre>
+              <p>You should see <code>fluxwing-skills</code> in the installed plugins list.</p>
 
-              <h3>Local Installation</h3>
-              <pre class="terminal-window"><code>./scripts/install.sh --local</code></pre>
-              <p>Install skills for current project only.<br>
-              <strong>Location:</strong> <code>./.claude/skills/</code></p>
+              <h3>Update Plugin</h3>
+              <pre class="terminal-window"><code>/plugin update fluxwing-skills</code></pre>
+              <p>Keep your skills up to date with the latest features.</p>
 
-              <h3>Force Overwrite</h3>
-              <pre class="terminal-window"><code>./scripts/install.sh --force</code></pre>
-              <p>Update existing skills without prompts.</p>
+              <h3>Claude Desktop App Installation</h3>
+              <p>For the GUI Claude Desktop app (macOS/Windows):</p>
+              <ol class="ascii-list">
+                <li>→ Download ZIP files from <a href="https://github.com/trabian/fluxwing-skills/releases/latest" target="_blank" rel="noopener noreferrer">latest release</a></li>
+                <li>→ Open Claude Desktop app</li>
+                <li>→ Go to <strong>Settings &gt; Capabilities</strong></li>
+                <li>→ Click <strong>"Upload skill"</strong></li>
+                <li>→ Select a ZIP file to upload</li>
+                <li>→ Repeat for each skill you want to install</li>
+              </ol>
+              <div class="ascii-box">
+                <p><strong>Best for:</strong> Claude Desktop app users (GUI)</p>
+                <p><strong>Requirements:</strong> Pro, Max, Team, or Enterprise plan with code execution enabled</p>
+                <p><strong>Available ZIPs:</strong> 6 files ranging from 6.6KB to 60KB</p>
+              </div>
+              <div class="ascii-box" style="margin-top: 1rem;">
+                <p><strong>Note:</strong> You can install all 6 skills or just the ones you need:</p>
+                <ul class="ascii-list">
+                  <li>→ <code>fluxwing-component-creator.zip</code> (60KB) - Create components</li>
+                  <li>→ <code>fluxwing-library-browser.zip</code> (7.6KB) - Browse library</li>
+                  <li>→ <code>fluxwing-component-expander.zip</code> (9.3KB) - Add states</li>
+                  <li>→ <code>fluxwing-screen-scaffolder.zip</code> (15KB) - Build screens</li>
+                  <li>→ <code>fluxwing-component-viewer.zip</code> (6.6KB) - View details</li>
+                  <li>→ <code>fluxwing-screenshot-importer.zip</code> (24KB) - Import screenshots</li>
+                </ul>
+              </div>
+
+              <h3>Development Installation</h3>
+              <p>For local development and testing only:</p>
+              <pre class="terminal-window"><code>git clone https://github.com/trabian/fluxwing-skills.git
+cd fluxwing-skills
+./scripts/install.sh</code></pre>
+              <p><strong>Use when:</strong> You're developing skills or need to test local changes.<br>
+              <strong>Location:</strong> <code>~/.claude/skills/</code> or <code>./.claude/skills/</code></p>
             </section>
 
             <div class="section-divider" aria-hidden="true">
@@ -222,23 +253,23 @@ Claude: [Updates files with expanded dimensions and hover state]</code></pre>
 
               <h3>Browse Available Components</h3>
               <pre class="terminal-window"><code>"Show me all available components"</code></pre>
-              <p>The <strong>uxscii-library-browser</strong> displays 11 bundled templates plus your custom components.</p>
+              <p>The <strong>fluxwing-library-browser</strong> displays 11 bundled templates plus your custom components.</p>
 
               <h3>Add Interactive States</h3>
               <pre class="terminal-window"><code>"Add hover and focus states to my button"</code></pre>
-              <p>The <strong>uxscii-component-expander</strong> adds interaction states to existing components.</p>
+              <p>The <strong>fluxwing-component-expander</strong> adds interaction states to existing components.</p>
 
               <h3>Build a Complete Screen</h3>
               <pre class="terminal-window"><code>"Build a login screen with email, password, and submit button"</code></pre>
-              <p>The <strong>uxscii-screen-scaffolder</strong> creates missing components and composes them into a complete screen.</p>
+              <p>The <strong>fluxwing-screen-scaffolder</strong> creates missing components and composes them into a complete screen.</p>
 
               <h3>View Component Details</h3>
               <pre class="terminal-window"><code>"Show me the primary-button"</code></pre>
-              <p>The <strong>uxscii-component-viewer</strong> displays full metadata and ASCII preview.</p>
+              <p>The <strong>fluxwing-component-viewer</strong> displays full metadata and ASCII preview.</p>
 
               <h3>Import from Screenshots</h3>
               <pre class="terminal-window"><code>"Import this screenshot: /path/to/design.png"</code></pre>
-              <p>The <strong>uxscii-screenshot-importer</strong> uses vision analysis to extract components.</p>
+              <p>The <strong>fluxwing-screenshot-importer</strong> uses vision analysis to extract components.</p>
             </section>
 
             <div class="section-divider" aria-hidden="true">
@@ -260,27 +291,27 @@ Claude: [Updates files with expanded dimensions and hover state]</code></pre>
                   </thead>
                   <tbody>
                     <tr>
-                      <td><code>uxscii-component-creator</code></td>
+                      <td><code>fluxwing-component-creator</code></td>
                       <td>Create UI components (buttons, inputs, cards)</td>
                     </tr>
                     <tr>
-                      <td><code>uxscii-library-browser</code></td>
+                      <td><code>fluxwing-library-browser</code></td>
                       <td>Browse available components and templates</td>
                     </tr>
                     <tr>
-                      <td><code>uxscii-component-expander</code></td>
+                      <td><code>fluxwing-component-expander</code></td>
                       <td>Add interaction states (hover, focus, disabled)</td>
                     </tr>
                     <tr>
-                      <td><code>uxscii-screen-scaffolder</code></td>
+                      <td><code>fluxwing-screen-scaffolder</code></td>
                       <td>Build complete screens from components</td>
                     </tr>
                     <tr>
-                      <td><code>uxscii-component-viewer</code></td>
+                      <td><code>fluxwing-component-viewer</code></td>
                       <td>View component details and metadata</td>
                     </tr>
                     <tr>
-                      <td><code>uxscii-screenshot-importer</code></td>
+                      <td><code>fluxwing-screenshot-importer</code></td>
                       <td>Import components from screenshot images</td>
                     </tr>
                   </tbody>
@@ -311,10 +342,11 @@ Claude: [Updates files with expanded dimensions and hover state]</code></pre>
               </div>
               <p><strong>Solutions:</strong></p>
               <ul class="ascii-list">
-                <li>→ Verify installation: <code>ls ~/.claude/skills/uxscii-*/SKILL.md</code></li>
-                <li>→ Check YAML frontmatter: <code>head -n 10 ~/.claude/skills/uxscii-component-creator/SKILL.md</code></li>
+                <li>→ Verify plugin installation: <code>/plugin list</code></li>
+                <li>→ Check for <code>fluxwing-skills</code> in the list</li>
                 <li>→ Restart Claude Code</li>
-                <li>→ Try explicit language: "Use the uxscii component creator to make a button"</li>
+                <li>→ Try explicit language: "Use the fluxwing component creator to make a button"</li>
+                <li>→ Reinstall: <code>/plugin uninstall fluxwing-skills</code> then <code>/plugin install fluxwing-skills</code></li>
               </ul>
 
               <h3>Templates Not Found</h3>
@@ -323,20 +355,22 @@ Claude: [Updates files with expanded dimensions and hover state]</code></pre>
               </div>
               <p><strong>Solutions:</strong></p>
               <ul class="ascii-list">
-                <li>→ Verify templates: <code>ls .claude/skills/uxscii-component-creator/templates/*.uxm</code></li>
-                <li>→ Should show 11+ .uxm files</li>
-                <li>→ Reinstall: <code>./scripts/install.sh --force</code></li>
+                <li>→ Verify plugin installation: <code>/plugin list</code></li>
+                <li>→ Update to latest version: <code>/plugin update fluxwing-skills</code></li>
+                <li>→ Reinstall plugin if issue persists</li>
               </ul>
 
-              <h3>Permission Denied</h3>
+              <h3>Plugin Installation Fails</h3>
               <div class="ascii-box ascii-box--error">
-                <p><strong>Problem:</strong> Can't create skills directory.</p>
+                <p><strong>Problem:</strong> Cannot install via plugin system.</p>
               </div>
               <p><strong>Solutions:</strong></p>
               <ul class="ascii-list">
-                <li>→ Check permissions: <code>ls -la ~/.claude/</code></li>
-                <li>→ Create manually: <code>mkdir -p ~/.claude/skills</code></li>
-                <li>→ Avoid <code>sudo</code> unless necessary</li>
+                <li>→ Verify you're using Claude Code (not Claude.ai web)</li>
+                <li>→ Check internet connection</li>
+                <li>→ Try removing marketplace: <code>/plugin marketplace remove trabian/fluxwing-skills</code></li>
+                <li>→ Then re-add: <code>/plugin marketplace add trabian/fluxwing-skills</code></li>
+                <li>→ For development: Use <code>./scripts/install.sh</code> instead</li>
               </ul>
             </section>
 

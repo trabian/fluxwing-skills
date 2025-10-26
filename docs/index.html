@@ -270,13 +270,36 @@ password-input.uxm
       <section id="installation" aria-labelledby="installation-heading">
         <div class="layout-container">
           <h2 id="installation-heading">Install Fluxwing</h2>
-          <p>Copy and paste this one-liner to install all skills:</p>
-          <pre class="terminal-window"><code>git clone https://github.com/trabian/fluxwing-skills.git && cd fluxwing-skills && ./scripts/install.sh</code></pre>
+
+          <h3 style="margin-top: 2rem;">Claude Code (CLI)</h3>
+          <p>Install via Claude Code's plugin system:</p>
+          <pre class="terminal-window"><code>/plugin marketplace add trabian/fluxwing-skills
+/plugin install fluxwing-skills</code></pre>
           <div class="installation__checklist" role="list">
-            <p role="listitem">✓ Installs all six skills locally</p>
-            <p role="listitem">✓ Populates ./fluxwing with generated assets</p>
-            <p role="listitem">✓ Keeps docs collateral in sync</p>
+            <p role="listitem">✓ Installs all six skills automatically</p>
+            <p role="listitem">✓ Managed by Claude Code plugin system</p>
+            <p role="listitem">✓ Easy updates with /plugin update</p>
           </div>
+
+          <h3 style="margin-top: 3rem;">Claude Desktop App (macOS/Windows)</h3>
+          <p>For the GUI Claude app:</p>
+          <ol class="ascii-list">
+            <li>→ Download ZIP files from <a href="https://github.com/trabian/fluxwing-skills/releases/latest" target="_blank" rel="noopener noreferrer">latest release</a></li>
+            <li>→ Open Claude Desktop &gt; Settings &gt; Capabilities</li>
+            <li>→ Click "Upload skill" and select a ZIP file</li>
+            <li>→ Repeat for each skill you want to install</li>
+          </ol>
+          <div class="installation__checklist" role="list" style="margin-top: 1rem;">
+            <p role="listitem">✓ 6 ZIP files available (60KB - 24KB each)</p>
+            <p role="listitem">✓ Requires Pro, Max, Team, or Enterprise plan</p>
+            <p role="listitem">✓ Code execution must be enabled</p>
+          </div>
+
+          <h3 style="margin-top: 3rem;">Development Setup</h3>
+          <p>For local development and testing:</p>
+          <pre class="terminal-window"><code>git clone https://github.com/trabian/fluxwing-skills.git
+cd fluxwing-skills
+./scripts/install.sh</code></pre>
         </div>
       </section>
       <section id="docs-links" aria-labelledby="docs-links-heading">

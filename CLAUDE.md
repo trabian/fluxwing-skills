@@ -11,27 +11,29 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **uxscii** = The standard format (the language)
 - Think: Figma vs HTML/CSS
 
-**Development Location**: This repository (`fluxwing-skills`) is the development location for six Claude Code skills (in `.claude/skills/`).
+**Development Location**: This repository (`fluxwing-skills`) is the development location for six Claude Code skills packaged as a Claude Code plugin.
 
 ## Repository Structure
 
 ```
-fluxwing-skills/                # Repository root
-├── .claude/
-│   └── skills/                 # 6 Skills (primary focus)
-│       ├── fluxwing-component-creator/
-│       ├── fluxwing-library-browser/
-│       ├── fluxwing-component-expander/
-│       ├── fluxwing-screen-scaffolder/
-│       ├── fluxwing-component-viewer/
-│       └── fluxwing-screenshot-importer/
+fluxwing-skills/                # Repository root (Claude Code Plugin)
+├── .claude-plugin/
+│   └── plugin.json             # Plugin manifest
+├── skills/                     # 6 Skills (primary focus)
+│   ├── fluxwing-component-creator/
+│   ├── fluxwing-library-browser/
+│   ├── fluxwing-component-expander/
+│   ├── fluxwing-screen-scaffolder/
+│   ├── fluxwing-component-viewer/
+│   └── fluxwing-screenshot-importer/
 ├── scripts/
-│   ├── install.sh              # Skills installation script
+│   ├── install.sh              # Development installation script
 │   └── uninstall.sh            # Skills removal script
 ├── .gitignore
 ├── CLAUDE.md                   # This file
-├── INSTALL.md                  # Comprehensive installation guide
+├── INSTALL.md                  # Installation guide
 ├── LICENSE
+├── marketplace.json            # Plugin marketplace catalog
 ├── package.json                # Minimal metadata
 ├── README.md                   # User-facing overview
 └── TODO.md                     # Development tasks
@@ -89,7 +91,7 @@ The six skills handle different aspects of UX design:
 
 #### Skill Bundled Data (READ-ONLY)
 ```
-.claude/skills/{skill-name}/    # Within each skill directory
+skills/{skill-name}/            # Within each skill directory
 ├── templates/                  # Component templates (READ-ONLY)
 ├── schemas/                    # JSON Schema validation rules
 └── docs/                       # Documentation modules
@@ -126,7 +128,17 @@ The six skills handle different aspects of UX design:
 
 ## Development Workflows
 
-### Installing Skills
+### Installing Skills (Production)
+
+```bash
+# Recommended: Install via Claude Code plugin system
+/plugin marketplace add trabian/fluxwing-skills
+/plugin install fluxwing-skills
+```
+
+### Installing Skills (Development)
+
+For local development and testing:
 
 ```bash
 # Auto-detect installation location (local project vs global)
@@ -139,11 +151,11 @@ The six skills handle different aspects of UX design:
 ./scripts/install.sh --local
 ```
 
-The installer:
-- Copies `.claude/skills/` to `~/.claude/skills/` or project `.claude/skills/`
+The development installer:
+- Copies `skills/` to `~/.claude/skills/` or project `.claude/skills/`
 - Runs automated verification (YAML, templates, schemas, references)
 - Provides colored status output and usage examples
-- Backs up existing skills before overwriting
+- Prompts for confirmation before installing
 
 ### Uninstalling Skills
 
@@ -164,7 +176,7 @@ The installer:
 
 #### Adding a New Skill
 
-1. Create skill directory in `.claude/skills/{skill-name}/`
+1. Create skill directory in `skills/{skill-name}/`
 2. Create `SKILL.md` with YAML frontmatter:
    ```yaml
    ---
@@ -178,27 +190,27 @@ The installer:
 3. Add skill workflow instructions in markdown
 4. Copy necessary templates/schemas to skill directory
 5. Update `TODO.md` with new phase
-6. Run `./scripts/install.sh` to test
+6. Run `./scripts/install.sh` to test locally
 
 #### Modifying Existing Skills
 
-1. Edit `SKILL.md` in `.claude/skills/{skill-name}/`
+1. Edit `SKILL.md` in `skills/{skill-name}/`
 2. Update templates or docs as needed
-3. Test locally by running `./scripts/install.sh --force`
+3. Test locally by running `./scripts/install.sh`
 4. Verify with natural language trigger phrases
 5. Update `TODO.md` if workflow changes
 
 #### Adding Component Templates
 
 1. Create `.uxm` + `.md` pair in appropriate skill's `templates/` directory
-2. Validate against schema (`.claude/skills/fluxwing-component-creator/schemas/uxm-component.schema.json`)
+2. Validate against schema (`skills/fluxwing-component-creator/schemas/uxm-component.schema.json`)
 3. Document in skill's `SKILL.md` if notable
 4. Reinstall skills to apply changes
 
 
 ## Schema and Validation
 
-**Definitive source of truth**: `.claude/skills/fluxwing-component-creator/schemas/uxm-component.schema.json`
+**Definitive source of truth**: `skills/fluxwing-component-creator/schemas/uxm-component.schema.json`
 
 This JSON Schema (Draft-07) defines:
 - Required fields (id, type, version, metadata, props, ascii)
@@ -288,7 +300,7 @@ Follow uxscii standard strictly.`
 ### 2. Self-Contained Portability
 - All schemas, examples, and docs bundled in skills
 - NO external dependencies at runtime
-- Users install with single script (`./scripts/install.sh`)
+- Users install via Claude Code plugin system or development script
 
 ### 3. Modular Documentation
 - Docs split into focused modules (500-800 tokens each)
@@ -319,33 +331,33 @@ All interactive components should include:
 ## File References by Task
 
 ### Creating Components
-- `.claude/skills/fluxwing-component-creator/SKILL.md` - Component creation workflow
-- `.claude/skills/fluxwing-component-creator/templates/` - 11 bundled templates
-- `.claude/skills/fluxwing-component-creator/schemas/uxm-component.schema.json` - Validation
-- `.claude/skills/fluxwing-component-creator/docs/03-component-creation.md` - Detailed guide
-- `.claude/skills/fluxwing-component-creator/docs/06-ascii-patterns.md` - Box-drawing characters
+- `skills/fluxwing-component-creator/SKILL.md` - Component creation workflow
+- `skills/fluxwing-component-creator/templates/` - 11 bundled templates
+- `skills/fluxwing-component-creator/schemas/uxm-component.schema.json` - Validation
+- `skills/fluxwing-component-creator/docs/03-component-creation.md` - Detailed guide
+- `skills/fluxwing-component-creator/docs/06-ascii-patterns.md` - Box-drawing characters
 
 ### Building Screens
-- `.claude/skills/fluxwing-screen-scaffolder/SKILL.md` - Screen scaffolding workflow
-- `.claude/skills/fluxwing-screen-scaffolder/templates/` - 2 complete screen examples
-- `.claude/skills/fluxwing-screen-scaffolder/docs/04-screen-composition.md` - Screen guide
+- `skills/fluxwing-screen-scaffolder/SKILL.md` - Screen scaffolding workflow
+- `skills/fluxwing-screen-scaffolder/templates/` - 2 complete screen examples
+- `skills/fluxwing-screen-scaffolder/docs/04-screen-composition.md` - Screen guide
 
 ### Browsing Library
-- `.claude/skills/fluxwing-library-browser/SKILL.md` - Library browsing workflow
-- `.claude/skills/fluxwing-library-browser/docs/07-examples-guide.md` - Template reference
+- `skills/fluxwing-library-browser/SKILL.md` - Library browsing workflow
+- `skills/fluxwing-library-browser/docs/07-examples-guide.md` - Template reference
 
 ### Expanding Components
-- `.claude/skills/fluxwing-component-expander/SKILL.md` - State expansion workflow
-- `.claude/skills/fluxwing-component-expander/docs/03-component-creation.md` - Creation details
-- `.claude/skills/fluxwing-component-expander/docs/06-ascii-patterns.md` - ASCII patterns
+- `skills/fluxwing-component-expander/SKILL.md` - State expansion workflow
+- `skills/fluxwing-component-expander/docs/03-component-creation.md` - Creation details
+- `skills/fluxwing-component-expander/docs/06-ascii-patterns.md` - ASCII patterns
 
 ### Viewing Components
-- `.claude/skills/fluxwing-component-viewer/SKILL.md` - Component viewing workflow
-- `.claude/skills/fluxwing-component-viewer/docs/02-core-concepts.md` - Core concepts
+- `skills/fluxwing-component-viewer/SKILL.md` - Component viewing workflow
+- `skills/fluxwing-component-viewer/docs/02-core-concepts.md` - Core concepts
 
 ### Importing Screenshots
-- `.claude/skills/fluxwing-screenshot-importer/SKILL.md` - Import workflow
-- `.claude/skills/fluxwing-screenshot-importer/docs/` - 6 screenshot analysis guides
+- `skills/fluxwing-screenshot-importer/SKILL.md` - Import workflow
+- `skills/fluxwing-screenshot-importer/docs/` - 6 screenshot analysis guides
 
 ## Documentation References
 

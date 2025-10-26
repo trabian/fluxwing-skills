@@ -1,7 +1,7 @@
 ---
 name: Fluxwing Screen Scaffolder
 description: Build complete UI screens by composing multiple uxscii components. Use when working with .uxm files, when user wants to create, scaffold, or build .uxm screens like login, dashboard, profile, settings, or checkout pages.
-version: 1.0.0
+version: 0.0.1
 author: Trabian
 allowed-tools: Read, Write, Glob, Grep, Task, TodoWrite
 ---

@@ -230,7 +230,7 @@
               <p>Understanding where files live and why is critical to using Fluxwing effectively.</p>
 
               <h3>Bundled Templates (READ-ONLY)</h3>
-              <pre class="terminal-window"><code>~/.claude/skills/{skill-name}/
+              <pre class="terminal-window"><code>skills/{skill-name}/         # In plugin or installed location
 ├── templates/               # 11 component templates
 ├── schemas/                 # JSON Schema validation
 └── docs/                    # Documentation</code></pre>
@@ -329,7 +329,7 @@ login-screen.rendered.md # Example with REAL data</code></pre>
             <section id="validation" class="doc-section">
               <h2>Schema Validation</h2>
               <p>All components must validate against the JSON Schema:</p>
-              <p><code>.claude/skills/uxscii-component-creator/schemas/uxm-component.schema.json</code></p>
+              <p><code>skills/fluxwing-component-creator/schemas/uxm-component.schema.json</code></p>
 
               <h3>Validation Rules</h3>
               <div class="ascii-box">
@@ -523,25 +523,27 @@ Result: Single source of truth, variations inherit changes</code></pre>
             <section id="repo" class="doc-section">
               <h2>Repository Structure</h2>
 
-              <pre class="terminal-window"><code>fluxwing-skills/
-├── .claude/
-│   └── skills/                  # 6 Skills (development location)
-│       ├── uxscii-component-creator/
-│       │   ├── SKILL.md         # Skill workflow
-│       │   ├── templates/       # 11 component templates
-│       │   ├── schemas/         # JSON Schema
-│       │   └── docs/            # Documentation modules
-│       ├── uxscii-library-browser/
-│       ├── uxscii-component-expander/
-│       ├── uxscii-screen-scaffolder/
-│       ├── uxscii-component-viewer/
-│       └── uxscii-screenshot-importer/
+              <pre class="terminal-window"><code>fluxwing-skills/                 # Claude Code Plugin
+├── .claude-plugin/
+│   └── plugin.json              # Plugin manifest
+├── skills/                      # 6 Skills
+│   ├── fluxwing-component-creator/
+│   │   ├── SKILL.md             # Skill workflow
+│   │   ├── templates/           # 11 component templates
+│   │   ├── schemas/             # JSON Schema
+│   │   └── docs/                # Documentation modules
+│   ├── fluxwing-library-browser/
+│   ├── fluxwing-component-expander/
+│   ├── fluxwing-screen-scaffolder/
+│   ├── fluxwing-component-viewer/
+│   └── fluxwing-screenshot-importer/
 ├── scripts/
-│   ├── install.sh               # Installation script
+│   ├── install.sh               # Development installer
 │   └── uninstall.sh             # Removal script
+├── marketplace.json             # Plugin marketplace catalog
 ├── README.md                    # User-facing overview
 ├── INSTALL.md                   # Installation guide
-└── CLAUDE.md                    # This architecture guide</code></pre>
+└── CLAUDE.md                    # Architecture guide</code></pre>
             </section>
 
             <div class="section-divider" aria-hidden="true">
