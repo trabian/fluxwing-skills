@@ -1,93 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Fluxwing use cases: Rapid prototyping, design systems, documentation, and AI-assisted UI development.">
-  <title>Use Cases — Fluxwing ASCII-First UX</title>
-  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./css/ascii-core.css">
-  <link rel="stylesheet" href="./css/components.css">
-  <link rel="stylesheet" href="./css/responsive.css">
-</head>
-<body class="page">
-  <a class="skip-link" href="#main-content">Skip to main content</a>
-
-  <header class="site-header">
-    <div class="layout-container">
-      <nav aria-label="Primary navigation">
-        <ul class="primary-nav__list">
-          <li><a href="./index.html">Home</a></li>
-          <li><a href="./why.html">Why</a></li>
-          <li><a href="./use-cases.html" aria-current="page">Use Cases</a></li>
-          <li><a href="./reference/getting-started.html">Docs</a></li>
-        </ul>
-        <button class="primary-nav__toggle" aria-expanded="false" aria-controls="mobile-menu">
-          <span class="sr-only">Toggle navigation</span>
-        </button>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="How teams use Fluxwing for AI agent UIs, rapid prototyping, design systems at scale, and living documentation."
+    />
+    <title>Use Cases · Fluxwing for Modern AI-Assisted Development</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./css/ascii-core.css?v=20240602b" />
+    <link rel="stylesheet" href="./css/components.css?v=20240602b" />
+    <link rel="stylesheet" href="./css/responsive.css?v=20240602b" />
+  </head>
+  <body class="page">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <header role="banner">
+      <div class="layout-container">
+        <div class="site-header">
+          <div class="site-header__logo" aria-hidden="true">
+            <pre class="logo-text" data-src="./assets/fluxwing-logo-header.txt">███████╗██╗     ██╗   ██╗██╗  ██╗██╗    ██╗██╗███╗   ██╗ ██████╗
+██╔════╝██║     ██║   ██║╚██╗██╔╝██║    ██║██║████╗  ██║██╔════╝
+█████╗  ██║     ██║   ██║ ╚███╔╝ ██║ █╗ ██║██║██╔██╗ ██║██║  ███╗
+██╔══╝  ██║     ██║   ██║ ██╔██╗ ██║███╗██║██║██║╚██╗██║██║   ██║
+██║     ███████╗╚██████╔╝██╔╝ ██╗╚███╔███╔╝██║██║ ╚████║╚██████╔╝
+╚═╝     ╚══════╝ ╚═════╝ ╚═╝  ╚═╝ ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝</pre>
+          </div>
+          <div class="site-header__identity">
+            <p>ASCII-first UX components for AI-native tooling.</p>
+          </div>
+        </div>
+      </div>
+      <nav class="primary-nav" aria-label="Primary">
+        <div class="layout-container">
+          <ul class="primary-nav__list">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./why.html">Why Fluxwing</a></li>
+            <li><a href="./use-cases.html" aria-current="page">Use Cases</a></li>
+            <li><a href="./index.html#installation">Install</a></li>
+            <li><a href="./index.html#docs-links">Documentation</a></li>
+          </ul>
+          <button class="primary-nav__toggle" aria-expanded="false" aria-controls="mobile-menu">
+            <span class="sr-only">Open navigation</span>
+            <span aria-hidden="true">[ ≡ MENU ]</span>
+          </button>
+        </div>
       </nav>
-    </div>
-  </header>
-
-  <div id="mobile-menu" class="mobile-nav" hidden>
-    <ul class="mobile-nav__list">
-      <li><a href="./index.html">Home</a></li>
-      <li><a href="./why.html">Why</a></li>
-      <li><a href="./use-cases.html">Use Cases</a></li>
-      <li><a href="./reference/getting-started.html">Docs</a></li>
-    </ul>
-  </div>
-
-  <main id="main-content">
-    <div class="layout-container">
-      <h1>Use Cases</h1>
-
-      <section class="ascii-card mt-6">
-        <h2>Rapid Prototyping</h2>
-        <p>Sketch UI concepts in minutes using ASCII art. No design tools, no mockup software - just plain text that AI agents can iterate on instantly.</p>
-        <pre class="terminal-text">
-┌─────────────────────┐
-│ [Login Screen]      │
-│                     │
-│ Username: [_____]   │
-│ Password: [_____]   │
-│                     │
-│ [ Sign In ]         │
-└─────────────────────┘
-        </pre>
+      <div id="mobile-menu" class="mobile-nav" hidden>
+        <div class="layout-container">
+          <ul class="mobile-nav__list">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./why.html">Why Fluxwing</a></li>
+            <li><a href="./use-cases.html" aria-current="page">Use Cases</a></li>
+            <li><a href="./index.html#installation">Install</a></li>
+            <li><a href="./index.html#docs-links">Documentation</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <main id="main-content" role="main">
+      <section id="hero" aria-labelledby="hero-heading">
+        <div class="layout-container">
+          <h1 id="hero-heading">Built for Modern AI-Assisted Development</h1>
+        </div>
       </section>
-
-      <section class="ascii-card mt-6">
-        <h2>Design Systems</h2>
-        <p>Build component libraries that AI agents and humans can both understand. Define once, use everywhere - from terminal tools to web interfaces.</p>
+      <section id="ai-agents" class="use-case-section" aria-labelledby="ai-agents-heading">
+        <div class="layout-container">
+          <h2 id="ai-agents-heading">1. AI Agent UIs</h2>
+          <p class="section-lead">Building agents that need to understand and generate UIs? Give them .uxm specs.</p>
+          <ul class="use-case-list">
+            <li>AI agents read component libraries natively</li>
+            <li>Understand relationships and composition</li>
+            <li>Generate implementations directly from specs</li>
+            <li>No vision models needed—perfect comprehension</li>
+          </ul>
+          <h3>Example: Agent reads button spec</h3>
+          <pre class="ascii-box" aria-hidden="true">
+{
+  "id": "submit-button",
+  "type": "button",
+  "props": { "text": "Submit" },
+  "accessibility": {
+    "role": "button",
+    "keyboardShortcuts": ["Enter", "Space"]
+  }
+}
+          </pre>
+          <p>Agent understands: This is a button. It says "Submit". It responds to Enter and Space keys. Perfect clarity—no interpretation needed.</p>
+        </div>
       </section>
-
-      <section class="ascii-card mt-6">
-        <h2>Documentation</h2>
-        <p>Embed interactive ASCII diagrams directly in markdown documentation. Version control UIs alongside code with no binary files.</p>
+      <section id="prototyping" class="use-case-section" aria-labelledby="prototyping-heading">
+        <div class="layout-container">
+          <h2 id="prototyping-heading">2. Rapid Prototyping</h2>
+          <p class="section-lead">Iterate on structure and flow before pixel perfection.</p>
+          <ul class="use-case-list">
+            <li>ASCII layouts converge fast through human feedback</li>
+            <li>Derive variations in seconds</li>
+            <li>Compose screens in minutes</li>
+            <li>Add fidelity progressively as design solidifies</li>
+          </ul>
+          <h3>Example: Login screen in 60 seconds</h3>
+          <div class="use-case-2col">
+            <div class="use-case-2col__item">
+              <p class="use-case-2col__label">You say:</p>
+              <pre class="ascii-box" aria-hidden="true">
+"Create a login screen"
+              </pre>
+            </div>
+            <div class="use-case-2col__item">
+              <p class="use-case-2col__label use-case-2col__label--success">Claude generates:</p>
+              <pre class="ascii-box" aria-hidden="true">
+┌──────────────────────┐
+│  Welcome Back        │
+│  ┌────────────────┐  │
+│  │ Email          │  │
+│  └────────────────┘  │
+│  ┌────────────────┐  │
+│  │ Password       │  │
+│  └────────────────┘  │
+│  [    Sign In    ]   │
+└──────────────────────┘
+              </pre>
+            </div>
+          </div>
+          <p>Give feedback: "Add a forgot password link". Iterate until perfect.</p>
+        </div>
       </section>
+      <section id="design-systems" class="use-case-section" aria-labelledby="design-systems-heading">
+        <div class="layout-container">
+          <h2 id="design-systems-heading">3. Design Systems at Scale</h2>
+          <p class="section-lead">Managing hundreds of component variations? Derivation model prevents duplication.</p>
+          <ul class="use-case-list">
+            <li>Change base components, all derivations inherit</li>
+            <li>Build libraries that grow organically through references</li>
+            <li>No more keeping 47 button copies in sync</li>
+            <li>Component graph scales without chaos</li>
+          </ul>
+          <h3>Example: Derivation vs Duplication</h3>
+          <div class="use-case-2col">
+            <div class="use-case-2col__item">
+              <p class="use-case-2col__label use-case-2col__label--error">❌ Traditional (Duplication)</p>
+              <pre class="ascii-box ascii-box--error" aria-hidden="true">
+primary-button (copy)
+large-button (copy)
+small-button (copy)
+danger-button (copy)
 
-      <section class="ascii-card mt-6">
-        <h2>AI-Assisted Development</h2>
-        <p>Let Claude Code, GitHub Copilot, and other AI tools generate production-ready UI components from natural language descriptions.</p>
+→ Change base style?
+→ Update 4 files manually
+→ Hope nothing breaks
+              </pre>
+            </div>
+            <div class="use-case-2col__item">
+              <p class="use-case-2col__label use-case-2col__label--success">✅ Fluxwing (Derivation)</p>
+              <pre class="ascii-box" aria-hidden="true">
+primary-button (base)
+  ↓ extends
+large-button
+small-button
+danger-button
+
+→ Change base once
+→ All variations inherit
+→ Single source of truth
+              </pre>
+            </div>
+          </div>
+        </div>
       </section>
-    </div>
-  </main>
+      <section id="living-docs" class="use-case-section" aria-labelledby="living-docs-heading">
+        <div class="layout-container">
+          <h2 id="living-docs-heading">4. Living Documentation</h2>
+          <p class="section-lead">Design specs that both humans review and AI executes.</p>
+          <ul class="use-case-list">
+            <li>In version control, in PRs</li>
+            <li>Single source of truth</li>
+            <li>Always in sync—no documentation drift</li>
+            <li>Text-based diffs show actual design changes</li>
+          </ul>
+          <h3>Example: Design review in a PR</h3>
+          <pre class="git-diff" aria-label="Git diff showing design change">
+<span class="git-diff__add">+ ## Hover State</span>
+<span class="git-diff__add">+ ```</span>
+<span class="git-diff__add">+ ╔══════════════════╗</span>
+<span class="git-diff__add">+ ║   {{text}}       ║</span>
+<span class="git-diff__add">+ ╚══════════════════╝</span>
+<span class="git-diff__add">+ ```</span>
 
-  <footer class="site-footer">
-    <div class="layout-container site-footer__content">
-      <nav aria-label="Footer navigation">
-        <ul class="site-footer__nav">
-          <li><a href="./index.html">Home</a></li>
-          <li><a href="./why.html">Why</a></li>
-          <li><a href="./use-cases.html">Use Cases</a></li>
-          <li><a href="./reference/getting-started.html">Docs</a></li>
-        </ul>
-      </nav>
-      <p class="site-footer__meta">© 2025 Trabian. Built with Fluxwing.</p>
-    </div>
-  </footer>
-
-  <script src="./js/main.js"></script>
-</body>
+<span class="git-diff__remove">- "border": "thin"</span>
+<span class="git-diff__add">+ "border": "heavy"</span>
+          </pre>
+          <p>Reviewers see: "Added hover state with heavy border". Visual change visible in git diff. No separate Figma link. No docs to update. The spec IS the docs.</p>
+        </div>
+      </section>
+      <section id="cta" aria-labelledby="cta-heading">
+        <div class="layout-container">
+          <div class="cta-box">
+            <h2 id="cta-heading">Ready to Start?</h2>
+            <p>Install in 30 seconds. Create components. Build screens.</p>
+            <a class="hero__cta-button ascii-button--success" href="./index.html#installation">Get Started</a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer role="contentinfo">
+      <div class="layout-container">
+        <div class="site-footer">
+          <div class="site-footer__logo" aria-hidden="true">
+            <pre data-src="./assets/fluxwing-logo-footer.txt">┌──────────────────────┐
+│  ▸ F L U X W I N G   │
+│    ASCII-first UX    │
+└──────────────────────┘</pre>
+          </div>
+          <p>Design systems that humans AND AI agents understand natively. Built on the open uxscii standard.</p>
+          <nav aria-label="Footer">
+            <ul class="site-footer__links">
+              <li><a href="https://github.com/trabian/fluxwing-skills">GitHub</a></li>
+              <li><a href="./index.html#docs-links">Docs</a></li>
+              <li><a href="https://trabian.com">Trabian</a></li>
+            </ul>
+          </nav>
+          <p class="site-footer__legal">© 2024 Fluxwing. Build component libraries through derivation, not duplication.</p>
+        </div>
+      </div>
+    </footer>
+    <script src="./js/main.js?v=20241026" defer></script>
+  </body>
 </html>

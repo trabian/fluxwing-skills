@@ -1,90 +1,266 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Why Fluxwing? AI-native design language that humans and agents understand naturally through ASCII art and structured metadata.">
-  <title>Why Fluxwing — ASCII-First UX Design System</title>
-  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./css/ascii-core.css">
-  <link rel="stylesheet" href="./css/components.css">
-  <link rel="stylesheet" href="./css/responsive.css">
-</head>
-<body class="page">
-  <a class="skip-link" href="#main-content">Skip to main content</a>
-
-  <header class="site-header">
-    <div class="layout-container">
-      <nav aria-label="Primary navigation">
-        <ul class="primary-nav__list">
-          <li><a href="./index.html">Home</a></li>
-          <li><a href="./why.html" aria-current="page">Why</a></li>
-          <li><a href="./use-cases.html">Use Cases</a></li>
-          <li><a href="./reference/getting-started.html">Docs</a></li>
-        </ul>
-        <button class="primary-nav__toggle" aria-expanded="false" aria-controls="mobile-menu">
-          <span class="sr-only">Toggle navigation</span>
-        </button>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Why ASCII is the universal interface. Learn how Fluxwing enables design systems that both humans and AI agents understand natively through derivation, not duplication."
+    />
+    <title>Why Fluxwing · The Universal Interface for Human-AI Collaboration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./css/ascii-core.css?v=20240602b" />
+    <link rel="stylesheet" href="./css/components.css?v=20240602b" />
+    <link rel="stylesheet" href="./css/responsive.css?v=20240602b" />
+  </head>
+  <body class="page">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <header role="banner">
+      <div class="layout-container">
+        <div class="site-header">
+          <div class="site-header__logo" aria-hidden="true">
+            <pre class="logo-text" data-src="./assets/fluxwing-logo-header.txt">███████╗██╗     ██╗   ██╗██╗  ██╗██╗    ██╗██╗███╗   ██╗ ██████╗
+██╔════╝██║     ██║   ██║╚██╗██╔╝██║    ██║██║████╗  ██║██╔════╝
+█████╗  ██║     ██║   ██║ ╚███╔╝ ██║ █╗ ██║██║██╔██╗ ██║██║  ███╗
+██╔══╝  ██║     ██║   ██║ ██╔██╗ ██║███╗██║██║██║╚██╗██║██║   ██║
+██║     ███████╗╚██████╔╝██╔╝ ██╗╚███╔███╔╝██║██║ ╚████║╚██████╔╝
+╚═╝     ╚══════╝ ╚═════╝ ╚═╝  ╚═╝ ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝</pre>
+          </div>
+          <div class="site-header__identity">
+            <p>ASCII-first UX components for AI-native tooling.</p>
+          </div>
+        </div>
+      </div>
+      <nav class="primary-nav" aria-label="Primary">
+        <div class="layout-container">
+          <ul class="primary-nav__list">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./why.html" aria-current="page">Why Fluxwing</a></li>
+            <li><a href="./index.html#showcase">Component Gallery</a></li>
+            <li><a href="./index.html#installation">Install</a></li>
+            <li><a href="./index.html#docs-links">Documentation</a></li>
+          </ul>
+          <button class="primary-nav__toggle" aria-expanded="false" aria-controls="mobile-menu">
+            <span class="sr-only">Open navigation</span>
+            <span aria-hidden="true">[ ≡ MENU ]</span>
+          </button>
+        </div>
       </nav>
-    </div>
-  </header>
-
-  <div id="mobile-menu" class="mobile-nav" hidden>
-    <ul class="mobile-nav__list">
-      <li><a href="./index.html">Home</a></li>
-      <li><a href="./why.html">Why</a></li>
-      <li><a href="./use-cases.html">Use Cases</a></li>
-      <li><a href="./reference/getting-started.html">Docs</a></li>
-    </ul>
-  </div>
-
-  <main id="main-content">
-    <div class="layout-container">
-      <h1>Why Fluxwing?</h1>
-
-      <section class="ascii-box mt-6">
-        <h2>AI-Native Design Language</h2>
-        <p>Fluxwing components are designed for both human designers and AI agents. ASCII art combined with structured JSON metadata creates a universal language that Claude Code, ChatGPT, and other AI systems can natively understand and generate.</p>
-        <ul class="ascii-list">
-          <li>No complex parsing required - plain text with structure</li>
-          <li>AI agents can read, modify, and create components naturally</li>
-          <li>Human-readable in terminal, IDE, or browser DevTools</li>
-        </ul>
+      <div id="mobile-menu" class="mobile-nav" hidden>
+        <div class="layout-container">
+          <ul class="mobile-nav__list">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./why.html" aria-current="page">Why Fluxwing</a></li>
+            <li><a href="./index.html#showcase">Component Gallery</a></li>
+            <li><a href="./index.html#installation">Install</a></li>
+            <li><a href="./index.html#docs-links">Documentation</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <main id="main-content" role="main">
+      <section id="hero" aria-labelledby="hero-heading">
+        <div class="layout-container">
+          <h1 id="hero-heading">Why Fluxwing?</h1>
+          <p class="hero__lead">
+            ASCII is the universal interface. Humans see it instantly. AI reads it perfectly. One format for both audiences.
+          </p>
+        </div>
       </section>
-
-      <section class="ascii-box-thin mt-6">
-        <h2>Terminal Aesthetics Meet Modern Web</h2>
-        <p>Terminal interfaces have proven staying power. Developers live in terminals, ASCII art is timeless, and monospace fonts are universally accessible.</p>
-        <p>Fluxwing brings that aesthetic to production web UIs while maintaining full WCAG 2.1 AA accessibility compliance.</p>
+      <section id="problem" aria-labelledby="problem-heading">
+        <div class="layout-container">
+          <h2 id="problem-heading">Traditional Design Tools Weren't Built for the AI Age</h2>
+          <div class="value-props__grid" role="list">
+            <article class="value-prop ascii-card" role="listitem">
+              <h3>For Humans Only</h3>
+              <p>Design tools like Figma are optimized for human manipulation—clicking, dragging, pixel-pushing. But AI agents can't understand them. Binary files. Visual interfaces. Closed formats.</p>
+            </article>
+            <article class="value-prop ascii-card" role="listitem">
+              <h3>Duplication Nightmare</h3>
+              <p>Want a button variation? Copy-paste. Another variation? Copy-paste again. Soon you have 47 button copies. Good luck keeping them in sync. Evolution through duplication creates chaos.</p>
+            </article>
+            <article class="value-prop ascii-card" role="listitem">
+              <h3>Not Version Control Friendly</h3>
+              <p>Binary files don't diff well. Collaborative editing causes conflicts. Design history is opaque. PRs can't show meaningful visual changes in code review.</p>
+            </article>
+          </div>
+        </div>
       </section>
-
-      <section class="ascii-box mt-6">
-        <h2>Developer-Friendly by Design</h2>
-        <ul class="ascii-list">
-          <li>No build tools required - pure HTML/CSS/JS</li>
-          <li>Works with any framework or vanilla JavaScript</li>
-          <li>Components are version-controlled plain text files</li>
-          <li>Full keyboard navigation and screen reader support</li>
-          <li>Mobile-first responsive by default</li>
-        </ul>
+      <section id="solution" aria-labelledby="solution-heading">
+        <div class="layout-container">
+          <h2 id="solution-heading">ASCII: The Universal Interface</h2>
+          <div class="comparison-grid">
+            <div class="comparison-grid__item">
+              <h3>For Humans</h3>
+              <pre class="ascii-box" aria-hidden="true">
+╭──────────────────╮
+│   Submit Form    │
+╰──────────────────╯
+              </pre>
+              <p>Humans parse ASCII layouts instantly. You look at a box with borders and immediately see:</p>
+              <ul>
+                <li>Structure and hierarchy</li>
+                <li>Layout relationships</li>
+                <li>Component boundaries</li>
+                <li>Visual feedback is natural</li>
+              </ul>
+              <p class="emphasis-text"><strong>No learning curve. Just vision.</strong></p>
+            </div>
+            <div class="comparison-grid__item">
+              <h3>For AI Agents</h3>
+              <pre class="ascii-box" aria-hidden="true">
+{
+  "id": "submit-button",
+  "type": "button",
+  "props": {
+    "text": "Submit Form",
+    "variant": "primary"
+  }
+}
+              </pre>
+              <p>AI agents understand ASCII perfectly:</p>
+              <ul>
+                <li>No vision models needed</li>
+                <li>Zero ambiguity in specs</li>
+                <li>Structured text they reason about natively</li>
+                <li>Generate implementations directly</li>
+              </ul>
+              <p class="emphasis-text"><strong>Perfect comprehension without interpretation layers.</strong></p>
+            </div>
+          </div>
+          <p class="emphasis-box">
+            <strong>One format. Two audiences. Perfect clarity for both.</strong>
+          </p>
+        </div>
       </section>
-    </div>
-  </main>
-
-  <footer class="site-footer">
-    <div class="layout-container site-footer__content">
-      <nav aria-label="Footer navigation">
-        <ul class="site-footer__nav">
-          <li><a href="./index.html">Home</a></li>
-          <li><a href="./why.html">Why</a></li>
-          <li><a href="./use-cases.html">Use Cases</a></li>
-          <li><a href="./reference/getting-started.html">Docs</a></li>
-        </ul>
-      </nav>
-      <p class="site-footer__meta">© 2025 Trabian. Built with Fluxwing.</p>
-    </div>
-  </footer>
-
-  <script src="./js/main.js"></script>
-</body>
+      <section id="testimonials" aria-labelledby="testimonials-heading">
+        <div class="layout-container">
+          <h2 id="testimonials-heading">Why Teams Choose Fluxwing</h2>
+          <div class="testimonials-grid">
+            <article class="testimonial ascii-card">
+              <h3>"Our AI agents finally understand our design system."</h3>
+              <p>Specifications that AI can read natively. No interpretation layer. No ambiguity. Perfect comprehension. Generate implementations directly from specs.</p>
+            </article>
+            <article class="testimonial ascii-card">
+              <h3>"We stopped duplicating components."</h3>
+              <p>Derivation model means change base once, all variations inherit. No more keeping 47 button copies in sync. Libraries grow organically through references.</p>
+            </article>
+            <article class="testimonial ascii-card">
+              <h3>"Design reviews happen in PRs now."</h3>
+              <p>Text-based format shows meaningful diffs in code review. Visual changes visible in version control. Collaborative iteration. Single source of truth.</p>
+            </article>
+            <article class="testimonial ascii-card">
+              <h3>"We iterate 10x faster."</h3>
+              <p>ASCII layouts converge fast through human feedback. Derive variations in seconds. Compose screens in minutes. Add fidelity progressively as design solidifies.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section id="comparison" aria-labelledby="comparison-heading">
+        <div class="layout-container">
+          <h2 id="comparison-heading">How Fluxwing Compares</h2>
+          <div class="table-wrapper">
+            <table class="comparison-table">
+              <thead>
+                <tr>
+                  <th scope="col">Feature</th>
+                  <th scope="col">Fluxwing</th>
+                  <th scope="col">Figma</th>
+                  <th scope="col">Sketch</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">AI Agent Readable</th>
+                  <td>✅ Native</td>
+                  <td>❌ No</td>
+                  <td>❌ No</td>
+                </tr>
+                <tr>
+                  <th scope="row">Human Readable</th>
+                  <td>✅ ASCII</td>
+                  <td>✅ Visual</td>
+                  <td>✅ Visual</td>
+                </tr>
+                <tr>
+                  <th scope="row">Derivation Model</th>
+                  <td>✅ Inheritance</td>
+                  <td>❌ Duplication</td>
+                  <td>❌ Duplication</td>
+                </tr>
+                <tr>
+                  <th scope="row">Version Control</th>
+                  <td>✅ Text diffs</td>
+                  <td>⚠️ Binary</td>
+                  <td>⚠️ Binary</td>
+                </tr>
+                <tr>
+                  <th scope="row">Living Docs</th>
+                  <td>✅ Executable specs</td>
+                  <td>❌ Separate</td>
+                  <td>❌ Separate</td>
+                </tr>
+                <tr>
+                  <th scope="row">PR Reviews</th>
+                  <td>✅ Code review</td>
+                  <td>❌ External</td>
+                  <td>❌ External</td>
+                </tr>
+                <tr>
+                  <th scope="row">Cost</th>
+                  <td>✅ Free/Open</td>
+                  <td>💰 $12-45/mo</td>
+                  <td>💰 $99</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="emphasis-box" style="margin-top: 2rem;">
+            <p><strong>Different tools for different stages:</strong></p>
+            <p><strong>Fluxwing:</strong> Rapid iteration, AI collaboration, design systems</p>
+            <p><strong>Figma/Sketch:</strong> Pixel perfection, visual design, client presentations</p>
+            <p style="margin-top: 1rem;"><strong>Use both. Start with Fluxwing for structure. Move to visual tools for polish.</strong></p>
+          </div>
+        </div>
+      </section>
+      <section id="cta" aria-labelledby="cta-heading">
+        <div class="layout-container">
+          <div class="cta-box">
+            <h2 id="cta-heading">Start Building Design Systems That AI Understands</h2>
+            <p>Install Fluxwing in 30 seconds. Create your first component. Derive variations. Compose screens.</p>
+            <a class="hero__cta-button ascii-button--success" href="./index.html#installation">Get Started Now</a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer role="contentinfo">
+      <div class="layout-container">
+        <div class="site-footer">
+          <div class="site-footer__logo" aria-hidden="true">
+            <pre data-src="./assets/fluxwing-logo-footer.txt">┌──────────────────────┐
+│  ▸ F L U X W I N G   │
+│    ASCII-first UX    │
+└──────────────────────┘</pre>
+          </div>
+          <p>Design systems that humans AND AI agents understand natively. Built on the open uxscii standard.</p>
+          <nav aria-label="Footer">
+            <ul class="site-footer__links">
+              <li><a href="https://github.com/trabian/fluxwing-skills">GitHub</a></li>
+              <li><a href="./index.html#docs-links">Docs</a></li>
+              <li><a href="https://trabian.com">Trabian</a></li>
+            </ul>
+          </nav>
+          <p class="site-footer__legal">© 2024 Fluxwing. Build component libraries through derivation, not duplication.</p>
+        </div>
+      </div>
+    </footer>
+    <script src="./js/main.js?v=20241026" defer></script>
+  </body>
 </html>

@@ -349,6 +349,14 @@
   letter-spacing: -0.05ch;
 }
 
+.site-header__logo pre.logo-text {
+  border: 2px solid var(--border-primary);
+  padding: var(--space-2ch) var(--space-4ch);
+  background: linear-gradient(135deg, rgba(0, 255, 255, 0.05), rgba(51, 255, 51, 0.03));
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.15);
+  display: inline-block;
+}
+
 .site-header__identity {
   max-width: 60ch;
 }
@@ -522,4 +530,214 @@ dialog.modal::backdrop {
 .modal__close:hover {
   border-color: var(--ascii-cyan);
   color: var(--ascii-cyan-bright);
+}
+
+/* Comparison Grid (why.html) */
+.comparison-grid {
+  display: grid;
+  gap: var(--space-6ch);
+  grid-template-columns: 1fr;
+}
+
+.comparison-grid__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2ch);
+}
+
+.comparison-grid__item h3 {
+  color: var(--ascii-cyan-bright);
+  margin-bottom: var(--space-1ch);
+}
+
+.comparison-grid__item ul {
+  padding-left: var(--space-4ch);
+  color: var(--ascii-text-dim);
+}
+
+.comparison-grid__item li {
+  margin-bottom: var(--space-1ch);
+}
+
+.emphasis-text {
+  font-weight: 600;
+  color: var(--ascii-cyan-bright);
+  margin-top: var(--space-2ch);
+}
+
+/* Testimonials Grid (why.html) */
+.testimonials-grid {
+  display: grid;
+  gap: var(--space-4ch);
+  grid-template-columns: 1fr;
+}
+
+.testimonial {
+  padding: var(--space-4ch);
+}
+
+.testimonial h3 {
+  font-size: 1.25rem;
+  color: var(--ascii-cyan-bright);
+  margin-bottom: var(--space-2ch);
+  font-weight: 500;
+}
+
+/* Comparison Table (why.html) */
+.table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-top: var(--space-4ch);
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+  font-family: var(--font-mono);
+}
+
+.comparison-table thead tr {
+  background: rgba(51, 255, 51, 0.15);
+}
+
+.comparison-table th {
+  padding: var(--space-2ch);
+  text-align: left;
+  border: 1px solid var(--border-primary);
+  font-weight: 600;
+  color: var(--ascii-cyan-bright);
+}
+
+.comparison-table td {
+  padding: var(--space-2ch);
+  border: 1px solid var(--border-secondary);
+  color: var(--ascii-text);
+}
+
+.comparison-table tbody th {
+  font-weight: 500;
+  color: var(--ascii-text-dim);
+}
+
+/* CTA Box (why.html) */
+.cta-box {
+  text-align: center;
+  padding: var(--space-6ch) var(--space-4ch);
+  background: rgba(51, 255, 51, 0.08);
+  border: 2px dashed var(--border-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3ch);
+}
+
+.cta-box h2 {
+  font-size: 2rem;
+  margin-bottom: 0;
+}
+
+.cta-box p {
+  font-size: 1.1rem;
+  color: var(--ascii-text-dim);
+  max-width: 48ch;
+  margin-bottom: 0;
+}
+
+.cta-box .hero__cta-button {
+  font-size: 1.1rem;
+  padding: var(--space-2ch) var(--space-4ch);
+}
+
+/* Use Case Sections (use-cases.html) */
+.use-case-section {
+  padding-block: var(--space-6ch);
+}
+
+.use-case-section h2 {
+  color: var(--ascii-cyan-bright);
+  margin-bottom: var(--space-2ch);
+}
+
+.use-case-section h3 {
+  color: var(--ascii-cyan);
+  margin-top: var(--space-4ch);
+  margin-bottom: var(--space-2ch);
+}
+
+.section-lead {
+  font-size: 1.1rem;
+  color: var(--ascii-text-dim);
+  margin-bottom: var(--space-4ch);
+}
+
+.use-case-list {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--ascii-text-dim);
+  padding-left: var(--space-4ch);
+  margin-bottom: var(--space-4ch);
+}
+
+.use-case-list li {
+  margin-bottom: var(--space-1ch);
+}
+
+/* Use Case 2-Column Grid */
+.use-case-2col {
+  display: grid;
+  gap: var(--space-4ch);
+  grid-template-columns: 1fr;
+  margin-top: var(--space-2ch);
+  margin-bottom: var(--space-4ch);
+}
+
+.use-case-2col__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1ch);
+}
+
+.use-case-2col__label {
+  font-weight: 600;
+  color: var(--ascii-text);
+  margin-bottom: var(--space-1ch);
+}
+
+.use-case-2col__label--success {
+  color: var(--ascii-success);
+}
+
+.use-case-2col__label--error {
+  color: var(--ascii-error);
+}
+
+/* ASCII Box Variants */
+.ascii-box--error {
+  border-color: rgba(255, 100, 100, 0.35);
+  background: rgba(255, 100, 100, 0.05);
+  color: rgba(210, 248, 255, 0.75);
+}
+
+/* Git Diff Styling */
+.git-diff {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  padding: var(--space-3ch);
+  background: rgba(2, 5, 9, 0.92);
+  border: 1px dashed var(--border-primary);
+  margin: var(--space-2ch) 0;
+  overflow-x: auto;
+  color: var(--ascii-text);
+}
+
+.git-diff__add {
+  color: rgba(100, 200, 100, 0.9);
+  display: block;
+}
+
+.git-diff__remove {
+  color: rgba(200, 100, 100, 0.9);
+  display: block;
 }

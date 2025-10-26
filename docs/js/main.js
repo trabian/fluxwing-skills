@@ -1,18 +1,22 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const heroAscii = document.querySelector(".hero__ascii--dynamic");
-  if (heroAscii && heroAscii.dataset.src) {
-    fetch(heroAscii.dataset.src)
-      .then((response) => (response.ok ? response.text() : ""))
-      .then((art) => {
-        if (art.trim().length > 0) {
-          heroAscii.textContent = art;
-        }
-      })
-      .catch(() => {
-        heroAscii.textContent = "[ fluxwing hero art unavailable ]";
-      });
-  }
+  // Load all ASCII art from external files
+  document.querySelectorAll("pre[data-src]").forEach((element) => {
+    const src = element.dataset.src;
+    if (src) {
+      fetch(src)
+        .then((response) => (response.ok ? response.text() : ""))
+        .then((art) => {
+          if (art.trim().length > 0) {
+            element.textContent = art;
+          }
+        })
+        .catch(() => {
+          element.textContent = `[ ASCII art unavailable: ${src} ]`;
+        });
+    }
+  });
 
+  const heroAscii = document.querySelector(".hero__ascii--dynamic");
   const heroAsciiCompact = document.querySelector(".hero__ascii--compact");
   const heroCompactQuery = window.matchMedia("(max-width: 47.99rem)");
 
