@@ -20,26 +20,19 @@ Think of it this way:
 
 ## Installation
 
-Get started in 30 seconds:
+Get started in 10 seconds:
 
 ```bash
-# Clone the repository
-git clone https://github.com/trabian/fluxwing-skills.git
-cd fluxwing-skills
+# In Claude Code, add the marketplace
+/plugin marketplace add trabian/fluxwing-skills
 
-# Run the installation script
-./scripts/install.sh
+# Install the plugin
+/plugin install fluxwing-skills
 ```
-
-The installer will:
-- Auto-detect installation location (global or local project)
-- Copy skills to the appropriate location
-- Verify all templates and schemas
-- Provide usage examples
 
 **That's it!** Start designing by talking to Claude naturally.
 
-**See [INSTALL.md](INSTALL.md) for detailed installation options.**
+**See [INSTALL.md](INSTALL.md) for alternative installation methods and troubleshooting.**
 
 ---
 

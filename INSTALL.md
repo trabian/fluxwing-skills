@@ -2,69 +2,81 @@
 
 This guide covers installing the Fluxwing skills for Claude Code.
 
-## Quick Start
+## Recommended Installation (Plugin)
 
-### One-Line Installation
+### Quick Start
+
+Install via Claude Code's plugin system:
 
 ```bash
+# In Claude Code, add the marketplace
+/plugin marketplace add trabian/fluxwing-skills
+
+# Install the plugin
+/plugin install fluxwing-skills
+```
+
+That's it! The skills are now available in Claude Code.
+
+**Verify installation:**
+```bash
+/plugin list
+```
+
+You should see `fluxwing-skills` in the installed plugins list.
+
+---
+
+## Alternative Installation Methods
+
+### Development Installation
+
+For local development and testing:
+
+```bash
+# Clone the repository
+git clone https://github.com/trabian/fluxwing-skills.git
+cd fluxwing-skills
+
+# Run the development installer
 ./scripts/install.sh
 ```
 
-That's it! The installer will:
+The development installer will:
+- ✅ Prompt for confirmation (since plugin installation is recommended)
 - ✅ Auto-detect the best installation location
 - ✅ Copy all 6 skills to Claude Code
 - ✅ Verify the installation
 - ✅ Show usage examples
 
----
+#### Development Installation Options
 
-## Installation Options
-
-### Auto-Detect Mode (Recommended)
-
-The installer automatically chooses the best location:
-
+**Auto-Detect Mode (Recommended):**
 ```bash
 ./scripts/install.sh
 ```
 
-**Logic:**
+The installer automatically chooses:
 - If `.claude/` exists in current directory → Install locally (project-specific)
 - Otherwise → Install globally (`~/.claude/skills/`)
 
-### Global Installation
-
-Install skills for all projects:
-
+**Global Installation:**
 ```bash
 ./scripts/install.sh --global
 ```
 
 **Location:** `~/.claude/skills/`
 
-**Use when:** You want skills available in all Claude Code sessions.
+**Use when:** You want skills available in all Claude Code sessions during development.
 
-### Local Installation
-
-Install skills for current project only:
-
+**Local Installation:**
 ```bash
 ./scripts/install.sh --local
 ```
 
 **Location:** `./.claude/skills/`
 
-**Use when:** You want skills isolated to this project.
-
-### Force Overwrite
-
-Update existing skills:
-
-```bash
-./scripts/install.sh --force
-```
-
-**Use when:** You want to reinstall or update skills that are already installed.
+**Use when:** You want skills isolated to this project during development.
 
 ---
 
@@ -79,327 +91,223 @@ If you prefer to install manually:
 mkdir -p ~/.claude/skills
 ```
 
-**Local:**
+**Local (project-specific):**
 ```bash
-mkdir -p .claude/skills
+mkdir -p ./.claude/skills
 ```
 
 ### 2. Copy Skills
 
 ```bash
-cp -r .claude/skills/fluxwing-* ~/.claude/skills/
-# or
-cp -r .claude/skills/fluxwing-* .claude/skills/
+# Clone the repository
+git clone https://github.com/trabian/fluxwing-skills.git
+cd fluxwing-skills
+
+# Copy to global location
+cp -r skills/* ~/.claude/skills/
+
+# OR copy to local location
+cp -r skills/* ./.claude/skills/
 ```
 
 ### 3. Verify Installation
 
-Check that all skills are present:
+Check that all 6 skills are present:
 
 ```bash
-ls ~/.claude/skills/fluxwing-*/SKILL.md
-# Should show 6 files
+# Global
+ls ~/.claude/skills/
+
+# Local
+ls ./.claude/skills/
 ```
+
+You should see:
+- `fluxwing-component-creator/`
+- `fluxwing-library-browser/`
+- `fluxwing-component-expander/`
+- `fluxwing-screen-scaffolder/`
+- `fluxwing-component-viewer/`
+- `fluxwing-screenshot-importer/`
 
 ---
 
 ## Verification
 
-### Automated Verification
-
-The installer runs these checks automatically:
-
-1. **SKILL.md files exist** - All 6 skills have their main file
-2. **YAML frontmatter validates** - Metadata is properly formatted
-3. **Templates exist** - 11+ component templates (.uxm files)
-4. **Schema exists** - JSON Schema validation file
-5. **No PLUGIN_ROOT references** - Skills use SKILL_ROOT correctly
-6. **SKILL_ROOT usage** - Skills reference their own directories
-
-### Manual Verification
-
-Test each skill with natural language:
-
-```bash
-# In Claude Code, try these prompts:
-
-1. "Create a button"
-   → Should activate fluxwing-component-creator
-
-2. "Show me all components"
-   → Should activate fluxwing-library-browser
-
-3. "Add hover state to my button"
-   → Should activate fluxwing-component-expander
-
-4. "Build a login screen"
-   → Should activate fluxwing-screen-scaffolder
-
-5. "Show me the primary-button"
-   → Should activate fluxwing-component-viewer
-
-6. "Import this screenshot"
-   → Should activate fluxwing-screenshot-importer
-```
-
----
-
-## What Gets Installed
-
-### 6 Skills
-
-1. **fluxwing-component-creator** - Create UI components
-2. **fluxwing-library-browser** - Browse available components
-3. **fluxwing-component-expander** - Add interaction states
-4. **fluxwing-screen-scaffolder** - Build complete screens
-5. **fluxwing-component-viewer** - View component details
-6. **fluxwing-screenshot-importer** - Import from screenshots
-
-### Supporting Files
-
-- **Templates:** 11 component templates (.uxm + .md)
-- **Schemas:** JSON Schema for validation
-- **Screen Examples:** 2 screen templates
-- **Documentation:** 13 documentation files
-
-**Total:** 6 skills + 42 supporting files = **48 files**
-
----
-
-## Usage Examples
-
-### Component Creation
+After installation, test the skills by asking Claude:
 
 ```
-You: Create a button
-Claude: [Activates fluxwing-component-creator skill]
-        [Creates ./fluxwing/components/button.uxm]
+"Show me all available components"
 ```
 
-### Library Browsing
+This should activate the **fluxwing-library-browser** skill.
 
-```
-You: Show me all components
-Claude: [Activates fluxwing-library-browser skill]
-        [Displays tree of bundled + user components]
-```
-
-### State Expansion
-
-```
-You: Add hover state to my button
-Claude: [Activates fluxwing-component-expander skill]
-        [Updates button.uxm with hover state]
-```
-
-### Screen Scaffolding
-
-```
-You: Build a login screen
-Claude: [Activates fluxwing-screen-scaffolder skill]
-        [Creates ./fluxwing/screens/login-screen.uxm]
-```
-
----
-
-## Troubleshooting
-
-### Skills Not Activating
-
-**Problem:** Natural language doesn't trigger skills.
-
-**Solutions:**
-1. Verify installation location: `ls ~/.claude/skills/fluxwing-*/SKILL.md`
-2. Check YAML frontmatter: `head -n 10 ~/.claude/skills/fluxwing-component-creator/SKILL.md`
-3. Restart Claude Code
-4. Try more explicit language: "Use the fluxwing component creator to make a button"
-
-### "SKILL.md not found" Errors
-
-**Problem:** Skill files missing after installation.
-
-**Solutions:**
-1. Re-run installer with `--force`: `./scripts/install.sh --force`
-2. Check source directory exists: `ls .claude/skills/fluxwing-*/SKILL.md`
-3. Verify permissions: `ls -la ~/.claude/skills/`
-
-### Templates Not Found
-
-**Problem:** Skills can't find component templates.
-
-**Solutions:**
-1. Verify templates exist: `ls .claude/skills/fluxwing-component-creator/templates/*.uxm`
-2. Check file count: Should be 11+ .uxm files
-3. Reinstall: `./scripts/install.sh --force`
-
-### Wrong Installation Location
-
-**Problem:** Skills installed in wrong directory.
-
-**Solutions:**
-1. Uninstall: `./scripts/uninstall.sh --all`
-2. Reinstall with specific location:
-   - Global: `./scripts/install.sh --global`
-   - Local: `./scripts/install.sh --local`
-
-### Permission Denied
-
-**Problem:** Can't create skills directory.
-
-**Solutions:**
-1. Check directory permissions: `ls -la ~/.claude/`
-2. Create manually: `mkdir -p ~/.claude/skills`
-3. Run with appropriate permissions (avoid `sudo` unless necessary)
+Other test prompts:
+- "Create a button component" (activates fluxwing-component-creator)
+- "Build a login screen" (activates fluxwing-screen-scaffolder)
+- "Show me the primary-button" (activates fluxwing-component-viewer)
 
 ---
 
 ## Uninstallation
 
-### Quick Uninstall
+### Plugin Uninstallation
 
 ```bash
+/plugin uninstall fluxwing-skills
+/plugin marketplace remove trabian/fluxwing-skills
+```
+
+### Development Uninstallation
+
+Using the uninstall script:
+
+```bash
+# Preview what would be removed
+./scripts/uninstall.sh --dry-run
+
+# Remove skills with confirmation
 ./scripts/uninstall.sh
-```
 
-**What happens:**
-- ✅ Removes all fluxwing-* skills
-- ✅ Preserves user data in `./fluxwing/`
-- ✅ Shows confirmation before removal
-
-### Uninstall Options
-
-**Remove from specific location:**
-```bash
-./scripts/uninstall.sh --global  # Remove from ~/.claude/skills
-./scripts/uninstall.sh --local   # Remove from ./.claude/skills
-./scripts/uninstall.sh --all     # Remove from all locations
-```
-
-**Skip confirmation:**
-```bash
+# Remove without confirmation
 ./scripts/uninstall.sh --force
 ```
 
-**Preview removal (dry run):**
+### Manual Uninstallation
+
 ```bash
-./scripts/uninstall.sh --dry-run
+# Global
+rm -rf ~/.claude/skills/fluxwing-*
+
+# Local
+rm -rf ./.claude/skills/fluxwing-*
 ```
 
-### What Gets Preserved
-
-**IMPORTANT:** User data is **NEVER** removed:
-
-- ✅ `./fluxwing/components/` - Your custom components
-- ✅ `./fluxwing/screens/` - Your screens
-- ✅ `./fluxwing/library/` - Your component library
-
-Only skill files in `.claude/skills/fluxwing-*` are removed.
+**Important:** User data in `./fluxwing/` is NEVER deleted during uninstallation.
 
 ---
 
-## Updating Skills
+## Troubleshooting
 
-To update to the latest version:
+### Skills Don't Activate
+
+**Problem:** Claude doesn't recognize natural language triggers.
+
+**Solutions:**
+1. Verify skills are installed: `/plugin list` or `ls ~/.claude/skills/`
+2. Check each skill has a `SKILL.md` file
+3. Restart Claude Code
+4. Try more explicit triggers: "Use the fluxwing-component-creator skill to create a button"
+
+### Installation Fails
+
+**Problem:** Permission errors during installation.
+
+**Solutions:**
+1. Check directory permissions: `ls -la ~/.claude/`
+2. Create directory manually: `mkdir -p ~/.claude/skills`
+3. Use development installer with `--global` flag
+
+### Skills Installed in Wrong Location
+
+**Problem:** Skills installed globally but you want local (or vice versa).
+
+**Solutions:**
+1. Uninstall: `./scripts/uninstall.sh --force`
+2. Reinstall with explicit flag: `./scripts/install.sh --local` or `--global`
+
+### Plugin Installation Fails
+
+**Problem:** Cannot add marketplace or install plugin.
+
+**Solutions:**
+1. Verify you're using Claude Code (not Claude.ai web interface)
+2. Check internet connection
+3. Try development installation method instead
+4. Check Claude Code version is up to date
+
+---
+
+## Installation Locations
+
+### Plugin Installation
+- Skills bundled within plugin
+- Managed by Claude Code plugin system
+- Location varies by platform and Claude Code version
+
+### Development Installation
+
+**Global:**
+- macOS/Linux: `~/.claude/skills/`
+- Windows: `%USERPROFILE%\.claude\skills\`
+
+**Local:**
+- Any OS: `./.claude/skills/` (relative to current directory)
+
+---
+
+## What Gets Installed
+
+### The 6 Skills
+
+1. **fluxwing-component-creator** - Create UI components
+2. **fluxwing-library-browser** - Browse component library
+3. **fluxwing-component-expander** - Add interactive states
+4. **fluxwing-screen-scaffolder** - Build complete screens
+5. **fluxwing-component-viewer** - View component details
+6. **fluxwing-screenshot-importer** - Import screenshots
+
+### Bundled Data (Per Skill)
+
+- `SKILL.md` - Skill activation and workflow instructions
+- `templates/` - Pre-built component templates (11 for component-creator)
+- `schemas/` - JSON Schema validation rules
+- `docs/` - Modular documentation (6-8 docs per skill)
+
+**Total size:** ~2MB
+
+---
+
+## Updates
+
+### Plugin Updates
 
 ```bash
-# 1. Pull latest changes
+# Check for updates
+/plugin list
+
+# Update plugin
+/plugin update fluxwing-skills
+```
+
+### Development Updates
+
+```bash
+# Pull latest changes
+cd fluxwing-skills
 git pull
 
-# 2. Reinstall with force
-./scripts/install.sh --force
+# Reinstall
+./scripts/install.sh
 ```
-
----
-
-## Directory Structure
-
-### After Installation (Global)
-
-```
-~/.claude/skills/
-├── fluxwing-component-creator/
-│   ├── SKILL.md
-│   ├── templates/           # 11 component templates
-│   ├── schemas/             # JSON Schema
-│   └── docs/                # Documentation
-├── fluxwing-library-browser/
-│   ├── SKILL.md
-│   └── docs/
-├── fluxwing-component-expander/
-│   ├── SKILL.md
-│   └── docs/
-├── fluxwing-screen-scaffolder/
-│   ├── SKILL.md
-│   ├── templates/           # 2 screen templates
-│   └── docs/
-├── fluxwing-component-viewer/
-│   ├── SKILL.md
-│   └── docs/
-└── fluxwing-screenshot-importer/
-    ├── SKILL.md
-    └── docs/                # 6 screenshot docs
-```
-
-### Your Project Structure (Unchanged)
-
-```
-./fluxwing/
-├── components/              # Your components (created by skills)
-│   ├── button.uxm
-│   ├── button.md
-│   └── ...
-├── screens/                 # Your screens (created by skills)
-│   ├── login-screen.uxm
-│   └── ...
-└── library/                 # Your customized library
-    └── ...
-```
-
----
-
-## Getting Help
-
-### Installation Issues
-
-If you encounter problems:
-
-1. **Check the logs:** Installer shows detailed error messages
-2. **Run verification:** `./scripts/install.sh` (runs checks automatically)
-3. **Try manual install:** See "Manual Installation" section above
-4. **File an issue:** https://github.com/USER/REPO/issues (update with actual repo)
-
-### Usage Questions
-
-- **Skills not activating?** See "Troubleshooting" section
-- **Want examples?** See "Usage Examples" section
-- **Need to uninstall?** See "Uninstallation" section
 
 ---
 
 ## Next Steps
 
-After successful installation:
+After installation:
 
-1. ✅ **Try the examples** - Use the natural language prompts above
-2. ✅ **Create a component** - "Create a button" or "Make an input field"
-3. ✅ **Browse the library** - "Show me all components"
-4. ✅ **Build a screen** - "Create a login screen"
-5. ✅ **Explore documentation** - Check `~/.claude/skills/uxscii-*/docs/`
-
----
-
-## System Requirements
-
-- **Claude Code:** Latest version
-- **Operating System:** macOS, Linux, or Windows (with bash)
-- **Disk Space:** ~5 MB for all skills and supporting files
+1. **Read the [README.md](README.md)** for quick start examples
+2. **Try the six skills** with natural language prompts
+3. **Check [CLAUDE.md](CLAUDE.md)** for architectural details
+4. **Explore bundled templates** in each skill's `templates/` directory
 
 ---
 
-## License
+## Support
 
-See LICENSE file for details.
+**Issues:** https://github.com/trabian/fluxwing-skills/issues
 
----
+**Documentation:** See [README.md](README.md) and [CLAUDE.md](CLAUDE.md)
 
-**Last Updated:** 2025-10-18
+**uxscii Standard:** See `skills/*/docs/` for detailed guides

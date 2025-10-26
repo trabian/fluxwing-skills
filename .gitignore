@@ -2,9 +2,8 @@
 .DS_Store
 Thumbs.db
 
-# Claude Code configuration
-.claude/*
-!.claude/skills/
+# Claude Code configuration (commands, settings, etc)
+.claude/
 
 # User project workspace (NOT part of this repo)
 # Users create their own ./fluxwing/ directory when using skills

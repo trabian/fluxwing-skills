@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Fluxwing Skills Installation Script
-# Installs Fluxwing skills to Claude Code's skills directory
+# For development/testing: Copies skills to Claude Code's skills directory
+# For production: Users should use `/plugin install fluxwing-skills`
 
 set -e  # Exit on error
 
@@ -15,7 +16,7 @@ NC='\033[0m' # No Color
 # Configuration
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-SOURCE_SKILLS_DIR="$PROJECT_ROOT/.claude/skills"
+SOURCE_SKILLS_DIR="$PROJECT_ROOT/skills"
 
 # Function to print colored messages
 print_success() { echo -e "${GREEN}✓${NC} $1"; }
@@ -27,9 +28,32 @@ print_warning() { echo -e "${YELLOW}⚠${NC} $1"; }
 print_header() {
     echo ""
     echo "╔════════════════════════════════════════════════════════════╗"
-    echo "║         Fluxwing Skills Installer for Claude Code         ║"
+    echo "║         Fluxwing Skills Development Installer              ║"
     echo "╚════════════════════════════════════════════════════════════╝"
     echo ""
+}
+
+# Function to show plugin installation info
+show_plugin_info() {
+    echo ""
+    echo "╔════════════════════════════════════════════════════════════╗"
+    echo "║              Recommended Installation Method               ║"
+    echo "╚════════════════════════════════════════════════════════════╝"
+    echo ""
+    print_info "For regular users, install via Claude Code plugin system:"
+    echo ""
+    echo "  ${GREEN}/plugin marketplace add trabian/fluxwing-skills${NC}"
+    echo "  ${GREEN}/plugin install fluxwing-skills${NC}"
+    echo ""
+    print_warning "This script is for development and local testing only"
+    echo ""
+    read -p "Continue with development installation? [y/N] " -n 1 -r
+    echo ""
+
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        print_info "Installation cancelled"
+        exit 0
+    fi
 }
 
 # Function to detect installation location
@@ -83,68 +107,21 @@ create_target_directory() {
     fi
 }
 
-# Function to check if update is available
-check_update_needed() {
-    local target_dir="$1"
-
-    # Check if any fluxwing skills exist
-    local existing_count=$(find "$target_dir" -maxdepth 1 -type d -name "fluxwing-*" 2>/dev/null | wc -l | tr -d ' ')
-
-    if [ "$existing_count" -eq 0 ]; then
-        echo "new"
-        return 0
-    fi
-
-    # Check if source is newer than target
-    local source_newest=$(find "$SOURCE_SKILLS_DIR" -type f -exec stat -f "%m" {} \; 2>/dev/null | sort -nr | head -1)
-    local target_newest=$(find "$target_dir"/fluxwing-* -type f -exec stat -f "%m" {} \; 2>/dev/null | sort -nr | head -1)
-
-    if [ -z "$target_newest" ]; then
-        echo "new"
-    elif [ "$source_newest" -gt "$target_newest" ]; then
-        echo "update"
-    else
-        echo "current"
-    fi
-}
-
-# Function to prompt for update
-prompt_update() {
-    local existing_count="$1"
-
-    echo ""
-    print_warning "Found $existing_count existing Fluxwing skills"
-    echo ""
-    read -p "Do you want to update them? [Y/n] " -n 1 -r
-    echo ""
-
-    if [[ $REPLY =~ ^[Yy]$ ]] || [[ -z $REPLY ]]; then
-        return 0
-    else
-        return 1
-    fi
-}
-
 # Function to copy skills
 copy_skills() {
     local source_dir="$1"
     local target_dir="$2"
-    local force="$3"
 
     print_info "Copying skills from $source_dir to $target_dir"
     echo ""
 
     local copied_count=0
-    local skipped_count=0
     local existing_count=$(find "$target_dir" -maxdepth 1 -type d -name "fluxwing-*" 2>/dev/null | wc -l | tr -d ' ')
 
-    # Check if update is needed and prompt if not forcing
-    if [ "$existing_count" -gt 0 ] && [ "$force" != "yes" ]; then
-        if ! prompt_update "$existing_count"; then
-            print_info "Installation cancelled by user"
-            return 1
-        fi
-        force="yes"  # User confirmed, proceed with update
+    # Remove existing fluxwing skills
+    if [ "$existing_count" -gt 0 ]; then
+        print_info "Removing $existing_count existing Fluxwing skills..."
+        rm -rf "$target_dir"/fluxwing-*
     fi
 
     for skill_dir in "$source_dir"/fluxwing-*; do
@@ -152,35 +129,19 @@ copy_skills() {
             local skill_name=$(basename "$skill_dir")
             local target_skill_dir="$target_dir/$skill_name"
 
-            if [ -d "$target_skill_dir" ] && [ "$force" != "yes" ]; then
-                print_warning "Skill '$skill_name' already exists"
-                skipped_count=$((skipped_count + 1))
+            cp -r "$skill_dir" "$target_skill_dir"
+
+            if [ -f "$target_skill_dir/SKILL.md" ]; then
+                print_success "Installed: $skill_name"
+                copied_count=$((copied_count + 1))
             else
-                if [ -d "$target_skill_dir" ]; then
-                    print_info "Updating existing skill: $skill_name"
-                    rm -rf "$target_skill_dir"
-                fi
-
-                cp -r "$skill_dir" "$target_skill_dir"
-
-                if [ -f "$target_skill_dir/SKILL.md" ]; then
-                    print_success "Installed: $skill_name"
-                    copied_count=$((copied_count + 1))
-                else
-                    print_error "Failed to install: $skill_name (SKILL.md missing)"
-                fi
+                print_error "Failed to install: $skill_name (SKILL.md missing)"
             fi
         fi
     done
 
     echo ""
-    print_info "Installation summary: $copied_count installed, $skipped_count skipped"
-
-    if [ "$copied_count" -eq 0 ] && [ "$skipped_count" -gt 0 ]; then
-        print_warning "No skills installed."
-        return 1
-    fi
-
+    print_success "Installed $copied_count skills"
     return 0
 }
 
@@ -240,15 +201,7 @@ verify_installation() {
         print_warning "JSON Schema not found"
     fi
 
-    # Check 5: No PLUGIN_ROOT references in SKILL.md
-    local plugin_root_count=$(grep -r "PLUGIN_ROOT" "$target_dir"/fluxwing-*/SKILL.md 2>/dev/null | wc -l | tr -d ' ')
-    if [ "$plugin_root_count" -eq 0 ]; then
-        print_success "No PLUGIN_ROOT references in SKILL.md files"
-    else
-        print_warning "Found $plugin_root_count PLUGIN_ROOT references (should use SKILL_ROOT)"
-    fi
-
-    # Check 6: SKILL_ROOT usage
+    # Check 5: SKILL_ROOT usage
     local skill_root_count=$(grep -r "SKILL_ROOT" "$target_dir"/fluxwing-*/SKILL.md 2>/dev/null | wc -l | tr -d ' ')
     if [ "$skill_root_count" -gt 0 ]; then
         print_success "SKILL_ROOT references found ($skill_root_count)"
@@ -301,12 +254,17 @@ show_help() {
     cat << EOF
 Usage: $0 [OPTIONS]
 
-Install UXscii skills for Claude Code.
+Development installer for Fluxwing skills.
+
+RECOMMENDED: Use plugin installation instead:
+  /plugin marketplace add trabian/fluxwing-skills
+  /plugin install fluxwing-skills
+
+This script is for development and local testing only.
 
 OPTIONS:
     --global            Install to ~/.claude/skills (global)
     --local             Install to ./.claude/skills (project-local)
-    --force             Overwrite existing skills
     --help              Show this help message
 
 EXAMPLES:
@@ -319,16 +277,12 @@ EXAMPLES:
     # Install to current project
     $0 --local
 
-    # Force overwrite existing skills
-    $0 --force
-
 EOF
 }
 
 # Main installation logic
 main() {
     local install_mode="auto"
-    local force_install="no"
 
     # Parse arguments
     while [[ $# -gt 0 ]]; do
@@ -339,10 +293,6 @@ main() {
                 ;;
             --local)
                 install_mode="local"
-                shift
-                ;;
-            --force)
-                force_install="yes"
                 shift
                 ;;
             --help|-h)
@@ -360,6 +310,9 @@ main() {
 
     print_header
 
+    # Show plugin info and get confirmation
+    show_plugin_info
+
     # Detect installation location
     local target_dir=$(detect_install_location "$install_mode")
     print_info "Installation target: $target_dir"
@@ -372,11 +325,11 @@ main() {
 
     # Copy skills
     echo ""
-    if copy_skills "$SOURCE_SKILLS_DIR" "$target_dir" "$force_install"; then
+    if copy_skills "$SOURCE_SKILLS_DIR" "$target_dir"; then
         # Verify installation
         if verify_installation "$target_dir"; then
             echo ""
-            print_success "UXscii skills installed successfully!"
+            print_success "Fluxwing skills installed successfully!"
             show_usage_examples
             echo ""
             print_info "Location: $target_dir"
@@ -391,7 +344,7 @@ main() {
         fi
     else
         echo ""
-        print_error "Installation failed or no changes made"
+        print_error "Installation failed"
         echo ""
         exit 1
     fi

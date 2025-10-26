@@ -82,13 +82,13 @@
 
             <div class="terminal-window">
               <pre><code>Skills Location:
-~/.claude/skills/           # Global installation
-  └── uxscii-component-creator/
-  └── uxscii-library-browser/
-  └── uxscii-component-expander/
-  └── uxscii-screen-scaffolder/
-  └── uxscii-component-viewer/
-  └── uxscii-screenshot-importer/
+Plugin installation         # Managed by Claude Code
+  └── fluxwing-component-creator/
+  └── fluxwing-library-browser/
+  └── fluxwing-component-expander/
+  └── fluxwing-screen-scaffolder/
+  └── fluxwing-component-viewer/
+  └── fluxwing-screenshot-importer/
 
 Your Workspace:
 ./fluxwing/                 # All outputs go here
@@ -114,27 +114,27 @@ Your Workspace:
               <tbody>
                 <tr>
                   <td>"Create a submit button"</td>
-                  <td>uxscii-component-creator</td>
+                  <td>fluxwing-component-creator</td>
                 </tr>
                 <tr>
                   <td>"Show me all components"</td>
-                  <td>uxscii-library-browser</td>
+                  <td>fluxwing-library-browser</td>
                 </tr>
                 <tr>
                   <td>"Add hover state to my button"</td>
-                  <td>uxscii-component-expander</td>
+                  <td>fluxwing-component-expander</td>
                 </tr>
                 <tr>
                   <td>"Build a login screen"</td>
-                  <td>uxscii-screen-scaffolder</td>
+                  <td>fluxwing-screen-scaffolder</td>
                 </tr>
                 <tr>
                   <td>"View the primary-button component"</td>
-                  <td>uxscii-component-viewer</td>
+                  <td>fluxwing-component-viewer</td>
                 </tr>
                 <tr>
                   <td>"Import this screenshot"</td>
-                  <td>uxscii-screenshot-importer</td>
+                  <td>fluxwing-screenshot-importer</td>
                 </tr>
               </tbody>
             </table>
@@ -216,7 +216,7 @@ Your Workspace:
               <pre><code><strong>User:</strong> "Create a submit button"
 
 <strong>Phase 1 — Trigger:</strong>
-  ✓ uxscii-component-creator skill activated
+  ✓ fluxwing-component-creator skill activated
   ✓ SKILL.md instructions loaded
 
 <strong>Phase 2 — Context:</strong>
@@ -329,7 +329,7 @@ Agent Returns:
             <h3>Read Operations (Templates & Schemas)</h3>
             <div class="terminal-window">
               <pre><code><strong>Bundled Templates (READ-ONLY):</strong>
-~/.claude/skills/uxscii-component-creator/templates/
+skills/fluxwing-component-creator/templates/
   ├── primary-button.uxm          # Reference implementation
   ├── primary-button.md
   ├── text-input.uxm              # 11 component types
@@ -374,7 +374,7 @@ Agent Returns:
             <ol class="ascii-list">
               <li><strong>User components</strong> → <code>./fluxwing/components/*.uxm</code></li>
               <li><strong>User library</strong> → <code>./fluxwing/library/*.uxm</code></li>
-              <li><strong>Bundled templates</strong> → <code>~/.claude/skills/*/templates/*.uxm</code></li>
+              <li><strong>Bundled templates</strong> → <code>skills/*/templates/*.uxm</code></li>
             </ol>
             <p>This ensures user-created components take precedence over defaults.</p>
           </section>

@@ -270,13 +270,16 @@ password-input.uxm
       <section id="installation" aria-labelledby="installation-heading">
         <div class="layout-container">
           <h2 id="installation-heading">Install Fluxwing</h2>
-          <p>Copy and paste this one-liner to install all skills:</p>
-          <pre class="terminal-window"><code>git clone https://github.com/trabian/fluxwing-skills.git && cd fluxwing-skills && ./scripts/install.sh</code></pre>
+          <p>Install via Claude Code's plugin system (recommended):</p>
+          <pre class="terminal-window"><code>/plugin marketplace add trabian/fluxwing-skills
+/plugin install fluxwing-skills</code></pre>
           <div class="installation__checklist" role="list">
-            <p role="listitem">✓ Installs all six skills locally</p>
-            <p role="listitem">✓ Populates ./fluxwing with generated assets</p>
-            <p role="listitem">✓ Keeps docs collateral in sync</p>
+            <p role="listitem">✓ Installs all six skills automatically</p>
+            <p role="listitem">✓ Managed by Claude Code plugin system</p>
+            <p role="listitem">✓ Easy updates with /plugin update</p>
           </div>
+          <p style="margin-top: 2rem;">For development or local testing:</p>
+          <pre class="terminal-window"><code>git clone https://github.com/trabian/fluxwing-skills.git && cd fluxwing-skills && ./scripts/install.sh</code></pre>
         </div>
       </section>
       <section id="docs-links" aria-labelledby="docs-links-heading">

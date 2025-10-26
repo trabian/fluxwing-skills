@@ -1,0 +1,23 @@
+{
+  "name": "fluxwing-skills",
+  "version": "1.0.0",
+  "description": "AI-native UX design system using uxscii standard - create, validate, and compose UI designs through natural language",
+  "author": {
+    "name": "Trabian",
+    "email": "hello@trabian.com",
+    "url": "https://github.com/trabian"
+  },
+  "homepage": "https://github.com/trabian/fluxwing-skills",
+  "repository": "https://github.com/trabian/fluxwing-skills",
+  "license": "MIT",
+  "keywords": [
+    "fluxwing",
+    "uxscii",
+    "ui-design",
+    "ux-design",
+    "components",
+    "ascii-art",
+    "design-system",
+    "claude-code"
+  ]
+}
