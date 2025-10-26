@@ -228,4 +228,173 @@ document.addEventListener("DOMContentLoaded", () => {
       el.classList.add('revealed');
     });
   }
+
+  // ========================================
+  // STICKY NAVIGATION WITH SCROLL DETECTION
+  // ========================================
+  const nav = document.querySelector('.primary-nav');
+  if (nav) {
+    let lastScroll = 0;
+    const scrollThreshold = 100; // Minimum scroll before hiding nav
+
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+
+      // At top of page
+      if (currentScroll <= scrollThreshold) {
+        nav.classList.remove('scroll-up', 'scroll-down');
+        nav.classList.add('at-top');
+        lastScroll = currentScroll;
+        return;
+      }
+
+      nav.classList.remove('at-top');
+
+      // Scrolling down - hide nav
+      if (currentScroll > lastScroll && !nav.classList.contains('scroll-down')) {
+        nav.classList.remove('scroll-up');
+        nav.classList.add('scroll-down');
+      }
+      // Scrolling up - show nav
+      else if (currentScroll < lastScroll && nav.classList.contains('scroll-down')) {
+        nav.classList.remove('scroll-down');
+        nav.classList.add('scroll-up');
+      }
+
+      lastScroll = currentScroll;
+    }, { passive: true });
+  }
+
+  // ========================================
+  // CURRENT SECTION HIGHLIGHTING
+  // ========================================
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.primary-nav__list a[href^="#"], .mobile-nav__list a[href^="#"]');
+
+  if (sections.length > 0 && navLinks.length > 0) {
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.id;
+
+          // Remove active class from all links
+          navLinks.forEach(link => {
+            link.classList.remove('active');
+          });
+
+          // Add active class to matching links
+          navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === `#${sectionId}`) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    }, {
+      root: null,
+      rootMargin: '-20% 0px -80% 0px', // Trigger when section is in middle 60% of viewport
+      threshold: 0
+    });
+
+    sections.forEach(section => {
+      sectionObserver.observe(section);
+    });
+  }
+
+  // ========================================
+  // COPY-TO-CLIPBOARD FUNCTIONALITY
+  // ========================================
+  function addCopyButtons() {
+    // Target code blocks in terminal windows and installation commands
+    const codeBlocks = document.querySelectorAll('.terminal-window code, .installation__commands code, pre code');
+
+    codeBlocks.forEach(block => {
+      // Skip if already has a copy button
+      if (block.parentElement.querySelector('.copy-button')) {
+        return;
+      }
+
+      // Create copy button
+      const button = document.createElement('button');
+      button.className = 'copy-button';
+      button.textContent = 'Copy';
+      button.setAttribute('aria-label', 'Copy code to clipboard');
+
+      // Copy functionality
+      button.addEventListener('click', async () => {
+        const code = block.textContent;
+        try {
+          await navigator.clipboard.writeText(code);
+          button.textContent = 'Copied!';
+          button.classList.add('copied');
+          setTimeout(() => {
+            button.textContent = 'Copy';
+            button.classList.remove('copied');
+          }, 2000);
+        } catch (err) {
+          console.error('Failed to copy:', err);
+          button.textContent = 'Failed';
+          setTimeout(() => {
+            button.textContent = 'Copy';
+          }, 2000);
+        }
+      });
+
+      // Make parent container position relative if needed
+      const container = block.parentElement;
+      if (container && window.getComputedStyle(container).position === 'static') {
+        container.style.position = 'relative';
+      }
+
+      container.appendChild(button);
+    });
+  }
+
+  // Initialize copy buttons
+  addCopyButtons();
+
+  // ========================================
+  // COMPONENT GALLERY FILTERING
+  // ========================================
+  function initGalleryFilters() {
+    const filterButtons = document.querySelectorAll('.showcase__filters button[data-filter]');
+    const showcaseCards = document.querySelectorAll('.showcase__card[data-type]');
+
+    if (filterButtons.length === 0 || showcaseCards.length === 0) {
+      return;
+    }
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const filter = button.getAttribute('data-filter');
+
+        // Update active button
+        filterButtons.forEach(btn => {
+          btn.classList.remove('active');
+          btn.setAttribute('aria-selected', 'false');
+        });
+        button.classList.add('active');
+        button.setAttribute('aria-selected', 'true');
+
+        // Filter cards with fade animation
+        showcaseCards.forEach(card => {
+          const cardType = card.getAttribute('data-type');
+
+          if (filter === 'all' || cardType === filter) {
+            card.style.display = 'block';
+            // Trigger reflow to restart animation
+            card.offsetHeight;
+            card.classList.add('fade-in');
+          } else {
+            card.classList.remove('fade-in');
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  }
+
+  // Initialize gallery filters
+  initGalleryFilters();
 });

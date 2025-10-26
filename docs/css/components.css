@@ -152,6 +152,14 @@
   display: block;
 }
 
+/* ========================================
+   BUTTON STATES - Complete Documentation
+   ======================================== */
+
+/* Base Button State
+   - Light border for default appearance
+   - Uppercase text for terminal aesthetic
+   - Smooth transitions for interaction feedback */
 .ascii-button,
 .hero__cta-button,
 .showcase__filters button {
@@ -161,20 +169,79 @@
   gap: var(--space-1ch);
   padding: var(--space-1ch) var(--space-2ch);
   border: 1px solid var(--border-primary);
+  background: transparent;
   color: var(--ascii-text-white);
   text-transform: uppercase;
   letter-spacing: 0.1ch;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  cursor: pointer;
+  transition: transform var(--transition-fast),
+              box-shadow var(--transition-fast),
+              border var(--transition-fast),
+              background var(--transition-fast);
 }
 
+/* Hover State
+   - Subtle lift effect (translateY)
+   - Cyan glow for cyberpunk aesthetic
+   - Applied to mouse hover only */
 .ascii-button:hover,
-.ascii-button:focus-visible,
 .hero__cta-button:hover,
-.hero__cta-button:focus-visible,
-.showcase__filters button:hover,
-.showcase__filters button:focus-visible {
+.showcase__filters button:hover {
   transform: translateY(-1px);
   box-shadow: 0 0 12px var(--glow-cyan);
+}
+
+/* Focus State (Keyboard Navigation)
+   - High visibility outline (WCAG requirement)
+   - 2px solid outline with offset for breathing room
+   - Applied via :focus-visible for keyboard users only */
+.ascii-button:focus-visible,
+.hero__cta-button:focus-visible,
+.showcase__filters button:focus-visible {
+  outline: 2px solid var(--ascii-cyan);
+  outline-offset: 4px;
+  box-shadow: 0 0 15px var(--glow-cyan);
+  transform: translateY(-1px);
+}
+
+/* Active State (Pressed)
+   - Double border for emphasis
+   - Slight scale down for press feedback
+   - Brighter glow to indicate interaction */
+.ascii-button:active,
+.hero__cta-button:active,
+.showcase__filters button:active {
+  border: 2px double var(--ascii-cyan-bright);
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 0 20px var(--glow-cyan);
+}
+
+/* Disabled State
+   - Dashed border indicates inactive
+   - Reduced opacity (50%) for visual hierarchy
+   - No pointer events or cursor change
+   - Supports both :disabled and aria-disabled */
+.ascii-button:disabled,
+.ascii-button[aria-disabled="true"],
+.hero__cta-button:disabled,
+.hero__cta-button[aria-disabled="true"],
+.showcase__filters button:disabled,
+.showcase__filters button[aria-disabled="true"] {
+  border-style: dashed;
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Active filter button state */
+.showcase__filters button.active {
+  background: var(--ascii-cyan);
+  color: var(--ascii-bg);
+  border-color: var(--ascii-cyan);
+  box-shadow: 0 0 16px rgba(0, 255, 255, 0.6);
+  font-weight: bold;
 }
 
 .ascii-button--success {
@@ -213,6 +280,42 @@
   color: var(--ascii-text-white);
 }
 
+/* ========================================
+   COPY BUTTON
+   ======================================== */
+.copy-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  background: var(--ascii-bg-alt);
+  border: 1px solid var(--ascii-cyan);
+  color: var(--ascii-cyan);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  z-index: 10;
+  border-radius: 0;
+}
+
+.copy-button:hover {
+  background: var(--ascii-cyan);
+  color: var(--ascii-bg);
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.copy-button:focus-visible {
+  outline: 2px solid var(--ascii-cyan);
+  outline-offset: 2px;
+}
+
+.copy-button.copied {
+  background: var(--ascii-success);
+  border-color: var(--ascii-success);
+  color: var(--ascii-bg);
+}
+
 .hero__cta {
   display: flex;
   flex-wrap: wrap;
@@ -237,23 +340,111 @@
   box-shadow: 0 0 20px rgba(0, 255, 255, 0.08);
 }
 
+/* ========================================
+   SHOWCASE CARD ANIMATIONS
+   ======================================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.showcase__card.fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* ========================================
+   CARD STATUS VARIANTS
+   ======================================== */
+
+/* Success Card
+   - Green border and glow for positive feedback
+   - Use for confirmation messages, completed states
+   - ARIA: Add role="status" and aria-live="polite" for dynamic updates */
 .ascii-card--success {
   border-color: var(--ascii-success);
   background: linear-gradient(180deg, rgba(51, 255, 102, 0.08), var(--ascii-bg-card));
   box-shadow: 0 0 24px rgba(51, 255, 102, 0.25);
 }
 
+/* Warning Card
+   - Amber border and glow for cautionary messages
+   - Use for important notices, pending actions
+   - ARIA: Add role="alert" for important warnings requiring attention */
 .ascii-card--warning {
   border-color: var(--ascii-warning);
   background: linear-gradient(180deg, rgba(255, 170, 51, 0.1), var(--ascii-bg-card));
   box-shadow: 0 0 24px rgba(255, 170, 51, 0.28);
 }
 
+/* Error Card
+   - Red border and glow for error states
+   - Use for validation errors, failed operations
+   - ARIA: Add role="alert" and aria-live="assertive" for critical errors */
 .ascii-card--error {
   border-color: var(--ascii-error);
   background: linear-gradient(180deg, rgba(255, 51, 102, 0.12), var(--ascii-bg-card));
   box-shadow: 0 0 24px rgba(255, 51, 102, 0.3);
 }
+
+/* Interactive Card States
+   - For clickable cards or cards with focusable elements
+   - Provides hover feedback and keyboard navigation support */
+.ascii-card--interactive {
+  cursor: pointer;
+  transition: box-shadow var(--transition-medium),
+              transform var(--transition-medium),
+              border-color var(--transition-fast);
+}
+
+.ascii-card--interactive:hover {
+  box-shadow: 0 0 28px rgba(0, 255, 255, 0.18);
+  transform: translateY(-3px);
+  border-color: var(--ascii-cyan);
+}
+
+.ascii-card--interactive:focus-visible {
+  outline: 2px solid var(--ascii-cyan);
+  outline-offset: 4px;
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.25);
+}
+
+.ascii-card--interactive:active {
+  transform: translateY(-1px);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.15);
+}
+
+/* ========================================
+   ARIA USAGE EXAMPLES
+   ========================================
+
+   Success Message:
+   <div class="ascii-card ascii-card--success" role="status" aria-live="polite">
+     <p>✓ Component saved successfully</p>
+   </div>
+
+   Warning Message:
+   <div class="ascii-card ascii-card--warning" role="alert">
+     <p>⚠ This action cannot be undone</p>
+   </div>
+
+   Error Message:
+   <div class="ascii-card ascii-card--error" role="alert" aria-live="assertive">
+     <p>✗ Validation failed: Missing required field</p>
+   </div>
+
+   Interactive Card:
+   <article class="ascii-card ascii-card--interactive" tabindex="0" role="button"
+            aria-label="View component details">
+     <h3>Component Name</h3>
+     <p>Description</p>
+   </article>
+   ======================================== */
 
 .validator-placeholder {
   min-height: 6rem;
@@ -289,25 +480,86 @@
   padding: var(--space-4ch);
 }
 
+/* ========================================
+   STICKY NAVIGATION
+   ======================================== */
+
+/* Sticky Navigation with Scroll Detection
+   - Remains at top when scrolling
+   - Hides when scrolling down, shows when scrolling up
+   - Smooth transitions for better UX */
 .primary-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
   border-top: 2px solid var(--border-primary);
   border-bottom: 2px solid var(--border-primary);
   margin-top: var(--space-2ch);
+  background-color: var(--ascii-bg);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s ease;
 }
 
+/* Navigation when scrolling down - hide */
+.primary-nav.scroll-down {
+  transform: translateY(-100%);
+}
+
+/* Navigation when scrolling up - show */
+.primary-nav.scroll-up {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(0, 255, 255, 0.15);
+}
+
+/* Navigation at top of page */
+.primary-nav.at-top {
+  box-shadow: none;
+}
+
+/* ========================================
+   NAVIGATION LINK STATES
+   ======================================== */
+
+/* Base Navigation Link State
+   - Transparent border reserves space for hover/focus states
+   - Prevents layout shift on interaction */
 .primary-nav__list a,
 .mobile-nav__list a {
   display: inline-flex;
   padding: var(--space-1ch) var(--space-2ch);
   border: 1px solid transparent;
+  transition: border-color var(--transition-fast),
+              box-shadow var(--transition-fast),
+              outline var(--transition-fast);
 }
 
+/* Hover State - Mouse interaction */
 .primary-nav__list a:hover,
-.primary-nav__list a:focus-visible,
-.mobile-nav__list a:hover,
-.mobile-nav__list a:focus-visible {
+.mobile-nav__list a:hover {
   border-color: var(--border-primary);
   box-shadow: 0 0 8px var(--glow-cyan);
+}
+
+/* Focus State - Keyboard navigation
+   - High contrast outline for visibility
+   - Meets WCAG 2.1 AA requirements (3:1 contrast ratio) */
+.primary-nav__list a:focus-visible,
+.mobile-nav__list a:focus-visible {
+  outline: 2px solid var(--ascii-cyan);
+  outline-offset: 2px;
+  border-color: var(--border-primary);
+  box-shadow: 0 0 12px var(--glow-cyan);
+}
+
+/* Active Link State - Current page indicator
+   - Applied via JavaScript based on current URL
+   - Provides visual feedback for current location */
+.primary-nav__list a.active,
+.mobile-nav__list a.active {
+  color: var(--ascii-cyan-bright);
+  border-color: var(--ascii-cyan);
+  background: rgba(0, 255, 255, 0.08);
+  box-shadow: 0 0 10px var(--glow-cyan);
 }
 
 .mobile-nav__list {
@@ -740,4 +992,174 @@ dialog.modal::backdrop {
 .git-diff__remove {
   color: rgba(200, 100, 100, 0.9);
   display: block;
+}
+
+/* ============================================
+   DOCUMENTATION PAGE LAYOUT
+   ============================================ */
+
+/* Breadcrumbs */
+.breadcrumbs {
+  margin-bottom: var(--space-4ch);
+}
+
+.breadcrumbs a {
+  color: var(--ascii-cyan);
+  text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumbs [aria-current="page"] {
+  color: var(--ascii-text);
+}
+
+/* Doc Page Header */
+.doc-page__header {
+  margin-bottom: var(--space-6ch);
+  padding-bottom: var(--space-4ch);
+  border-bottom: 1px dashed var(--border-dim);
+}
+
+.doc-page__title {
+  font-size: 2.5rem;
+  margin: 0 0 var(--space-2ch) 0;
+  color: var(--ascii-cyan-bright);
+}
+
+.doc-page__intro {
+  font-size: 1.125rem;
+  color: var(--ascii-text-bright);
+  margin: 0;
+  max-width: 60ch;
+}
+
+/* Two-Column Layout */
+.doc-page__layout {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: var(--space-6ch);
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .doc-page__layout {
+    grid-template-columns: 1fr;
+    gap: var(--space-4ch);
+  }
+}
+
+/* Sidebar TOC */
+.doc-sidebar {
+  position: sticky;
+  top: var(--space-4ch);
+}
+
+.doc-sidebar nav {
+  margin: 0;
+}
+
+.doc-sidebar a {
+  color: var(--ascii-text);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.doc-sidebar a:hover {
+  color: var(--ascii-cyan-bright);
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .doc-sidebar {
+    position: static;
+  }
+}
+
+/* Main Content Column */
+.doc-content {
+  min-width: 0; /* Prevent grid blowout */
+}
+
+.doc-section {
+  margin-bottom: var(--space-6ch);
+}
+
+.doc-section h2 {
+  font-size: 1.75rem;
+  margin: 0 0 var(--space-3ch) 0;
+  color: var(--ascii-cyan);
+  border-bottom: 2px solid var(--border-dim);
+  padding-bottom: var(--space-1ch);
+}
+
+.doc-section h3 {
+  font-size: 1.25rem;
+  margin: var(--space-4ch) 0 var(--space-2ch) 0;
+  color: var(--ascii-text-bright);
+}
+
+.doc-section p {
+  margin: var(--space-2ch) 0;
+  line-height: 1.7;
+  max-width: 70ch;
+}
+
+.doc-section code {
+  background: rgba(0, 255, 255, 0.1);
+  padding: 0.2ch 0.5ch;
+  border-radius: 2px;
+  font-size: 0.9em;
+  color: var(--ascii-cyan-bright);
+}
+
+/* ASCII Lists for Docs */
+.ascii-list {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-2ch) 0;
+}
+
+.ascii-list li {
+  padding-left: var(--space-3ch);
+  margin-bottom: var(--space-1ch);
+  line-height: 1.6;
+}
+
+.ascii-list li::before {
+  content: "→ ";
+  margin-left: calc(-1 * var(--space-3ch));
+  color: var(--ascii-cyan);
+  font-weight: bold;
+}
+
+/* Doc Tables */
+.doc-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--space-3ch) 0;
+  font-size: 0.9rem;
+}
+
+.doc-table th {
+  text-align: left;
+  padding: var(--space-2ch);
+  background: rgba(0, 255, 255, 0.1);
+  border: 1px solid var(--border-dim);
+  color: var(--ascii-cyan);
+  font-weight: 600;
+}
+
+.doc-table td {
+  padding: var(--space-2ch);
+  border: 1px solid var(--border-dim);
+  line-height: 1.5;
+}
+
+.doc-table code {
+  background: rgba(0, 255, 255, 0.15);
+  padding: 0.2ch 0.5ch;
+  font-size: 0.85em;
 }

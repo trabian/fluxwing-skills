@@ -219,23 +219,23 @@ password-input.uxm
       <section id="showcase" aria-labelledby="showcase-heading">
         <div class="layout-container">
           <h2 id="showcase-heading">Component gallery</h2>
-          <p>Gallery filters and modal previews land in Phase 4; structure here supports the future JS hook.</p>
+          <p>Browse components by category. Click a filter to see specific types.</p>
           <div class="showcase__filters" role="tablist" aria-label="Component categories">
-            <button role="tab" aria-selected="true">All</button>
-            <button role="tab" aria-selected="false">Buttons</button>
-            <button role="tab" aria-selected="false">Inputs</button>
-            <button role="tab" aria-selected="false">Layouts</button>
+            <button role="tab" aria-selected="true" data-filter="all" class="active">All</button>
+            <button role="tab" aria-selected="false" data-filter="buttons">Buttons</button>
+            <button role="tab" aria-selected="false" data-filter="inputs">Inputs</button>
+            <button role="tab" aria-selected="false" data-filter="layouts">Layouts</button>
           </div>
           <div class="showcase__grid">
-            <article class="showcase__card">
+            <article class="showcase__card" data-type="buttons">
               <h3>Primary button</h3>
               <p>ASCII border + glow states.</p>
             </article>
-            <article class="showcase__card">
+            <article class="showcase__card" data-type="layouts">
               <h3>Form layout</h3>
               <p>Grid-aligned fields with retro labels.</p>
             </article>
-            <article class="showcase__card">
+            <article class="showcase__card" data-type="layouts">
               <h3>Terminal window</h3>
               <p>Faux CLI shell with blinking cursor.</p>
             </article>
