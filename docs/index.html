@@ -16,9 +16,9 @@
       rel="stylesheet"
     />
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="./css/ascii-core.css?v=20241026" />
-    <link rel="stylesheet" href="./css/components.css?v=20241026" />
-    <link rel="stylesheet" href="./css/responsive.css?v=20241026" />
+    <link rel="stylesheet" href="./css/ascii-core.css?v=20241026-2" />
+    <link rel="stylesheet" href="./css/components.css?v=20241026-2" />
+    <link rel="stylesheet" href="./css/responsive.css?v=20241026-2" />
   </head>
   <body class="page">
     <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -46,10 +46,12 @@
             <li><a href="#showcase">Component Gallery</a></li>
             <li><a href="#installation">Install</a></li>
             <li><a href="#docs-links">Documentation</a></li>
+            <li><a href="https://www.uxscii.com" target="_blank" rel="noopener noreferrer">uxscii</a></li>
+            <li><a href="https://github.com/trabian/fluxwing-skills" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="https://www.trabian.com" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center;"><img src="./assets/trabian.svg" alt="Trabian" style="height: 1.5em; vertical-align: middle;" /></a></li>
           </ul>
           <button class="primary-nav__toggle" aria-expanded="false" aria-controls="mobile-menu">
             <span class="sr-only">Open navigation</span>
-            <span aria-hidden="true">[ ≡ MENU ]</span>
           </button>
         </div>
       </nav>
@@ -61,6 +63,9 @@
             <li><a href="#showcase">Component Gallery</a></li>
             <li><a href="#installation">Install</a></li>
             <li><a href="#docs-links">Documentation</a></li>
+            <li><a href="https://www.uxscii.com" target="_blank" rel="noopener noreferrer">uxscii</a></li>
+            <li><a href="https://github.com/trabian/fluxwing-skills" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="https://www.trabian.com" target="_blank" rel="noopener noreferrer"><img src="./assets/trabian.svg" alt="Trabian" style="height: 1.5em; vertical-align: middle;" /></a></li>
           </ul>
         </div>
       </div>
@@ -105,25 +110,6 @@
               </pre>
             </noscript>
           </figure>
-        </div>
-      </section>
-      <section id="palette-demo" aria-labelledby="palette-heading">
-        <div class="layout-container">
-          <h2 id="palette-heading">ASCII palette demo</h2>
-          <p>
-            Toggle controls and live data binding arrive in Phase 4; this block exists to anchor layout
-            spacing and ARIA semantics.
-          </p>
-          <div class="palette-placeholder" role="presentation">
-            <pre>
-╔════════════════════════════════╗
-║ template: {{component.border}} ║
-║ sample: ┌──────────┐           ║
-║         │  ASCII   │           ║
-║         └──────────┘           ║
-╚════════════════════════════════╝
-            </pre>
-          </div>
         </div>
       </section>
       <section id="value-props" aria-labelledby="value-props-heading">
@@ -228,38 +214,64 @@ password-input.uxm
           </div>
           <div class="showcase__grid">
             <article class="showcase__card" data-type="buttons">
-              <h3>Primary button</h3>
-              <p>ASCII border + glow states.</p>
+              <h3>Sidebar collapse button</h3>
+              <pre aria-hidden="true">
+╭─╮
+│◀│
+╰─╯</pre>
+              <p>Compact arrow button for collapsing/expanding sidebar panels.</p>
+            </article>
+            <article class="showcase__card" data-type="buttons">
+              <h3>Playback controls</h3>
+              <pre aria-hidden="true">
+╭──────────╮  ╭──────────╮  ╭──────────╮
+│    ▶     │  │    ⏸     │  │    ⏹     │
+╰──────────╯  ╰──────────╯  ╰──────────╯
+   Play          Pause          Stop</pre>
+              <p>Standard audio playback controls with clear iconography.</p>
+            </article>
+            <article class="showcase__card" data-type="inputs">
+              <h3>Chat input field</h3>
+              <pre aria-hidden="true">
+╭──────────────────────────────────────────────╮
+│ [Type your message...              ] [Send] │
+╰──────────────────────────────────────────────╯</pre>
+              <p>Text input with integrated send button for chat messages.</p>
             </article>
             <article class="showcase__card" data-type="layouts">
-              <h3>Form layout</h3>
-              <p>Grid-aligned fields with retro labels.</p>
+              <h3>Account balance card</h3>
+              <pre aria-hidden="true">
+╭──────────────────────────────────────────────╮
+│                                              │
+│  Operating Account                ****6789  │
+│                                              │
+│  $125,847.32                                 │
+│                                              │
+│  +$12,450.00  +10.9% ↗                       │
+│                                              │
+│  As of Oct 18, 2025 3:45 PM                  │
+│                                              │
+╰──────────────────────────────────────────────╯</pre>
+              <p>Commercial banking card with balance and trend indicators.</p>
             </article>
             <article class="showcase__card" data-type="layouts">
               <h3>Terminal window</h3>
-              <p>Faux CLI shell with blinking cursor.</p>
+              <pre aria-hidden="true">
+┌────────────────────────────────┐
+│ $ fluxwing neural-flight       │
+│ calibrating ascii vectors…     │
+│ ▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░  50%      │
+└────────────────────────────────┘</pre>
+              <p>Faux CLI shell with progress indicator and blinking cursor.</p>
             </article>
-          </div>
-        </div>
-      </section>
-      <section id="validator-demo" aria-labelledby="validator-heading">
-        <div class="layout-container">
-          <h2 id="validator-heading">Terminal validator</h2>
-          <p>
-            Animation hooks go in Phase 4; this marks up the progress panel and messaging for accessibility.
-          </p>
-          <div class="validator-placeholder" role="status" aria-live="polite">
-            <p>fluxwing validator · status: pending animation</p>
           </div>
         </div>
       </section>
       <section id="installation" aria-labelledby="installation-heading">
         <div class="layout-container">
           <h2 id="installation-heading">Install Fluxwing</h2>
-          <p>Run the install script or select a skill bundle to begin.</p>
-          <div class="installation__commands">
-            <code>./scripts/install.sh --dry-run</code>
-          </div>
+          <p>Copy and paste this one-liner to install all skills:</p>
+          <pre class="terminal-window"><code>git clone https://github.com/trabian/fluxwing-skills.git && cd fluxwing-skills && ./scripts/install.sh</code></pre>
           <div class="installation__checklist" role="list">
             <p role="listitem">✓ Installs all six skills locally</p>
             <p role="listitem">✓ Populates ./fluxwing with generated assets</p>
@@ -300,12 +312,15 @@ password-input.uxm
 │    ASCII-first UX    │
 └──────────────────────┘</pre>
           </div>
-          <p>Crafted by Fluxwing · ASCII UX for AI-native builders</p>
+          <p style="display: flex; align-items: center; gap: 1ch; justify-content: center;">
+            Crafted by <a href="https://www.trabian.com" target="_blank" rel="noopener noreferrer"><img src="./assets/trabian.svg" alt="Trabian" style="height: 2em;" /></a> · ASCII UX for AI-native builders
+          </p>
           <nav aria-label="Footer">
             <ul class="site-footer__links">
               <li><a href="https://github.com/trabian/fluxwing-skills">GitHub</a></li>
+              <li><a href="https://www.uxscii.com" target="_blank" rel="noopener noreferrer">uxscii</a></li>
               <li><a href="#docs-links">Docs</a></li>
-              <li><a href="https://trabian.com">Trabian</a></li>
+              <li><a href="https://www.fluxwing.com">Fluxwing</a></li>
             </ul>
           </nav>
         </div>

@@ -18,7 +18,7 @@ footer {
 }
 
 section {
-  padding-block: var(--space-6ch);
+  padding-block: var(--space-4ch);
 }
 
 .layout-container {
@@ -288,7 +288,7 @@ h3 {
 
   /* T056: Responsive spacing adjustments (lg) */
   section {
-    padding-block: var(--space-8ch);
+    padding-block: var(--space-6ch);
   }
 
   /* why.html responsive grids (lg) */
