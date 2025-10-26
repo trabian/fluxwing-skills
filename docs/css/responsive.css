@@ -290,4 +290,25 @@ h3 {
   section {
     padding-block: var(--space-8ch);
   }
+
+  /* why.html responsive grids (lg) */
+  .comparison-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .testimonials-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* why.html responsive - md breakpoint additions */
+@media (min-width: 48rem) {
+  .comparison-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* use-cases.html 2-column grid */
+  .use-case-2col {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
