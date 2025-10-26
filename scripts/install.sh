@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# UXscii Skills Installation Script
+# Fluxwing Skills Installation Script
 # Installs Fluxwing skills to Claude Code's skills directory
 
 set -e  # Exit on error
@@ -27,7 +27,7 @@ print_warning() { echo -e "${YELLOW}⚠${NC} $1"; }
 print_header() {
     echo ""
     echo "╔════════════════════════════════════════════════════════════╗"
-    echo "║         UXscii Skills Installer for Claude Code           ║"
+    echo "║         Fluxwing Skills Installer for Claude Code         ║"
     echo "╚════════════════════════════════════════════════════════════╝"
     echo ""
 }
@@ -57,10 +57,10 @@ verify_source_skills() {
         exit 1
     fi
 
-    local skill_count=$(find "$SOURCE_SKILLS_DIR" -maxdepth 1 -type d -name "uxscii-*" | wc -l | tr -d ' ')
+    local skill_count=$(find "$SOURCE_SKILLS_DIR" -maxdepth 1 -type d -name "fluxwing-*" | wc -l | tr -d ' ')
 
     if [ "$skill_count" -eq 0 ]; then
-        print_error "No uxscii-* skills found in source directory"
+        print_error "No fluxwing-* skills found in source directory"
         exit 1
     fi
 
@@ -83,6 +83,48 @@ create_target_directory() {
     fi
 }
 
+# Function to check if update is available
+check_update_needed() {
+    local target_dir="$1"
+
+    # Check if any fluxwing skills exist
+    local existing_count=$(find "$target_dir" -maxdepth 1 -type d -name "fluxwing-*" 2>/dev/null | wc -l | tr -d ' ')
+
+    if [ "$existing_count" -eq 0 ]; then
+        echo "new"
+        return 0
+    fi
+
+    # Check if source is newer than target
+    local source_newest=$(find "$SOURCE_SKILLS_DIR" -type f -exec stat -f "%m" {} \; 2>/dev/null | sort -nr | head -1)
+    local target_newest=$(find "$target_dir"/fluxwing-* -type f -exec stat -f "%m" {} \; 2>/dev/null | sort -nr | head -1)
+
+    if [ -z "$target_newest" ]; then
+        echo "new"
+    elif [ "$source_newest" -gt "$target_newest" ]; then
+        echo "update"
+    else
+        echo "current"
+    fi
+}
+
+# Function to prompt for update
+prompt_update() {
+    local existing_count="$1"
+
+    echo ""
+    print_warning "Found $existing_count existing Fluxwing skills"
+    echo ""
+    read -p "Do you want to update them? [Y/n] " -n 1 -r
+    echo ""
+
+    if [[ $REPLY =~ ^[Yy]$ ]] || [[ -z $REPLY ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
 # Function to copy skills
 copy_skills() {
     local source_dir="$1"
@@ -94,18 +136,28 @@ copy_skills() {
 
     local copied_count=0
     local skipped_count=0
+    local existing_count=$(find "$target_dir" -maxdepth 1 -type d -name "fluxwing-*" 2>/dev/null | wc -l | tr -d ' ')
 
-    for skill_dir in "$source_dir"/uxscii-*; do
+    # Check if update is needed and prompt if not forcing
+    if [ "$existing_count" -gt 0 ] && [ "$force" != "yes" ]; then
+        if ! prompt_update "$existing_count"; then
+            print_info "Installation cancelled by user"
+            return 1
+        fi
+        force="yes"  # User confirmed, proceed with update
+    fi
+
+    for skill_dir in "$source_dir"/fluxwing-*; do
         if [ -d "$skill_dir" ]; then
             local skill_name=$(basename "$skill_dir")
             local target_skill_dir="$target_dir/$skill_name"
 
             if [ -d "$target_skill_dir" ] && [ "$force" != "yes" ]; then
-                print_warning "Skill '$skill_name' already exists (use --force to overwrite)"
+                print_warning "Skill '$skill_name' already exists"
                 skipped_count=$((skipped_count + 1))
             else
                 if [ -d "$target_skill_dir" ]; then
-                    print_info "Overwriting existing skill: $skill_name"
+                    print_info "Updating existing skill: $skill_name"
                     rm -rf "$target_skill_dir"
                 fi
 
@@ -125,7 +177,7 @@ copy_skills() {
     print_info "Installation summary: $copied_count installed, $skipped_count skipped"
 
     if [ "$copied_count" -eq 0 ] && [ "$skipped_count" -gt 0 ]; then
-        print_warning "No new skills installed. Use --force to overwrite existing skills."
+        print_warning "No skills installed."
         return 1
     fi
 
@@ -143,7 +195,7 @@ verify_installation() {
     local all_checks_passed=true
 
     # Check 1: SKILL.md files exist
-    local skill_count=$(find "$target_dir" -maxdepth 2 -name "SKILL.md" -path "*/uxscii-*/SKILL.md" | wc -l | tr -d ' ')
+    local skill_count=$(find "$target_dir" -maxdepth 2 -name "SKILL.md" -path "*/fluxwing-*/SKILL.md" | wc -l | tr -d ' ')
     if [ "$skill_count" -eq 6 ]; then
         print_success "All 6 SKILL.md files found"
     else
@@ -153,7 +205,7 @@ verify_installation() {
 
     # Check 2: YAML frontmatter validates
     local yaml_errors=0
-    for skill_file in "$target_dir"/uxscii-*/SKILL.md; do
+    for skill_file in "$target_dir"/fluxwing-*/SKILL.md; do
         if [ -f "$skill_file" ]; then
             # Basic YAML check (looking for --- delimiters)
             if head -n 1 "$skill_file" | grep -q "^---$"; then
@@ -174,7 +226,7 @@ verify_installation() {
     fi
 
     # Check 3: Templates exist
-    local template_count=$(find "$target_dir/uxscii-component-creator/templates" -name "*.uxm" 2>/dev/null | wc -l | tr -d ' ')
+    local template_count=$(find "$target_dir/fluxwing-component-creator/templates" -name "*.uxm" 2>/dev/null | wc -l | tr -d ' ')
     if [ "$template_count" -ge 11 ]; then
         print_success "Component templates found ($template_count .uxm files)"
     else
@@ -182,14 +234,14 @@ verify_installation() {
     fi
 
     # Check 4: Schema exists
-    if [ -f "$target_dir/uxscii-component-creator/schemas/uxm-component.schema.json" ]; then
+    if [ -f "$target_dir/fluxwing-component-creator/schemas/uxm-component.schema.json" ]; then
         print_success "JSON Schema found"
     else
         print_warning "JSON Schema not found"
     fi
 
     # Check 5: No PLUGIN_ROOT references in SKILL.md
-    local plugin_root_count=$(grep -r "PLUGIN_ROOT" "$target_dir"/uxscii-*/SKILL.md 2>/dev/null | wc -l | tr -d ' ')
+    local plugin_root_count=$(grep -r "PLUGIN_ROOT" "$target_dir"/fluxwing-*/SKILL.md 2>/dev/null | wc -l | tr -d ' ')
     if [ "$plugin_root_count" -eq 0 ]; then
         print_success "No PLUGIN_ROOT references in SKILL.md files"
     else
@@ -197,7 +249,7 @@ verify_installation() {
     fi
 
     # Check 6: SKILL_ROOT usage
-    local skill_root_count=$(grep -r "SKILL_ROOT" "$target_dir"/uxscii-*/SKILL.md 2>/dev/null | wc -l | tr -d ' ')
+    local skill_root_count=$(grep -r "SKILL_ROOT" "$target_dir"/fluxwing-*/SKILL.md 2>/dev/null | wc -l | tr -d ' ')
     if [ "$skill_root_count" -gt 0 ]; then
         print_success "SKILL_ROOT references found ($skill_root_count)"
     else
@@ -225,22 +277,22 @@ show_usage_examples() {
     echo "Try these natural language prompts in Claude Code:"
     echo ""
     echo "  1. ${GREEN}\"Create a button\"${NC}"
-    echo "     → Activates uxscii-component-creator skill"
+    echo "     → Activates fluxwing-component-creator skill"
     echo ""
     echo "  2. ${GREEN}\"Show me all components\"${NC}"
-    echo "     → Activates uxscii-library-browser skill"
+    echo "     → Activates fluxwing-library-browser skill"
     echo ""
     echo "  3. ${GREEN}\"Add hover state to my button\"${NC}"
-    echo "     → Activates uxscii-component-expander skill"
+    echo "     → Activates fluxwing-component-expander skill"
     echo ""
     echo "  4. ${GREEN}\"Build a login screen\"${NC}"
-    echo "     → Activates uxscii-screen-scaffolder skill"
+    echo "     → Activates fluxwing-screen-scaffolder skill"
     echo ""
     echo "  5. ${GREEN}\"Show me the primary-button\"${NC}"
-    echo "     → Activates uxscii-component-viewer skill"
+    echo "     → Activates fluxwing-component-viewer skill"
     echo ""
     echo "  6. ${GREEN}\"Import this screenshot\"${NC}"
-    echo "     → Activates uxscii-screenshot-importer skill"
+    echo "     → Activates fluxwing-screenshot-importer skill"
     echo ""
 }
 
