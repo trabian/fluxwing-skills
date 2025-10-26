@@ -22,12 +22,12 @@ Development tracker for the Fluxwing Skills system - six Claude Code skills that
 
 ### The Six Skills
 
-1. **uxscii-component-creator** - Create new components
-2. **uxscii-library-browser** - Browse available templates
-3. **uxscii-component-expander** - Add states to components
-4. **uxscii-screen-scaffolder** - Build complete screens
-5. **uxscii-component-viewer** - View component details
-6. **uxscii-screenshot-importer** - Convert screenshots to uxscii
+1. **fluxwing-component-creator** - Create new components
+2. **fluxwing-library-browser** - Browse available templates
+3. **fluxwing-component-expander** - Add states to components
+4. **fluxwing-screen-scaffolder** - Build complete screens
+5. **fluxwing-component-viewer** - View component details
+6. **fluxwing-screenshot-importer** - Convert screenshots to uxscii
 
 ---
 
@@ -190,10 +190,10 @@ Test each skill with natural language triggers:
 ### Quick Verification
 ```bash
 # Check all skills exist
-ls .claude/skills/uxscii-*/SKILL.md
+ls .claude/skills/fluxwing-*/SKILL.md
 
 # Count supporting files
-find .claude/skills/uxscii-* -name "*.uxm" -o -name "*.schema.json" | wc -l
+find .claude/skills/fluxwing-* -name "*.uxm" -o -name "*.schema.json" | wc -l
 
 # Verify SKILL_ROOT usage
 grep -r "SKILL_ROOT" .claude/skills/*/SKILL.md | head -5
@@ -250,12 +250,12 @@ grep -r "SKILL_ROOT" .claude/skills/*/SKILL.md | head -5
 
 ### Test with Natural Language
 Try these prompts in Claude Code:
-1. **"Create a button"** → uxscii-component-creator
-2. **"Show me all components"** → uxscii-library-browser
-3. **"Add hover state to my button"** → uxscii-component-expander
-4. **"Build a login screen"** → uxscii-screen-scaffolder
-5. **"Show me the primary-button"** → uxscii-component-viewer
-6. **"Import this screenshot"** → uxscii-screenshot-importer
+1. **"Create a button"** → fluxwing-component-creator
+2. **"Show me all components"** → fluxwing-library-browser
+3. **"Add hover state to my button"** → fluxwing-component-expander
+4. **"Build a login screen"** → fluxwing-screen-scaffolder
+5. **"Show me the primary-button"** → fluxwing-component-viewer
+6. **"Import this screenshot"** → fluxwing-screenshot-importer
 
 ### Uninstall Skills
 ```bash

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# UXscii Skills Uninstallation Script
+# Fluxwing Skills Uninstallation Script
 # Removes Fluxwing skills from Claude Code's skills directory
 # PRESERVES user data in ./fluxwing/ directory
 
@@ -23,7 +23,7 @@ print_warning() { echo -e "${YELLOW}⚠${NC} $1"; }
 print_header() {
     echo ""
     echo "╔════════════════════════════════════════════════════════════╗"
-    echo "║        UXscii Skills Uninstaller for Claude Code          ║"
+    echo "║        Fluxwing Skills Uninstaller for Claude Code        ║"
     echo "╚════════════════════════════════════════════════════════════╝"
     echo ""
 }
@@ -34,7 +34,7 @@ detect_skill_locations() {
 
     # Check global location
     if [ -d "$HOME/.claude/skills" ]; then
-        local global_count=$(find "$HOME/.claude/skills" -maxdepth 1 -type d -name "uxscii-*" 2>/dev/null | wc -l | tr -d ' ')
+        local global_count=$(find "$HOME/.claude/skills" -maxdepth 1 -type d -name "fluxwing-*" 2>/dev/null | wc -l | tr -d ' ')
         if [ "$global_count" -gt 0 ]; then
             locations+=("$HOME/.claude/skills")
         fi
@@ -42,7 +42,7 @@ detect_skill_locations() {
 
     # Check local location
     if [ -d "$PWD/.claude/skills" ]; then
-        local local_count=$(find "$PWD/.claude/skills" -maxdepth 1 -type d -name "uxscii-*" 2>/dev/null | wc -l | tr -d ' ')
+        local local_count=$(find "$PWD/.claude/skills" -maxdepth 1 -type d -name "fluxwing-*" 2>/dev/null | wc -l | tr -d ' ')
         if [ "$local_count" -gt 0 ]; then
             locations+=("$PWD/.claude/skills")
         fi
@@ -64,7 +64,7 @@ list_skills() {
     print_info "Skills found in $target_dir:"
     echo ""
 
-    for skill_dir in "$target_dir"/uxscii-*; do
+    for skill_dir in "$target_dir"/fluxwing-*; do
         if [ -d "$skill_dir" ]; then
             local skill_name=$(basename "$skill_dir")
             local file_count=$(find "$skill_dir" -type f | wc -l | tr -d ' ')
@@ -91,7 +91,7 @@ confirm_removal() {
     fi
 
     echo ""
-    print_warning "This will permanently remove all uxscii-* skills from:"
+    print_warning "This will permanently remove all fluxwing-* skills from:"
     echo "  $target_dir"
     echo ""
     print_info "User data in ./fluxwing/ will be preserved (NOT removed)"
@@ -123,7 +123,7 @@ remove_skills() {
     fi
     echo ""
 
-    for skill_dir in "$target_dir"/uxscii-*; do
+    for skill_dir in "$target_dir"/fluxwing-*; do
         if [ -d "$skill_dir" ]; then
             local skill_name=$(basename "$skill_dir")
 
@@ -299,14 +299,14 @@ main() {
     else
         # Auto mode: prefer local, fallback to global
         if [ -d "$PWD/.claude/skills" ]; then
-            local local_count=$(find "$PWD/.claude/skills" -maxdepth 1 -type d -name "uxscii-*" 2>/dev/null | wc -l | tr -d ' ')
+            local local_count=$(find "$PWD/.claude/skills" -maxdepth 1 -type d -name "fluxwing-*" 2>/dev/null | wc -l | tr -d ' ')
             if [ "$local_count" -gt 0 ]; then
                 locations=("$PWD/.claude/skills")
             fi
         fi
 
         if [ ${#locations[@]} -eq 0 ] && [ -d "$HOME/.claude/skills" ]; then
-            local global_count=$(find "$HOME/.claude/skills" -maxdepth 1 -type d -name "uxscii-*" 2>/dev/null | wc -l | tr -d ' ')
+            local global_count=$(find "$HOME/.claude/skills" -maxdepth 1 -type d -name "fluxwing-*" 2>/dev/null | wc -l | tr -d ' ')
             if [ "$global_count" -gt 0 ]; then
                 locations=("$HOME/.claude/skills")
             fi

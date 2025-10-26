@@ -19,12 +19,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 fluxwing-skills/                # Repository root
 ├── .claude/
 │   └── skills/                 # 6 Skills (primary focus)
-│       ├── uxscii-component-creator/
-│       ├── uxscii-library-browser/
-│       ├── uxscii-component-expander/
-│       ├── uxscii-screen-scaffolder/
-│       ├── uxscii-component-viewer/
-│       └── uxscii-screenshot-importer/
+│       ├── fluxwing-component-creator/
+│       ├── fluxwing-library-browser/
+│       ├── fluxwing-component-expander/
+│       ├── fluxwing-screen-scaffolder/
+│       ├── fluxwing-component-viewer/
+│       └── fluxwing-screenshot-importer/
 ├── scripts/
 │   ├── install.sh              # Skills installation script
 │   └── uninstall.sh            # Skills removal script
@@ -53,32 +53,32 @@ Screens add a third file:
 
 The six skills handle different aspects of UX design:
 
-1. **uxscii-component-creator** - Create new components (buttons, inputs, cards, etc.)
+1. **fluxwing-component-creator** - Create new components (buttons, inputs, cards, etc.)
    - Triggers: "Create a button", "I need an input component"
    - Uses: `general-purpose` agent with component creation instructions
    - Outputs: `./fluxwing/components/{name}.uxm` + `.md`
 
-2. **uxscii-library-browser** - Browse available templates and user components
+2. **fluxwing-library-browser** - Browse available templates and user components
    - Triggers: "Show me all components", "Browse the library"
    - Tools: Read-only (Read, Glob, Grep)
    - Searches: bundled templates, library, user components
 
-3. **uxscii-component-expander** - Add states to existing components
+3. **fluxwing-component-expander** - Add states to existing components
    - Triggers: "Add hover state to my button", "Make this component interactive"
    - Modifies: Existing `.uxm` and `.md` files in place
    - Adds: hover, focus, disabled, active, error states
 
-4. **uxscii-screen-scaffolder** - Build complete screens from components
+4. **fluxwing-screen-scaffolder** - Build complete screens from components
    - Triggers: "Create a login screen", "Build a dashboard"
    - Uses: `general-purpose` agent for component creation and screen composition
    - Outputs: `./fluxwing/screens/{name}.uxm` + `.md` + `.rendered.md`
 
-5. **uxscii-component-viewer** - View component details
+5. **fluxwing-component-viewer** - View component details
    - Triggers: "Show me the submit-button", "View component details"
    - Tools: Read-only (Read, Glob, Grep)
    - Displays: Full metadata, ASCII preview, all states
 
-6. **uxscii-screenshot-importer** - Convert screenshots to uxscii components
+6. **fluxwing-screenshot-importer** - Convert screenshots to uxscii components
    - Triggers: "Import this screenshot", "Convert screenshot to uxscii"
    - Uses: `general-purpose` agent for vision analysis and component generation
    - Outputs: Components extracted from screenshot images
@@ -191,14 +191,14 @@ The installer:
 #### Adding Component Templates
 
 1. Create `.uxm` + `.md` pair in appropriate skill's `templates/` directory
-2. Validate against schema (`.claude/skills/uxscii-component-creator/schemas/uxm-component.schema.json`)
+2. Validate against schema (`.claude/skills/fluxwing-component-creator/schemas/uxm-component.schema.json`)
 3. Document in skill's `SKILL.md` if notable
 4. Reinstall skills to apply changes
 
 
 ## Schema and Validation
 
-**Definitive source of truth**: `.claude/skills/uxscii-component-creator/schemas/uxm-component.schema.json`
+**Definitive source of truth**: `.claude/skills/fluxwing-component-creator/schemas/uxm-component.schema.json`
 
 This JSON Schema (Draft-07) defines:
 - Required fields (id, type, version, metadata, props, ascii)
@@ -281,8 +281,8 @@ Follow uxscii standard strictly.`
 ## Key Architectural Principles
 
 ### 1. Fluxwing vs uxscii Naming
-- Skills use `uxscii-*` prefix for skill names
-- Agents use `fluxwing-*` prefix for agent names (historical)
+- Skills use `fluxwing-*` prefix for skill names (the tool)
+- Format uses `uxscii` standard (the language, like JSON)
 - This distinguishes tool from standard
 
 ### 2. Self-Contained Portability
@@ -319,33 +319,33 @@ All interactive components should include:
 ## File References by Task
 
 ### Creating Components
-- `.claude/skills/uxscii-component-creator/SKILL.md` - Component creation workflow
-- `.claude/skills/uxscii-component-creator/templates/` - 11 bundled templates
-- `.claude/skills/uxscii-component-creator/schemas/uxm-component.schema.json` - Validation
-- `.claude/skills/uxscii-component-creator/docs/03-component-creation.md` - Detailed guide
-- `.claude/skills/uxscii-component-creator/docs/06-ascii-patterns.md` - Box-drawing characters
+- `.claude/skills/fluxwing-component-creator/SKILL.md` - Component creation workflow
+- `.claude/skills/fluxwing-component-creator/templates/` - 11 bundled templates
+- `.claude/skills/fluxwing-component-creator/schemas/uxm-component.schema.json` - Validation
+- `.claude/skills/fluxwing-component-creator/docs/03-component-creation.md` - Detailed guide
+- `.claude/skills/fluxwing-component-creator/docs/06-ascii-patterns.md` - Box-drawing characters
 
 ### Building Screens
-- `.claude/skills/uxscii-screen-scaffolder/SKILL.md` - Screen scaffolding workflow
-- `.claude/skills/uxscii-screen-scaffolder/templates/` - 2 complete screen examples
-- `.claude/skills/uxscii-screen-scaffolder/docs/04-screen-composition.md` - Screen guide
+- `.claude/skills/fluxwing-screen-scaffolder/SKILL.md` - Screen scaffolding workflow
+- `.claude/skills/fluxwing-screen-scaffolder/templates/` - 2 complete screen examples
+- `.claude/skills/fluxwing-screen-scaffolder/docs/04-screen-composition.md` - Screen guide
 
 ### Browsing Library
-- `.claude/skills/uxscii-library-browser/SKILL.md` - Library browsing workflow
-- `.claude/skills/uxscii-library-browser/docs/07-examples-guide.md` - Template reference
+- `.claude/skills/fluxwing-library-browser/SKILL.md` - Library browsing workflow
+- `.claude/skills/fluxwing-library-browser/docs/07-examples-guide.md` - Template reference
 
 ### Expanding Components
-- `.claude/skills/uxscii-component-expander/SKILL.md` - State expansion workflow
-- `.claude/skills/uxscii-component-expander/docs/03-component-creation.md` - Creation details
-- `.claude/skills/uxscii-component-expander/docs/06-ascii-patterns.md` - ASCII patterns
+- `.claude/skills/fluxwing-component-expander/SKILL.md` - State expansion workflow
+- `.claude/skills/fluxwing-component-expander/docs/03-component-creation.md` - Creation details
+- `.claude/skills/fluxwing-component-expander/docs/06-ascii-patterns.md` - ASCII patterns
 
 ### Viewing Components
-- `.claude/skills/uxscii-component-viewer/SKILL.md` - Component viewing workflow
-- `.claude/skills/uxscii-component-viewer/docs/02-core-concepts.md` - Core concepts
+- `.claude/skills/fluxwing-component-viewer/SKILL.md` - Component viewing workflow
+- `.claude/skills/fluxwing-component-viewer/docs/02-core-concepts.md` - Core concepts
 
 ### Importing Screenshots
-- `.claude/skills/uxscii-screenshot-importer/SKILL.md` - Import workflow
-- `.claude/skills/uxscii-screenshot-importer/docs/` - 6 screenshot analysis guides
+- `.claude/skills/fluxwing-screenshot-importer/SKILL.md` - Import workflow
+- `.claude/skills/fluxwing-screenshot-importer/docs/` - 6 screenshot analysis guides
 
 ## Documentation References
 
@@ -375,12 +375,12 @@ All interactive components should include:
 
 ### Natural Language Testing
 After installing skills, test with these triggers:
-1. "Create a button" → uxscii-component-creator
-2. "Show me all components" → uxscii-library-browser
-3. "Add hover state to my button" → uxscii-component-expander
-4. "Build a login screen" → uxscii-screen-scaffolder
-5. "Show me the primary-button" → uxscii-component-viewer
-6. "Import this screenshot" → uxscii-screenshot-importer
+1. "Create a button" → fluxwing-component-creator
+2. "Show me all components" → fluxwing-library-browser
+3. "Add hover state to my button" → fluxwing-component-expander
+4. "Build a login screen" → fluxwing-screen-scaffolder
+5. "Show me the primary-button" → fluxwing-component-viewer
+6. "Import this screenshot" → fluxwing-screenshot-importer
 
 ## Active Technologies
 - HTML5, CSS3, JavaScript ES6+ (browser native) + IBM Plex Mono (web font), GitHub Pages (hosting) (001-github-pages-ascii-redesign)
