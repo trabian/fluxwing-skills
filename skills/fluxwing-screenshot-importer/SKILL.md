@@ -1,7 +1,7 @@
 ---
 name: Fluxwing Screenshot Importer
 description: Import UI screenshots and generate uxscii components automatically using vision analysis. Use when user wants to import, convert, or generate .uxm components from screenshots or images.
-version: 1.0.0
+version: 0.0.1
 author: Trabian
 allowed-tools: Read, Write, Task, TodoWrite, Glob
 ---

@@ -6,7 +6,7 @@
       "name": "fluxwing-skills",
       "description": "Create UI components and screens through natural language using ASCII art and structured metadata. Includes 6 specialized skills for component creation, screen scaffolding, library browsing, state expansion, component viewing, and screenshot importing.",
       "source": ".",
-      "version": "1.0.0",
+      "version": "0.0.1",
       "author": "Trabian",
       "license": "MIT",
       "keywords": [

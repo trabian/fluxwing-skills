@@ -1,7 +1,7 @@
 ---
 name: Fluxwing Component Viewer
 description: View detailed information about a specific uxscii component including metadata, states, props, and ASCII preview. Use when working with .uxm files, when user wants to see, view, inspect, or get details about a .uxm component.
-version: 1.0.0
+version: 0.0.1
 author: Trabian
 allowed-tools: Read, Glob, Grep
 ---
