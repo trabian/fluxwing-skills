@@ -1,0 +1,32 @@
+# ASCII Section Dividers
+# Horizontal dividers for separating content sections
+
+## Light Single Line
+────────────────────────────────────────
+
+## Heavy Single Line
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## Double Line
+════════════════════════════════════════
+
+## Light Dashed
+╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+
+## Heavy Dashed
+╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
+
+## Dotted
+┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+
+## With Center Text Marker
+──────────── ⚡ ────────────
+
+## With Side Markers
+▸────────────────────────────────────◂
+
+## Geometric Pattern
+─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─
+
+## Arrows
+→ → → → → → → → → → → → → → → → → → → →
