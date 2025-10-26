@@ -1,6 +1,6 @@
-# UXscii Skills Installation Guide
+# Fluxwing Skills Installation Guide
 
-This guide covers installing the UXscii skills for Claude Code.
+This guide covers installing the Fluxwing skills for Claude Code.
 
 ## Quick Start
 
@@ -87,9 +87,9 @@ mkdir -p .claude/skills
 ### 2. Copy Skills
 
 ```bash
-cp -r .claude/skills/uxscii-* ~/.claude/skills/
+cp -r .claude/skills/fluxwing-* ~/.claude/skills/
 # or
-cp -r .claude/skills/uxscii-* .claude/skills/
+cp -r .claude/skills/fluxwing-* .claude/skills/
 ```
 
 ### 3. Verify Installation
@@ -97,7 +97,7 @@ cp -r .claude/skills/uxscii-* .claude/skills/
 Check that all skills are present:
 
 ```bash
-ls ~/.claude/skills/uxscii-*/SKILL.md
+ls ~/.claude/skills/fluxwing-*/SKILL.md
 # Should show 6 files
 ```
 
@@ -124,22 +124,22 @@ Test each skill with natural language:
 # In Claude Code, try these prompts:
 
 1. "Create a button"
-   → Should activate uxscii-component-creator
+   → Should activate fluxwing-component-creator
 
 2. "Show me all components"
-   → Should activate uxscii-library-browser
+   → Should activate fluxwing-library-browser
 
 3. "Add hover state to my button"
-   → Should activate uxscii-component-expander
+   → Should activate fluxwing-component-expander
 
 4. "Build a login screen"
-   → Should activate uxscii-screen-scaffolder
+   → Should activate fluxwing-screen-scaffolder
 
 5. "Show me the primary-button"
-   → Should activate uxscii-component-viewer
+   → Should activate fluxwing-component-viewer
 
 6. "Import this screenshot"
-   → Should activate uxscii-screenshot-importer
+   → Should activate fluxwing-screenshot-importer
 ```
 
 ---
@@ -148,12 +148,12 @@ Test each skill with natural language:
 
 ### 6 Skills
 
-1. **uxscii-component-creator** - Create UI components
-2. **uxscii-library-browser** - Browse available components
-3. **uxscii-component-expander** - Add interaction states
-4. **uxscii-screen-scaffolder** - Build complete screens
-5. **uxscii-component-viewer** - View component details
-6. **uxscii-screenshot-importer** - Import from screenshots
+1. **fluxwing-component-creator** - Create UI components
+2. **fluxwing-library-browser** - Browse available components
+3. **fluxwing-component-expander** - Add interaction states
+4. **fluxwing-screen-scaffolder** - Build complete screens
+5. **fluxwing-component-viewer** - View component details
+6. **fluxwing-screenshot-importer** - Import from screenshots
 
 ### Supporting Files
 
@@ -172,7 +172,7 @@ Test each skill with natural language:
 
 ```
 You: Create a button
-Claude: [Activates uxscii-component-creator skill]
+Claude: [Activates fluxwing-component-creator skill]
         [Creates ./fluxwing/components/button.uxm]
 ```
 
@@ -180,7 +180,7 @@ Claude: [Activates uxscii-component-creator skill]
 
 ```
 You: Show me all components
-Claude: [Activates uxscii-library-browser skill]
+Claude: [Activates fluxwing-library-browser skill]
         [Displays tree of bundled + user components]
 ```
 
@@ -188,7 +188,7 @@ Claude: [Activates uxscii-library-browser skill]
 
 ```
 You: Add hover state to my button
-Claude: [Activates uxscii-component-expander skill]
+Claude: [Activates fluxwing-component-expander skill]
         [Updates button.uxm with hover state]
 ```
 
@@ -196,7 +196,7 @@ Claude: [Activates uxscii-component-expander skill]
 
 ```
 You: Build a login screen
-Claude: [Activates uxscii-screen-scaffolder skill]
+Claude: [Activates fluxwing-screen-scaffolder skill]
         [Creates ./fluxwing/screens/login-screen.uxm]
 ```
 
@@ -209,10 +209,10 @@ Claude: [Activates uxscii-screen-scaffolder skill]
 **Problem:** Natural language doesn't trigger skills.
 
 **Solutions:**
-1. Verify installation location: `ls ~/.claude/skills/uxscii-*/SKILL.md`
-2. Check YAML frontmatter: `head -n 10 ~/.claude/skills/uxscii-component-creator/SKILL.md`
+1. Verify installation location: `ls ~/.claude/skills/fluxwing-*/SKILL.md`
+2. Check YAML frontmatter: `head -n 10 ~/.claude/skills/fluxwing-component-creator/SKILL.md`
 3. Restart Claude Code
-4. Try more explicit language: "Use the uxscii component creator to make a button"
+4. Try more explicit language: "Use the fluxwing component creator to make a button"
 
 ### "SKILL.md not found" Errors
 
@@ -220,7 +220,7 @@ Claude: [Activates uxscii-screen-scaffolder skill]
 
 **Solutions:**
 1. Re-run installer with `--force`: `./scripts/install.sh --force`
-2. Check source directory exists: `ls .claude/skills/uxscii-*/SKILL.md`
+2. Check source directory exists: `ls .claude/skills/fluxwing-*/SKILL.md`
 3. Verify permissions: `ls -la ~/.claude/skills/`
 
 ### Templates Not Found
@@ -228,7 +228,7 @@ Claude: [Activates uxscii-screen-scaffolder skill]
 **Problem:** Skills can't find component templates.
 
 **Solutions:**
-1. Verify templates exist: `ls .claude/skills/uxscii-component-creator/templates/*.uxm`
+1. Verify templates exist: `ls .claude/skills/fluxwing-component-creator/templates/*.uxm`
 2. Check file count: Should be 11+ .uxm files
 3. Reinstall: `./scripts/install.sh --force`
 
@@ -262,7 +262,7 @@ Claude: [Activates uxscii-screen-scaffolder skill]
 ```
 
 **What happens:**
-- ✅ Removes all uxscii-* skills
+- ✅ Removes all fluxwing-* skills
 - ✅ Preserves user data in `./fluxwing/`
 - ✅ Shows confirmation before removal
 
@@ -293,7 +293,7 @@ Claude: [Activates uxscii-screen-scaffolder skill]
 - ✅ `./fluxwing/screens/` - Your screens
 - ✅ `./fluxwing/library/` - Your component library
 
-Only skill files in `.claude/skills/uxscii-*` are removed.
+Only skill files in `.claude/skills/fluxwing-*` are removed.
 
 ---
 
@@ -317,25 +317,25 @@ git pull
 
 ```
 ~/.claude/skills/
-├── uxscii-component-creator/
+├── fluxwing-component-creator/
 │   ├── SKILL.md
 │   ├── templates/           # 11 component templates
 │   ├── schemas/             # JSON Schema
 │   └── docs/                # Documentation
-├── uxscii-library-browser/
+├── fluxwing-library-browser/
 │   ├── SKILL.md
 │   └── docs/
-├── uxscii-component-expander/
+├── fluxwing-component-expander/
 │   ├── SKILL.md
 │   └── docs/
-├── uxscii-screen-scaffolder/
+├── fluxwing-screen-scaffolder/
 │   ├── SKILL.md
 │   ├── templates/           # 2 screen templates
 │   └── docs/
-├── uxscii-component-viewer/
+├── fluxwing-component-viewer/
 │   ├── SKILL.md
 │   └── docs/
-└── uxscii-screenshot-importer/
+└── fluxwing-screenshot-importer/
     ├── SKILL.md
     └── docs/                # 6 screenshot docs
 ```

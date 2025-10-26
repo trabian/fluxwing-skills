@@ -52,7 +52,7 @@ Simply ask Claude:
 "Create a button component"
 ```
 
-The **uxscii-component-creator** skill activates and guides you through creating a button with interactive states, accessibility attributes, and clean ASCII visualization.
+The **fluxwing-component-creator** skill activates and guides you through creating a button with interactive states, accessibility attributes, and clean ASCII visualization.
 
 ### Browse the Library
 
@@ -61,7 +61,7 @@ Ask Claude:
 "Show me all available components"
 ```
 
-The **uxscii-library-browser** skill shows you 11 bundled templates (buttons, inputs, cards, modals, etc.) and your project components.
+The **fluxwing-library-browser** skill shows you 11 bundled templates (buttons, inputs, cards, modals, etc.) and your project components.
 
 ### Build a Complete Screen
 
@@ -70,7 +70,7 @@ Ask Claude:
 "Build a login screen"
 ```
 
-The **uxscii-screen-scaffolder** skill creates missing components, composes them into a screen, and generates rendered examples with real data.
+The **fluxwing-screen-scaffolder** skill creates missing components, composes them into a screen, and generates rendered examples with real data.
 
 ### Add Component States
 
@@ -79,7 +79,7 @@ Ask Claude:
 "Add hover state to my button"
 ```
 
-The **uxscii-component-expander** skill adds interactive states (hover, focus, disabled, active, error) to existing components.
+The **fluxwing-component-expander** skill adds interactive states (hover, focus, disabled, active, error) to existing components.
 
 ---
 
@@ -87,12 +87,12 @@ The **uxscii-component-expander** skill adds interactive states (hover, focus, d
 
 | Skill | Triggers | Purpose |
 |-------|----------|---------|
-| **uxscii-component-creator** | "Create a button", "I need an input component" | Create new components (buttons, inputs, cards, etc.) |
-| **uxscii-library-browser** | "Show me all components", "Browse the library" | Browse available templates and user components |
-| **uxscii-component-expander** | "Add hover state", "Make this interactive" | Add states to existing components |
-| **uxscii-screen-scaffolder** | "Create a login screen", "Build a dashboard" | Build complete screens from components |
-| **uxscii-component-viewer** | "Show me the submit-button", "View details" | View component details and metadata |
-| **uxscii-screenshot-importer** | "Import this screenshot", "Convert screenshot" | Convert screenshots to uxscii components |
+| **fluxwing-component-creator** | "Create a button", "I need an input component" | Create new components (buttons, inputs, cards, etc.) |
+| **fluxwing-library-browser** | "Show me all components", "Browse the library" | Browse available templates and user components |
+| **fluxwing-component-expander** | "Add hover state", "Make this interactive" | Add states to existing components |
+| **fluxwing-screen-scaffolder** | "Create a login screen", "Build a dashboard" | Build complete screens from components |
+| **fluxwing-component-viewer** | "Show me the submit-button", "View details" | View component details and metadata |
+| **fluxwing-screenshot-importer** | "Import this screenshot", "Convert screenshot" | Convert screenshots to uxscii components |
 
 **Skills activate automatically** based on your natural language requests to Claude.
 

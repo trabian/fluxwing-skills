@@ -1,12 +1,12 @@
 ---
-name: UXscii Screen Scaffolder
-description: Build complete UI screens by composing multiple components when user wants to create, scaffold, or build screens like login, dashboard, profile, settings, checkout pages
+name: Fluxwing Screen Scaffolder
+description: Build complete UI screens by composing multiple uxscii components. Use when working with .uxm files, when user wants to create, scaffold, or build .uxm screens like login, dashboard, profile, settings, or checkout pages.
 version: 1.0.0
 author: Trabian
 allowed-tools: Read, Write, Glob, Grep, Task, TodoWrite
 ---
 
-# UXscii Screen Scaffolder
+# Fluxwing Screen Scaffolder
 
 Create complete screen designs using the **uxscii standard** by orchestrating specialized agents.
 

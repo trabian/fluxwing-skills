@@ -1,12 +1,12 @@
 ---
-name: UXscii Screenshot Importer
-description: Import UI screenshots and generate uxscii components automatically using vision analysis when user wants to import, convert, or generate components from screenshots or images
+name: Fluxwing Screenshot Importer
+description: Import UI screenshots and generate uxscii components automatically using vision analysis. Use when user wants to import, convert, or generate .uxm components from screenshots or images.
 version: 1.0.0
 author: Trabian
 allowed-tools: Read, Write, Task, TodoWrite, Glob
 ---
 
-# UXscii Screenshot Importer
+# Fluxwing Screenshot Importer
 
 Import UI screenshots and convert them to the **uxscii standard** by orchestrating specialized vision agents.
 
