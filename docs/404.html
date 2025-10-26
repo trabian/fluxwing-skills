@@ -1,82 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>404 — Page Not Found | Fluxwing Skills</title>
-    <meta name="description" content="The page you're looking for doesn't exist.">
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/docs.css">
-  </head>
-  <body class="crt-bg subpage">
-    <a class="skip-link" href="#main">Skip to content</a>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Page Not Found | Fluxwing</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./css/ascii-core.css">
+  <link rel="stylesheet" href="./css/components.css">
+  <link rel="stylesheet" href="./css/responsive.css">
+</head>
+<body class="page">
+  <main id="main-content" style="min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+    <div class="layout-container" style="text-align: center;">
+      <pre aria-label="404 error in ASCII art" role="img" class="ascii-box-double" style="display: inline-block; font-size: var(--font-size-lg);">
+╔═══════════════════════════╗
+║                           ║
+║       404 ERROR           ║
+║   Page Not Found          ║
+║                           ║
+║   ¯\_(ツ)_/¯              ║
+║                           ║
+╚═══════════════════════════╝
+      </pre>
 
-    <header style="padding: 2rem clamp(1.5rem, 6vw, 6rem); background: rgba(2, 5, 8, 0.95); border-bottom: 1px dashed rgba(94, 247, 194, 0.35);">
-      <nav style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-        <a href="/" style="font-size: 1.25rem; font-weight: 700; color: var(--fw-accent-strong);">Fluxwing</a>
-        <ul style="display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; flex-wrap: wrap;">
-          <li><a href="/why.html">Why Fluxwing</a></li>
-          <li><a href="/use-cases.html">Use Cases</a></li>
-          <li><a href="/#install">Install</a></li>
-          <li><a href="/#docs">Docs</a></li>
-          <li><a href="https://github.com/fluxwing/fluxwing-skills">GitHub</a></li>
-        </ul>
-      </nav>
-    </header>
+      <h1 class="sr-only">404 - Page Not Found</h1>
 
-    <main id="main" style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 4rem 2rem;">
-      <div style="max-width: 600px; text-align: center;">
-        <pre style="font-family: var(--fw-font); font-size: 0.85rem; line-height: 1.4; color: var(--fw-accent); margin: 0 0 2rem;">
-┌─────────────────────────────┐
-│                             │
-│        ERROR: 404           │
-│                             │
-│   Page not found in         │
-│   component library         │
-│                             │
-└─────────────────────────────┘
-        </pre>
-        <h1 style="font-size: 2.5rem; margin: 0 0 1rem; color: var(--fw-accent);">404</h1>
-        <p style="font-size: 1.25rem; margin: 0 0 2rem; color: rgba(210, 248, 255, 0.85);">
-          This page doesn't exist in the component library.
-        </p>
-        <p style="margin: 0 0 2rem; color: rgba(210, 248, 255, 0.75);">
-          The page you're looking for might have been moved, renamed, or never existed.
-        </p>
-        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-          <a href="/" class="btn btn--primary">Go Home</a>
-          <a href="/#docs" class="btn btn--ghost">Browse Docs</a>
-        </div>
-        <div style="margin-top: 3rem; padding: 1.5rem; background: rgba(10, 16, 24, 0.85); border: 1px dashed rgba(94, 247, 194, 0.25); border-radius: 8px; text-align: left;">
-          <h2 style="margin: 0 0 1rem; font-size: 1.1rem; color: var(--fw-accent);">Looking for documentation?</h2>
-          <ul style="margin: 0; padding: 0 0 0 1.5rem; color: rgba(210, 248, 255, 0.85);">
-            <li style="margin-bottom: 0.5rem;"><a href="/reference/getting-started.html">Getting Started</a> - Installation and first component</li>
-            <li style="margin-bottom: 0.5rem;"><a href="/reference/commands.html">Command Reference</a> - All 6 skills documented</li>
-            <li style="margin-bottom: 0.5rem;"><a href="/reference/architecture.html">Architecture</a> - System design and principles</li>
-            <li style="margin-bottom: 0.5rem;"><a href="/reference/how-skills-work.html">How Skills Work</a> - Agent invocation model</li>
-          </ul>
-        </div>
+      <p class="mt-6">The page you're looking for doesn't exist.</p>
+
+      <div class="flex justify-center gap-4 mt-6">
+        <a href="./index.html" class="ascii-button ascii-button--success">
+          ← Back to Home
+        </a>
+        <a href="./reference/getting-started.html" class="ascii-button">
+          View Documentation
+        </a>
       </div>
-    </main>
+    </div>
+  </main>
 
-    <footer class="site-footer">
-      <div class="site-footer__grid">
-        <div>
-          <h2 class="site-footer__title">Fluxwing</h2>
-          <p><strong>Design systems that humans AND AI agents understand natively.</strong></p>
-          <p style="margin-top: 0.5rem; font-size: 0.95rem;">Built on the open uxscii standard. ASCII is the universal interface.</p>
-        </div>
-        <nav aria-label="Footer">
-          <ul>
-            <li><a href="https://github.com/fluxwing/fluxwing-skills">GitHub</a></li>
-            <li><a href="/#docs">Documentation</a></li>
-            <li><a href="/#install">Install</a></li>
-          </ul>
-        </nav>
-      </div>
-      <p class="site-footer__legal">© <span data-year></span> Fluxwing. Build component libraries through derivation, not duplication. A product by <a href="https://www.trabian.com">Trabian</a>.</p>
-    </footer>
-
-    <script>document.querySelector('[data-year]').textContent = new Date().getFullYear();</script>
-  </body>
+  <script src="./js/main.js"></script>
+</body>
 </html>

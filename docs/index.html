@@ -1,146 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Fluxwing — Design Systems That Humans AND AI Agents Understand Natively</title>
-    <meta name="description" content="ASCII-based design system that humans and AI agents understand natively. Build component libraries through derivation. Living documentation for modern AI-assisted development.">
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://fluxwing.com/">
-    <meta property="og:title" content="Fluxwing — Design Systems That Humans AND AI Agents Understand Natively">
-    <meta property="og:description" content="ASCII-based design system that humans and AI agents understand natively. Build component libraries through derivation.">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://fluxwing.com/">
-    <meta property="twitter:title" content="Fluxwing — Design Systems That Humans AND AI Agents Understand Natively">
-    <meta property="twitter:description" content="ASCII-based design system that humans and AI agents understand natively. Build component libraries through derivation.">
-
-    <meta name="posthog-host" content="https://us.i.posthog.com">
-    <meta name="posthog-key" content="">
-    <link rel="preload" href="css/base.css" as="style">
-    <link rel="stylesheet" href="css/base.css">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Fluxwing makes ASCII-first UX design tools for AI-native teams."
+    />
+    <title>Fluxwing · ASCII UX for AI-Native Builders</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./css/ascii-core.css?v=20240602b" />
+    <link rel="stylesheet" href="./css/components.css?v=20240602b" />
+    <link rel="stylesheet" href="./css/responsive.css?v=20240602b" />
   </head>
-  <body class="crt-bg">
-    <a class="skip-link" href="#main">Skip to content</a>
-    <header class="hero">
-      <div class="hero__terminal-shell" data-terminal>
-        <div class="hero__terminal-fallback" role="img" aria-label="Fluxwing terminal demonstration" style="overflow: hidden;">
-          <pre style="overflow: hidden;">
-╔════════════════════════════════════════════════════════════════════╗
-║ /fluxwing-scaffold login-screen                                    ║
-║ ─ Building: header, form, footer                                   ║
-║ ─ Rendering ASCII preview...                                       ║
-║                                                                    ║
-║ [ Login Screen ]                                                   ║
-║ ┌──────────────────────────────┐                                   ║
-║ │  Welcome back to Fluxwing    │                                   ║
-║ │  [ email@example.com      ]  │                                   ║
-║ │  [ ********             ]    │                                   ║
-║ │  ( ) Remember me             │                                   ║
-║ │  [ Sign In ]   [ Reset ]     │                                   ║
-║ └──────────────────────────────┘                                   ║
-║                                                                    ║
-║ ✔ Validated against uxscii schema                                  ║
-╚════════════════════════════════════════════════════════════════════╝
-          </pre>
+  <body class="page">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <header role="banner">
+      <div class="layout-container">
+        <div class="site-header">
+          <div class="site-header__logo" aria-hidden="true">
+            <pre>
+╔══════════════════╗
+║   F L U X W I N G║
+╚══════════════════╝
+            </pre>
+          </div>
+          <div class="site-header__identity">
+            <p>ASCII-first UX components for AI-native tooling.</p>
+          </div>
         </div>
       </div>
-      <div class="hero__content">
-        <p class="eyebrow">Claude Code Plugin</p>
-        <h1 class="hero__headline" aria-label="Design Systems That Humans AND AI Agents Understand Natively"><span aria-hidden="true">┌─ DESIGN SYSTEMS FOR HUMANS + AI ──────────┐<br>│ Build component libraries that both       │<br>│ humans AND AI agents understand natively. │<br>└───────────────────────────────────────────┘</span><span class="hero__headline-mobile">Design Systems for Humans + AI</span></h1>
-        <p class="lede">ASCII-based design language that enables instant visual feedback from humans and perfect comprehension by AI agents. Build component libraries that evolve through <strong>derivation, not duplication</strong>. The <span class="fluxwing-inline"><span class="fluxwing-inline__brace">==</span><span class="fluxwing-inline__text">FL<span class="fluxwing-inline__u">U</span><span class="fluxwing-inline__x">X</span>W<span class="fluxwing-inline__i">I</span>NG</span><span class="fluxwing-inline__brace">==</span></span> agent speaks uxscii—the universal interface.</p>
-        <div class="hero__install" data-typed-terminal data-typed-commands="/plugin marketplace add fluxwing/claude-code-plugins|/plugin install fluxwing">
-          <h2 class="hero__install-label">Quick install</h2>
-          <div class="hero__install-screen" aria-live="polite" aria-atomic="true">
-            <pre class="hero__install-pre"><code data-typed-output>fluxwing@cli % /plugin marketplace add fluxwing/claude-code-plugins
-→ marketplace registry synced
-fluxwing@cli % /plugin install fluxwing
-→ fluxwing plugin installed
-✔ ready: fluxwing</code></pre>
-          </div>
-          <pre class="hero__install-banner" data-typed-banner aria-hidden="true">
-┌───────────────────────────────┐
-│ fluxwing plugin installed    │
-│ launch with /fluxwing-create │
-└───────────────────────────────┘
-</pre>
-          <button class="copy-btn" type="button" data-copy="/plugin marketplace add fluxwing/claude-code-plugins&#10;/plugin install fluxwing">Copy</button>
+      <nav class="primary-nav" aria-label="Primary">
+        <div class="layout-container">
+          <ul class="primary-nav__list">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#value-props">Why Fluxwing</a></li>
+            <li><a href="#showcase">Component Gallery</a></li>
+            <li><a href="#installation">Install</a></li>
+            <li><a href="#docs-links">Documentation</a></li>
+          </ul>
+          <button class="primary-nav__toggle" aria-expanded="false" aria-controls="mobile-menu">
+            <span class="sr-only">Open navigation</span>
+            <span aria-hidden="true">[ ≡ MENU ]</span>
+          </button>
         </div>
-        <p class="hero__note">ASCII is the universal interface. Humans see it instantly. AI reads it perfectly. Create base components, derive variations, compose screens. Build libraries that grow organically through references, not copies.</p>
-        <div class="hero__actions">
-          <a class="btn btn--primary" href="#loop">See how it works</a>
-          <a class="btn btn--ghost" href="#docs">Explore docs</a>
-        </div>
-        <div class="brand-badge">
-          <span class="brand-badge__text">A product by</span>
-          <a class="brand-badge__link" href="https://www.trabian.com">
-            <img src="assets/trabian.svg" alt="Trabian logo" class="brand-badge__logo">
-          </a>
+      </nav>
+      <div id="mobile-menu" class="mobile-nav" hidden>
+        <div class="layout-container">
+          <ul class="mobile-nav__list">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#value-props">Why Fluxwing</a></li>
+            <li><a href="#showcase">Component Gallery</a></li>
+            <li><a href="#installation">Install</a></li>
+            <li><a href="#docs-links">Documentation</a></li>
+          </ul>
         </div>
       </div>
     </header>
-
-    <main id="main">
-      <section class="ascii-palette ascii-stop is-template" data-title="/fluxwing ascii palette" data-ascii-section aria-labelledby="palette-title">
-        <div class="ascii-palette__header">
-          <h2 id="palette-title">ASCII-first palette</h2>
-          <p>Flip between the token template Fluxwing emits and the same layout with mock values. Everything stays ASCII so downstream agents share the exact contract.</p>
-          <div class="ascii-palette__toggle" role="group" aria-label="View modes">
-            <button type="button" class="ascii-palette__btn is-active" data-ascii-mode="template" aria-pressed="true">Template</button>
-            <button type="button" class="ascii-palette__btn" data-ascii-mode="sample" aria-pressed="false">Sample Data</button>
+    <main id="main-content" role="main">
+      <section id="hero" aria-labelledby="hero-heading">
+        <div class="layout-container hero">
+          <div class="hero__content">
+            <h1 id="hero-heading">Fluxwing makes ASCII-first UX real.</h1>
+            <p class="hero__lead">
+              Train your interface like an AI co-pilot: Fluxwing ingests prompts, derives ASCII systems,
+              and ships terminal-perfect experiences without breaking accessibility.
+            </p>
+            <div class="hero__cta">
+              <a class="hero__cta-button ascii-button--success" href="#installation" aria-label="Get started with Fluxwing (success state example)">Get started</a>
+              <a class="hero__cta-button ascii-button--warning" href="#docs-links" aria-label="View documentation (warning state example)">View docs</a>
+            </div>
+            <div class="hero__terminal" aria-hidden="true">
+              <pre>
+┌────────────────────────────┐
+│ $ fluxwing neural-flight   │
+│ calibrating ascii vectors… │
+└────────────────────────────┘
+              </pre>
+            </div>
+          </div>
+          <figure class="hero__art" aria-label="Fluxwing rendered screen example">
+            <pre class="hero__ascii hero__ascii--dynamic" data-src="./assets/fluxwing-hero.txt" aria-hidden="true"></pre>
+            <pre class="hero__ascii hero__ascii--compact" aria-hidden="true">
+┌─────────────────┐
+│   FLUXWING      │
+│   ─────────     │
+│   ASCII UX      │
+└─────────────────┘
+            </pre>
+            <figcaption>AI DJ Mixer · uxscii render captured from fluxwing/screens/ai-dj-mixer.rendered.md</figcaption>
+            <noscript aria-hidden="true">
+              <pre>
+╔════ FLUXWING ════╗
+║ AI · ASCII · UX  ║
+╚══════════════════╝
+              </pre>
+            </noscript>
+          </figure>
+        </div>
+      </section>
+      <section id="palette-demo" aria-labelledby="palette-heading">
+        <div class="layout-container">
+          <h2 id="palette-heading">ASCII palette demo</h2>
+          <p>
+            Toggle controls and live data binding arrive in Phase 4; this block exists to anchor layout
+            spacing and ARIA semantics.
+          </p>
+          <div class="palette-placeholder" role="presentation">
+            <pre>
+╔════════════════════════════════╗
+║ template: {{component.border}} ║
+║ sample: ┌──────────┐           ║
+║         │  ASCII   │           ║
+║         └──────────┘           ║
+╚════════════════════════════════╝
+            </pre>
           </div>
         </div>
-        <div class="ascii-palette__display" data-ascii-panel>
-          <pre class="ascii-palette__ascii" data-template-view aria-hidden="false">┌──────────────────────────────────────────┐
-│  {{CARD_TITLE}}                          │
-│  ─────────────────────────────────────  │
-│  {{PRIMARY_BUTTON}}  {{SECONDARY_BTN}}   │
-│  Total due: {{TOTAL_AMOUNT}}             │
-│  Next cycle: {{DATE}} → {{REMINDER_TIP}} │
-└──────────────────────────────────────────┘</pre>
-          <pre class="ascii-palette__ascii ascii-palette__ascii--sample" data-sample-view aria-hidden="true">┌──────────────────────────────────────────┐
-│  Fluxwing Billing Summary               │
-│  ─────────────────────────────────────  │
-│  [ Pay balance ]  [ View details ]      │
-│  Total due: $2,450.00                   │
-│  Next cycle: Apr 26 → Remind team? (y)  │
-└──────────────────────────────────────────┘</pre>
+      </section>
+      <section id="value-props" aria-labelledby="value-props-heading">
+        <div class="layout-container">
+          <h2 id="value-props-heading">Why teams choose Fluxwing</h2>
+          <div class="value-props__grid" role="list">
+            <article class="value-prop" role="listitem">
+              <h3>Universal Interface</h3>
+              <p>ASCII works for BOTH humans and AI agents. Humans parse layouts instantly—see structure, hierarchy, relationships. AI agents understand perfectly—no vision models needed. One format, two audiences.</p>
+            </article>
+            <article class="value-prop" role="listitem">
+              <h3>Derivation Model</h3>
+              <p>Extend components like classes. Create button.uxm, derive primary-button.uxm that extends it. Change the base once, all derivations inherit. No copy-paste duplication. Like OOP for design.</p>
+            </article>
+            <article class="value-prop" role="listitem">
+              <h3>Component Evolution</h3>
+              <p>Build through references, not copies. Compose screens from reusable parts. Your design system becomes a graph of components that inherit and evolve organically—just like imports in code.</p>
+            </article>
+            <article class="value-prop" role="listitem">
+              <h3>Living Documentation</h3>
+              <p>Design specs that both humans review and AI can execute. In version control. In PRs. Single source of truth. Always in sync. No documentation drift. Text-based diffs show actual changes.</p>
+            </article>
+            <article class="value-prop" role="listitem">
+              <h3>AI-Native Design</h3>
+              <p>Built for modern AI-assisted development. AI agents read .uxm specs natively, understand relationships, and generate implementations. Perfect comprehension without interpretation layers.</p>
+            </article>
+          </div>
         </div>
       </section>
-      <section class="value-grid ascii-stop" data-title="/fluxwing benefits" aria-labelledby="value-title">
-        <h2 id="value-title">Why teams choose Fluxwing</h2>
-        <div class="value-grid__cards">
-          <article class="value-card">
-            <h3>Universal Interface</h3>
-            <p>ASCII works for BOTH humans and AI agents. Humans parse layouts instantly—see structure, hierarchy, relationships. AI agents understand perfectly—no vision models needed. One format, two audiences.</p>
-          </article>
-          <article class="value-card">
-            <h3>Derivation Model</h3>
-            <p>Extend components like classes. Create button.uxm, derive primary-button.uxm that extends it. Change the base once, all derivations inherit. No copy-paste duplication. Like OOP for design.</p>
-          </article>
-          <article class="value-card">
-            <h3>Component Evolution</h3>
-            <p>Build through references, not copies. Compose screens from reusable parts. Your design system becomes a graph of components that inherit and evolve organically—just like imports in code.</p>
-          </article>
-          <article class="value-card">
-            <h3>Living Documentation</h3>
-            <p>Design specs that both humans review and AI can execute. In version control. In PRs. Single source of truth. Always in sync. No documentation drift. Text-based diffs show actual changes.</p>
-          </article>
-          <article class="value-card">
-            <h3>AI-Native Design</h3>
-            <p>Built for modern AI-assisted development. AI agents read .uxm specs natively, understand relationships, and generate implementations. Perfect comprehension without interpretation layers.</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="derivation-model ascii-stop" data-title="/fluxwing derivation" aria-labelledby="derivation-title">
-        <h2 id="derivation-title">Derivation, Not Duplication</h2>
-        <p style="font-size: 1.1rem; color: rgba(210, 248, 255, 0.85); margin-bottom: 2rem;">Traditional design tools duplicate. Fluxwing derives. Like object-oriented programming but for design.</p>
-        <div class="derivation-diagram">
-          <pre aria-label="Component derivation tree" style="font-family: var(--fw-font); font-size: 0.95rem; line-height: 1.6; padding: 2rem; background: rgba(2, 5, 9, 0.92); border: 1px dashed rgba(94, 247, 194, 0.35); border-radius: 0; overflow-x: auto; color: var(--fw-accent); margin: 2rem 0;">button.uxm (base component)
+      <section id="derivation-model" aria-labelledby="derivation-heading">
+        <div class="layout-container">
+          <h2 id="derivation-heading">Derivation, Not Duplication</h2>
+          <p class="section-lead">
+            Traditional design tools duplicate. Fluxwing derives. Like object-oriented programming but for design.
+          </p>
+          <div class="derivation-diagram">
+            <pre aria-label="Component derivation tree">
+button.uxm (base component)
   ├→ primary-button.uxm (extends button)
   │   └→ submit-button.uxm (uses primary)
   ├→ secondary-button.uxm (extends button)
@@ -151,142 +171,147 @@ password-input.uxm
                     ↓
             login-form.uxm (composes inputs + submit-button)
                     ↓
-            login-screen.uxm (composes form + branding)</pre>
-        </div>
-        <p style="font-size: 1.15rem; font-weight: 600; text-align: center; color: var(--fw-accent-strong); margin-top: 2rem;"><strong>Change the base → All derivations inherit the change</strong></p>
-        <p style="margin-top: 1.5rem; color: rgba(210, 248, 255, 0.75);">Your design system becomes a graph of components that inherit, compose, and evolve organically. No duplication. Just references. Like imports in code.</p>
-      </section>
-
-      <section id="loop" class="how-it-works ascii-stop" data-title="/fluxwing workflow" aria-labelledby="flow-title">
-        <h2 id="flow-title">From Component to Screen in Minutes</h2>
-        <ol class="timeline">
-          <li>
-            <h3>Create Base Component</h3>
-            <p><code>/fluxwing-create button</code></p>
-            <p>Creates button.uxm with ASCII template. Humans see it, give instant feedback, iterate. AI understands the structure perfectly.</p>
-          </li>
-          <li>
-            <h3>Derive Variations</h3>
-            <p><code>/fluxwing-create primary-button --extends button</code><br>
-            <code>/fluxwing-create disabled-button --extends button</code></p>
-            <p>Extend base components. Inherit properties. Override what's different. No copy-paste duplication.</p>
-          </li>
-          <li>
-            <h3>Compose Components</h3>
-            <p><code>/fluxwing-create login-form --components email-input,password-input,submit-button</code></p>
-            <p>Reference existing components. Build forms from parts. Compose hierarchies naturally.</p>
-          </li>
-          <li>
-            <h3>Build Screens</h3>
-            <p><code>/fluxwing-scaffold login-screen</code></p>
-            <p>AI agents read your component library, understand relationships, generate complete screens.</p>
-          </li>
-          <li>
-            <h3>Let AI Generate</h3>
-            <p>Your .uxm files become specifications that AI agents read and implement. Living documentation that both humans review and AI executes. Always in sync.</p>
-          </li>
-        </ol>
-      </section>
-
-      <section class="gallery ascii-stop" data-title="/fluxwing library" aria-labelledby="gallery-title">
-        <div class="gallery__heading">
-          <h2 id="gallery-title">Component showcase</h2>
-          <p>Browse the mock library of buttons, cards, forms, modals, lists, and full screens. Toggle between ASCII and metadata to see how uxscii keeps design feedback human-friendly and agent-ready.</p>
-        </div>
-        <div class="gallery__grid" data-gallery>
-          <!-- Placeholder cards populated by scripts -->
+            login-screen.uxm (composes form + branding)
+            </pre>
+          </div>
+          <p class="emphasis-box">
+            <strong>Change the base → All derivations inherit the change</strong>
+          </p>
+          <p>
+            Your design system becomes a graph of components that inherit, compose, and evolve organically.
+            No duplication. Just references. Like imports in code.
+          </p>
         </div>
       </section>
-
-      <section class="validator ascii-stop" data-title="/fluxwing validate" aria-labelledby="validator-title">
-        <div class="validator__content">
-          <h2 id="validator-title">Quality reports, terminal-style</h2>
-          <p>Fluxwing’s validator agent audits accessibility, states, and schema completeness so your guidance stays clear. Review the diff, accept suggestions, and hand it off with confidence.</p>
-        </div>
-        <div class="validator__panel">
-          <pre aria-hidden="true" data-validator-fallback>
-╔════════════════════════════════════════╗
-║ /fluxwing-validate dashboard.uxm       ║
-║ ─ Checking required states...          ║
-║ ─ Verifying accessibility roles...     ║
-║ ─ Ensuring metadata completeness...    ║
-║                                        ║
-║ ✔ No issues found                      ║
-║ Tip: Add onboarding spotlight state    ║
-╚════════════════════════════════════════╝
-          </pre>
+      <section id="workflow" aria-labelledby="workflow-heading">
+        <div class="layout-container">
+          <h2 id="workflow-heading">From Component to Screen in Minutes</h2>
+          <ol class="workflow__steps">
+            <li data-step="1">
+              <h3>Create Base Component</h3>
+              <p><code>/fluxwing-create button</code></p>
+              <p>Creates button.uxm with ASCII template. Humans see it, give instant feedback, iterate. AI understands the structure perfectly.</p>
+            </li>
+            <li data-step="2">
+              <h3>Derive Variations</h3>
+              <p><code>/fluxwing-create primary-button --extends button</code><br>
+              <code>/fluxwing-create disabled-button --extends button</code></p>
+              <p>Extend base components. Inherit properties. Override what's different. No copy-paste duplication.</p>
+            </li>
+            <li data-step="3">
+              <h3>Compose Components</h3>
+              <p><code>/fluxwing-create login-form --components email-input,password-input,submit-button</code></p>
+              <p>Reference existing components. Build forms from parts. Compose hierarchies naturally.</p>
+            </li>
+            <li data-step="4">
+              <h3>Build Screens</h3>
+              <p><code>/fluxwing-scaffold login-screen</code></p>
+              <p>AI agents read your component library, understand relationships, generate complete screens.</p>
+            </li>
+            <li data-step="5">
+              <h3>Let AI Generate</h3>
+              <p>Your .uxm files become specifications that AI agents read and implement. Living documentation that both humans review and AI executes. Always in sync.</p>
+            </li>
+          </ol>
         </div>
       </section>
-
-      <section id="install" class="install ascii-stop" data-title="/fluxwing install" aria-labelledby="install-title">
-        <h2 id="install-title">Install in 30 seconds</h2>
-        <p>Add the Fluxwing marketplace and enable the plugin inside Claude Code to brief your design agents with consistent mocks.</p>
-        <div class="code-block">
-          <button class="copy-btn" type="button" data-copy="/plugin marketplace add fluxwing/claude-code-plugins&#10;/plugin install fluxwing">Copy</button>
-          <pre><code>/plugin marketplace add fluxwing/claude-code-plugins
-/plugin install fluxwing</code></pre>
+      <section id="showcase" aria-labelledby="showcase-heading">
+        <div class="layout-container">
+          <h2 id="showcase-heading">Component gallery</h2>
+          <p>Gallery filters and modal previews land in Phase 4; structure here supports the future JS hook.</p>
+          <div class="showcase__filters" role="tablist" aria-label="Component categories">
+            <button role="tab" aria-selected="true">All</button>
+            <button role="tab" aria-selected="false">Buttons</button>
+            <button role="tab" aria-selected="false">Inputs</button>
+            <button role="tab" aria-selected="false">Layouts</button>
+          </div>
+          <div class="showcase__grid">
+            <article class="showcase__card">
+              <h3>Primary button</h3>
+              <p>ASCII border + glow states.</p>
+            </article>
+            <article class="showcase__card">
+              <h3>Form layout</h3>
+              <p>Grid-aligned fields with retro labels.</p>
+            </article>
+            <article class="showcase__card">
+              <h3>Terminal window</h3>
+              <p>Faux CLI shell with blinking cursor.</p>
+            </article>
+          </div>
         </div>
-        <p class="install__note">Need more options? <a href="#docs">See full installation guide.</a></p>
       </section>
-
-      <section id="docs" class="docs ascii-stop" data-title="/fluxwing docs" aria-labelledby="docs-title">
-        <h2 id="docs-title">Documentation hub</h2>
-        <ul class="docs__links">
-          <li><a href="reference/commands.html">Command reference</a></li>
-          <li><a href="reference/how-skills-work.html">How skills work</a></li>
-          <li><a href="reference/architecture.html">Architecture deep dive</a></li>
-          <li><a href="reference/getting-started.html">Launch checklist</a></li>
-        </ul>
+      <section id="validator-demo" aria-labelledby="validator-heading">
+        <div class="layout-container">
+          <h2 id="validator-heading">Terminal validator</h2>
+          <p>
+            Animation hooks go in Phase 4; this marks up the progress panel and messaging for accessibility.
+          </p>
+          <div class="validator-placeholder" role="status" aria-live="polite">
+            <p>fluxwing validator · status: pending animation</p>
+          </div>
+        </div>
+      </section>
+      <section id="installation" aria-labelledby="installation-heading">
+        <div class="layout-container">
+          <h2 id="installation-heading">Install Fluxwing</h2>
+          <p>Run the install script or select a skill bundle to begin.</p>
+          <div class="installation__commands">
+            <code>./scripts/install.sh --dry-run</code>
+          </div>
+          <div class="installation__checklist" role="list">
+            <p role="listitem">✓ Installs all six skills locally</p>
+            <p role="listitem">✓ Populates ./fluxwing with generated assets</p>
+            <p role="listitem">✓ Keeps docs collateral in sync</p>
+          </div>
+        </div>
+      </section>
+      <section id="docs-links" aria-labelledby="docs-links-heading">
+        <div class="layout-container">
+          <h2 id="docs-links-heading">Documentation</h2>
+          <div class="docs-links__grid">
+            <article>
+              <h3>Getting started</h3>
+              <p><a href="./reference/getting-started.html">Kickoff guide</a></p>
+            </article>
+            <article>
+              <h3>Command reference</h3>
+              <p><a href="./reference/commands.html">CLI details</a></p>
+            </article>
+            <article>
+              <h3>Architecture</h3>
+              <p><a href="./reference/architecture.html">uxscii internals</a></p>
+            </article>
+            <article>
+              <h3>How skills work</h3>
+              <p><a href="./reference/how-skills-work.html">Skill system</a></p>
+            </article>
+          </div>
+        </div>
       </section>
     </main>
-
-    <footer class="site-footer">
-      <div class="site-footer__grid">
-        <div>
-          <h2 class="site-footer__title">Fluxwing</h2>
-          <p><strong>Design systems that humans AND AI agents understand natively.</strong></p>
-          <p style="margin-top: 0.5rem; font-size: 0.95rem;">Built on the open uxscii standard. ASCII is the universal interface.</p>
+    <footer role="contentinfo">
+      <div class="layout-container">
+        <div class="site-footer">
+          <div class="site-footer__logo" aria-hidden="true">
+            <pre>
+┌──────────────────────┐
+│  ▸ F L U X W I N G   │
+│    ASCII-first UX    │
+└──────────────────────┘
+            </pre>
+          </div>
+          <p>Crafted by Fluxwing · ASCII UX for AI-native builders</p>
+          <nav aria-label="Footer">
+            <ul class="site-footer__links">
+              <li><a href="https://github.com/trabian/fluxwing-skills">GitHub</a></li>
+              <li><a href="#docs-links">Docs</a></li>
+              <li><a href="https://trabian.com">Trabian</a></li>
+            </ul>
+          </nav>
         </div>
-        <nav aria-label="Footer">
-          <ul>
-            <li><a href="https://github.com/fluxwing/fluxwing-skills">GitHub</a></li>
-            <li><a href="https://github.com/fluxwing/fluxwing-skills/issues/new?template=feedback.md">Feedback</a></li>
-            <li><a href="#docs">Documentation</a></li>
-            <li><a href="#install">Install</a></li>
-          </ul>
-        </nav>
       </div>
-      <p class="site-footer__legal">© <span data-year></span> Fluxwing. Build component libraries through derivation, not duplication. A product by <a href="https://www.trabian.com">Trabian</a>.</p>
     </footer>
-
-    <script>
-      window.__POSTHOG_CONFIG__ = (() => {
-        const host = document.querySelector('meta[name="posthog-host"]');
-        const key = document.querySelector('meta[name="posthog-key"]');
-        return {
-          apiHost: host?.content?.trim() || "https://us.i.posthog.com",
-          apiKey: key?.content?.trim() || "",
-        };
-      })();
-    </script>
-    <script>
-      !function(t,e){var o,n,p,r;e.__SV||(window.posthog&&window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init hi Er $r ui br Sr capture Ri calculateEventProperties Tr register register_once register_for_session unregister unregister_for_session Or getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty Rr Pr createPersonProfile Cr mr Fr opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing kr debug L Ir getPageViewId captureTraceFeedback captureTraceMetric".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-    </script>
-    <script>
-      (function () {
-        const config = window.__POSTHOG_CONFIG__ || {};
-        if (!config.apiKey) {
-          console.warn("PostHog key missing; analytics disabled.");
-          return;
-        }
-
-        posthog.init(config.apiKey, {
-          api_host: config.apiHost || "https://us.i.posthog.com",
-          defaults: "2025-05-24",
-          person_profiles: "identified_only",
-        });
-      })();
-    </script>
-    <script src="js/main.js" type="module"></script>
+    <script src="./js/main.js?v=20240602b" defer></script>
   </body>
 </html>

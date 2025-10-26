@@ -1,197 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Use Cases - Fluxwing</title>
-  <meta name="description" content="How teams use Fluxwing for AI agent UIs, rapid prototyping, design systems at scale, and living documentation">
-  <link rel="stylesheet" href="css/base.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Fluxwing use cases: Rapid prototyping, design systems, documentation, and AI-assisted UI development.">
+  <title>Use Cases — Fluxwing ASCII-First UX</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./css/ascii-core.css">
+  <link rel="stylesheet" href="./css/components.css">
+  <link rel="stylesheet" href="./css/responsive.css">
 </head>
-<body class="crt-bg">
-  <a class="skip-link" href="#main">Skip to content</a>
-  
-  <header style="padding: 2rem clamp(1.5rem, 6vw, 6rem); background: rgba(2, 5, 8, 0.95); border-bottom: 1px dashed rgba(94, 247, 194, 0.35);">
-    <div class="mobile-nav-wrapper" style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-      <a href="/" style="font-size: 1.25rem; font-weight: 700; color: var(--fw-accent-strong);">Fluxwing</a>
-      <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
-      <nav style="display: flex; align-items: center;">
-        <ul style="display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; flex-wrap: wrap;">
-          <li><a href="/why.html">Why</a></li>
-          <li><a href="/use-cases.html">Use Cases</a></li>
-          <li><a href="/#install">Install</a></li>
-          <li><a href="/#docs">Docs</a></li>
+<body class="page">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="layout-container">
+      <nav aria-label="Primary navigation">
+        <ul class="primary-nav__list">
+          <li><a href="./index.html">Home</a></li>
+          <li><a href="./why.html">Why</a></li>
+          <li><a href="./use-cases.html" aria-current="page">Use Cases</a></li>
+          <li><a href="./reference/getting-started.html">Docs</a></li>
         </ul>
+        <button class="primary-nav__toggle" aria-expanded="false" aria-controls="mobile-menu">
+          <span class="sr-only">Toggle navigation</span>
+        </button>
       </nav>
     </div>
   </header>
 
-  <main id="main">
-    <section class="ascii-stop" data-title="/use cases" style="max-width: 1200px; margin: 3rem auto;">
-      <h1 style="font-size: clamp(2.5rem, 4vw, 3.5rem); margin-bottom: 1rem;">Built for Modern AI-Assisted Development</h1>
-    </section>
+  <div id="mobile-menu" class="mobile-nav" hidden>
+    <ul class="mobile-nav__list">
+      <li><a href="./index.html">Home</a></li>
+      <li><a href="./why.html">Why</a></li>
+      <li><a href="./use-cases.html">Use Cases</a></li>
+      <li><a href="./reference/getting-started.html">Docs</a></li>
+    </ul>
+  </div>
 
-    <section class="ascii-stop" data-title="/ai agent uis" style="max-width: 1200px; margin: 3rem auto;">
-      <h2>1. AI Agent UIs</h2>
-      <p style="font-size: 1.1rem; color: rgba(210, 248, 255, 0.85); margin: 1rem 0 2rem;">Building agents that need to understand and generate UIs? Give them .uxm specs.</p>
-      <ul style="font-size: 1.05rem; line-height: 1.8; color: rgba(210, 248, 255, 0.85); padding-left: 1.5rem;">
-        <li>AI agents read component libraries natively</li>
-        <li>Understand relationships and composition</li>
-        <li>Generate implementations directly from specs</li>
-        <li>No vision models needed—perfect comprehension</li>
-      </ul>
+  <main id="main-content">
+    <div class="layout-container">
+      <h1>Use Cases</h1>
 
-      <h3 style="margin-top: 2rem; color: var(--fw-accent);">Example: Agent reads button spec</h3>
-      <pre style="font-family: var(--fw-font); font-size: 0.9rem; line-height: 1.5; padding: 1.5rem; background: rgba(2, 5, 9, 0.92); border: 1px dashed rgba(94, 247, 194, 0.35); color: var(--fw-accent); margin: 1rem 0; overflow-x: auto;">{
-  "id": "submit-button",
-  "type": "button",
-  "props": { "text": "Submit" },
-  "accessibility": {
-    "role": "button",
-    "keyboardShortcuts": ["Enter", "Space"]
-  }
-}</pre>
-      <p style="margin-top: 1rem; color: rgba(210, 248, 255, 0.85);">Agent understands: This is a button. It says "Submit". It responds to Enter and Space keys. Perfect clarity—no interpretation needed.</p>
-    </section>
+      <section class="ascii-card mt-6">
+        <h2>Rapid Prototyping</h2>
+        <p>Sketch UI concepts in minutes using ASCII art. No design tools, no mockup software - just plain text that AI agents can iterate on instantly.</p>
+        <pre class="terminal-text">
+┌─────────────────────┐
+│ [Login Screen]      │
+│                     │
+│ Username: [_____]   │
+│ Password: [_____]   │
+│                     │
+│ [ Sign In ]         │
+└─────────────────────┘
+        </pre>
+      </section>
 
-    <section class="ascii-stop" data-title="/rapid prototyping" style="max-width: 1200px; margin: 3rem auto;">
-      <h2>2. Rapid Prototyping</h2>
-      <p style="font-size: 1.1rem; color: rgba(210, 248, 255, 0.85); margin: 1rem 0 2rem;">Iterate on structure and flow before pixel perfection.</p>
-      <ul style="font-size: 1.05rem; line-height: 1.8; color: rgba(210, 248, 255, 0.85); padding-left: 1.5rem;">
-        <li>ASCII layouts converge fast through human feedback</li>
-        <li>Derive variations in seconds</li>
-        <li>Compose screens in minutes</li>
-        <li>Add fidelity progressively as design solidifies</li>
-      </ul>
+      <section class="ascii-card mt-6">
+        <h2>Design Systems</h2>
+        <p>Build component libraries that AI agents and humans can both understand. Define once, use everywhere - from terminal tools to web interfaces.</p>
+      </section>
 
-      <h3 style="margin-top: 2rem; color: var(--fw-accent);">Example: Login screen in 60 seconds</h3>
-      <div class="use-cases-grid-2col" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem;">
-        <div>
-          <p style="font-weight: 600; margin-bottom: 0.5rem; color: var(--fw-accent-strong);">You say:</p>
-          <pre style="font-family: var(--fw-font); font-size: 0.85rem; line-height: 1.4; padding: 1rem; background: rgba(2, 5, 9, 0.92); border: 1px dashed rgba(94, 247, 194, 0.35); color: rgba(210, 248, 255, 0.85);">"Create a login screen"</pre>
-        </div>
-        <div>
-          <p style="font-weight: 600; margin-bottom: 0.5rem; color: var(--fw-accent-strong);">Claude generates:</p>
-          <pre style="font-family: var(--fw-font); font-size: 0.85rem; line-height: 1.4; padding: 1rem; background: rgba(2, 5, 9, 0.92); border: 1px dashed rgba(94, 247, 194, 0.35); color: var(--fw-accent);">┌──────────────────────┐
-│  Welcome Back        │
-│  ┌────────────────┐  │
-│  │ Email          │  │
-│  └────────────────┘  │
-│  ┌────────────────┐  │
-│  │ Password       │  │
-│  └────────────────┘  │
-│  [    Sign In    ]   │
-└──────────────────────┘</pre>
-        </div>
-      </div>
-      <p style="margin-top: 1rem; color: rgba(210, 248, 255, 0.85);">Give feedback: "Add a forgot password link". Iterate until perfect.</p>
-    </section>
+      <section class="ascii-card mt-6">
+        <h2>Documentation</h2>
+        <p>Embed interactive ASCII diagrams directly in markdown documentation. Version control UIs alongside code with no binary files.</p>
+      </section>
 
-    <section class="ascii-stop" data-title="/design systems" style="max-width: 1200px; margin: 3rem auto;">
-      <h2>3. Design Systems at Scale</h2>
-      <p style="font-size: 1.1rem; color: rgba(210, 248, 255, 0.85); margin: 1rem 0 2rem;">Managing hundreds of component variations? Derivation model prevents duplication.</p>
-      <ul style="font-size: 1.05rem; line-height: 1.8; color: rgba(210, 248, 255, 0.85); padding-left: 1.5rem;">
-        <li>Change base components, all derivations inherit</li>
-        <li>Build libraries that grow organically through references</li>
-        <li>No more keeping 47 button copies in sync</li>
-        <li>Component graph scales without chaos</li>
-      </ul>
-
-      <h3 style="margin-top: 2rem; color: var(--fw-accent);">Example: Derivation vs Duplication</h3>
-      <div class="use-cases-grid-2col" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem;">
-        <div>
-          <p style="font-weight: 600; margin-bottom: 0.5rem; color: rgba(255, 100, 100, 0.9);">❌ Traditional (Duplication)</p>
-          <pre style="font-family: var(--fw-font); font-size: 0.8rem; line-height: 1.4; padding: 1rem; background: rgba(2, 5, 9, 0.92); border: 1px dashed rgba(255, 100, 100, 0.35); color: rgba(210, 248, 255, 0.75);">primary-button (copy)
-large-button (copy)
-small-button (copy)
-danger-button (copy)
-
-→ Change base style?
-→ Update 4 files manually
-→ Hope nothing breaks</pre>
-        </div>
-        <div>
-          <p style="font-weight: 600; margin-bottom: 0.5rem; color: var(--fw-accent-strong);">✅ Fluxwing (Derivation)</p>
-          <pre style="font-family: var(--fw-font); font-size: 0.8rem; line-height: 1.4; padding: 1rem; background: rgba(2, 5, 9, 0.92); border: 1px dashed rgba(94, 247, 194, 0.35); color: var(--fw-accent);">primary-button (base)
-  ↓ extends
-large-button
-small-button
-danger-button
-
-→ Change base once
-→ All variations inherit
-→ Single source of truth</pre>
-        </div>
-      </div>
-    </section>
-
-    <section class="ascii-stop" data-title="/living docs" style="max-width: 1200px; margin: 3rem auto;">
-      <h2>4. Living Documentation</h2>
-      <p style="font-size: 1.1rem; color: rgba(210, 248, 255, 0.85); margin: 1rem 0 2rem;">Design specs that both humans review and AI executes.</p>
-      <ul style="font-size: 1.05rem; line-height: 1.8; color: rgba(210, 248, 255, 0.85); padding-left: 1.5rem;">
-        <li>In version control, in PRs</li>
-        <li>Single source of truth</li>
-        <li>Always in sync—no documentation drift</li>
-        <li>Text-based diffs show actual design changes</li>
-      </ul>
-
-      <h3 style="margin-top: 2rem; color: var(--fw-accent);">Example: Design review in a PR</h3>
-      <pre style="font-family: var(--fw-font); font-size: 0.85rem; line-height: 1.4; padding: 1.5rem; background: rgba(2, 5, 9, 0.92); border: 1px dashed rgba(94, 247, 194, 0.35); margin: 1rem 0; overflow-x: auto;"><span style="color: rgba(100, 200, 100, 0.9);">+ ## Hover State</span>
-<span style="color: rgba(100, 200, 100, 0.9);">+ ```</span>
-<span style="color: rgba(100, 200, 100, 0.9);">+ ╔══════════════════╗</span>
-<span style="color: rgba(100, 200, 100, 0.9);">+ ║   {{text}}       ║</span>
-<span style="color: rgba(100, 200, 100, 0.9);">+ ╚══════════════════╝</span>
-<span style="color: rgba(100, 200, 100, 0.9);">+ ```</span>
-
-<span style="color: rgba(200, 100, 100, 0.9);">- "border": "thin"</span>
-<span style="color: rgba(100, 200, 100, 0.9);">+ "border": "heavy"</span></pre>
-      <p style="margin-top: 1rem; color: rgba(210, 248, 255, 0.85);">Reviewers see: "Added hover state with heavy border". Visual change visible in git diff. No separate Figma link. No docs to update. The spec IS the docs.</p>
-    </section>
-
-    <section style="max-width: 1200px; margin: 4rem auto; padding: 3rem; text-align: center; background: rgba(94, 247, 194, 0.08); border: 1px dashed rgba(94, 247, 194, 0.35);">
-      <h2 style="font-size: 2rem; margin-bottom: 1rem;">Ready to Start?</h2>
-      <p style="font-size: 1.1rem; color: rgba(210, 248, 255, 0.85); margin-bottom: 2rem;">Install in 30 seconds. Create components. Build screens.</p>
-      <a href="/#install" class="btn btn--primary" style="display: inline-flex; font-size: 1.1rem; padding: 0.75rem 1.5rem;">Get Started</a>
-    </section>
+      <section class="ascii-card mt-6">
+        <h2>AI-Assisted Development</h2>
+        <p>Let Claude Code, GitHub Copilot, and other AI tools generate production-ready UI components from natural language descriptions.</p>
+      </section>
+    </div>
   </main>
 
   <footer class="site-footer">
-    <div class="site-footer__grid">
-      <div>
-        <h2 class="site-footer__title">Fluxwing</h2>
-        <p><strong>Design systems that humans AND AI agents understand natively.</strong></p>
-      </div>
-      <nav aria-label="Footer">
-        <ul>
-          <li><a href="https://github.com/fluxwing/fluxwing-skills">GitHub</a></li>
-          <li><a href="/#docs">Docs</a></li>
+    <div class="layout-container site-footer__content">
+      <nav aria-label="Footer navigation">
+        <ul class="site-footer__nav">
+          <li><a href="./index.html">Home</a></li>
+          <li><a href="./why.html">Why</a></li>
+          <li><a href="./use-cases.html">Use Cases</a></li>
+          <li><a href="./reference/getting-started.html">Docs</a></li>
         </ul>
       </nav>
+      <p class="site-footer__meta">© 2025 Trabian. Built with Fluxwing.</p>
     </div>
-    <p class="site-footer__legal">© <span data-year></span> Fluxwing. A product by <a href="https://www.trabian.com">Trabian</a>.</p>
   </footer>
-  
-  <script>
-    document.querySelector('[data-year]').textContent = new Date().getFullYear();
 
-    // Mobile menu toggle
-    const menuToggle = document.querySelector('.mobile-menu-toggle');
-    const navWrapper = document.querySelector('.mobile-nav-wrapper');
-    if (menuToggle && navWrapper) {
-      menuToggle.addEventListener('click', () => {
-        const isOpen = navWrapper.classList.contains('is-open');
-        navWrapper.classList.toggle('is-open');
-        menuToggle.setAttribute('aria-expanded', !isOpen);
-        menuToggle.textContent = isOpen ? '☰' : '✕';
-      });
-
-      navWrapper.querySelectorAll('nav a').forEach(link => {
-        link.addEventListener('click', () => {
-          navWrapper.classList.remove('is-open');
-          menuToggle.setAttribute('aria-expanded', 'false');
-          menuToggle.textContent = '☰';
-        });
-      });
-    }
-  </script>
+  <script src="./js/main.js"></script>
 </body>
 </html>

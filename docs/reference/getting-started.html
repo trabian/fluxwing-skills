@@ -1,301 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Getting Started — Fluxwing Skills</title>
-    <meta name="description" content="Quick start guide for installing and using Fluxwing Skills with Claude Code. Create your first component in 30 seconds.">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Get started with Fluxwing - Installation guide and quick start for ASCII-first UX design.">
+  <title>Getting Started — Fluxwing Documentation</title>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/ascii-core.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body class="page">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://fluxwing.com/reference/getting-started.html">
-    <meta property="og:title" content="Getting Started — Fluxwing Skills">
-    <meta property="og:description" content="Quick start guide for installing and using Fluxwing Skills with Claude Code.">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://fluxwing.com/reference/getting-started.html">
-    <meta property="twitter:title" content="Getting Started — Fluxwing Skills">
-    <meta property="twitter:description" content="Quick start guide for installing and using Fluxwing Skills with Claude Code.">
-
-    <link rel="stylesheet" href="../css/base.css">
-    <link rel="stylesheet" href="../css/docs.css">
-  </head>
-  <body class="crt-bg subpage">
-    <a class="skip-link" href="#main">Skip to content</a>
-
-    <header style="padding: 2rem clamp(1.5rem, 6vw, 6rem); background: rgba(2, 5, 8, 0.95); border-bottom: 1px dashed rgba(94, 247, 194, 0.35);">
-      <div class="mobile-nav-wrapper" style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-        <a href="/" style="font-size: 1.25rem; font-weight: 700; color: var(--fw-accent-strong);">Fluxwing</a>
-        <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
-        <nav style="display: flex; align-items: center;">
-          <ul style="display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; flex-wrap: wrap;">
-            <li><a href="/why.html">Why Fluxwing</a></li>
-            <li><a href="/use-cases.html">Use Cases</a></li>
-            <li><a href="/#install">Install</a></li>
-            <li><a href="/#docs">Docs</a></li>
-            <li><a href="https://github.com/fluxwing/fluxwing-skills">GitHub</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
-
-    <div class="subpage__header">
-      <p class="doc-breadcrumbs">
-        <a href="/">Home</a> / <a href="/#docs">Documentation</a> / Getting Started
-      </p>
-      <h1 class="subpage__title">Getting Started</h1>
-      <p class="subpage__lede">Install Fluxwing Skills and create your first component in 30 seconds.</p>
+  <header class="site-header">
+    <div class="layout-container">
+      <nav aria-label="Primary navigation">
+        <ul class="primary-nav__list">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../why.html">Why</a></li>
+          <li><a href="../use-cases.html">Use Cases</a></li>
+          <li><a href="./getting-started.html" aria-current="page">Docs</a></li>
+        </ul>
+      </nav>
     </div>
+  </header>
 
-    <main id="main" class="doc-page">
+  <main id="main-content">
+    <div class="layout-container">
+      <nav aria-label="Breadcrumb" class="mb-4">
+        <ol class="flex gap-2" style="list-style: none; padding: 0;">
+          <li><a href="../index.html">Home</a></li>
+          <li aria-hidden="true">→</li>
+          <li>Getting Started</li>
+        </ol>
+      </nav>
 
-      <section class="doc-section">
+      <h1>Getting Started</h1>
+
+      <section class="ascii-box mt-6">
+        <h2>Installation</h2>
+        <p>Clone the Fluxwing skills repository:</p>
+        <pre><code>git clone https://github.com/trabian/fluxwing-skills.git
+cd fluxwing-skills</code></pre>
+
+        <p class="mt-4">Install the skills to Claude Code:</p>
+        <pre><code>./scripts/install.sh</code></pre>
+      </section>
+
+      <section class="ascii-box-thin mt-6">
         <h2>Quick Start</h2>
-        <p>Get up and running with Fluxwing Skills in three simple steps:</p>
-
-        <h3>1. Clone the Repository</h3>
-        <pre>git clone https://github.com/trabian/fluxwing-skills.git
-cd fluxwing-skills</pre>
-
-        <h3>2. Run the Installer</h3>
-        <pre>./scripts/install.sh</pre>
-        <p>The installer will automatically:</p>
-        <ul>
-          <li>Detect the best installation location (global or local)</li>
-          <li>Copy all 6 skills to Claude Code</li>
-          <li>Verify templates and schemas</li>
-          <li>Show usage examples</li>
-        </ul>
-
-        <h3>3. Start Designing</h3>
-        <p>Open Claude Code and say:</p>
-        <pre>"Create a button component"</pre>
-        <p>The <strong>uxscii-component-creator</strong> skill will activate and guide you through creating your first component with ASCII art and structured metadata.</p>
+        <ol class="ascii-list">
+          <li>Open Claude Code</li>
+          <li>Say: "Create a primary button component"</li>
+          <li>The uxscii-component-creator skill activates automatically</li>
+          <li>Component files are saved to ./fluxwing/components/</li>
+        </ol>
       </section>
 
-      <section class="doc-section">
-        <h2>Installation Options</h2>
-
-        <h3>Auto-Detect Mode (Recommended)</h3>
-        <pre>./scripts/install.sh</pre>
-        <p><strong>Logic:</strong> If <code>.claude/</code> exists in current directory → Install locally (project-specific). Otherwise → Install globally (<code>~/.claude/skills/</code>)</p>
-
-        <h3>Global Installation</h3>
-        <pre>./scripts/install.sh --global</pre>
-        <p>Install skills for all Claude Code sessions. Location: <code>~/.claude/skills/</code></p>
-
-        <h3>Local Installation</h3>
-        <pre>./scripts/install.sh --local</pre>
-        <p>Install skills for current project only. Location: <code>./.claude/skills/</code></p>
-
-        <h3>Force Overwrite</h3>
-        <pre>./scripts/install.sh --force</pre>
-        <p>Update existing skills without prompts.</p>
-      </section>
-
-      <section class="doc-section">
-        <h2>Your First Component</h2>
-        <p>Let's create a submit button using natural language:</p>
-
-        <h3>Step 1: Ask Claude</h3>
-        <pre>You: "Create a submit button"</pre>
-
-        <h3>Step 2: Review the Output</h3>
-        <p>Claude generates two files in <code>./fluxwing/components/</code>:</p>
-
-        <p><strong>submit-button.uxm</strong> (JSON metadata):</p>
-        <pre>{
-  "id": "submit-button",
-  "type": "button",
-  "version": "1.0.0",
-  "metadata": {
-    "name": "Submit Button",
-    "created": "2024-10-11T12:00:00Z"
-  },
-  "props": {
-    "text": "Submit"
-  },
-  "ascii": {
-    "templateFile": "submit-button.md",
-    "width": 20,
-    "height": 3
-  }
-}</pre>
-
-        <p><strong>submit-button.md</strong> (ASCII template):</p>
-        <pre>## Default State
-
-```
-╭──────────────────╮
-│   {{text}}       │
-╰──────────────────╯
-```</pre>
-
-        <h3>Step 3: Iterate</h3>
-        <p>Give feedback naturally:</p>
-        <pre>You: "Make it bigger and add a hover state"
-
-Claude: [Updates files with expanded dimensions and hover state]</pre>
-      </section>
-
-      <section class="doc-section">
-        <h2>Try These Next</h2>
-
-        <h3>Browse Available Components</h3>
-        <pre>"Show me all available components"</pre>
-        <p>The <strong>uxscii-library-browser</strong> displays 11 bundled templates plus your custom components.</p>
-
-        <h3>Add Interactive States</h3>
-        <pre>"Add hover and focus states to my button"</pre>
-        <p>The <strong>uxscii-component-expander</strong> adds interaction states to existing components.</p>
-
-        <h3>Build a Complete Screen</h3>
-        <pre>"Build a login screen with email, password, and submit button"</pre>
-        <p>The <strong>uxscii-screen-scaffolder</strong> creates missing components and composes them into a complete screen.</p>
-
-        <h3>View Component Details</h3>
-        <pre>"Show me the primary-button"</pre>
-        <p>The <strong>uxscii-component-viewer</strong> displays full metadata and ASCII preview.</p>
-
-        <h3>Import from Screenshots</h3>
-        <pre>"Import this screenshot: /path/to/design.png"</pre>
-        <p>The <strong>uxscii-screenshot-importer</strong> uses vision analysis to extract components.</p>
-      </section>
-
-      <section class="doc-section">
-        <h2>What Gets Installed</h2>
-
-        <h3>6 Specialized Skills</h3>
-        <table class="doc-table">
-          <thead>
-            <tr>
-              <th>Skill</th>
-              <th>Purpose</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>uxscii-component-creator</td>
-              <td>Create UI components (buttons, inputs, cards)</td>
-            </tr>
-            <tr>
-              <td>uxscii-library-browser</td>
-              <td>Browse available components and templates</td>
-            </tr>
-            <tr>
-              <td>uxscii-component-expander</td>
-              <td>Add interaction states (hover, focus, disabled)</td>
-            </tr>
-            <tr>
-              <td>uxscii-screen-scaffolder</td>
-              <td>Build complete screens from components</td>
-            </tr>
-            <tr>
-              <td>uxscii-component-viewer</td>
-              <td>View component details and metadata</td>
-            </tr>
-            <tr>
-              <td>uxscii-screenshot-importer</td>
-              <td>Import components from screenshot images</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h3>Supporting Files</h3>
-        <ul>
-          <li><strong>11 Component Templates</strong> - Buttons, inputs, cards, modals, navigation, etc.</li>
-          <li><strong>2 Screen Examples</strong> - Login screen and dashboard</li>
-          <li><strong>JSON Schema</strong> - Validation rules for component structure</li>
-          <li><strong>Documentation</strong> - 13 modular documentation files</li>
-        </ul>
-        <p><strong>Total:</strong> 6 skills + 42 supporting files = 48 files</p>
-      </section>
-
-      <section class="doc-section">
-        <h2>Troubleshooting</h2>
-
-        <h3>Skills Not Activating</h3>
-        <p><strong>Problem:</strong> Natural language doesn't trigger skills.</p>
-        <p><strong>Solutions:</strong></p>
-        <ul>
-          <li>Verify installation: <code>ls ~/.claude/skills/uxscii-*/SKILL.md</code></li>
-          <li>Check YAML frontmatter: <code>head -n 10 ~/.claude/skills/uxscii-component-creator/SKILL.md</code></li>
-          <li>Restart Claude Code</li>
-          <li>Try explicit language: "Use the uxscii component creator to make a button"</li>
-        </ul>
-
-        <h3>Templates Not Found</h3>
-        <p><strong>Problem:</strong> Skills can't find component templates.</p>
-        <p><strong>Solutions:</strong></p>
-        <ul>
-          <li>Verify templates: <code>ls .claude/skills/uxscii-component-creator/templates/*.uxm</code></li>
-          <li>Should show 11+ .uxm files</li>
-          <li>Reinstall: <code>./scripts/install.sh --force</code></li>
-        </ul>
-
-        <h3>Permission Denied</h3>
-        <p><strong>Problem:</strong> Can't create skills directory.</p>
-        <p><strong>Solutions:</strong></p>
-        <ul>
-          <li>Check permissions: <code>ls -la ~/.claude/</code></li>
-          <li>Create manually: <code>mkdir -p ~/.claude/skills</code></li>
-          <li>Avoid <code>sudo</code> unless necessary</li>
-        </ul>
-      </section>
-
-      <section class="doc-section">
+      <section class="ascii-box mt-6">
         <h2>Next Steps</h2>
-        <ul>
-          <li><a href="commands.html">Command Reference</a> - Detailed documentation for all 6 skills</li>
-          <li><a href="architecture.html">Architecture Overview</a> - How Fluxwing works under the hood</li>
-          <li><a href="how-skills-work.html">How Skills Work</a> - Understanding the agent system</li>
-          <li><a href="/">Back to Home</a></li>
+        <ul class="ascii-list">
+          <li><a href="./architecture.html">Learn about the architecture</a></li>
+          <li><a href="./commands.html">Browse available commands</a></li>
+          <li><a href="./how-skills-work.html">Understand how skills work</a></li>
         </ul>
       </section>
+    </div>
+  </main>
 
-    </main>
+  <footer class="site-footer">
+    <div class="layout-container site-footer__content">
+      <p class="site-footer__meta">© 2025 Trabian. Built with Fluxwing.</p>
+    </div>
+  </footer>
 
-    <footer class="site-footer">
-      <div class="site-footer__grid">
-        <div>
-          <h2 class="site-footer__title">Fluxwing</h2>
-          <p><strong>Design systems that humans AND AI agents understand natively.</strong></p>
-          <p style="margin-top: 0.5rem; font-size: 0.95rem;">Built on the open uxscii standard. ASCII is the universal interface.</p>
-        </div>
-        <nav aria-label="Footer">
-          <ul>
-            <li><a href="https://github.com/fluxwing/fluxwing-skills">GitHub</a></li>
-            <li><a href="/#docs">Documentation</a></li>
-            <li><a href="/#install">Install</a></li>
-          </ul>
-        </nav>
-      </div>
-      <p class="site-footer__legal">© <span data-year></span> Fluxwing. Build component libraries through derivation, not duplication. A product by <a href="https://www.trabian.com">Trabian</a>.</p>
-    </footer>
-
-    <script>
-      document.querySelector('[data-year]').textContent = new Date().getFullYear();
-
-      // Mobile menu toggle
-      const menuToggle = document.querySelector('.mobile-menu-toggle');
-      const navWrapper = document.querySelector('.mobile-nav-wrapper');
-      if (menuToggle && navWrapper) {
-        menuToggle.addEventListener('click', () => {
-          const isOpen = navWrapper.classList.contains('is-open');
-          navWrapper.classList.toggle('is-open');
-          menuToggle.setAttribute('aria-expanded', !isOpen);
-          menuToggle.textContent = isOpen ? '☰' : '✕';
-        });
-
-        navWrapper.querySelectorAll('nav a').forEach(link => {
-          link.addEventListener('click', () => {
-            navWrapper.classList.remove('is-open');
-            menuToggle.setAttribute('aria-expanded', 'false');
-            menuToggle.textContent = '☰';
-          });
-        });
-      }
-    </script>
-  </body>
+  <script src="../js/main.js"></script>
+</body>
 </html>

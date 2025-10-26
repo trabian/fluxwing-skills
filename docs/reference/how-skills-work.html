@@ -1,476 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>How Skills Work — Fluxwing Skills</title>
-    <meta name="description" content="Understanding the Fluxwing Skills system: agent invocation, natural language activation, task orchestration, and parallel execution.">
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://fluxwing.com/reference/how-skills-work.html">
-    <meta property="og:title" content="How Skills Work — Fluxwing Skills">
-    <meta property="og:description" content="Understanding how Fluxwing Skills activate and orchestrate agents.">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://fluxwing.com/reference/how-skills-work.html">
-    <meta property="twitter:title" content="How Skills Work — Fluxwing Skills">
-    <meta property="twitter:description" content="Understanding how Fluxwing Skills activate and orchestrate agents.">
-
-    <link rel="stylesheet" href="../css/base.css">
-    <link rel="stylesheet" href="../css/docs.css">
-  </head>
-  <body class="crt-bg subpage">
-    <a class="skip-link" href="#main">Skip to content</a>
-
-    <header style="padding: 2rem clamp(1.5rem, 6vw, 6rem); background: rgba(2, 5, 8, 0.95); border-bottom: 1px dashed rgba(94, 247, 194, 0.35);">
-      <div class="mobile-nav-wrapper" style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-        <a href="/" style="font-size: 1.25rem; font-weight: 700; color: var(--fw-accent-strong);">Fluxwing</a>
-        <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
-        <nav style="display: flex; align-items: center;">
-          <ul style="display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; flex-wrap: wrap;">
-            <li><a href="/why.html">Why Fluxwing</a></li>
-            <li><a href="/use-cases.html">Use Cases</a></li>
-            <li><a href="/#install">Install</a></li>
-            <li><a href="/#docs">Docs</a></li>
-            <li><a href="https://github.com/fluxwing/fluxwing-skills">GitHub</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
-
-    <div class="subpage__header">
-      <p class="doc-breadcrumbs">
-        <a href="/">Home</a> / <a href="/#docs">Documentation</a> / How Skills Work
-      </p>
-      <h1 class="subpage__title">How Skills Work</h1>
-      <p class="subpage__lede">Understanding the agent invocation model, natural language activation, and task orchestration.</p>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How Skills Work — Fluxwing Documentation</title>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/ascii-core.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body class="page">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="site-header">
+    <div class="layout-container">
+      <nav aria-label="Primary navigation">
+        <ul class="primary-nav__list">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="./getting-started.html">Docs</a></li>
+        </ul>
+      </nav>
     </div>
-
-    <main id="main" class="doc-page">
-
-      <section class="doc-section">
-        <h2>The Skills System</h2>
-        <p>Fluxwing Skills is built on Claude Code's skills system - a way to extend Claude's capabilities through natural language-activated workflows.</p>
-
-        <h3>How Skills Activate</h3>
-        <ol>
-          <li>You say something to Claude: <code>"Create a button"</code></li>
-          <li>Claude analyzes your intent against installed skills</li>
-          <li>Finds matching skill: <code>uxscii-component-creator</code></li>
-          <li>Loads skill's SKILL.md file with instructions</li>
-          <li>Executes the workflow defined in the skill</li>
+  </header>
+  <main id="main-content">
+    <div class="layout-container">
+      <nav aria-label="Breadcrumb" class="mb-4">
+        <ol class="flex gap-2" style="list-style: none; padding: 0;">
+          <li><a href="../index.html">Home</a></li>
+          <li aria-hidden="true">→</li>
+          <li><a href="./getting-started.html">Docs</a></li>
+          <li aria-hidden="true">→</li>
+          <li>How Skills Work</li>
         </ol>
-
-        <h3>Skill Structure</h3>
-        <pre>~/.claude/skills/uxscii-component-creator/
-├── SKILL.md                     # Main skill file (workflow + instructions)
-├── templates/                   # Reference materials (read-only)
-├── schemas/                     # Validation rules
-└── docs/                        # Modular documentation</pre>
-
-        <h3>SKILL.md Format</h3>
-        <p>Each skill has a SKILL.md file with YAML frontmatter:</p>
-        <pre>---
-name: UXscii Component Creator
-description: Create uxscii components with ASCII art and structured metadata
-version: 1.0.0
-author: Trabian
-allowed-tools: Read, Write, Edit, Glob, Grep, Task, TodoWrite
----
-
-# UXscii Component Creator
-
-[Workflow instructions in markdown...]</pre>
-
-        <p>The <code>description</code> field is used for matching against natural language triggers.</p>
-      </section>
-
-      <section class="doc-section">
-        <h2>Agent Invocation</h2>
-
-        <h3>Built-In Agent Types</h3>
-        <p>Claude Code skills can only invoke built-in agent types:</p>
-        <table class="doc-table">
-          <thead>
-            <tr>
-              <th>Agent Type</th>
-              <th>Purpose</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>general-purpose</td>
-              <td>General task execution and code generation</td>
-            </tr>
-            <tr>
-              <td>Explore</td>
-              <td>Codebase exploration and search</td>
-            </tr>
-            <tr>
-              <td>statusline-setup</td>
-              <td>Status line configuration</td>
-            </tr>
-            <tr>
-              <td>output-style-setup</td>
-              <td>Output style configuration</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <div class="doc-callout">
-          <strong>⚠️ Important:</strong> Custom agent types (like <code>fluxwing:fluxwing-designer</code>) are NOT supported by Claude Code's skills system. Skills use the built-in <code>general-purpose</code> agent with embedded instructions.
-        </div>
-
-        <h3>How Skills Invoke Agents</h3>
-        <p>Skills use the Task tool to spawn agents with embedded instructions:</p>
-        <pre>Task({
-  subagent_type: "general-purpose",
-  description: "Create uxscii component",
-  prompt: `You are a uxscii component designer.
-
-Component requirements:
-- Name: ${componentName}
-- Type: ${componentType}
-
-Your task:
-1. Load schema from {SKILL_ROOT}/schemas/uxm-component.schema.json
-2. Create .uxm file (valid JSON)
-3. Create .md file (ASCII template)
-4. Save to ./fluxwing/components/
-
-Follow uxscii standard strictly.`
-})</pre>
-
-        <p>The skill embeds all necessary context and instructions in the agent's prompt.</p>
-      </section>
-
-      <section class="doc-section">
-        <h2>Orchestration vs Execution</h2>
-
-        <h3>Skills as Orchestrators</h3>
-        <p>Some skills (like Screen Scaffolder) act as <strong>orchestrators</strong> - they coordinate agents but don't create files themselves:</p>
-
-        <pre>You: "Create a login screen"
-
-Skill: [Orchestrates]
-  ├─ Identifies missing components
-  ├─ Spawns 3 designer agents in parallel
-  │   ├─ Agent 1: Create email-input
-  │   ├─ Agent 2: Create password-input
-  │   └─ Agent 3: Create submit-button
-  ├─ Waits for all agents to complete
-  └─ Spawns composer agent to assemble screen</pre>
-
-        <h3>Skills as Executors</h3>
-        <p>Other skills (like Component Viewer) execute directly:</p>
-
-        <pre>You: "Show me the primary-button"
-
-Skill: [Executes]
-  ├─ Searches for component
-  ├─ Reads .uxm and .md files
-  └─ Displays formatted output
-
-No agents spawned - direct execution</pre>
-
-        <h3>When to Orchestrate vs Execute</h3>
-        <table class="doc-table">
-          <thead>
-            <tr>
-              <th>Approach</th>
-              <th>Use When</th>
-              <th>Example Skills</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Orchestrate</td>
-              <td>Complex, multi-step tasks requiring specialized work</td>
-              <td>Component Creator, Screen Scaffolder, Screenshot Importer</td>
-            </tr>
-            <tr>
-              <td>Execute</td>
-              <td>Simple, read-only, or direct file operations</td>
-              <td>Library Browser, Component Viewer, Component Expander</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-
-      <section class="doc-section">
-        <h2>Parallel Execution</h2>
-
-        <h3>The Power of Parallel Agents</h3>
-        <p>Skills can spawn multiple agents in parallel for massive speedup:</p>
-
-        <table class="doc-table">
-          <thead>
-            <tr>
-              <th>Scenario</th>
-              <th>Sequential</th>
-              <th>Parallel</th>
-              <th>Speedup</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Create 6 components</td>
-              <td>~180 seconds</td>
-              <td>~30 seconds</td>
-              <td>6x faster</td>
-            </tr>
-            <tr>
-              <td>Vision analysis (3 tasks)</td>
-              <td>~45 seconds</td>
-              <td>~15 seconds</td>
-              <td>3x faster</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h3>How to Spawn Parallel Agents</h3>
-        <p>Send a single message with multiple Task tool calls:</p>
-
-        <pre>// CORRECT: Parallel execution
-Task({ ... }) // Component 1
-Task({ ... }) // Component 2
-Task({ ... }) // Component 3
-
-// WRONG: Sequential execution
-TodoWrite([...])  // Creates list
-for each todo:
-  Task({ ... })   // One at a time</pre>
-
-        <div class="doc-callout">
-          <strong>🚀 Critical for performance:</strong> The Screen Scaffolder uses this pattern to create all missing components simultaneously instead of one-by-one.
-        </div>
-      </section>
-
-      <section class="doc-section">
-        <h2>Skill Workflow Patterns</h2>
-
-        <h3>Pattern 1: Single-Task Execution</h3>
-        <p>Used by: Component Viewer, Library Browser</p>
-        <pre>1. Parse user request
-2. Read files directly
-3. Display output
-4. Done</pre>
-
-        <h3>Pattern 2: Single-Agent Orchestration</h3>
-        <p>Used by: Component Creator (single component)</p>
-        <pre>1. Parse user request
-2. Gather requirements
-3. Spawn designer agent
-4. Wait for completion
-5. Display result</pre>
-
-        <h3>Pattern 3: Multi-Agent Orchestration</h3>
-        <p>Used by: Component Creator (multiple), Screen Scaffolder</p>
-        <pre>1. Parse user request
-2. Identify missing components
-3. Spawn N designer agents in parallel
-4. Wait for all completions
-5. Spawn composer agent (if needed)
-6. Display result</pre>
-
-        <h3>Pattern 4: Sequential Pipeline</h3>
-        <p>Used by: Screenshot Importer</p>
-        <pre>1. Parse screenshot path
-2. Spawn vision coordinator (spawns 3 parallel vision agents)
-3. Wait for vision analysis
-4. Spawn N component generators in parallel
-5. Spawn screen composer
-6. Display result</pre>
-      </section>
-
-      <section class="doc-section">
-        <h2>Skills Communication</h2>
-
-        <h3>Between Skill and Agent</h3>
-        <p>Skills communicate with agents through the Task tool's prompt:</p>
-        <pre>Task({
-  subagent_type: "general-purpose",
-  description: "Create component",
-  prompt: `Instructions here...
-
-  Context:
-  - Component name: ${name}
-  - Required files: .uxm, .md
-  - Output location: ./fluxwing/components/
-
-  Steps to follow:
-  1. Load schema
-  2. Create files
-  3. Validate`
-})</pre>
-
-        <h3>Agent Response</h3>
-        <p>Agents return results when complete:</p>
-        <pre>{
-  "success": true,
-  "files_created": [
-    "./fluxwing/components/submit-button.uxm",
-    "./fluxwing/components/submit-button.md"
-  ],
-  "message": "Component created successfully"
-}</pre>
-
-        <h3>Error Handling</h3>
-        <p>Skills handle agent failures gracefully:</p>
-        <pre>if (agent_result.success === false) {
-  console.log(`Error: ${agent_result.error}`);
-  // Retry logic or user notification
-}</pre>
-      </section>
-
-      <section class="doc-section">
-        <h2>Data Flow</h2>
-
-        <h3>Read-Only Bundled Data</h3>
-        <pre>Skill Templates (READ-ONLY)
-       ↓
-   Skill loads as reference
-       ↓
-   Passes to agent as context
-       ↓
-   Agent creates NEW files
-       ↓
-Project Workspace (./fluxwing/)</pre>
-
-        <h3>The Golden Rules</h3>
-        <ol>
-          <li>Skills READ from <code>{SKILL_ROOT}/templates/</code></li>
-          <li>Skills WRITE to <code>./fluxwing/</code></li>
-          <li>NEVER write to skill directories (read-only)</li>
-          <li>NEVER read from workspace as templates (could be incomplete)</li>
+      </nav>
+      <h1>How Skills Work</h1>
+      <section class="ascii-box mt-6">
+        <h2>The Workflow</h2>
+        <ol class="ascii-list">
+          <li>You describe what you want in natural language</li>
+          <li>Claude Code matches your request to a skill</li>
+          <li>The skill activates with specialized instructions</li>
+          <li>Component files (.uxm + .md) are generated in ./fluxwing/</li>
+          <li>Files are validated against JSON Schema</li>
+          <li>You can edit, version control, and reuse components</li>
         </ol>
       </section>
-
-      <section class="doc-section">
-        <h2>Performance Optimizations</h2>
-
-        <h3>Pre-Built Indexes</h3>
-        <p>Library Browser uses pre-built template index:</p>
-        <pre>// SLOW: Read 11+ files
-const templates = glob('{SKILL_ROOT}/templates/*.uxm');
-for (file of templates) {
-  read(file); // 11+ file reads
-}
-
-// FAST: Read 1 index file
-const index = read('{SKILL_ROOT}/data/template-index.json');
-// All metadata instantly available!</pre>
-
-        <p><strong>Result:</strong> 10x faster browsing (1 file read vs 11+ file reads)</p>
-
-        <h3>Modular Documentation</h3>
-        <p>Skills load docs on-demand:</p>
-        <pre>// Only load what's needed
-if (creating_component) {
-  load('{SKILL_ROOT}/docs/03-component-creation.md');
-}
-if (needs_ascii_patterns) {
-  load('{SKILL_ROOT}/docs/06-ascii-patterns.md');
-}</pre>
-
-        <p>Each doc module: 500-800 tokens (saves context)</p>
-
-        <h3>Parallel Agent Spawning</h3>
-        <p>Spawn all independent agents in one message:</p>
-        <pre>// ONE message with multiple Task calls
-Task({ ... }); // Agent 1
-Task({ ... }); // Agent 2
-Task({ ... }); // Agent 3
-
-// All execute in parallel automatically</pre>
+      <section class="ascii-box-thin mt-6">
+        <h2>File Structure</h2>
+        <pre><code>./fluxwing/
+├── components/          # Your components
+│   ├── my-button.uxm    # JSON metadata
+│   └── my-button.md     # ASCII template
+├── screens/             # Complete screens
+│   ├── login.uxm
+│   ├── login.md
+│   └── login.rendered.md
+└── library/             # Customized templates</code></pre>
       </section>
-
-      <section class="doc-section">
-        <h2>Troubleshooting</h2>
-
-        <h3>Skill Not Activating</h3>
-        <p><strong>Problem:</strong> "Create a button" doesn't trigger the skill.</p>
-        <p><strong>Solutions:</strong></p>
-        <ul>
-          <li>Check installation: <code>ls ~/.claude/skills/uxscii-*/SKILL.md</code></li>
-          <li>Verify YAML frontmatter is valid</li>
-          <li>Try more explicit language: "Use the uxscii component creator"</li>
-          <li>Restart Claude Code</li>
-        </ul>
-
-        <h3>Agent Not Spawning</h3>
-        <p><strong>Problem:</strong> Skill runs but agent doesn't execute.</p>
-        <p><strong>Solutions:</strong></p>
-        <ul>
-          <li>Check allowed-tools in YAML includes "Task"</li>
-          <li>Verify subagent_type is "general-purpose" (not custom type)</li>
-          <li>Check agent prompt has all required context</li>
-        </ul>
-
-        <h3>Slow Performance</h3>
-        <p><strong>Problem:</strong> Creating multiple components takes too long.</p>
-        <p><strong>Solutions:</strong></p>
-        <ul>
-          <li>Ensure skill uses parallel Task calls (all in ONE message)</li>
-          <li>Check skill isn't using TodoWrite + sequential loops</li>
-          <li>Verify pre-built indexes are being used (Library Browser)</li>
+      <section class="ascii-box mt-6">
+        <h2>Key Principles</h2>
+        <ul class="ascii-list">
+          <li><strong>Read-only templates:</strong> Bundled templates in .claude/skills/ are read-only</li>
+          <li><strong>Read-write workspace:</strong> All your work goes in ./fluxwing/</li>
+          <li><strong>Schema validation:</strong> Components must pass JSON Schema validation</li>
+          <li><strong>Progressive fidelity:</strong> Start simple (ASCII), add details (props, states)</li>
         </ul>
       </section>
-
-      <section class="doc-section">
-        <h2>Next Steps</h2>
-        <ul>
-          <li><a href="getting-started.html">Getting Started</a> - Installation and first component</li>
-          <li><a href="commands.html">Command Reference</a> - All 6 skills documented</li>
-          <li><a href="architecture.html">Architecture Overview</a> - System design and principles</li>
-          <li><a href="/">Back to Home</a></li>
-        </ul>
-      </section>
-
-    </main>
-
-    <footer class="site-footer">
-      <div class="site-footer__grid">
-        <div>
-          <h2 class="site-footer__title">Fluxwing</h2>
-          <p><strong>Design systems that humans AND AI agents understand natively.</strong></p>
-          <p style="margin-top: 0.5rem; font-size: 0.95rem;">Built on the open uxscii standard. ASCII is the universal interface.</p>
-        </div>
-        <nav aria-label="Footer">
-          <ul>
-            <li><a href="https://github.com/fluxwing/fluxwing-skills">GitHub</a></li>
-            <li><a href="/#docs">Documentation</a></li>
-            <li><a href="/#install">Install</a></li>
-          </ul>
-        </nav>
-      </div>
-      <p class="site-footer__legal">© <span data-year></span> Fluxwing. Build component libraries through derivation, not duplication. A product by <a href="https://www.trabian.com">Trabian</a>.</p>
-    </footer>
-
-    <script>
-      document.querySelector('[data-year]').textContent = new Date().getFullYear();
-
-      // Mobile menu toggle
-      const menuToggle = document.querySelector('.mobile-menu-toggle');
-      const navWrapper = document.querySelector('.mobile-nav-wrapper');
-      if (menuToggle && navWrapper) {
-        menuToggle.addEventListener('click', () => {
-          const isOpen = navWrapper.classList.contains('is-open');
-          navWrapper.classList.toggle('is-open');
-          menuToggle.setAttribute('aria-expanded', !isOpen);
-          menuToggle.textContent = isOpen ? '☰' : '✕';
-        });
-
-        navWrapper.querySelectorAll('nav a').forEach(link => {
-          link.addEventListener('click', () => {
-            navWrapper.classList.remove('is-open');
-            menuToggle.setAttribute('aria-expanded', 'false');
-            menuToggle.textContent = '☰';
-          });
-        });
-      }
-    </script>
-  </body>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="layout-container site-footer__content">
+      <p class="site-footer__meta">© 2025 Trabian. Built with Fluxwing.</p>
+    </div>
+  </footer>
+  <script src="../js/main.js"></script>
+</body>
 </html>
