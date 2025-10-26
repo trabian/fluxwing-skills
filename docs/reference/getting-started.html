@@ -112,7 +112,8 @@
               <h2>Quick Start</h2>
               <p>Get up and running with Fluxwing Skills in two simple steps:</p>
 
-              <h3>1. Install via Claude Code Plugin System</h3>
+              <h3>1. Install Skills</h3>
+              <p><strong>For Claude Code (CLI):</strong></p>
               <pre class="terminal-window"><code>/plugin marketplace add trabian/fluxwing-skills
 /plugin install fluxwing-skills</code></pre>
               <p>The plugin system will automatically:</p>
@@ -123,8 +124,11 @@
                 <li>→ Enable easy updates with /plugin update</li>
               </ul>
 
+              <p style="margin-top: 1.5rem;"><strong>For Claude Desktop App (GUI):</strong></p>
+              <p>Download ZIP files from <a href="https://github.com/trabian/fluxwing-skills/releases/latest" target="_blank" rel="noopener noreferrer">releases</a> and upload via Settings &gt; Capabilities. See <a href="#installation">Installation Options</a> below for details.</p>
+
               <h3>2. Start Designing</h3>
-              <p>Open Claude Code and say:</p>
+              <p>Open Claude and say:</p>
               <pre class="terminal-window"><code>"Create a button component"</code></pre>
               <p>The <strong>fluxwing-component-creator</strong> skill will activate and guide you through creating your first component with ASCII art and structured metadata.</p>
             </section>
@@ -152,6 +156,33 @@
               <h3>Update Plugin</h3>
               <pre class="terminal-window"><code>/plugin update fluxwing-skills</code></pre>
               <p>Keep your skills up to date with the latest features.</p>
+
+              <h3>Claude Desktop App Installation</h3>
+              <p>For the GUI Claude Desktop app (macOS/Windows):</p>
+              <ol class="ascii-list">
+                <li>→ Download ZIP files from <a href="https://github.com/trabian/fluxwing-skills/releases/latest" target="_blank" rel="noopener noreferrer">latest release</a></li>
+                <li>→ Open Claude Desktop app</li>
+                <li>→ Go to <strong>Settings &gt; Capabilities</strong></li>
+                <li>→ Click <strong>"Upload skill"</strong></li>
+                <li>→ Select a ZIP file to upload</li>
+                <li>→ Repeat for each skill you want to install</li>
+              </ol>
+              <div class="ascii-box">
+                <p><strong>Best for:</strong> Claude Desktop app users (GUI)</p>
+                <p><strong>Requirements:</strong> Pro, Max, Team, or Enterprise plan with code execution enabled</p>
+                <p><strong>Available ZIPs:</strong> 6 files ranging from 6.6KB to 60KB</p>
+              </div>
+              <div class="ascii-box" style="margin-top: 1rem;">
+                <p><strong>Note:</strong> You can install all 6 skills or just the ones you need:</p>
+                <ul class="ascii-list">
+                  <li>→ <code>fluxwing-component-creator.zip</code> (60KB) - Create components</li>
+                  <li>→ <code>fluxwing-library-browser.zip</code> (7.6KB) - Browse library</li>
+                  <li>→ <code>fluxwing-component-expander.zip</code> (9.3KB) - Add states</li>
+                  <li>→ <code>fluxwing-screen-scaffolder.zip</code> (15KB) - Build screens</li>
+                  <li>→ <code>fluxwing-component-viewer.zip</code> (6.6KB) - View details</li>
+                  <li>→ <code>fluxwing-screenshot-importer.zip</code> (24KB) - Import screenshots</li>
+                </ul>
+              </div>
 
               <h3>Development Installation</h3>
               <p>For local development and testing only:</p>

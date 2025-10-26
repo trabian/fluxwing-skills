@@ -20,6 +20,8 @@ Think of it this way:
 
 ## Installation
 
+### Claude Code (CLI)
+
 Get started in 10 seconds:
 
 ```bash
@@ -32,7 +34,28 @@ Get started in 10 seconds:
 
 **That's it!** Start designing by talking to Claude naturally.
 
-**See [INSTALL.md](INSTALL.md) for alternative installation methods and troubleshooting.**
+### Claude Desktop App (macOS/Windows)
+
+For the GUI Claude app:
+
+1. **Download ZIP files** from [latest release](https://github.com/trabian/fluxwing-skills/releases/latest)
+2. **Open Claude Desktop** > Settings > Capabilities
+3. **Click "Upload skill"** and select a ZIP file
+4. **Repeat** for each skill you want to install
+
+**Available skills:** 6 ZIP files (one per skill)
+- `fluxwing-component-creator.zip` (60KB)
+- `fluxwing-library-browser.zip` (7.6KB)
+- `fluxwing-component-expander.zip` (9.3KB)
+- `fluxwing-screen-scaffolder.zip` (15KB)
+- `fluxwing-component-viewer.zip` (6.6KB)
+- `fluxwing-screenshot-importer.zip` (24KB)
+
+**Requirements:** Pro, Max, Team, or Enterprise plan with code execution enabled
+
+---
+
+**See [INSTALL.md](INSTALL.md) for detailed instructions, development setup, and troubleshooting.**
 
 ---
 
