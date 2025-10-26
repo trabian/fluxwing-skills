@@ -1,47 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Use Cases - Fluxwing</title>
-  <meta name="description" content="How teams use Fluxwing for AI agent UIs, rapid prototyping, design systems at scale, and living documentation">
-  <link rel="stylesheet" href="css/base.css">
-</head>
-<body class="crt-bg">
-  <a class="skip-link" href="#main">Skip to content</a>
-  
-  <header style="padding: 2rem clamp(1.5rem, 6vw, 6rem); background: rgba(2, 5, 8, 0.95); border-bottom: 1px dashed rgba(94, 247, 194, 0.35);">
-    <div class="mobile-nav-wrapper" style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-      <a href="/" style="font-size: 1.25rem; font-weight: 700; color: var(--fw-accent-strong);">Fluxwing</a>
-      <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
-      <nav style="display: flex; align-items: center;">
-        <ul style="display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; flex-wrap: wrap;">
-          <li><a href="/why.html">Why</a></li>
-          <li><a href="/use-cases.html">Use Cases</a></li>
-          <li><a href="/#install">Install</a></li>
-          <li><a href="/#docs">Docs</a></li>
-        </ul>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="How teams use Fluxwing for AI agent UIs, rapid prototyping, design systems at scale, and living documentation."
+    />
+    <title>Use Cases · Fluxwing for Modern AI-Assisted Development</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./css/ascii-core.css?v=20241026-2" />
+    <link rel="stylesheet" href="./css/components.css?v=20241026-2" />
+    <link rel="stylesheet" href="./css/responsive.css?v=20241026-2" />
+  </head>
+  <body class="page">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <header role="banner">
+      <div class="layout-container">
+        <div class="site-header">
+          <div class="site-header__logo" aria-hidden="true">
+            <pre class="logo-text" data-src="./assets/fluxwing-logo-header.txt">███████╗██╗     ██╗   ██╗██╗  ██╗██╗    ██╗██╗███╗   ██╗ ██████╗
+██╔════╝██║     ██║   ██║╚██╗██╔╝██║    ██║██║████╗  ██║██╔════╝
+█████╗  ██║     ██║   ██║ ╚███╔╝ ██║ █╗ ██║██║██╔██╗ ██║██║  ███╗
+██╔══╝  ██║     ██║   ██║ ██╔██╗ ██║███╗██║██║██║╚██╗██║██║   ██║
+██║     ███████╗╚██████╔╝██╔╝ ██╗╚███╔███╔╝██║██║ ╚████║╚██████╔╝
+╚═╝     ╚══════╝ ╚═════╝ ╚═╝  ╚═╝ ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝</pre>
+          </div>
+          <div class="site-header__identity">
+            <p>ASCII-first UX components for AI-native tooling.</p>
+          </div>
+        </div>
+      </div>
+      <nav class="primary-nav" aria-label="Primary">
+        <div class="layout-container">
+          <ul class="primary-nav__list">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./why.html">Why Fluxwing</a></li>
+            <li><a href="./use-cases.html" aria-current="page">Use Cases</a></li>
+            <li><a href="./index.html#installation">Install</a></li>
+            <li><a href="./index.html#docs-links">Documentation</a></li>
+            <li><a href="https://www.uxscii.com" target="_blank" rel="noopener noreferrer">uxscii</a></li>
+            <li><a href="https://github.com/trabian/fluxwing-skills" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="https://www.trabian.com" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center;"><img src="./assets/trabian.svg" alt="Trabian" style="height: 1.5em; vertical-align: middle;" /></a></li>
+          </ul>
+          <button class="primary-nav__toggle" aria-expanded="false" aria-controls="mobile-menu">
+            <span class="sr-only">Open navigation</span>
+          </button>
+        </div>
       </nav>
-    </div>
-  </header>
-
-  <main id="main">
-    <section class="ascii-stop" data-title="/use cases" style="max-width: 1200px; margin: 3rem auto;">
-      <h1 style="font-size: clamp(2.5rem, 4vw, 3.5rem); margin-bottom: 1rem;">Built for Modern AI-Assisted Development</h1>
-    </section>
-
-    <section class="ascii-stop" data-title="/ai agent uis" style="max-width: 1200px; margin: 3rem auto;">
-      <h2>1. AI Agent UIs</h2>
-      <p style="font-size: 1.1rem; color: rgba(210, 248, 255, 0.85); margin: 1rem 0 2rem;">Building agents that need to understand and generate UIs? Give them .uxm specs.</p>
-      <ul style="font-size: 1.05rem; line-height: 1.8; color: rgba(210, 248, 255, 0.85); padding-left: 1.5rem;">
-        <li>AI agents read component libraries natively</li>
-        <li>Understand relationships and composition</li>
-        <li>Generate implementations directly from specs</li>
-        <li>No vision models needed—perfect comprehension</li>
-      </ul>
-
-      <h3 style="margin-top: 2rem; color: var(--fw-accent);">Example: Agent reads button spec</h3>
-      <pre style="font-family: var(--fw-font); font-size: 0.9rem; line-height: 1.5; padding: 1.5rem; background: rgba(2, 5, 9, 0.92); border: 1px dashed rgba(94, 247, 194, 0.35); color: var(--fw-accent); margin: 1rem 0; overflow-x: auto;">{
+      <div id="mobile-menu" class="mobile-nav" hidden>
+        <div class="layout-container">
+          <ul class="mobile-nav__list">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./why.html">Why Fluxwing</a></li>
+            <li><a href="./use-cases.html" aria-current="page">Use Cases</a></li>
+            <li><a href="./index.html#installation">Install</a></li>
+            <li><a href="./index.html#docs-links">Documentation</a></li>
+            <li><a href="https://www.uxscii.com" target="_blank" rel="noopener noreferrer">uxscii</a></li>
+            <li><a href="https://github.com/trabian/fluxwing-skills" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="https://www.trabian.com" target="_blank" rel="noopener noreferrer"><img src="./assets/trabian.svg" alt="Trabian" style="height: 1.5em; vertical-align: middle;" /></a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <main id="main-content" role="main">
+      <section id="hero" aria-labelledby="hero-heading">
+        <div class="layout-container">
+          <h1 id="hero-heading">Built for Modern AI-Assisted Development</h1>
+        </div>
+      </section>
+      <section id="ai-agents" class="use-case-section" aria-labelledby="ai-agents-heading">
+        <div class="layout-container">
+          <h2 id="ai-agents-heading">1. AI Agent UIs</h2>
+          <p class="section-lead">Building agents that need to understand and generate UIs? Give them .uxm specs.</p>
+          <ul class="use-case-list">
+            <li>AI agents read component libraries natively</li>
+            <li>Understand relationships and composition</li>
+            <li>Generate implementations directly from specs</li>
+            <li>No vision models needed—perfect comprehension</li>
+          </ul>
+          <h3>Example: Agent reads button spec</h3>
+          <pre class="ascii-box" aria-hidden="true">
+{
   "id": "submit-button",
   "type": "button",
   "props": { "text": "Submit" },
@@ -49,29 +96,33 @@
     "role": "button",
     "keyboardShortcuts": ["Enter", "Space"]
   }
-}</pre>
-      <p style="margin-top: 1rem; color: rgba(210, 248, 255, 0.85);">Agent understands: This is a button. It says "Submit". It responds to Enter and Space keys. Perfect clarity—no interpretation needed.</p>
-    </section>
-
-    <section class="ascii-stop" data-title="/rapid prototyping" style="max-width: 1200px; margin: 3rem auto;">
-      <h2>2. Rapid Prototyping</h2>
-      <p style="font-size: 1.1rem; color: rgba(210, 248, 255, 0.85); margin: 1rem 0 2rem;">Iterate on structure and flow before pixel perfection.</p>
-      <ul style="font-size: 1.05rem; line-height: 1.8; color: rgba(210, 248, 255, 0.85); padding-left: 1.5rem;">
-        <li>ASCII layouts converge fast through human feedback</li>
-        <li>Derive variations in seconds</li>
-        <li>Compose screens in minutes</li>
-        <li>Add fidelity progressively as design solidifies</li>
-      </ul>
-
-      <h3 style="margin-top: 2rem; color: var(--fw-accent);">Example: Login screen in 60 seconds</h3>
-      <div class="use-cases-grid-2col" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem;">
-        <div>
-          <p style="font-weight: 600; margin-bottom: 0.5rem; color: var(--fw-accent-strong);">You say:</p>
-          <pre style="font-family: var(--fw-font); font-size: 0.85rem; line-height: 1.4; padding: 1rem; background: rgba(2, 5, 9, 0.92); border: 1px dashed rgba(94, 247, 194, 0.35); color: rgba(210, 248, 255, 0.85);">"Create a login screen"</pre>
+}
+          </pre>
+          <p>Agent understands: This is a button. It says "Submit". It responds to Enter and Space keys. Perfect clarity—no interpretation needed.</p>
         </div>
-        <div>
-          <p style="font-weight: 600; margin-bottom: 0.5rem; color: var(--fw-accent-strong);">Claude generates:</p>
-          <pre style="font-family: var(--fw-font); font-size: 0.85rem; line-height: 1.4; padding: 1rem; background: rgba(2, 5, 9, 0.92); border: 1px dashed rgba(94, 247, 194, 0.35); color: var(--fw-accent);">┌──────────────────────┐
+      </section>
+      <section id="prototyping" class="use-case-section" aria-labelledby="prototyping-heading">
+        <div class="layout-container">
+          <h2 id="prototyping-heading">2. Rapid Prototyping</h2>
+          <p class="section-lead">Iterate on structure and flow before pixel perfection.</p>
+          <ul class="use-case-list">
+            <li>ASCII layouts converge fast through human feedback</li>
+            <li>Derive variations in seconds</li>
+            <li>Compose screens in minutes</li>
+            <li>Add fidelity progressively as design solidifies</li>
+          </ul>
+          <h3>Example: Login screen in 60 seconds</h3>
+          <div class="use-case-2col">
+            <div class="use-case-2col__item">
+              <p class="use-case-2col__label">You say:</p>
+              <pre class="ascii-box" aria-hidden="true">
+"Create a login screen"
+              </pre>
+            </div>
+            <div class="use-case-2col__item">
+              <p class="use-case-2col__label use-case-2col__label--success">Claude generates:</p>
+              <pre class="ascii-box" aria-hidden="true">
+┌──────────────────────┐
 │  Welcome Back        │
 │  ┌────────────────┐  │
 │  │ Email          │  │
@@ -80,38 +131,42 @@
 │  │ Password       │  │
 │  └────────────────┘  │
 │  [    Sign In    ]   │
-└──────────────────────┘</pre>
+└──────────────────────┘
+              </pre>
+            </div>
+          </div>
+          <p>Give feedback: "Add a forgot password link". Iterate until perfect.</p>
         </div>
-      </div>
-      <p style="margin-top: 1rem; color: rgba(210, 248, 255, 0.85);">Give feedback: "Add a forgot password link". Iterate until perfect.</p>
-    </section>
-
-    <section class="ascii-stop" data-title="/design systems" style="max-width: 1200px; margin: 3rem auto;">
-      <h2>3. Design Systems at Scale</h2>
-      <p style="font-size: 1.1rem; color: rgba(210, 248, 255, 0.85); margin: 1rem 0 2rem;">Managing hundreds of component variations? Derivation model prevents duplication.</p>
-      <ul style="font-size: 1.05rem; line-height: 1.8; color: rgba(210, 248, 255, 0.85); padding-left: 1.5rem;">
-        <li>Change base components, all derivations inherit</li>
-        <li>Build libraries that grow organically through references</li>
-        <li>No more keeping 47 button copies in sync</li>
-        <li>Component graph scales without chaos</li>
-      </ul>
-
-      <h3 style="margin-top: 2rem; color: var(--fw-accent);">Example: Derivation vs Duplication</h3>
-      <div class="use-cases-grid-2col" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem;">
-        <div>
-          <p style="font-weight: 600; margin-bottom: 0.5rem; color: rgba(255, 100, 100, 0.9);">❌ Traditional (Duplication)</p>
-          <pre style="font-family: var(--fw-font); font-size: 0.8rem; line-height: 1.4; padding: 1rem; background: rgba(2, 5, 9, 0.92); border: 1px dashed rgba(255, 100, 100, 0.35); color: rgba(210, 248, 255, 0.75);">primary-button (copy)
+      </section>
+      <section id="design-systems" class="use-case-section" aria-labelledby="design-systems-heading">
+        <div class="layout-container">
+          <h2 id="design-systems-heading">3. Design Systems at Scale</h2>
+          <p class="section-lead">Managing hundreds of component variations? Derivation model prevents duplication.</p>
+          <ul class="use-case-list">
+            <li>Change base components, all derivations inherit</li>
+            <li>Build libraries that grow organically through references</li>
+            <li>No more keeping 47 button copies in sync</li>
+            <li>Component graph scales without chaos</li>
+          </ul>
+          <h3>Example: Derivation vs Duplication</h3>
+          <div class="use-case-2col">
+            <div class="use-case-2col__item">
+              <p class="use-case-2col__label use-case-2col__label--error">❌ Traditional (Duplication)</p>
+              <pre class="ascii-box ascii-box--error" aria-hidden="true">
+primary-button (copy)
 large-button (copy)
 small-button (copy)
 danger-button (copy)
 
 → Change base style?
 → Update 4 files manually
-→ Hope nothing breaks</pre>
-        </div>
-        <div>
-          <p style="font-weight: 600; margin-bottom: 0.5rem; color: var(--fw-accent-strong);">✅ Fluxwing (Derivation)</p>
-          <pre style="font-family: var(--fw-font); font-size: 0.8rem; line-height: 1.4; padding: 1rem; background: rgba(2, 5, 9, 0.92); border: 1px dashed rgba(94, 247, 194, 0.35); color: var(--fw-accent);">primary-button (base)
+→ Hope nothing breaks
+              </pre>
+            </div>
+            <div class="use-case-2col__item">
+              <p class="use-case-2col__label use-case-2col__label--success">✅ Fluxwing (Derivation)</p>
+              <pre class="ascii-box" aria-hidden="true">
+primary-button (base)
   ↓ extends
 large-button
 small-button
@@ -119,79 +174,71 @@ danger-button
 
 → Change base once
 → All variations inherit
-→ Single source of truth</pre>
+→ Single source of truth
+              </pre>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="living-docs" class="use-case-section" aria-labelledby="living-docs-heading">
+        <div class="layout-container">
+          <h2 id="living-docs-heading">4. Living Documentation</h2>
+          <p class="section-lead">Design specs that both humans review and AI executes.</p>
+          <ul class="use-case-list">
+            <li>In version control, in PRs</li>
+            <li>Single source of truth</li>
+            <li>Always in sync—no documentation drift</li>
+            <li>Text-based diffs show actual design changes</li>
+          </ul>
+          <h3>Example: Design review in a PR</h3>
+          <pre class="git-diff" aria-label="Git diff showing design change">
+<span class="git-diff__add">+ ## Hover State</span>
+<span class="git-diff__add">+ ```</span>
+<span class="git-diff__add">+ ╔══════════════════╗</span>
+<span class="git-diff__add">+ ║   {{text}}       ║</span>
+<span class="git-diff__add">+ ╚══════════════════╝</span>
+<span class="git-diff__add">+ ```</span>
+
+<span class="git-diff__remove">- "border": "thin"</span>
+<span class="git-diff__add">+ "border": "heavy"</span>
+          </pre>
+          <p>Reviewers see: "Added hover state with heavy border". Visual change visible in git diff. No separate Figma link. No docs to update. The spec IS the docs.</p>
+        </div>
+      </section>
+      <section id="cta" aria-labelledby="cta-heading">
+        <div class="layout-container">
+          <div class="cta-box">
+            <h2 id="cta-heading">Ready to Start?</h2>
+            <p>Install in 30 seconds. Create components. Build screens.</p>
+            <a class="hero__cta-button ascii-button--success" href="./index.html#installation">Get Started</a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer role="contentinfo">
+      <div class="layout-container">
+        <div class="site-footer">
+          <div class="site-footer__logo" aria-hidden="true">
+            <pre data-src="./assets/fluxwing-logo-footer.txt">┌──────────────────────┐
+│  ▸ F L U X W I N G   │
+│    ASCII-first UX    │
+└──────────────────────┘</pre>
+          </div>
+          <p style="display: flex; align-items: center; gap: 1ch; justify-content: center;">
+            Crafted by <a href="https://www.trabian.com" target="_blank" rel="noopener noreferrer"><img src="./assets/trabian.svg" alt="Trabian" style="height: 2em;" /></a> · Design systems that humans AND AI agents understand natively. Built on the open uxscii standard.
+          </p>
+          <nav aria-label="Footer">
+            <ul class="site-footer__links">
+              <li><a href="https://github.com/trabian/fluxwing-skills">GitHub</a></li>
+              <li><a href="https://www.uxscii.com" target="_blank" rel="noopener noreferrer">uxscii</a></li>
+              <li><a href="./index.html#docs-links">Docs</a></li>
+              <li><a href="https://www.fluxwing.com">Fluxwing</a></li>
+            </ul>
+          </nav>
+          <p class="site-footer__legal">© 2025 Fluxwing. Build component libraries through derivation, not duplication.</p>
         </div>
       </div>
-    </section>
-
-    <section class="ascii-stop" data-title="/living docs" style="max-width: 1200px; margin: 3rem auto;">
-      <h2>4. Living Documentation</h2>
-      <p style="font-size: 1.1rem; color: rgba(210, 248, 255, 0.85); margin: 1rem 0 2rem;">Design specs that both humans review and AI executes.</p>
-      <ul style="font-size: 1.05rem; line-height: 1.8; color: rgba(210, 248, 255, 0.85); padding-left: 1.5rem;">
-        <li>In version control, in PRs</li>
-        <li>Single source of truth</li>
-        <li>Always in sync—no documentation drift</li>
-        <li>Text-based diffs show actual design changes</li>
-      </ul>
-
-      <h3 style="margin-top: 2rem; color: var(--fw-accent);">Example: Design review in a PR</h3>
-      <pre style="font-family: var(--fw-font); font-size: 0.85rem; line-height: 1.4; padding: 1.5rem; background: rgba(2, 5, 9, 0.92); border: 1px dashed rgba(94, 247, 194, 0.35); margin: 1rem 0; overflow-x: auto;"><span style="color: rgba(100, 200, 100, 0.9);">+ ## Hover State</span>
-<span style="color: rgba(100, 200, 100, 0.9);">+ ```</span>
-<span style="color: rgba(100, 200, 100, 0.9);">+ ╔══════════════════╗</span>
-<span style="color: rgba(100, 200, 100, 0.9);">+ ║   {{text}}       ║</span>
-<span style="color: rgba(100, 200, 100, 0.9);">+ ╚══════════════════╝</span>
-<span style="color: rgba(100, 200, 100, 0.9);">+ ```</span>
-
-<span style="color: rgba(200, 100, 100, 0.9);">- "border": "thin"</span>
-<span style="color: rgba(100, 200, 100, 0.9);">+ "border": "heavy"</span></pre>
-      <p style="margin-top: 1rem; color: rgba(210, 248, 255, 0.85);">Reviewers see: "Added hover state with heavy border". Visual change visible in git diff. No separate Figma link. No docs to update. The spec IS the docs.</p>
-    </section>
-
-    <section style="max-width: 1200px; margin: 4rem auto; padding: 3rem; text-align: center; background: rgba(94, 247, 194, 0.08); border: 1px dashed rgba(94, 247, 194, 0.35);">
-      <h2 style="font-size: 2rem; margin-bottom: 1rem;">Ready to Start?</h2>
-      <p style="font-size: 1.1rem; color: rgba(210, 248, 255, 0.85); margin-bottom: 2rem;">Install in 30 seconds. Create components. Build screens.</p>
-      <a href="/#install" class="btn btn--primary" style="display: inline-flex; font-size: 1.1rem; padding: 0.75rem 1.5rem;">Get Started</a>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="site-footer__grid">
-      <div>
-        <h2 class="site-footer__title">Fluxwing</h2>
-        <p><strong>Design systems that humans AND AI agents understand natively.</strong></p>
-      </div>
-      <nav aria-label="Footer">
-        <ul>
-          <li><a href="https://github.com/fluxwing/fluxwing-skills">GitHub</a></li>
-          <li><a href="/#docs">Docs</a></li>
-        </ul>
-      </nav>
-    </div>
-    <p class="site-footer__legal">© <span data-year></span> Fluxwing. A product by <a href="https://www.trabian.com">Trabian</a>.</p>
-  </footer>
-  
-  <script>
-    document.querySelector('[data-year]').textContent = new Date().getFullYear();
-
-    // Mobile menu toggle
-    const menuToggle = document.querySelector('.mobile-menu-toggle');
-    const navWrapper = document.querySelector('.mobile-nav-wrapper');
-    if (menuToggle && navWrapper) {
-      menuToggle.addEventListener('click', () => {
-        const isOpen = navWrapper.classList.contains('is-open');
-        navWrapper.classList.toggle('is-open');
-        menuToggle.setAttribute('aria-expanded', !isOpen);
-        menuToggle.textContent = isOpen ? '☰' : '✕';
-      });
-
-      navWrapper.querySelectorAll('nav a').forEach(link => {
-        link.addEventListener('click', () => {
-          navWrapper.classList.remove('is-open');
-          menuToggle.setAttribute('aria-expanded', 'false');
-          menuToggle.textContent = '☰';
-        });
-      });
-    }
-  </script>
-</body>
+    </footer>
+    <script src="./js/main.js?v=20241026" defer></script>
+  </body>
 </html>

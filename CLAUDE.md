@@ -381,3 +381,10 @@ After installing skills, test with these triggers:
 4. "Build a login screen" → uxscii-screen-scaffolder
 5. "Show me the primary-button" → uxscii-component-viewer
 6. "Import this screenshot" → uxscii-screenshot-importer
+
+## Active Technologies
+- HTML5, CSS3, JavaScript ES6+ (browser native) + IBM Plex Mono (web font), GitHub Pages (hosting) (001-github-pages-ascii-redesign)
+- N/A (static site, no backend) (001-github-pages-ascii-redesign)
+
+## Recent Changes
+- 001-github-pages-ascii-redesign: Added HTML5, CSS3, JavaScript ES6+ (browser native) + IBM Plex Mono (web font), GitHub Pages (hosting)

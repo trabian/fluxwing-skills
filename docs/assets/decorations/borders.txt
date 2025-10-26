@@ -1,0 +1,55 @@
+# ASCII Border Patterns
+# Various box-drawing character sets for different border styles
+
+## Light Single Line
+┌─┐
+│ │
+└─┘
+
+## Heavy Single Line
+┏━┓
+┃ ┃
+┗━┛
+
+## Double Line
+╔═╗
+║ ║
+╚═╝
+
+## Light Round Corners
+╭─╮
+│ │
+╰─╯
+
+## Light Dashed
+┌╌┐
+╎ ╎
+└╌┘
+
+## Heavy Dashed
+┏╍┓
+╏ ╏
+┗╍┛
+
+## Mixed (Heavy Vertical, Light Horizontal)
+┌─┐
+┃ ┃
+└─┘
+
+## Full Character Set Reference
+# Corners
+┌ ┐ └ ┘  (light)
+┏ ┓ ┗ ┛  (heavy)
+╔ ╗ ╚ ╝  (double)
+╭ ╮ ╰ ╯  (round)
+
+# Lines
+─ ═  (horizontal: light, double)
+│ ║  (vertical: light, double)
+━ ┃  (heavy horizontal, heavy vertical)
+
+# Intersections
+┼ ╋ ╬  (light, heavy, double)
+├ ┤ ┬ ┴  (light T-junctions)
+┣ ┫ ┳ ┻  (heavy T-junctions)
+╠ ╣ ╦ ╩  (double T-junctions)

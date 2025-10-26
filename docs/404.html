@@ -1,82 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>404 — Page Not Found | Fluxwing Skills</title>
-    <meta name="description" content="The page you're looking for doesn't exist.">
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/docs.css">
-  </head>
-  <body class="crt-bg subpage">
-    <a class="skip-link" href="#main">Skip to content</a>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Page Not Found | Fluxwing</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./css/ascii-core.css?v=20241026">
+  <link rel="stylesheet" href="./css/components.css?v=20241026">
+  <link rel="stylesheet" href="./css/responsive.css?v=20241026">
+  <style>
+    .error-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .error-content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-4ch) 0;
+    }
+    .error-box {
+      text-align: center;
+      max-width: 600px;
+    }
+    .ascii-404 {
+      font-size: clamp(0.5rem, 2vw, 0.75rem);
+      line-height: 1;
+      color: var(--ascii-cyan);
+      margin: 0 auto var(--space-4ch);
+      display: inline-block;
+    }
+    .error-message {
+      font-size: var(--font-size-lg);
+      color: var(--ascii-yellow);
+      margin-bottom: var(--space-2ch);
+    }
+    .error-description {
+      margin-bottom: var(--space-4ch);
+    }
+    .error-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2ch);
+      justify-content: center;
+    }
+    @media (max-width: 768px) {
+      .ascii-404 {
+        font-size: 0.4rem;
+      }
+    }
+  </style>
+</head>
+<body class="page error-page">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
 
-    <header style="padding: 2rem clamp(1.5rem, 6vw, 6rem); background: rgba(2, 5, 8, 0.95); border-bottom: 1px dashed rgba(94, 247, 194, 0.35);">
-      <nav style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-        <a href="/" style="font-size: 1.25rem; font-weight: 700; color: var(--fw-accent-strong);">Fluxwing</a>
-        <ul style="display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; flex-wrap: wrap;">
-          <li><a href="/why.html">Why Fluxwing</a></li>
-          <li><a href="/use-cases.html">Use Cases</a></li>
-          <li><a href="/#install">Install</a></li>
-          <li><a href="/#docs">Docs</a></li>
-          <li><a href="https://github.com/fluxwing/fluxwing-skills">GitHub</a></li>
-        </ul>
-      </nav>
-    </header>
-
-    <main id="main" style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 4rem 2rem;">
-      <div style="max-width: 600px; text-align: center;">
-        <pre style="font-family: var(--fw-font); font-size: 0.85rem; line-height: 1.4; color: var(--fw-accent); margin: 0 0 2rem;">
-┌─────────────────────────────┐
-│                             │
-│        ERROR: 404           │
-│                             │
-│   Page not found in         │
-│   component library         │
-│                             │
-└─────────────────────────────┘
-        </pre>
-        <h1 style="font-size: 2.5rem; margin: 0 0 1rem; color: var(--fw-accent);">404</h1>
-        <p style="font-size: 1.25rem; margin: 0 0 2rem; color: rgba(210, 248, 255, 0.85);">
-          This page doesn't exist in the component library.
-        </p>
-        <p style="margin: 0 0 2rem; color: rgba(210, 248, 255, 0.75);">
-          The page you're looking for might have been moved, renamed, or never existed.
-        </p>
-        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-          <a href="/" class="btn btn--primary">Go Home</a>
-          <a href="/#docs" class="btn btn--ghost">Browse Docs</a>
-        </div>
-        <div style="margin-top: 3rem; padding: 1.5rem; background: rgba(10, 16, 24, 0.85); border: 1px dashed rgba(94, 247, 194, 0.25); border-radius: 8px; text-align: left;">
-          <h2 style="margin: 0 0 1rem; font-size: 1.1rem; color: var(--fw-accent);">Looking for documentation?</h2>
-          <ul style="margin: 0; padding: 0 0 0 1.5rem; color: rgba(210, 248, 255, 0.85);">
-            <li style="margin-bottom: 0.5rem;"><a href="/reference/getting-started.html">Getting Started</a> - Installation and first component</li>
-            <li style="margin-bottom: 0.5rem;"><a href="/reference/commands.html">Command Reference</a> - All 6 skills documented</li>
-            <li style="margin-bottom: 0.5rem;"><a href="/reference/architecture.html">Architecture</a> - System design and principles</li>
-            <li style="margin-bottom: 0.5rem;"><a href="/reference/how-skills-work.html">How Skills Work</a> - Agent invocation model</li>
-          </ul>
-        </div>
-      </div>
-    </main>
-
-    <footer class="site-footer">
-      <div class="site-footer__grid">
-        <div>
-          <h2 class="site-footer__title">Fluxwing</h2>
-          <p><strong>Design systems that humans AND AI agents understand natively.</strong></p>
-          <p style="margin-top: 0.5rem; font-size: 0.95rem;">Built on the open uxscii standard. ASCII is the universal interface.</p>
-        </div>
-        <nav aria-label="Footer">
-          <ul>
-            <li><a href="https://github.com/fluxwing/fluxwing-skills">GitHub</a></li>
-            <li><a href="/#docs">Documentation</a></li>
-            <li><a href="/#install">Install</a></li>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="layout-container">
+      <div class="site-header__content">
+        <a href="./index.html" class="logo-link" aria-label="Fluxwing home">
+          <pre class="ascii-logo" aria-hidden="true">█▀▀ █   █  █ ▀▄▀ █   █ █ █▄ █ █▀▀
+█▀  █▄▄ █▄▄█ █ █ ▀▄▀▄▀ █ █ ▀█ █▄█</pre>
+        </a>
+        <nav aria-label="Primary navigation">
+          <ul class="primary-nav__list">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./why.html">Why</a></li>
+            <li><a href="./use-cases.html">Use Cases</a></li>
+            <li><a href="./reference/getting-started.html">Docs</a></li>
+            <li><a href="https://www.uxscii.com" target="_blank" rel="noopener noreferrer">uxscii</a></li>
+            <li><a href="https://github.com/trabian/fluxwing-skills" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="https://www.trabian.com" target="_blank" rel="noopener noreferrer"><img src="./assets/trabian.svg" alt="Trabian" style="height: 1.5em; vertical-align: middle;" /></a></li>
           </ul>
         </nav>
       </div>
-      <p class="site-footer__legal">© <span data-year></span> Fluxwing. Build component libraries through derivation, not duplication. A product by <a href="https://www.trabian.com">Trabian</a>.</p>
-    </footer>
+    </div>
+  </header>
 
-    <script>document.querySelector('[data-year]').textContent = new Date().getFullYear();</script>
-  </body>
+  <main id="main-content" class="error-content">
+    <div class="layout-container">
+      <div class="error-box">
+
+        <!-- ASCII 404 Art -->
+        <pre class="ascii-404" aria-hidden="true">
+  ███████╗██████╗ ██████╗  ██████╗ ██████╗
+  ██╔════╝██╔══██╗██╔══██╗██╔═══██╗██╔══██╗
+  █████╗  ██████╔╝██████╔╝██║   ██║██████╔╝
+  ██╔══╝  ██╔══██╗██╔══██╗██║   ██║██╔══██╗
+  ███████╗██║  ██║██║  ██║╚██████╔╝██║  ██║
+  ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝
+        </pre>
+
+        <!-- Actual heading for screen readers -->
+        <h1 class="sr-only">404 - Page Not Found</h1>
+
+        <!-- Terminal-style error message -->
+        <div class="terminal-window">
+          <pre><code><span style="color: var(--ascii-red);">ERROR:</span> <span style="color: var(--ascii-yellow);">404</span> Page Not Found
+
+<span style="color: var(--ascii-cyan);">$</span> ls -la /page/you/requested
+<span style="color: var(--ascii-red);">ls: cannot access '/page/you/requested': No such file or directory</span>
+
+<span style="color: var(--ascii-cyan);">$</span> echo $STATUS
+<span style="color: var(--ascii-yellow);">Page does not exist in this universe ¯\_(ツ)_/¯</span></code></pre>
+        </div>
+
+        <p class="error-description">
+          The page you're looking for might have been moved, deleted, or never existed in the first place.
+          Let's get you back on track.
+        </p>
+
+        <!-- Navigation options -->
+        <div class="error-actions">
+          <a href="./index.html" class="ascii-button ascii-button--success">
+            ← Back to Home
+          </a>
+          <a href="./reference/getting-started.html" class="ascii-button">
+            View Docs
+          </a>
+        </div>
+
+        <!-- Helpful links section -->
+        <section class="ascii-box mt-6" style="text-align: left;">
+          <h2>Popular Pages</h2>
+          <ul class="ascii-list">
+            <li><a href="./index.html">Home</a> — Introduction to Fluxwing</li>
+            <li><a href="./why.html">Why Fluxwing</a> — Benefits and philosophy</li>
+            <li><a href="./use-cases.html">Use Cases</a> — Real-world applications</li>
+            <li><a href="./reference/getting-started.html">Getting Started</a> — Installation guide</li>
+            <li><a href="./reference/commands.html">Commands</a> — All 6 skills reference</li>
+            <li><a href="./reference/architecture.html">Architecture</a> — Technical deep dive</li>
+            <li><a href="./reference/how-skills-work.html">How Skills Work</a> — Skill lifecycle</li>
+          </ul>
+        </section>
+
+        <!-- Debug info (optional, can be hidden in production) -->
+        <div class="ascii-box-thin mt-6" style="text-align: left; opacity: 0.7;">
+          <h3 style="font-size: var(--font-size-sm);">Debug Info</h3>
+          <pre style="font-size: var(--font-size-sm);"><code>Timestamp: <span id="error-timestamp"></span>
+Requested: <span id="error-path"></span>
+Referrer:  <span id="error-referrer"></span></code></pre>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="layout-container site-footer__content">
+      <p class="site-footer__meta" style="display: flex; align-items: center; gap: 1ch; justify-content: center; flex-wrap: wrap;">
+        Crafted by <a href="https://www.trabian.com" target="_blank" rel="noopener noreferrer"><img src="./assets/trabian.svg" alt="Trabian" style="height: 2em;" /></a> ·
+        © 2025 Fluxwing. Built with <a href="./index.html">Fluxwing</a>.
+      </p>
+      <nav aria-label="Footer">
+        <ul class="site-footer__links" style="display: flex; gap: 2ch; justify-content: center; list-style: none; padding: 0; margin: 1rem 0 0 0;">
+          <li><a href="https://github.com/trabian/fluxwing-skills">GitHub</a></li>
+          <li><a href="https://www.uxscii.com" target="_blank" rel="noopener noreferrer">uxscii</a></li>
+          <li><a href="https://www.fluxwing.com">Fluxwing</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="./js/main.js?v=20241026"></script>
+  <script>
+    // Populate debug info
+    document.getElementById('error-timestamp').textContent = new Date().toISOString();
+    document.getElementById('error-path').textContent = window.location.pathname;
+    document.getElementById('error-referrer').textContent = document.referrer || 'Direct navigation';
+  </script>
+</body>
 </html>

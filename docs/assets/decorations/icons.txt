@@ -1,0 +1,67 @@
+# ASCII Icons
+# Small iconic elements for UI enhancement
+
+## Arrows
+→  Right arrow
+←  Left arrow
+↑  Up arrow
+↓  Down arrow
+↗  Diagonal up-right
+↘  Diagonal down-right
+⇒  Double right arrow
+⟹  Triple right arrow
+▸  Right triangle
+◂  Left triangle
+
+## Checkboxes and Status
+[ ]  Unchecked
+[X]  Checked
+[✓]  Checked (Unicode)
+[✗]  Failed
+[!]  Warning
+[?]  Question
+[*]  Starred
+[•]  Bullet point
+
+## Bullets and Markers
+•  Standard bullet
+◦  Hollow bullet
+▪  Square bullet
+▸  Triangle bullet (right)
+‣  Triangle bullet (right, small)
+⁃  Hyphen bullet
+∙  Middle dot
+⋆  Star
+⚡  Lightning bolt
+⚙  Gear/Settings
+⚠  Warning triangle
+
+## Progress Indicators
+░░░░░  Empty progress bar
+▓▓▓░░  60% filled
+████▓  90% filled
+█████  100% filled
+
+## Borders and Corners
+┌  Top-left corner
+┐  Top-right corner
+└  Bottom-left corner
+┘  Bottom-right corner
+├  Left T-junction
+┤  Right T-junction
+┬  Top T-junction
+┴  Bottom T-junction
+┼  Cross junction
+
+## Special Characters
+⌘  Command (Mac)
+⌥  Option (Mac)
+⌃  Control
+⇧  Shift
+⏎  Enter/Return
+⇥  Tab
+⎋  Escape
+◉  Radio button selected
+○  Radio button unselected
+▢  Square
+▣  Square filled

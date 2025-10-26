@@ -1,0 +1,314 @@
+/* T041: xs breakpoint (default mobile-first styles) */
+body {
+  padding: 0 var(--space-2ch);
+  /* T057: Prevent horizontal scroll */
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+* {
+  /* T057: Ensure no element causes horizontal scroll */
+  max-width: 100%;
+}
+
+header,
+main,
+footer {
+  margin-inline: auto;
+}
+
+section {
+  padding-block: var(--space-4ch);
+}
+
+.layout-container {
+  width: min(100%, 80rem);
+  margin-inline: auto;
+  padding-inline: var(--space-2ch);
+}
+
+/* T047: Mobile menu slide-in animation */
+.mobile-nav {
+  transform: translateX(-100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-nav:not([hidden]) {
+  transform: translateX(0);
+}
+
+/* T055: Responsive typography scale (xs) */
+:root {
+  font-size: 14px;
+}
+
+h1 {
+  font-size: var(--font-size-xl);
+}
+
+h2 {
+  font-size: var(--font-size-lg);
+}
+
+h3 {
+  font-size: var(--font-size-md);
+}
+
+/* T056: Responsive spacing adjustments (xs) */
+.hero {
+  padding: var(--space-2ch);
+  gap: var(--space-2ch);
+}
+
+/* T052: Single-column layout for xs/sm */
+.value-props__grid,
+.docs-links__grid,
+.showcase__grid {
+  grid-template-columns: 1fr;
+}
+
+/* Site header styles moved to components.css for consistency across breakpoints */
+
+/* Mobile-first: Hide desktop nav, show hamburger */
+.primary-nav .layout-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.primary-nav__list {
+  display: none;
+}
+
+.primary-nav__toggle {
+  display: flex;
+}
+
+.mobile-nav[hidden] {
+  display: none;
+}
+
+.value-props__grid,
+.docs-links__grid,
+.showcase__grid {
+  display: grid;
+  gap: var(--space-4ch);
+}
+
+.workflow__steps {
+  counter-reset: steps;
+  display: grid;
+  gap: var(--space-2ch);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.workflow__steps li::before {
+  counter-increment: steps;
+  content: "[" counter(steps) "]";
+  margin-right: var(--space-1ch);
+  color: var(--ascii-cyan);
+}
+
+.showcase__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2ch);
+  margin-bottom: var(--space-4ch);
+}
+
+.showcase__filters button {
+  border: 1px solid var(--border-secondary);
+  padding: var(--space-1ch) var(--space-2ch);
+}
+
+.site-footer {
+  display: grid;
+  gap: var(--space-2ch);
+}
+
+.site-footer__links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2ch);
+}
+
+.hero__art .hero__ascii--dynamic {
+  display: block;
+}
+
+@media (max-width: 47.99rem) {
+  .hero__art .hero__ascii--dynamic {
+    display: none;
+  }
+
+  .hero__art .hero__ascii--compact {
+    display: block;
+  }
+}
+
+@media (max-width: 31.99rem) {
+  .hero {
+    padding: var(--space-1ch);
+  }
+
+  .hero__art {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: var(--space-1ch);
+  }
+
+  .hero__art pre,
+  .hero__art noscript pre {
+    width: max-content;
+    font-size: clamp(0.55rem, 2.5vw, 0.8rem);
+    line-height: 1.25;
+    margin: 0 auto;
+  }
+
+  .hero__art .hero__ascii--compact {
+    width: 100%;
+    max-width: 100%;
+    font-size: clamp(0.8rem, 5vw, 1rem);
+    line-height: 1.2;
+    margin: 0 auto;
+    border: 1px solid var(--border-secondary);
+    background-color: rgba(0, 0, 0, 0.65);
+    padding: var(--space-2ch);
+  }
+}
+
+/* T042: sm breakpoint (640-1023px / 32rem-48rem) */
+@media (min-width: 32rem) {
+  :root {
+    font-size: 15px;
+  }
+
+  .workflow__steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* T053: 2-column grid for sm/md */
+  .value-props__grid,
+  .docs-links__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hero {
+    padding: var(--space-4ch);
+  }
+}
+
+/* T043: md breakpoint (1024-1439px / 48rem-64rem) */
+@media (min-width: 48rem) {
+  :root {
+    font-size: 16px;
+  }
+
+  body {
+    padding: 0 var(--space-4ch);
+  }
+
+  .hero {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+  }
+
+  /* Desktop: Show nav list, hide hamburger and mobile menu */
+  .primary-nav__list {
+    display: flex;
+    gap: var(--space-2ch);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .primary-nav__toggle {
+    display: none;
+  }
+
+  .mobile-nav {
+    display: none;
+  }
+
+  .showcase__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .docs-links__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* T044: lg breakpoint (1440px+ / 64rem+) */
+@media (min-width: 64rem) {
+  :root {
+    font-size: 16px;
+  }
+
+  /* T054: 3-column grid for lg */
+  .value-props__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* T055: Responsive typography scale (lg) */
+  .hero__lead {
+    font-size: var(--font-size-lg);
+  }
+
+  .hero__terminal pre {
+    font-size: var(--font-size-sm);
+  }
+
+  h1 {
+    font-size: var(--font-size-2xl);
+  }
+
+  .showcase__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .docs-links__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .workflow__steps {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .site-footer {
+    grid-template-columns: auto 1fr;
+    align-items: center;
+  }
+
+  /* T056: Responsive spacing adjustments (lg) */
+  section {
+    padding-block: var(--space-6ch);
+  }
+
+  /* why.html responsive grids (lg) */
+  .comparison-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .testimonials-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* why.html responsive - md breakpoint additions */
+@media (min-width: 48rem) {
+  .comparison-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* use-cases.html 2-column grid */
+  .use-case-2col {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
