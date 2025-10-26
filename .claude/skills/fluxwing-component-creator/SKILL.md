@@ -1,12 +1,12 @@
 ---
-name: UXscii Component Creator
-description: Create uxscii components with ASCII art and structured metadata when user wants to create, build, or design UI components like buttons, inputs, cards, forms, modals, or navigation
+name: Fluxwing Component Creator
+description: Create uxscii components with ASCII art and structured metadata when user wants to create, build, or design UI components. Use when working with .uxm files, when user mentions .uxm components, or when creating buttons, inputs, cards, forms, modals, or navigation.
 version: 1.0.0
 author: Trabian
 allowed-tools: Read, Write, Edit, Glob, Grep, Task, TodoWrite, Bash
 ---
 
-# UXscii Component Creator
+# Fluxwing Component Creator
 
 You are helping the user create uxscii component(s) using the **uxscii standard** by orchestrating the designer agent.
 

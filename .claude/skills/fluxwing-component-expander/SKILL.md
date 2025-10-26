@@ -1,12 +1,12 @@
 ---
-name: UXscii Component Expander
-description: Add interaction states like hover, focus, disabled, active, error to existing uxscii components when user wants to expand, enhance, or add states to components
+name: Fluxwing Component Expander
+description: Add interaction states like hover, focus, disabled, active, error to existing uxscii components. Use when working with .uxm files, when user wants to expand, enhance, or add states to .uxm components.
 version: 1.0.0
 author: Trabian
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 ---
 
-# UXscii Component Expander
+# Fluxwing Component Expander
 
 Expand existing uxscii components by adding interaction states.
 

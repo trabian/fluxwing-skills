@@ -1,12 +1,12 @@
 ---
-name: UXscii Library Browser
-description: Browse and view all available uxscii components including bundled templates, user components, and screens when user wants to see, list, browse, or search components
+name: Fluxwing Library Browser
+description: Browse and view all available uxscii components including bundled templates, user components, and screens. Use when working with .uxm files, when user wants to see, list, browse, or search .uxm components or screens.
 version: 1.0.0
 author: Trabian
 allowed-tools: Read, Glob, Grep
 ---
 
-# UXscii Library Browser
+# Fluxwing Library Browser
 
 Browse all available uxscii components: bundled templates, user-created components, and complete screens.
 
