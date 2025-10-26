@@ -1,0 +1,487 @@
+:root {
+  /* Terminal palette */
+  --ascii-black: #000000;
+  --ascii-bg: #0a0e14;
+  --ascii-bg-alt: #141c28;
+  --ascii-bg-card: #1a2332;
+
+  --ascii-text: #33ff33;
+  --ascii-text-bright: #66ff66;
+  --ascii-text-dim: #00cc00;
+  --ascii-text-white: #f0f0f0;
+
+  --ascii-cyan: #00ffff;
+  --ascii-cyan-bright: #66ffff;
+  --ascii-amber: #ffaa00;
+  --ascii-yellow: #ffff00;
+  --ascii-red: #ff0033;
+  --ascii-magenta: #ff00ff;
+  --ascii-success: #33ff66;
+  --ascii-warning: #ffaa33;
+  --ascii-error: #ff3366;
+
+  --border-primary: var(--ascii-cyan);
+  --border-secondary: var(--ascii-text);
+  --border-dim: rgba(51, 255, 51, 0.3);
+
+  --glow-color: rgba(51, 255, 51, 0.5);
+  --glow-cyan: rgba(0, 255, 255, 0.5);
+  --scanline-opacity: 0.05;
+  --flicker-opacity: 0.97;
+
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", "Courier New", monospace;
+  --font-size-base: 16px;
+  --line-height-base: 1.6;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+
+  --space-1ch: 1ch;
+  --space-2ch: 2ch;
+  --space-4ch: 4ch;
+  --space-6ch: 6ch;
+  --space-8ch: 8ch;
+
+  --radius-none: 0;
+  --radius-soft: 6px;
+
+  --transition-fast: 150ms ease;
+  --transition-medium: 300ms ease;
+  --transition-slow: 450ms ease;
+
+  --bp-xs: 24rem;
+  --bp-sm: 32rem;
+  --bp-md: 48rem;
+  --bp-lg: 64rem;
+  --bp-xl: 80rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: var(--font-size-base);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--ascii-bg);
+  color: var(--ascii-text);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-base);
+  text-rendering: optimizeLegibility;
+}
+
+body::before {
+  /* Subtle CRT vignette */
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at center, rgba(0, 255, 255, 0.05), transparent 70%);
+  mix-blend-mode: screen;
+  z-index: 1;
+}
+
+/* T107: Links distinguishable without color alone */
+a {
+  color: var(--ascii-cyan);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  transition: color var(--transition-fast), text-shadow var(--transition-fast), text-decoration-thickness var(--transition-fast);
+}
+
+a:hover,
+a:focus {
+  color: var(--ascii-cyan-bright);
+  text-shadow: 0 0 8px var(--glow-cyan);
+  text-decoration-thickness: 2px;
+}
+
+p {
+  margin: 0 0 var(--space-4ch);
+}
+
+ul,
+ol {
+  margin: 0 0 var(--space-4ch);
+  padding-left: var(--space-4ch);
+}
+
+code,
+pre {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  color: var(--ascii-text-bright);
+}
+
+pre {
+  margin: 0;
+  overflow-x: auto;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+button {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  background: transparent;
+  color: inherit;
+}
+
+/* T096, T108: Visible focus indicators for keyboard navigation */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--ascii-yellow);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(255, 255, 0, 0.2);
+}
+
+/* Ensure focus indicators are always visible */
+*:focus-visible {
+  outline: 2px solid var(--ascii-cyan);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: rgba(0, 255, 255, 0.3);
+  color: var(--ascii-text-white);
+}
+
+.page {
+  position: relative;
+  z-index: 2; /* Keeps content above global CRT overlay */
+}
+
+.layout-container {
+  margin-inline: auto;
+  padding-block: var(--space-4ch);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: var(--space-2ch);
+  background: var(--ascii-bg-card);
+  border: 1px solid var(--ascii-cyan);
+  padding: var(--space-1ch) var(--space-2ch);
+  color: var(--ascii-text-white);
+  z-index: 100;
+}
+
+.skip-link:focus {
+  left: var(--space-2ch);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.ascii-border-sample {
+  /* Helper class for visualizing border sets while building components */
+  white-space: pre;
+  font-size: var(--font-size-sm);
+  color: var(--ascii-text-dim);
+  margin-bottom: var(--space-4ch);
+}
+
+/* T017-T019: Layout utility classes */
+
+/* Grid utilities */
+.grid {
+  display: grid;
+}
+
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.gap-1 {
+  gap: var(--space-1ch);
+}
+
+.gap-2 {
+  gap: var(--space-2ch);
+}
+
+.gap-4 {
+  gap: var(--space-4ch);
+}
+
+.gap-6 {
+  gap: var(--space-6ch);
+}
+
+.gap-8 {
+  gap: var(--space-8ch);
+}
+
+/* Flexbox utilities */
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.items-start {
+  align-items: flex-start;
+}
+
+.items-end {
+  align-items: flex-end;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+/* Spacing utilities */
+.m-0 {
+  margin: 0;
+}
+
+.mt-2 {
+  margin-top: var(--space-2ch);
+}
+
+.mt-4 {
+  margin-top: var(--space-4ch);
+}
+
+.mt-6 {
+  margin-top: var(--space-6ch);
+}
+
+.mb-2 {
+  margin-bottom: var(--space-2ch);
+}
+
+.mb-4 {
+  margin-bottom: var(--space-4ch);
+}
+
+.mb-6 {
+  margin-bottom: var(--space-6ch);
+}
+
+.mx-auto {
+  margin-inline: auto;
+}
+
+.p-2 {
+  padding: var(--space-2ch);
+}
+
+.p-4 {
+  padding: var(--space-4ch);
+}
+
+.px-2 {
+  padding-inline: var(--space-2ch);
+}
+
+.px-4 {
+  padding-inline: var(--space-4ch);
+}
+
+.py-2 {
+  padding-block: var(--space-2ch);
+}
+
+.py-4 {
+  padding-block: var(--space-4ch);
+}
+
+/* T026-T030: ASCII Border System */
+.ascii-box {
+  position: relative;
+  border: 2px solid var(--border-primary);
+  padding: var(--space-4ch);
+  background-color: var(--ascii-bg-card);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.08);
+}
+
+.ascii-box-thin {
+  border: 1px solid var(--border-secondary);
+  padding: var(--space-2ch);
+}
+
+.ascii-box-double {
+  border: 3px double var(--ascii-cyan);
+  padding: var(--space-4ch);
+  box-shadow: 0 0 24px rgba(0, 255, 255, 0.12);
+}
+
+.ascii-divider {
+  text-align: center;
+  color: var(--ascii-text-dim);
+  margin-block: var(--space-6ch);
+  position: relative;
+}
+
+.ascii-divider::before {
+  content: "────────────────────────────────────────";
+  display: block;
+  letter-spacing: 0.1ch;
+}
+
+/* T031-T034: Terminal Color Themes */
+:root[data-theme="green"],
+.theme-green {
+  --theme-primary: var(--ascii-text);
+  --theme-bright: var(--ascii-text-bright);
+  --theme-dim: var(--ascii-text-dim);
+  --theme-accent: var(--ascii-success);
+}
+
+:root[data-theme="amber"],
+.theme-amber {
+  --theme-primary: var(--ascii-amber);
+  --theme-bright: var(--ascii-yellow);
+  --theme-dim: #cc8800;
+  --theme-accent: var(--ascii-warning);
+}
+
+:root[data-theme="blue"],
+.theme-blue {
+  --theme-primary: var(--ascii-cyan);
+  --theme-bright: var(--ascii-cyan-bright);
+  --theme-dim: #0099cc;
+  --theme-accent: #00aaff;
+}
+
+/* T035-T036: IBM Plex Mono font import */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap');
+
+/* T037-T040: Code and terminal text styling */
+code {
+  background-color: rgba(0, 255, 0, 0.08);
+  border: 1px solid var(--border-dim);
+  padding: 0.1ch 0.4ch;
+  border-radius: 2px;
+  font-size: 0.9em;
+}
+
+pre {
+  border: 1px solid var(--border-secondary);
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: var(--space-2ch);
+  overflow-x: auto;
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.05);
+}
+
+pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.terminal-text {
+  font-family: var(--font-mono);
+  color: var(--ascii-text-bright);
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: var(--space-1ch) var(--space-2ch);
+  border-left: 2px solid var(--ascii-text);
+  letter-spacing: 0.05ch;
+}
+
+ul.ascii-list,
+ol.ascii-list {
+  list-style: none;
+  padding-left: var(--space-4ch);
+}
+
+ul.ascii-list li::before {
+  content: "▸ ";
+  color: var(--ascii-cyan);
+  margin-left: calc(-1 * var(--space-4ch));
+  padding-right: var(--space-1ch);
+}
+
+ol.ascii-list {
+  counter-reset: ascii-counter;
+}
+
+ol.ascii-list li {
+  counter-increment: ascii-counter;
+}
+
+ol.ascii-list li::before {
+  content: "[" counter(ascii-counter) "] ";
+  color: var(--ascii-cyan);
+  margin-left: calc(-1 * var(--space-4ch));
+  padding-right: var(--space-1ch);
+}
+
+/* T102: ARIA live region for dynamic content updates */
+[aria-live="polite"],
+[aria-live="assertive"] {
+  position: relative;
+}
+
+.visually-hidden-but-announced {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

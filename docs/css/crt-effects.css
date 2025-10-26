@@ -1,0 +1,86 @@
+/* T146-T149: Optional CRT screen effects */
+/* Add data-crt="true" to body to enable */
+
+/* T146: Scanlines overlay */
+body[data-crt="true"]::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* T147: Text glow effect */
+body[data-crt="true"] {
+  text-shadow:
+    0 0 1px var(--glow-color),
+    0 0 2px var(--glow-color);
+}
+
+body[data-crt="true"] .ascii-text-bright,
+body[data-crt="true"] h1,
+body[data-crt="true"] h2 {
+  text-shadow:
+    0 0 4px var(--glow-cyan),
+    0 0 8px var(--glow-cyan),
+    0 0 12px rgba(0, 255, 255, 0.4);
+}
+
+/* T148: Subtle flicker animation */
+@keyframes flicker {
+  0%, 100% {
+    opacity: var(--flicker-opacity);
+  }
+  50% {
+    opacity: 0.98;
+  }
+}
+
+body[data-crt="true"] {
+  animation: flicker 3s ease-in-out infinite;
+}
+
+/* T149: Screen curvature effect */
+body[data-crt="true"] .page {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+body[data-crt="true"]::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* Respect prefers-reduced-motion - disable CRT effects */
+@media (prefers-reduced-motion: reduce) {
+  body[data-crt="true"]::after,
+  body[data-crt="true"]::before {
+    display: none;
+  }
+
+  body[data-crt="true"] {
+    animation: none;
+    text-shadow: none;
+  }
+
+  body[data-crt="true"] .ascii-text-bright,
+  body[data-crt="true"] h1,
+  body[data-crt="true"] h2 {
+    text-shadow: none;
+  }
+}
