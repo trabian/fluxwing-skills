@@ -1,20 +1,58 @@
-# Fluxwing Skills - AI-Native UX Design for Claude Code
+# Fluxwing Skills - Design at the Speed of Conversation
 
-**Design beautiful UX and screens with AI using the uxscii standard.**
+**Rapid iterative design with progressive fidelity.**
 
-Fluxwing Skills brings AI-native UX design to Claude Code through six specialized skills. Built on the open **uxscii standard**, it enables a rapid design feedback loop: AI generates visual specs using ASCII art, humans review and iterate naturally, and the system captures increasing levels of fidelity through structured metadata.
+Fluxwing enables rapid iteration using ASCII—a format both humans and AI read natively:
 
-**The perfect collaboration:** AI excels at creating ASCII layouts. Humans excel at giving feedback on ASCII drawings. Together, they create production-ready designs through progressive refinement.
+1. **Start low-fidelity** - ASCII layouts in minutes, not hours
+2. **Iterate with AI** - "Move this" → quick changes. "Add that" → done.
+3. **Add fidelity progressively** - Metadata, tokens, behaviors as design solidifies
+4. **Review and validate** - Get it right at low-fidelity before high-fidelity
+
+**Why ASCII?** It's rapid. Both humans and AI read it natively. Structure first, pixels later.
+
+---
+
+## Progressive Fidelity Workflow
+
+**Level 1: ASCII Layout**
+```
+╭──────────────────────╮
+│  Welcome Back        │
+│  ┌────────────────┐  │
+│  │ Email          │  │
+│  └────────────────┘  │
+│  [    Sign In    ]   │
+╰──────────────────────╯
+```
+Iterate with Claude: "Move button up" → quick changes. Try multiple layouts rapidly.
+
+**Level 2: Component Metadata**
+```json
+{
+  "id": "submit-button",
+  "variant": "primary",
+  "states": { "hover": {...}, "disabled": {...} }
+}
+```
+Add behavior, states, accessibility as design solidifies.
+
+**Level 3: Review and Move to High-Fidelity**
+- Validate with stakeholders at low-fidelity
+- Get feedback fast, iterate rapidly
+- THEN build in React, design visually, implement
+
+Get it right before investing in high-fidelity.
 
 ---
 
 ## What is Fluxwing?
 
-**Fluxwing** is the AI agent system that helps you design. **uxscii** is the standard format it uses.
+**Fluxwing** is the AI-powered design tool. **uxscii** is the open standard it uses.
 
 Think of it this way:
 - **uxscii** = The language (like HTML/CSS)
-- **Fluxwing** = The designer who speaks that language (like Figma, but AI-powered)
+- **Fluxwing** = The tool that speaks it (like a code editor for design)
 
 ---
 
@@ -180,64 +218,81 @@ Every component consists of two files:
 
 ## Why Fluxwing?
 
-### The AI-Human Feedback Loop
+### Rapid Iterative Design
 
-**AI's Superpower:** Modern AI models are exceptional at generating ASCII art and visual layouts. They can instantly create boxes, borders, layouts, and structured visual representations.
+**Iterate at conversation speed.** ASCII layouts enable rapid iteration through natural language.
 
-**Human's Superpower:** Humans can instantly parse ASCII drawings and provide immediate, intuitive feedback: "move this left", "make that bigger", "add spacing here".
+You: "Create a login screen"
+Claude: [ASCII layout in minutes]
+You: "Move the button up, add forgot password"
+Claude: [Updated quickly]
 
-**The Magic:** This creates a natural feedback loop where:
-1. AI generates ASCII specs in seconds
-2. Humans review visually and comment naturally
-3. AI iterates based on feedback
-4. Designs converge rapidly through conversation
+**Try multiple layouts rapidly.** Structure first. Pixels later.
 
-### Progressive Fidelity
+### Progressive Fidelity = Progressive Commitment
 
-Start simple, add detail as needed:
+Don't make detailed decisions too early. Start simple:
 
-**Level 1: ASCII Layout**
-```
-╭────────────────────╮
-│  Login             │
-│  ┌──────────────┐  │
-│  │ Email        │  │
-│  └──────────────┘  │
-│  [    Login    ]   │
-╰────────────────────╯
-```
-Quick visual feedback, instant iteration.
+1. **ASCII layout** - Structure and hierarchy
+2. **Component metadata** - Behavior and states
+3. **Review and validate** - Fast feedback at low-fidelity
+4. **Move to high-fidelity** - Build, design, implement when ready
 
-**Level 2: Structured Metadata**
-Add component types, props, states, and behavior through the `.uxm` file.
+Add detail as the design solidifies. Get it right before high-fidelity.
 
-**Level 3: Enhanced Details**
-Add accessibility, interactions, animations, responsive behavior, and design tokens.
+### Why ASCII? Rapid + Universal
 
-**You control the fidelity.** Start with quick ASCII sketches, refine progressively as the design solidifies.
+ASCII enables rapid iteration and universal comprehension:
 
-### Additional Benefits
+**Rapid:** No dragging, no resizing, just structure. Changes happen quickly through conversation.
 
-**Version Control Friendly** - Text-based format with meaningful diffs. Collaborative editing without binary conflicts.
+**Universal:** Both humans AND AI read it natively.
+- **Humans:** See structure instantly. Layout relationships clear. Visual feedback natural.
+- **AI agents:** No vision models needed. Text-based. Zero ambiguity. Perfect comprehension.
 
-**Production Ready** - Schema validation ensures quality. Accessibility built-in (ARIA roles, keyboard support). Multiple states for all interactive elements.
+One format. Two audiences. Conversation-speed iteration.
 
-**Tool Independent** - Open uxscii standard, not proprietary. Works with any text editor. No vendor lock-in.
+### Review Before High-Fidelity
 
-**Portable & Self-Contained** - Everything needed is bundled in the skills. No external dependencies. Works in any Claude Code installation.
+Validate at low-fidelity before investing in high-fidelity:
+
+- **Fast iteration** - Try multiple layouts rapidly at low-fidelity
+- **Progressive fidelity** - Add metadata, states, tokens as design solidifies
+- **Stakeholder review** - Get feedback fast using .uxm specs
+- **Move when ready** - Build in React, design visually, implement
+
+.uxm becomes your **implementation spec**.
+
+**The complete workflow:**
+1. Iterate rapidly at low-fidelity using ASCII
+2. Add fidelity progressively (metadata, states, tokens)
+3. Review and validate with stakeholders
+4. Move to high-fidelity when ready (React, visual design, etc.)
+
+Start fast. Get it right. Then invest in high-fidelity.
+
+### What Fluxwing Enables
+
+**Version Control Native** - Text-based diffs. See design changes in PRs. Collaborative editing. Track every change.
+
+**Component Derivation** - Start with a base component, derive variations from it. Document relationships with `extends`. AI helps propagate changes when you ask.
+
+**Living Documentation** - .uxm files are living specs. Review with stakeholders. Iterate rapidly. Always up to date.
+
+**Open Standard** - uxscii is open, not proprietary. No vendor lock-in. Works with any text editor.
 
 ---
 
 ## Example Workflow
 
-### Rapid Iteration with AI
+### From Idea to Implementation in Minutes
 
-**Natural conversation-based design:**
+**Step 1: Start Low-Fidelity**
 
+You: "Create a login screen with email, password, and submit button"
+
+Claude generates ASCII layout:
 ```
-You: "Create a login screen with email, password, and a submit button"
-
-AI: [Generates ASCII layout]
 ╭──────────────────────╮
 │  Welcome Back        │
 │  ┌────────────────┐  │
@@ -248,10 +303,14 @@ AI: [Generates ASCII layout]
 │  └────────────────┘  │
 │  [    Sign In    ]   │
 ╰──────────────────────╯
+```
 
-You: "Add a forgot password link and make the button more prominent"
+**Step 2: Iterate Rapidly**
 
-AI: [Iterates instantly]
+You: "Add forgot password link, make button more prominent"
+
+Claude updates:
+```
 ╭──────────────────────╮
 │  Welcome Back        │
 │  ┌────────────────┐  │
@@ -265,13 +324,23 @@ AI: [Iterates instantly]
 │  ║   SIGN IN      ║  │
 │  ╚════════════════╝  │
 ╰──────────────────────╯
-
-You: "Perfect! Now add the metadata for accessibility"
-
-AI: [Adds structured .uxm metadata with ARIA labels, roles, keyboard navigation]
 ```
 
-**Design converges through natural feedback on ASCII drawings.**
+**Step 3: Add Fidelity Progressively**
+
+You: "Add accessibility metadata and hover states"
+
+Claude creates `.uxm` with ARIA labels, keyboard navigation, interaction states.
+
+**Step 4: Review and Validate**
+
+Share .uxm with stakeholders. Get feedback. Iterate rapidly. Get it right at low-fidelity.
+
+**Step 5: Move to High-Fidelity**
+
+Use .uxm as implementation spec. Build in React. Design visually. Implement with confidence.
+
+**Total:** Fast iteration from idea to validated spec, ready for high-fidelity implementation.
 
 ---
 

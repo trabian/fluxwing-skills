@@ -73,75 +73,69 @@
     <main id="main-content" role="main">
       <section id="hero" aria-labelledby="hero-heading">
         <div class="layout-container">
-          <h1 id="hero-heading">Why Fluxwing?</h1>
+          <h1 id="hero-heading">Rapid Iterative Design with Progressive Fidelity</h1>
           <p class="hero__lead">
-            ASCII is the universal interface. Humans see it instantly. AI reads it perfectly. One format for both audiences.
+            Fluxwing enables rapid iteration at conversation speed. Iterate in minutes, not hours. Use ASCII—a format both humans and AI read natively.
           </p>
-        </div>
-      </section>
-      <section id="problem" aria-labelledby="problem-heading">
-        <div class="layout-container">
-          <h2 id="problem-heading">Traditional Design Tools Weren't Built for the AI Age</h2>
-          <div class="value-props__grid" role="list">
-            <article class="value-prop ascii-card" role="listitem">
-              <h3>For Humans Only</h3>
-              <p>Design tools like Figma are optimized for human manipulation—clicking, dragging, pixel-pushing. But AI agents can't understand them. Binary files. Visual interfaces. Closed formats.</p>
-            </article>
-            <article class="value-prop ascii-card" role="listitem">
-              <h3>Duplication Nightmare</h3>
-              <p>Want a button variation? Copy-paste. Another variation? Copy-paste again. Soon you have 47 button copies. Good luck keeping them in sync. Evolution through duplication creates chaos.</p>
-            </article>
-            <article class="value-prop ascii-card" role="listitem">
-              <h3>Not Version Control Friendly</h3>
-              <p>Binary files don't diff well. Collaborative editing causes conflicts. Design history is opaque. PRs can't show meaningful visual changes in code review.</p>
-            </article>
-          </div>
+          <p class="hero__sublead">
+            Start low-fidelity (ASCII layout). Add fidelity progressively (metadata, tokens). Review and validate. <strong>Get it right before high-fidelity.</strong>
+          </p>
         </div>
       </section>
       <section id="solution" aria-labelledby="solution-heading">
         <div class="layout-container">
-          <h2 id="solution-heading">ASCII: The Universal Interface</h2>
+          <h2 id="solution-heading">How Fluxwing Works</h2>
           <div class="comparison-grid">
             <div class="comparison-grid__item">
-              <h3>For Humans</h3>
+              <h3>1. Start Low-Fidelity (Minutes)</h3>
               <pre class="ascii-box" aria-hidden="true">
-╭──────────────────╮
-│   Submit Form    │
-╰──────────────────╯
+╭──────────────────────╮
+│  Welcome Back        │
+│  ┌────────────────┐  │
+│  │ Email          │  │
+│  └────────────────┘  │
+│  [    Sign In    ]   │
+╰──────────────────────╯
               </pre>
-              <p>Humans parse ASCII layouts instantly. You look at a box with borders and immediately see:</p>
+              <p><strong>Rapid iteration through conversation.</strong></p>
               <ul>
-                <li>Structure and hierarchy</li>
-                <li>Layout relationships</li>
-                <li>Component boundaries</li>
-                <li>Visual feedback is natural</li>
+                <li>"Move button up" → quick changes</li>
+                <li>"Add forgot password" → done</li>
+                <li>Try multiple layouts rapidly</li>
+                <li><strong>Why ASCII?</strong> It's rapid. Both humans AND AI read it natively.</li>
               </ul>
-              <p class="emphasis-text"><strong>No learning curve. Just vision.</strong></p>
+              <p class="emphasis-text"><strong>Structure first. Pixels later.</strong></p>
             </div>
             <div class="comparison-grid__item">
-              <h3>For AI Agents</h3>
+              <h3>2. Add Fidelity Progressively (Minutes)</h3>
               <pre class="ascii-box" aria-hidden="true">
 {
   "id": "submit-button",
-  "type": "button",
-  "props": {
-    "text": "Submit Form",
-    "variant": "primary"
+  "variant": "primary",
+  "states": {
+    "hover": { "border": "heavy" },
+    "disabled": { "opacity": 0.5 }
+  },
+  "accessibility": {
+    "role": "button",
+    "ariaLabel": "Submit form"
   }
 }
               </pre>
-              <p>AI agents understand ASCII perfectly:</p>
+              <p><strong>Add detail as design solidifies:</strong></p>
               <ul>
-                <li>No vision models needed</li>
-                <li>Zero ambiguity in specs</li>
-                <li>Structured text they reason about natively</li>
-                <li>Generate implementations directly</li>
+                <li>Component metadata (behavior, states)</li>
+                <li>Design tokens (colors, spacing)</li>
+                <li>Accessibility (ARIA, keyboard nav)</li>
+                <li>No premature decisions</li>
               </ul>
-              <p class="emphasis-text"><strong>Perfect comprehension without interpretation layers.</strong></p>
+              <p class="emphasis-text"><strong>Progressive commitment, not all-at-once.</strong></p>
             </div>
           </div>
           <p class="emphasis-box">
-            <strong>One format. Two audiences. Perfect clarity for both.</strong>
+            <strong>3. Review and Move to High-Fidelity</strong><br>
+            Validate at low-fidelity. Get stakeholder buy-in. THEN build in React, design visually, or implement.<br>
+            .uxm becomes your spec for high-fidelity implementation.
           </p>
         </div>
       </section>
@@ -150,95 +144,59 @@
           <h2 id="testimonials-heading">Why Teams Choose Fluxwing</h2>
           <div class="testimonials-grid">
             <article class="testimonial ascii-card">
-              <h3>"Our AI agents finally understand our design system."</h3>
-              <p>Specifications that AI can read natively. No interpretation layer. No ambiguity. Perfect comprehension. Generate implementations directly from specs.</p>
+              <h3>"We iterate 10x faster."</h3>
+              <p><strong>Rapid iterative design.</strong> ASCII layouts converge rapidly through conversation. Try multiple layouts in the time traditional tools take for one. Progressive fidelity means no premature decisions. Add detail as design solidifies.</p>
             </article>
             <article class="testimonial ascii-card">
-              <h3>"We stopped duplicating components."</h3>
-              <p>Derivation model means change base once, all variations inherit. No more keeping 47 button copies in sync. Libraries grow organically through references.</p>
+              <h3>"Our AI agents understand our design system."</h3>
+              <p>Specifications that AI can read natively. ASCII works for BOTH humans and AI. No interpretation layer. No vision models. Perfect comprehension. Generate implementations directly from specs.</p>
+            </article>
+            <article class="testimonial ascii-card">
+              <h3>"Component relationships are clear."</h3>
+              <p>Derivation model documents component lineage. Start with a base, derive variations. AI helps propagate changes when needed. Clear ancestry for your design system.</p>
             </article>
             <article class="testimonial ascii-card">
               <h3>"Design reviews happen in PRs now."</h3>
               <p>Text-based format shows meaningful diffs in code review. Visual changes visible in version control. Collaborative iteration. Single source of truth.</p>
             </article>
-            <article class="testimonial ascii-card">
-              <h3>"We iterate 10x faster."</h3>
-              <p>ASCII layouts converge fast through human feedback. Derive variations in seconds. Compose screens in minutes. Add fidelity progressively as design solidifies.</p>
-            </article>
           </div>
         </div>
       </section>
-      <section id="comparison" aria-labelledby="comparison-heading">
+      <section id="features" aria-labelledby="features-heading">
         <div class="layout-container">
-          <h2 id="comparison-heading">How Fluxwing Compares</h2>
-          <div class="table-wrapper">
-            <table class="comparison-table">
-              <thead>
-                <tr>
-                  <th scope="col">Feature</th>
-                  <th scope="col">Fluxwing</th>
-                  <th scope="col">Figma</th>
-                  <th scope="col">Sketch</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">AI Agent Readable</th>
-                  <td>✅ Native</td>
-                  <td>❌ No</td>
-                  <td>❌ No</td>
-                </tr>
-                <tr>
-                  <th scope="row">Human Readable</th>
-                  <td>✅ ASCII</td>
-                  <td>✅ Visual</td>
-                  <td>✅ Visual</td>
-                </tr>
-                <tr>
-                  <th scope="row">Derivation Model</th>
-                  <td>✅ Inheritance</td>
-                  <td>❌ Duplication</td>
-                  <td>❌ Duplication</td>
-                </tr>
-                <tr>
-                  <th scope="row">Version Control</th>
-                  <td>✅ Text diffs</td>
-                  <td>⚠️ Binary</td>
-                  <td>⚠️ Binary</td>
-                </tr>
-                <tr>
-                  <th scope="row">Living Docs</th>
-                  <td>✅ Executable specs</td>
-                  <td>❌ Separate</td>
-                  <td>❌ Separate</td>
-                </tr>
-                <tr>
-                  <th scope="row">PR Reviews</th>
-                  <td>✅ Code review</td>
-                  <td>❌ External</td>
-                  <td>❌ External</td>
-                </tr>
-                <tr>
-                  <th scope="row">Cost</th>
-                  <td>✅ Free/Open</td>
-                  <td>💰 $12-45/mo</td>
-                  <td>💰 $99</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="emphasis-box" style="margin-top: 2rem;">
-            <p><strong>Different tools for different stages:</strong></p>
-            <p><strong>Fluxwing:</strong> Rapid iteration, AI collaboration, design systems</p>
-            <p><strong>Figma/Sketch:</strong> Pixel perfection, visual design, client presentations</p>
-            <p style="margin-top: 1rem;"><strong>Use both. Start with Fluxwing for structure. Move to visual tools for polish.</strong></p>
+          <h2 id="features-heading">What Fluxwing Enables</h2>
+          <div class="value-props__grid" role="list">
+            <article class="value-prop" role="listitem">
+              <h3>AI-Native Specifications</h3>
+              <p>Both humans and AI read the same spec natively. No interpretation layer. No ambiguity. Perfect comprehension for rapid iteration.</p>
+            </article>
+            <article class="value-prop" role="listitem">
+              <h3>Version Control Native</h3>
+              <p>Text-based format shows meaningful diffs in code review. Track every change. Collaborative iteration through pull requests.</p>
+            </article>
+            <article class="value-prop" role="listitem">
+              <h3>Living Documentation</h3>
+              <p>Executable specs that never drift from implementation. .uxm files are the documentation. Always up to date, always accurate.</p>
+            </article>
+            <article class="value-prop" role="listitem">
+              <h3>Component Derivation</h3>
+              <p>Start with a base component, derive variations from it. Document relationships with <code>extends</code>. AI helps propagate changes when you ask. Clear component lineage.</p>
+            </article>
+            <article class="value-prop" role="listitem">
+              <h3>Progressive Fidelity</h3>
+              <p>Start simple, add detail as design solidifies. No premature decisions. Iterate rapidly, commit progressively. Get it right at low-fidelity first.</p>
+            </article>
+            <article class="value-prop" role="listitem">
+              <h3>Validated Specs</h3>
+              <p>Fast iteration and review at low-fidelity. Get stakeholder buy-in. .uxm becomes your implementation spec. Move to high-fidelity when ready.</p>
+            </article>
           </div>
         </div>
       </section>
       <section id="cta" aria-labelledby="cta-heading">
         <div class="layout-container">
           <div class="cta-box">
-            <h2 id="cta-heading">Start Building Design Systems That AI Understands</h2>
+            <h2 id="cta-heading">Start Designing at the Speed of Conversation</h2>
             <p>Install Fluxwing in 30 seconds. Create your first component. Derive variations. Compose screens.</p>
             <a class="hero__cta-button ascii-button--success" href="./index.html#installation">Get Started Now</a>
           </div>

@@ -73,18 +73,21 @@
     <main id="main-content" role="main">
       <section id="hero" aria-labelledby="hero-heading">
         <div class="layout-container">
-          <h1 id="hero-heading">Built for Modern AI-Assisted Development</h1>
+          <h1 id="hero-heading">Rapid Iterative Design in Action</h1>
+          <p class="hero__lead">
+            Real workflows showing rapid iteration with progressive fidelity. Iterate in minutes using ASCII—a format both humans and AI read natively.
+          </p>
         </div>
       </section>
       <section id="ai-agents" class="use-case-section" aria-labelledby="ai-agents-heading">
         <div class="layout-container">
-          <h2 id="ai-agents-heading">1. AI Agent UIs</h2>
-          <p class="section-lead">Building agents that need to understand and generate UIs? Give them .uxm specs.</p>
+          <h2 id="ai-agents-heading">1. Rapid Iteration on Structure</h2>
+          <p class="section-lead">Try 5 different layouts in minutes. Explore alternatives at conversation speed.</p>
           <ul class="use-case-list">
-            <li>AI agents read component libraries natively</li>
-            <li>Understand relationships and composition</li>
-            <li>Generate implementations directly from specs</li>
-            <li>No vision models needed—perfect comprehension</li>
+            <li><strong>Rapid iteration:</strong> Start ASCII → iterate at conversation speed</li>
+            <li>"Move this", "Add that", "Try without" → quick changes</li>
+            <li><strong>Why ASCII?</strong> It's rapid AND both humans and AI read it natively</li>
+            <li>Explore alternatives without commitment → structure first, pixels later</li>
           </ul>
           <h3>Example: Agent reads button spec</h3>
           <pre class="ascii-box" aria-hidden="true">
@@ -103,15 +106,15 @@
       </section>
       <section id="prototyping" class="use-case-section" aria-labelledby="prototyping-heading">
         <div class="layout-container">
-          <h2 id="prototyping-heading">2. Rapid Prototyping</h2>
-          <p class="section-lead">Iterate on structure and flow before pixel perfection.</p>
+          <h2 id="prototyping-heading">2. Progressive Fidelity</h2>
+          <p class="section-lead">Don't make detailed decisions too early. Add fidelity as design solidifies.</p>
           <ul class="use-case-list">
-            <li>ASCII layouts converge fast through human feedback</li>
-            <li>Derive variations in seconds</li>
-            <li>Compose screens in minutes</li>
-            <li>Add fidelity progressively as design solidifies</li>
+            <li>Level 1: ASCII layout (structure, hierarchy)</li>
+            <li>Level 2: Component metadata (states, behavior, accessibility)</li>
+            <li>Level 3: Design tokens (colors, spacing, typography)</li>
+            <li>Level 4: Generate outputs (Figma, React)</li>
           </ul>
-          <h3>Example: Login screen in 60 seconds</h3>
+          <h3>Example: Login screen iteration</h3>
           <div class="use-case-2col">
             <div class="use-case-2col__item">
               <p class="use-case-2col__label">You say:</p>
@@ -140,31 +143,18 @@
       </section>
       <section id="design-systems" class="use-case-section" aria-labelledby="design-systems-heading">
         <div class="layout-container">
-          <h2 id="design-systems-heading">3. Design Systems at Scale</h2>
-          <p class="section-lead">Managing hundreds of component variations? Derivation model prevents duplication.</p>
+          <h2 id="design-systems-heading">3. AI-Assisted Rapid Iteration</h2>
+          <p class="section-lead">Iterate through conversation. <strong>Why ASCII?</strong> It's rapid and universal—both humans AND AI read it natively.</p>
           <ul class="use-case-list">
-            <li>Change base components, all derivations inherit</li>
-            <li>Build libraries that grow organically through references</li>
-            <li>No more keeping 47 button copies in sync</li>
-            <li>Component graph scales without chaos</li>
+            <li><strong>Rapid iteration:</strong> "Move this", "Add that", "Try without" → quick changes</li>
+            <li>No vision models needed—AI reads ASCII perfectly</li>
+            <li>Fast feedback loop through conversation</li>
+            <li>Explore alternatives rapidly</li>
           </ul>
-          <h3>Example: Derivation vs Duplication</h3>
+          <h3>Example: Component Derivation</h3>
           <div class="use-case-2col">
             <div class="use-case-2col__item">
-              <p class="use-case-2col__label use-case-2col__label--error">❌ Traditional (Duplication)</p>
-              <pre class="ascii-box ascii-box--error" aria-hidden="true">
-primary-button (copy)
-large-button (copy)
-small-button (copy)
-danger-button (copy)
-
-→ Change base style?
-→ Update 4 files manually
-→ Hope nothing breaks
-              </pre>
-            </div>
-            <div class="use-case-2col__item">
-              <p class="use-case-2col__label use-case-2col__label--success">✅ Fluxwing (Derivation)</p>
+              <p class="use-case-2col__label use-case-2col__label--success">Component Hierarchy</p>
               <pre class="ascii-box" aria-hidden="true">
 primary-button (base)
   ↓ extends
@@ -172,37 +162,48 @@ large-button
 small-button
 danger-button
 
-→ Change base once
-→ All variations inherit
-→ Single source of truth
+→ Start with base component
+→ Derive variations from it
+→ Document relationships
               </pre>
+            </div>
+            <div class="use-case-2col__item">
+              <p class="use-case-2col__label">Benefits</p>
+              <ul style="padding-left: 1.5rem; margin-top: 1rem;">
+                <li>Clear component lineage</li>
+                <li>Easy variation creation</li>
+                <li>AI can propagate changes</li>
+                <li>Documented relationships</li>
+              </ul>
             </div>
           </div>
         </div>
       </section>
       <section id="living-docs" class="use-case-section" aria-labelledby="living-docs-heading">
         <div class="layout-container">
-          <h2 id="living-docs-heading">4. Living Documentation</h2>
-          <p class="section-lead">Design specs that both humans review and AI executes.</p>
+          <h2 id="living-docs-heading">4. Review Before High-Fidelity</h2>
+          <p class="section-lead">Validate at low-fidelity before investing in high-fidelity implementation.</p>
           <ul class="use-case-list">
-            <li>In version control, in PRs</li>
-            <li>Single source of truth</li>
-            <li>Always in sync—no documentation drift</li>
-            <li>Text-based diffs show actual design changes</li>
+            <li>Iterate rapidly on .uxm specs at low-fidelity</li>
+            <li>Review with stakeholders - fast feedback loop</li>
+            <li>Add detail progressively - metadata, states, tokens</li>
+            <li>Get it right BEFORE building in React or designing visually</li>
           </ul>
-          <h3>Example: Design review in a PR</h3>
-          <pre class="git-diff" aria-label="Git diff showing design change">
-<span class="git-diff__add">+ ## Hover State</span>
-<span class="git-diff__add">+ ```</span>
-<span class="git-diff__add">+ ╔══════════════════╗</span>
-<span class="git-diff__add">+ ║   {{text}}       ║</span>
-<span class="git-diff__add">+ ╚══════════════════╝</span>
-<span class="git-diff__add">+ ```</span>
+          <h3>Example: Progressive fidelity workflow</h3>
+          <pre class="git-diff" aria-label="Progressive fidelity workflow">
+<strong>submit-button.uxm</strong> (your spec)
 
-<span class="git-diff__remove">- "border": "thin"</span>
-<span class="git-diff__add">+ "border": "heavy"</span>
+↓ Iterate rapidly in ASCII
+↓ Add metadata and states
+↓ Review with stakeholders
+↓ Validate and refine
+
+<strong>When ready, move to high-fidelity:</strong>
+→ Build React component from spec
+→ Design visually
+→ Implement with confidence
           </pre>
-          <p>Reviewers see: "Added hover state with heavy border". Visual change visible in git diff. No separate Figma link. No docs to update. The spec IS the docs.</p>
+          <p>Fast iteration at low-fidelity. Get it right. THEN invest in high-fidelity implementation.</p>
         </div>
       </section>
       <section id="cta" aria-labelledby="cta-heading">

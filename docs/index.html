@@ -74,10 +74,12 @@
       <section id="hero" aria-labelledby="hero-heading">
         <div class="layout-container hero">
           <div class="hero__content">
-            <h1 id="hero-heading">Fluxwing makes ASCII-first UX real.</h1>
+            <h1 id="hero-heading">Design at the speed of conversation.</h1>
             <p class="hero__lead">
-              Train your interface like an AI co-pilot: Fluxwing ingests prompts, derives ASCII systems,
-              and ships terminal-perfect experiences without breaking accessibility.
+              Rapid iterative design with progressive fidelity. Iterate and review in minutes using ASCII. Add detail as your design solidifies. Get it right before high-fidelity.
+            </p>
+            <p class="hero__sublead">
+              <strong>Why ASCII?</strong> It's rapid. Both humans and AI read it natively. Structure first, pixels later.
             </p>
             <div class="hero__cta">
               <a class="hero__cta-button ascii-button--success" href="#installation" aria-label="Get started with Fluxwing (success state example)">Get started</a>
@@ -114,90 +116,102 @@
       </section>
       <section id="value-props" aria-labelledby="value-props-heading">
         <div class="layout-container">
-          <h2 id="value-props-heading">Why teams choose Fluxwing</h2>
+          <h2 id="value-props-heading">Rapid Iteration + Progressive Fidelity</h2>
           <div class="value-props__grid" role="list">
             <article class="value-prop" role="listitem">
-              <h3>Universal Interface</h3>
-              <p>ASCII works for BOTH humans and AI agents. Humans parse layouts instantly—see structure, hierarchy, relationships. AI agents understand perfectly—no vision models needed. One format, two audiences.</p>
+              <h3>Rapid Iteration</h3>
+              <p>Iterate at conversation speed. "Move this", "add that" → quick changes. Try multiple layouts rapidly. No dragging, no resizing, just structure. <strong>Structure first, pixels later.</strong></p>
             </article>
             <article class="value-prop" role="listitem">
-              <h3>Derivation Model</h3>
-              <p>Extend components like classes. Create button.uxm, derive primary-button.uxm that extends it. Change the base once, all derivations inherit. No copy-paste duplication. Like OOP for design.</p>
+              <h3>Why ASCII? Rapid + Universal</h3>
+              <p>ASCII is <strong>rapid</strong>—no pixel-pushing, just structure. And it's <strong>universal</strong>—both humans and AI read it natively. Humans see hierarchy instantly. AI reads it without vision models. Iterate through conversation at the speed of thought.</p>
             </article>
             <article class="value-prop" role="listitem">
-              <h3>Component Evolution</h3>
-              <p>Build through references, not copies. Compose screens from reusable parts. Your design system becomes a graph of components that inherit and evolve organically—just like imports in code.</p>
+              <h3>Progressive Fidelity</h3>
+              <p>Don't make detailed decisions too early. Start ASCII layout (structure, hierarchy). Add component metadata (states, behavior). Review and refine. <strong>Get it right before high-fidelity.</strong></p>
             </article>
             <article class="value-prop" role="listitem">
-              <h3>Living Documentation</h3>
-              <p>Design specs that both humans review and AI can execute. In version control. In PRs. Single source of truth. Always in sync. No documentation drift. Text-based diffs show actual changes.</p>
+              <h3>Review Before High-Fidelity</h3>
+              <p>Iterate rapidly at low-fidelity. Add detail progressively. Validate with stakeholders. THEN move to high-fidelity tools. .uxm becomes your spec for implementation.</p>
             </article>
             <article class="value-prop" role="listitem">
-              <h3>AI-Native Design</h3>
-              <p>Built for modern AI-assisted development. AI agents read .uxm specs natively, understand relationships, and generate implementations. Perfect comprehension without interpretation layers.</p>
+              <h3>Component Derivation</h3>
+              <p>Start with a base component, derive variations from it. The <code>extends</code> field documents relationships. AI can help propagate changes when you ask. Clear lineage for your design system.</p>
             </article>
           </div>
         </div>
       </section>
       <section id="derivation-model" aria-labelledby="derivation-heading">
         <div class="layout-container">
-          <h2 id="derivation-heading">Derivation, Not Duplication</h2>
+          <h2 id="derivation-heading">Progressive Fidelity Workflow</h2>
           <p class="section-lead">
-            Traditional design tools duplicate. Fluxwing derives. Like object-oriented programming but for design.
+            Start simple, iterate fast, add detail as design solidifies.
           </p>
           <div class="derivation-diagram">
-            <pre aria-label="Component derivation tree">
-button.uxm (base component)
-  ├→ primary-button.uxm (extends button)
-  │   └→ submit-button.uxm (uses primary)
-  ├→ secondary-button.uxm (extends button)
-  └→ disabled-button.uxm (extends button)
+            <pre aria-label="Progressive fidelity levels">
+<strong>Level 1: ASCII Layout</strong>
+╭──────────────────────╮
+│  Welcome Back        │
+│  ┌────────────────┐  │
+│  │ Email          │  │
+│  └────────────────┘  │
+│  [    Sign In    ]   │
+╰──────────────────────╯
+Rapid iteration: "Move button up" → quick changes
 
-email-input.uxm
-password-input.uxm
-                    ↓
-            login-form.uxm (composes inputs + submit-button)
-                    ↓
-            login-screen.uxm (composes form + branding)
+<strong>Level 2: Component Metadata</strong>
+{
+  "id": "submit-button",
+  "variant": "primary",
+  "states": { "hover": {...}, "disabled": {...} }
+}
+Add behavior, states, accessibility
+
+<strong>Level 3: Review and Refine</strong>
+Validate with stakeholders
+Add more detail as needed
+Get feedback fast
+
+<strong>Level 4: Move to High-Fidelity</strong>
+.uxm becomes your implementation spec
+Build in React/Vue/Svelte
+Design in visual tools
             </pre>
           </div>
           <p class="emphasis-box">
-            <strong>Change the base → All derivations inherit the change</strong>
+            <strong>Start simple → Add fidelity progressively → Move to high-fidelity when ready</strong>
           </p>
           <p>
-            Your design system becomes a graph of components that inherit, compose, and evolve organically.
-            No duplication. Just references. Like imports in code.
+            .uxm becomes the spec. Review and refine at low-fidelity before investing in high-fidelity implementation.
           </p>
         </div>
       </section>
       <section id="workflow" aria-labelledby="workflow-heading">
         <div class="layout-container">
-          <h2 id="workflow-heading">From Component to Screen in Minutes</h2>
+          <h2 id="workflow-heading">From Idea to Implementation in Minutes</h2>
           <ol class="workflow__steps">
             <li data-step="1">
-              <h3>Create Base Component</h3>
-              <p><code>/fluxwing-create button</code></p>
-              <p>Creates button.uxm with ASCII template. Humans see it, give instant feedback, iterate. AI understands the structure perfectly.</p>
+              <h3>Start Low-Fidelity</h3>
+              <p><strong>You:</strong> "Create a login screen"</p>
+              <p><strong>Claude:</strong> Generates ASCII layout instantly. You see structure immediately. Give feedback naturally.</p>
             </li>
             <li data-step="2">
-              <h3>Derive Variations</h3>
-              <p><code>/fluxwing-create primary-button --extends button</code><br>
-              <code>/fluxwing-create disabled-button --extends button</code></p>
-              <p>Extend base components. Inherit properties. Override what's different. No copy-paste duplication.</p>
+              <h3>Iterate Instantly</h3>
+              <p><strong>You:</strong> "Move the button up, add forgot password"</p>
+              <p><strong>Claude:</strong> Updates instantly. Try multiple layouts quickly. Structure first, pixels later.</p>
             </li>
             <li data-step="3">
-              <h3>Compose Components</h3>
-              <p><code>/fluxwing-create login-form --components email-input,password-input,submit-button</code></p>
-              <p>Reference existing components. Build forms from parts. Compose hierarchies naturally.</p>
+              <h3>Add Fidelity Progressively</h3>
+              <p><strong>You:</strong> "Add hover states and accessibility metadata"</p>
+              <p><strong>Claude:</strong> Creates .uxm with ARIA labels, keyboard navigation, interaction states. Add detail as design solidifies.</p>
             </li>
             <li data-step="4">
-              <h3>Build Screens</h3>
-              <p><code>/fluxwing-scaffold login-screen</code></p>
-              <p>AI agents read your component library, understand relationships, generate complete screens.</p>
+              <h3>Review and Validate</h3>
+              <p>Share .uxm specs with stakeholders. Get feedback fast. Iterate rapidly. Get it right at low-fidelity before investing in high-fidelity.</p>
             </li>
             <li data-step="5">
-              <h3>Let AI Generate</h3>
-              <p>Your .uxm files become specifications that AI agents read and implement. Living documentation that both humans review and AI executes. Always in sync.</p>
+              <h3>Move to High-Fidelity When Ready</h3>
+              <p>.uxm becomes your implementation spec. Build in React, design visually, or generate code. Fast iteration from idea to validated spec.</p>
             </li>
           </ol>
         </div>
