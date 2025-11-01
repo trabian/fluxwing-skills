@@ -1,0 +1,30 @@
+{
+  "id": "{{id}}",
+  "type": "container",
+  "version": "1.0.0",
+  "metadata": {
+    "name": "{{name}}",
+    "description": "{{description}}",
+    "created": "{{timestamp}}",
+    "modified": "{{timestamp}}",
+    "tags": ["container", "{{screenContext}}"],
+    "category": "layout",
+    "fidelity": "sketch"
+  },
+  "props": {
+    "children": []
+  },
+  "behavior": {
+    "states": [
+      {"name": "default", "properties": {}}
+    ],
+    "accessibility": {
+      "role": "region",
+      "focusable": false
+    }
+  },
+  "ascii": {
+    "width": 80,
+    "height": 30
+  }
+}

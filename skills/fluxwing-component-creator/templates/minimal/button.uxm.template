@@ -1,0 +1,30 @@
+{
+  "id": "{{id}}",
+  "type": "button",
+  "version": "1.0.0",
+  "metadata": {
+    "name": "{{name}}",
+    "description": "{{description}}",
+    "created": "{{timestamp}}",
+    "modified": "{{timestamp}}",
+    "tags": ["button", "{{screenContext}}"],
+    "category": "form",
+    "fidelity": "sketch"
+  },
+  "props": {
+    "label": "{{label}}"
+  },
+  "behavior": {
+    "states": [
+      {"name": "default", "properties": {}}
+    ],
+    "accessibility": {
+      "role": "button",
+      "focusable": true
+    }
+  },
+  "ascii": {
+    "width": 20,
+    "height": 3
+  }
+}

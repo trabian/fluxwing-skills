@@ -1,0 +1,31 @@
+{
+  "id": "{{id}}",
+  "type": "card",
+  "version": "1.0.0",
+  "metadata": {
+    "name": "{{name}}",
+    "description": "{{description}}",
+    "created": "{{timestamp}}",
+    "modified": "{{timestamp}}",
+    "tags": ["card", "{{screenContext}}"],
+    "category": "display",
+    "fidelity": "sketch"
+  },
+  "props": {
+    "title": "{{title}}",
+    "content": "{{content}}"
+  },
+  "behavior": {
+    "states": [
+      {"name": "default", "properties": {}}
+    ],
+    "accessibility": {
+      "role": "article",
+      "focusable": false
+    }
+  },
+  "ascii": {
+    "width": 50,
+    "height": 10
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "id": "{{id}}",
+  "type": "form",
+  "version": "1.0.0",
+  "metadata": {
+    "name": "{{name}}",
+    "description": "{{description}}",
+    "created": "{{timestamp}}",
+    "modified": "{{timestamp}}",
+    "tags": ["form", "{{screenContext}}"],
+    "category": "form",
+    "fidelity": "sketch"
+  },
+  "props": {
+    "fields": []
+  },
+  "behavior": {
+    "states": [
+      {"name": "default", "properties": {}}
+    ],
+    "accessibility": {
+      "role": "form",
+      "focusable": true
+    }
+  },
+  "ascii": {
+    "width": 60,
+    "height": 25
+  }
+}
