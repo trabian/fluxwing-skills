@@ -17,6 +17,7 @@
       "enum": [
         "button",
         "input",
+        "checkbox",
         "card",
         "navigation",
         "form",
@@ -24,6 +25,7 @@
         "modal",
         "table",
         "badge",
+        "icon",
         "alert",
         "container",
         "text",

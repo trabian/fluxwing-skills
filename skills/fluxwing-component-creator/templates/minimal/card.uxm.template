@@ -25,6 +25,7 @@
     }
   },
   "ascii": {
+    "templateFile": "{{id}}.md",
     "width": 50,
     "height": 10
   }
