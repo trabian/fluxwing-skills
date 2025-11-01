@@ -83,6 +83,12 @@
           "type": "string",
           "enum": ["layout", "input", "display", "navigation", "feedback", "utility", "overlay", "custom"],
           "description": "Primary category for component organization"
+        },
+        "fidelity": {
+          "type": "string",
+          "enum": ["sketch", "basic", "detailed", "production"],
+          "description": "Component design fidelity level",
+          "default": "detailed"
         }
       },
       "required": ["name", "created", "modified"],
