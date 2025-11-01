@@ -72,132 +72,206 @@ const available = [...userComponents, ...libraryComponents, ...bundledComponents
 const missing = requiredComponents.filter(c => !available.includes(c));
 ```
 
-### Step 3: Create Missing Components (If Needed)
+### Step 3: Create Missing Components (Fast Mode)
 
-**If missing components exist**, spawn designer agents **IN PARALLEL** - one agent per component:
+**If missing components exist**, spawn designer agents in FAST MODE - one agent per component:
 
 **CRITICAL ORCHESTRATION RULES**:
-1. ⚠️ **DO NOT** create a TodoWrite list and work through it yourself
+1. ⚠️ **DO NOT** create TodoWrite list and work through it yourself
 2. ⚠️ **DO NOT** create components yourself using Write/Edit tools
-3. ✅ **DO** use the Task tool to spawn one agent per missing component
-4. ✅ **DO** send ONE message containing ALL Task tool calls (for parallel execution)
+3. ✅ **DO** use Task tool to spawn one agent per missing component
+4. ✅ **DO** send ONE message with ALL Task calls (parallel execution)
+5. ✅ **DO** use FAST MODE (creates .uxm only, <10s per component)
 
-**Example of CORRECT approach** - If 6 components are missing, your next response should contain exactly 6 Task() calls:
+**Fast Mode Creates:**
+- Component .uxm files (sketch fidelity)
+- NO .md files (composer will create these)
 
-```
-// Example: 6 missing components for banking-chat screen
+**Example: 6 missing components for banking-chat**
 
+```typescript
 Task({
   subagent_type: "general-purpose",
-  description: "Create message-bubble component",
-  prompt: "You are a uxscii component designer creating production-ready components.
+  model: "haiku", // Fast model
+  description: "Create message-bubble (fast)",
+  prompt: "Create sketch-fidelity uxscii component from template.
 
 Component: message-bubble
 Type: container
-Screen context: banking-chat (3-column layout with chat interface)
+Screen context: banking-chat
+
+FAST MODE - Speed is critical! <10 seconds target.
 
 Your task:
-1. Load schema from {SKILL_ROOT}/../uxscii-component-creator/schemas/uxm-component.schema.json
-2. Load docs from {SKILL_ROOT}/../uxscii-component-creator/docs/
-3. Create component with default state only (fast MVP)
-4. Save both .uxm and .md to ./fluxwing/components/
-5. Use TodoWrite to track progress
-6. Return component summary
+1. Load minimal template: {SKILL_ROOT}/../fluxwing-component-creator/templates/minimal/container.uxm.template
+2. Replace variables:
+   - {{id}} = 'message-bubble'
+   - {{name}} = 'Message Bubble'
+   - {{description}} = 'Chat message container for banking-chat'
+   - {{timestamp}} = '${new Date().toISOString()}'
+   - {{screenContext}} = 'banking-chat'
+3. Verify JSON is well-formed
+4. Save to ./fluxwing/components/message-bubble.uxm
+5. DO NOT create .md file
+6. DO NOT load documentation
 
-Follow uxscii standard strictly."
+Return: 'Created message-bubble.uxm (sketch fidelity)'
+
+Target: <10 seconds"
 })
 
 Task({
   subagent_type: "general-purpose",
-  description: "Create message-input component",
-  prompt: "You are a uxscii component designer creating production-ready components.
+  model: "haiku",
+  description: "Create message-input (fast)",
+  prompt: "Create sketch-fidelity uxscii component from template.
 
 Component: message-input
 Type: input
-Screen context: banking-chat (3-column layout with chat interface)
+Screen context: banking-chat
+
+FAST MODE - Speed is critical! <10 seconds target.
 
 Your task:
-1. Load schema from {SKILL_ROOT}/../uxscii-component-creator/schemas/uxm-component.schema.json
-2. Load docs from {SKILL_ROOT}/../uxscii-component-creator/docs/
-3. Create component with default state only (fast MVP)
-4. Save both .uxm and .md to ./fluxwing/components/
-5. Use TodoWrite to track progress
-6. Return component summary
+1. Load minimal template: {SKILL_ROOT}/../fluxwing-component-creator/templates/minimal/input.uxm.template
+2. Replace variables:
+   - {{id}} = 'message-input'
+   - {{name}} = 'Message Input'
+   - {{description}} = 'Chat input field for banking-chat'
+   - {{timestamp}} = '${new Date().toISOString()}'
+   - {{placeholder}} = 'Type a message...'
+   - {{label}} = 'Message'
+   - {{screenContext}} = 'banking-chat'
+3. Verify JSON is well-formed
+4. Save to ./fluxwing/components/message-input.uxm
+5. DO NOT create .md file
+6. DO NOT load documentation
 
-Follow uxscii standard strictly."
+Return: 'Created message-input.uxm (sketch fidelity)'
+
+Target: <10 seconds"
 })
 
+// ... spawn ONE Task per missing component in SAME message ...
+```
+
+**Performance:** 6 components × 10s = ~60 seconds (was 120-180s)
+
+**Wait for ALL component agents to complete before Step 4.**
+
+### Step 4: Compose Screen with Component .md Generation
+
+**Once all components exist**, spawn the composer agent:
+
+**CRITICAL: Composer generates .md files for ALL components!**
+
+This is the "smart composer" - it:
+1. Generates missing component .md files
+2. Loads documentation ONCE (not per component)
+3. Creates screen .uxm + .md + .rendered.md
+4. Focuses quality on .rendered.md (main deliverable)
+
+```typescript
 Task({
   subagent_type: "general-purpose",
-  description: "Create send-button component",
-  prompt: "You are a uxscii component designer creating production-ready components.
+  model: "sonnet", // Smart model for quality composition
+  description: "Compose ${screenName} with components",
+  prompt: `You are a uxscii screen composer creating production-ready screens.
 
-Component: send-button
-Type: button
-Screen context: banking-chat (3-column layout with chat interface)
+Screen: ${screenName}
+Components: ${componentList}
+Layout: ${layoutStructure}
 
-Your task:
-1. Load schema from {SKILL_ROOT}/../uxscii-component-creator/schemas/uxm-component.schema.json
-2. Load docs from {SKILL_ROOT}/../uxscii-component-creator/docs/
-3. Create component with default state only (fast MVP)
-4. Save both .uxm and .md to ./fluxwing/components/
-5. Use TodoWrite to track progress
-6. Return component summary
+Your task has TWO parts:
 
-Follow uxscii standard strictly."
+═══════════════════════════════════════
+PART 1: Generate Component .md Files
+═══════════════════════════════════════
+
+For each component in [${componentList}]:
+
+1. Read component .uxm from ./fluxwing/components/
+2. Check if .md exists:
+   - If EXISTS: Skip to next component
+   - If MISSING: Generate .md file (steps 3-5)
+
+3. Load ASCII patterns (ONCE for all components):
+   {SKILL_ROOT}/../fluxwing-component-creator/docs/06-ascii-patterns.md
+
+4. Generate simple ASCII art based on component type:
+   - button: Rounded box with label
+   - input: Rectangular box with placeholder
+   - card: Box with title and content area
+   - container: Large box for children
+   - Use dimensions from .uxm (ascii.width, ascii.height)
+   - Keep it simple (sketch quality, not detailed)
+
+5. Create .md file with:
+   - Component description
+   - ASCII art in code block
+   - Variables from .uxm props
+   - Save to ./fluxwing/components/\${componentId}.md
+
+Example .md for button:
+\`\`\`markdown
+# \${componentName}
+
+\${description}
+
+## ASCII
+
+\`\`\`
+╭──────────────────╮
+│  {{label}}       │
+╰──────────────────╯
+\`\`\`
+
+## Variables
+- label (string): Button text
+\`\`\`
+
+═══════════════════════════════════════
+PART 2: Compose Screen
+═══════════════════════════════════════
+
+1. Load schema: {SKILL_ROOT}/../fluxwing-component-creator/schemas/uxm-component.schema.json
+2. Load screen docs: {SKILL_ROOT}/docs/04-screen-composition.md
+
+3. Create screen .uxm:
+   - type: "container"
+   - props.components: [${componentList}]
+   - layout: ${layoutStructure}
+   - fidelity: "detailed" (screen is detailed even if components are sketch)
+
+4. Create screen .md (template):
+   - Use {{component:id}} syntax for component references
+   - Show layout structure with placeholders
+
+5. Create screen .rendered.md (MAIN DELIVERABLE):
+   - Embed ACTUAL component ASCII (read from .md files you just created)
+   - Use REAL example data (names: "Sarah Johnson", emails: "sarah@example.com", etc.)
+   - Show all screen states (idle, loading, error if applicable)
+   - High visual quality - this is what user will see!
+   - Make it publication-ready
+
+6. Save all 3 files to ./fluxwing/screens/
+
+═══════════════════════════════════════
+Performance Notes:
+═══════════════════════════════════════
+
+- Load ASCII patterns ONCE, reuse for all components
+- Keep component .md simple (detailed version comes with enhancement)
+- Focus quality effort on screen .rendered.md
+- Target: 60-90 seconds total
+
+Return summary:
+- List component .md files created
+- Screen files created
+- Preview of .rendered.md (first 20 lines)
+`
 })
-
-... spawn ONE Task call per missing component in the SAME message ...
 ```
-
-**Performance**: Creating 6 components with 6 parallel agents is ~6x faster than sequential!
-
-**Wait for ALL component agents to complete before proceeding to Step 4.**
-
-### Step 4: Compose Screen
-
-Once all components exist (either from inventory or just created), spawn the composer agent:
-
-```
-Task({
-  subagent_type: "general-purpose",
-  description: "Compose screen from components",
-  prompt: "You are a uxscii screen composer creating production-ready screen designs.
-
-Available components: ['email-input', 'password-input', 'submit-button']
-
-Screen requirements:
-- Name: login
-- Purpose: User authentication
-- Layout: vertical-center
-- User flows: Enter credentials, submit form
-
-Your task:
-1. Load schema from {SKILL_ROOT}/../uxscii-component-creator/schemas/uxm-component.schema.json
-2. Load screen docs from {SKILL_ROOT}/docs/04-screen-composition.md
-3. Read component .uxm and .md files from ./fluxwing/components/
-4. Create screen .uxm file (valid JSON, type: container)
-5. Create screen .md file (template with {{component:id}} references)
-6. Create screen .rendered.md file (with REAL example data like john@example.com)
-7. Save all 3 files to ./fluxwing/screens/
-8. Use TodoWrite to track progress
-9. Return screen summary with preview
-
-Screen composition guidelines:
-- Screen type should be 'container'
-- Include all components in props.components array
-- Use {{component:id}} syntax in .md for component references
-- Create realistic rendered example (NOT templates with {{variables}})
-- Show actual spacing and layout in rendered version
-
-Follow the uxscii standard strictly."
-})
-```
-
-**Note on Execution Order**:
-- **Phase 1**: Multiple component agents run in parallel (one per missing component)
-- **Phase 2**: After all components complete, composer agent runs
-- This is sequential between phases, but maximally parallel within Phase 1
 
 ### Step 5: Report Results
 
@@ -208,34 +282,52 @@ Create comprehensive summary:
 
 ## Screen: ${screenName}
 
-### Components Created (by designer agent)
-${missingComponents.length > 0 ? missingComponents.map(c => `✓ ${c}`).join('\n') : 'None - all components existed'}
+### Phase 1: Fast Component Creation ⚡
+${missingComponents.length > 0 ? missingComponents.map(c => `✓ ${c}.uxm (sketch fidelity, ~10s)`).join('\n') : 'None - all components existed'}
 
-### Components Used (by composer agent)
-${availableComponents.map(c => `✓ ${c}`).join('\n')}
+Time: ~${missingComponents.length * 10}s
 
-### Files Created
+### Phase 2: Smart Composition 🎨
+Component .md files generated:
+${componentList.map(c => `✓ ${c}.md (by composer)`).join('\n')}
+
+Screen files created:
+✓ ${screenName}.uxm
+✓ ${screenName}.md (template)
+✓ ${screenName}.rendered.md (MAIN DELIVERABLE)
+
+Time: ~60-90s
+
+### Total Time: ~${missingComponents.length * 10 + 75}s (${Math.round((missingComponents.length * 10 + 75)/60)} minutes)
+
+### Performance Improvement
+- Old: ~${missingComponents.length * 120}s (${Math.round(missingComponents.length * 120/60)} minutes)
+- New: ~${missingComponents.length * 10 + 75}s (${Math.round((missingComponents.length * 10 + 75)/60)} minutes)
+- Speedup: ${Math.round((1 - (missingComponents.length * 10 + 75)/(missingComponents.length * 120)) * 100)}%
+
+## Next Steps
+
+1. **Review rendered screen:**
+   \`cat ./fluxwing/screens/${screenName}.rendered.md\`
+
+2. **Enhance components (optional):**
+   Use fluxwing-enhancer to upgrade from sketch to detailed/production fidelity
+
+3. **Customize components:**
+   Edit files in ./fluxwing/components/ as needed
+
+## Files Created
 
 **Components** (./fluxwing/components/):
-${missingComponents.length * 2} files (.uxm + .md)
+- ${missingComponents.length} .uxm files (sketch fidelity)
+- ${componentList.length} .md files (generated by composer)
 
 **Screen** (./fluxwing/screens/):
 - ${screenName}.uxm
 - ${screenName}.md
 - ${screenName}.rendered.md
 
-**Total: ${missingComponents.length * 2 + 3} files**
-
-## Performance
-- Component creation: ${missingComponents.length > 0 ? 'Designer agent (background)' : 'Skipped'} ⚡
-- Screen composition: Composer agent ⚡
-
-## Next Steps
-
-1. Review rendered screen: `cat ./fluxwing/screens/${screenName}.rendered.md`
-2. Add interaction states to components
-3. Customize components in ./fluxwing/components/
-4. View all components
+**Total: ${missingComponents.length + componentList.length + 3} files**
 ```
 
 ## Parallel Execution Strategy
