@@ -34,11 +34,55 @@ Help the user create uxscii component(s) by gathering requirements and spawning 
 - Single: "Create a submit button"
 - Multiple: "Create submit-button, cancel-button, and email-input" (agents run in parallel)
 
+## Speed Modes
+
+Fluxwing supports two creation modes optimized for different use cases:
+
+### Fast Mode (Scaffolding)
+**When:** Scaffolder creates multiple components in parallel
+**Speed:** ~10 seconds per component
+**Output:** `.uxm` only (fidelity: sketch)
+**Method:** Template-based variable substitution
+
+Fast mode skips:
+- Documentation loading
+- ASCII art generation
+- Detailed metadata
+
+### Detailed Mode (Standalone)
+**When:** User explicitly creates single component
+**Speed:** ~60-90 seconds per component
+**Output:** `.uxm` + `.md` (fidelity: detailed)
+**Method:** Full docs, careful ASCII generation
+
+Detailed mode includes:
+- Complete documentation reference
+- Hand-crafted ASCII art
+- Rich metadata with examples
+
+**Default:** Fast mode when called by scaffolder, detailed mode otherwise
+
 ## Workflow
 
-### Step 1: Parse Request & Understand Requirements
+### Step 1: Determine Creation Mode & Parse Request
 
-**Detect if user wants single or multiple components:**
+**First, determine creation mode:**
+
+Check context to decide fast vs detailed mode:
+
+**Use Fast Mode if:**
+- Called by scaffolder skill (check for "screen context" in request)
+- User explicitly requests "fast" or "quick" component
+- Creating multiple components (6+ components)
+
+**Use Detailed Mode if:**
+- User creating single component interactively
+- User requests "detailed" or "production" quality
+- No screen context provided
+
+**Default:** Detailed mode (safer, better quality)
+
+**Then, detect if user wants single or multiple components:**
 
 1. **Single component request**:
    - "Create a submit button"
@@ -76,6 +120,89 @@ if (similarTemplates.length > 0) {
   console.log(`Similar templates found: ${similarTemplates.join(', ')}`);
   console.log('Would you like to base this on an existing template or create from scratch?');
 }
+```
+
+## Agent Prompts
+
+### Fast Mode Agent (For Scaffolder)
+
+Use this when creating multiple components quickly:
+
+```typescript
+Task({
+  subagent_type: "general-purpose",
+  model: "haiku", // Fast model for simple tasks
+  description: "Create ${componentName} (fast)",
+  prompt: `Create sketch-fidelity uxscii component from template.
+
+Component: ${componentName}
+Type: ${componentType}
+Screen context: ${screenContext}
+
+FAST MODE - Speed is critical! <10 seconds target.
+
+Your task:
+1. Load minimal template: {SKILL_ROOT}/templates/minimal/${componentType}.uxm.template
+2. If template not found, use container.uxm.template as fallback
+3. Replace template variables:
+   - {{id}} = "${componentId}"
+   - {{name}} = "${componentName}"
+   - {{description}} = "${description || 'Component for ' + screenContext}"
+   - {{timestamp}} = "${new Date().toISOString()}"
+   - {{label}} or {{placeholder}} or {{title}} = "${label || componentName}"
+   - {{screenContext}} = "${screenContext}"
+4. Verify JSON is well-formed (quick syntax check)
+5. Save to ./fluxwing/components/${componentId}.uxm
+6. DO NOT create .md file
+7. DO NOT load documentation
+8. DO NOT generate ASCII art
+
+Return message: "Created ${componentId}.uxm (sketch fidelity)"
+
+Target: <10 seconds
+`
+})
+```
+
+### Detailed Mode Agent (For User)
+
+Use this when creating single component with full quality:
+
+```typescript
+Task({
+  subagent_type: "general-purpose",
+  model: "sonnet", // Smart model for quality
+  description: "Create ${componentName} (detailed)",
+  prompt: `Create production-ready uxscii component with full documentation.
+
+Component: ${componentName}
+Type: ${componentType}
+
+DETAILED MODE - Quality is priority.
+
+Your task:
+1. Load schema: {SKILL_ROOT}/schemas/uxm-component.schema.json
+2. Load docs: {SKILL_ROOT}/docs/03-component-creation.md
+3. Load ASCII patterns: {SKILL_ROOT}/docs/06-ascii-patterns.md
+4. Create rich .uxm with:
+   - Detailed metadata.description
+   - Relevant tags
+   - Complete props with examples
+   - Default + hover states
+   - Full accessibility metadata
+   - Fidelity: "detailed"
+5. Create polished .md with:
+   - Clean ASCII art using box-drawing characters
+   - All variables documented
+   - State examples
+6. Validate against schema
+7. Save both files to ./fluxwing/components/
+
+Return: Component summary with preview
+
+Target: 60-90 seconds
+`
+})
 ```
 
 ### Step 3a: Spawn Designer Agent (Single Component)
