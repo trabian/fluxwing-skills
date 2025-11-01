@@ -131,7 +131,7 @@ Use this when creating multiple components quickly:
 ```typescript
 Task({
   subagent_type: "general-purpose",
-  model: "haiku", // Fast model for simple tasks
+  // Note: model parameter not yet supported by Task tool
   description: "Create ${componentName} (fast)",
   prompt: `Create sketch-fidelity uxscii component from template.
 
@@ -143,19 +143,38 @@ FAST MODE - Speed is critical! <10 seconds target.
 
 Your task:
 1. Load minimal template: {SKILL_ROOT}/templates/minimal/${componentType}.uxm.template
-2. If template not found, use container.uxm.template as fallback
-3. Replace template variables:
+2. If template not found, FAIL with error: "No template found for type: ${componentType}"
+3. Replace template variables (component type specific):
+
+   **Common variables (all types):**
    - {{id}} = "${componentId}"
    - {{name}} = "${componentName}"
    - {{description}} = "${description || 'Component for ' + screenContext}"
    - {{timestamp}} = "${new Date().toISOString()}"
-   - {{label}} or {{placeholder}} or {{title}} = "${label || componentName}"
-   - {{screenContext}} = "${screenContext}"
-4. Verify JSON is well-formed (quick syntax check)
-5. Save to ./fluxwing/components/${componentId}.uxm
-6. DO NOT create .md file
-7. DO NOT load documentation
-8. DO NOT generate ASCII art
+
+   **Component-specific variables:**
+   | Type       | Variables                                  |
+   |------------|-------------------------------------------|
+   | button     | {{label}}, {{variant}}                    |
+   | input      | {{placeholder}}, {{type}}, {{value}}      |
+   | text       | {{content}}, {{align}}                    |
+   | heading    | {{text}}, {{level}}                       |
+   | card       | {{title}}, {{content}}                    |
+   | modal      | {{title}}, {{content}}                    |
+   | container  | {{content}}, {{direction}}                |
+   | navigation | {{items}}, {{orientation}}                |
+   | form       | {{fields}}, {{action}}                    |
+   | table      | {{headers}}, {{rows}}                     |
+   | list       | {{items}}, {{type}}                       |
+
+   Use component name as default value if variable not provided.
+
+4. Set metadata.fidelity = "sketch" (required for fast mode)
+5. Verify JSON is well-formed (quick syntax check)
+6. Save to ./fluxwing/components/${componentId}.uxm
+7. DO NOT create .md file
+8. DO NOT load documentation
+9. DO NOT generate ASCII art
 
 Return message: "Created ${componentId}.uxm (sketch fidelity)"
 
@@ -171,7 +190,7 @@ Use this when creating single component with full quality:
 ```typescript
 Task({
   subagent_type: "general-purpose",
-  model: "sonnet", // Smart model for quality
+  // Note: model parameter not yet supported by Task tool
   description: "Create ${componentName} (detailed)",
   prompt: `Create production-ready uxscii component with full documentation.
 
