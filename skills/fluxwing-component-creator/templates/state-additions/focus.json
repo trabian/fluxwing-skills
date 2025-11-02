@@ -1,0 +1,9 @@
+{
+  "name": "focus",
+  "properties": {
+    "outline": "2px solid #0066cc",
+    "backgroundColor": "#f0f8ff",
+    "asciiModifier": "focus-ring"
+  },
+  "description": "Visual indicator when component has keyboard focus"
+}

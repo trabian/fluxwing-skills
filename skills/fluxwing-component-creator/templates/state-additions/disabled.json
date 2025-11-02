@@ -1,0 +1,10 @@
+{
+  "name": "disabled",
+  "properties": {
+    "opacity": 0.5,
+    "cursor": "not-allowed",
+    "interactive": false,
+    "asciiModifier": "grayed-out"
+  },
+  "description": "Component is not interactive or available"
+}
