@@ -1,0 +1,31 @@
+{
+  "id": "{{id}}",
+  "type": "navigation",
+  "version": "1.0.0",
+  "metadata": {
+    "name": "{{name}}",
+    "description": "{{description}}",
+    "created": "{{timestamp}}",
+    "modified": "{{timestamp}}",
+    "tags": ["navigation", "{{screenContext}}"],
+    "category": "navigation",
+    "fidelity": "sketch"
+  },
+  "props": {
+    "items": []
+  },
+  "behavior": {
+    "states": [
+      {"name": "default", "properties": {}}
+    ],
+    "accessibility": {
+      "role": "navigation",
+      "focusable": true
+    }
+  },
+  "ascii": {
+    "templateFile": "{{id}}.md",
+    "width": 80,
+    "height": 5
+  }
+}

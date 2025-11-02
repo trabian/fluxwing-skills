@@ -1,0 +1,32 @@
+{
+  "id": "{{id}}",
+  "type": "modal",
+  "version": "1.0.0",
+  "metadata": {
+    "name": "{{name}}",
+    "description": "{{description}}",
+    "created": "{{timestamp}}",
+    "modified": "{{timestamp}}",
+    "tags": ["modal", "{{screenContext}}"],
+    "category": "overlay",
+    "fidelity": "sketch"
+  },
+  "props": {
+    "title": "{{title}}",
+    "content": "{{content}}"
+  },
+  "behavior": {
+    "states": [
+      {"name": "default", "properties": {}}
+    ],
+    "accessibility": {
+      "role": "dialog",
+      "focusable": true
+    }
+  },
+  "ascii": {
+    "templateFile": "{{id}}.md",
+    "width": 60,
+    "height": 20
+  }
+}

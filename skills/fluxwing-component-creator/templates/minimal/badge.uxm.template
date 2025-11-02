@@ -1,0 +1,31 @@
+{
+  "id": "{{id}}",
+  "type": "badge",
+  "version": "1.0.0",
+  "metadata": {
+    "name": "{{name}}",
+    "description": "{{description}}",
+    "created": "{{timestamp}}",
+    "modified": "{{timestamp}}",
+    "tags": ["badge", "{{screenContext}}"],
+    "category": "display",
+    "fidelity": "sketch"
+  },
+  "props": {
+    "text": "{{text}}"
+  },
+  "behavior": {
+    "states": [
+      {"name": "default", "properties": {}}
+    ],
+    "accessibility": {
+      "role": "status",
+      "focusable": false
+    }
+  },
+  "ascii": {
+    "templateFile": "{{id}}.md",
+    "width": 15,
+    "height": 1
+  }
+}

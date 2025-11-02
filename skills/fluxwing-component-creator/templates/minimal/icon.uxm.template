@@ -1,0 +1,31 @@
+{
+  "id": "{{id}}",
+  "type": "icon",
+  "version": "1.0.0",
+  "metadata": {
+    "name": "{{name}}",
+    "description": "{{description}}",
+    "created": "{{timestamp}}",
+    "modified": "{{timestamp}}",
+    "tags": ["icon", "{{screenContext}}"],
+    "category": "display",
+    "fidelity": "sketch"
+  },
+  "props": {
+    "symbol": "{{symbol}}"
+  },
+  "behavior": {
+    "states": [
+      {"name": "default", "properties": {}}
+    ],
+    "accessibility": {
+      "role": "img",
+      "focusable": false
+    }
+  },
+  "ascii": {
+    "templateFile": "{{id}}.md",
+    "width": 3,
+    "height": 1
+  }
+}

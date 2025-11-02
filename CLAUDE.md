@@ -53,7 +53,7 @@ Screens add a third file:
 
 ### Skills Overview
 
-The six skills handle different aspects of UX design:
+The seven skills handle different aspects of UX design:
 
 1. **fluxwing-component-creator** - Create new components (buttons, inputs, cards, etc.)
    - Triggers: "Create a button", "I need an input component"
@@ -70,17 +70,22 @@ The six skills handle different aspects of UX design:
    - Modifies: Existing `.uxm` and `.md` files in place
    - Adds: hover, focus, disabled, active, error states
 
-4. **fluxwing-screen-scaffolder** - Build complete screens from components
+4. **fluxwing-enhancer** - Enhance components from sketch to production fidelity
+   - Triggers: "Enhance this component", "Add detail to this component"
+   - Modifies: Existing `.uxm` and `.md` files in place
+   - Adds: Visual polish, detail, and production-ready refinement
+
+5. **fluxwing-screen-scaffolder** - Build complete screens from components
    - Triggers: "Create a login screen", "Build a dashboard"
    - Uses: `general-purpose` agent for component creation and screen composition
    - Outputs: `./fluxwing/screens/{name}.uxm` + `.md` + `.rendered.md`
 
-5. **fluxwing-component-viewer** - View component details
+6. **fluxwing-component-viewer** - View component details
    - Triggers: "Show me the submit-button", "View component details"
    - Tools: Read-only (Read, Glob, Grep)
    - Displays: Full metadata, ASCII preview, all states
 
-6. **fluxwing-screenshot-importer** - Convert screenshots to uxscii components
+7. **fluxwing-screenshot-importer** - Convert screenshots to uxscii components
    - Triggers: "Import this screenshot", "Convert screenshot to uxscii"
    - Uses: `general-purpose` agent for vision analysis and component generation
    - Outputs: Components extracted from screenshot images

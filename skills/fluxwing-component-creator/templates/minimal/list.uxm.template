@@ -1,0 +1,31 @@
+{
+  "id": "{{id}}",
+  "type": "list",
+  "version": "1.0.0",
+  "metadata": {
+    "name": "{{name}}",
+    "description": "{{description}}",
+    "created": "{{timestamp}}",
+    "modified": "{{timestamp}}",
+    "tags": ["list", "{{screenContext}}"],
+    "category": "display",
+    "fidelity": "sketch"
+  },
+  "props": {
+    "items": []
+  },
+  "behavior": {
+    "states": [
+      {"name": "default", "properties": {}}
+    ],
+    "accessibility": {
+      "role": "list",
+      "focusable": false
+    }
+  },
+  "ascii": {
+    "templateFile": "{{id}}.md",
+    "width": 60,
+    "height": 20
+  }
+}

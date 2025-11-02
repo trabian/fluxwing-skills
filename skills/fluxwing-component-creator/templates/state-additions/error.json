@@ -1,0 +1,10 @@
+{
+  "name": "error",
+  "properties": {
+    "borderColor": "#cc0000",
+    "backgroundColor": "#fff0f0",
+    "showErrorMessage": true,
+    "asciiModifier": "error-border"
+  },
+  "description": "Component has invalid input or error condition"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "hover",
+  "properties": {
+    "backgroundColor": "#e0e0e0",
+    "cursor": "pointer",
+    "asciiModifier": "bold"
+  },
+  "description": "Visual feedback when user hovers over component"
+}

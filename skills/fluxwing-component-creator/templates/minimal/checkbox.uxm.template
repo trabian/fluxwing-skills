@@ -1,0 +1,32 @@
+{
+  "id": "{{id}}",
+  "type": "checkbox",
+  "version": "1.0.0",
+  "metadata": {
+    "name": "{{name}}",
+    "description": "{{description}}",
+    "created": "{{timestamp}}",
+    "modified": "{{timestamp}}",
+    "tags": ["checkbox", "{{screenContext}}"],
+    "category": "form",
+    "fidelity": "sketch"
+  },
+  "props": {
+    "label": "{{label}}",
+    "checked": false
+  },
+  "behavior": {
+    "states": [
+      {"name": "default", "properties": {}}
+    ],
+    "accessibility": {
+      "role": "checkbox",
+      "focusable": true
+    }
+  },
+  "ascii": {
+    "templateFile": "{{id}}.md",
+    "width": 30,
+    "height": 1
+  }
+}
