@@ -91,7 +91,7 @@
           "default": "detailed"
         }
       },
-      "required": ["name", "created", "modified"],
+      "required": ["name", "description", "created", "modified", "tags", "category", "fidelity"],
       "additionalProperties": false
     },
     "props": {

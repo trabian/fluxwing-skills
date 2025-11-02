@@ -169,12 +169,24 @@ Your task:
 
    Use component name as default value if variable not provided.
 
-4. Set metadata.fidelity = "sketch" (required for fast mode)
+4. CRITICAL: Set metadata.fidelity = "sketch"
+
+   **REQUIRED FIELD**: The fidelity field is MANDATORY in the schema and tracks progressive enhancement.
+   Fast mode MUST set fidelity to "sketch" to indicate initial scaffolding quality.
+
+   This field enables progressive fidelity workflow:
+   - sketch (fast mode) → basic → detailed → production
+
 5. Verify JSON is well-formed (quick syntax check)
 6. Save to ./fluxwing/components/${componentId}.uxm
 7. DO NOT create .md file
 8. DO NOT load documentation
 9. DO NOT generate ASCII art
+
+VERIFICATION CHECKLIST:
+- [ ] metadata.fidelity field is set to "sketch"
+- [ ] All required fields are present (name, description, created, modified, tags, category, fidelity)
+- [ ] JSON is valid and well-formed
 
 Return message: "Created ${componentId}.uxm (sketch fidelity)"
 
@@ -209,13 +221,28 @@ Your task:
    - Complete props with examples
    - Default + hover states
    - Full accessibility metadata
-   - Fidelity: "detailed"
-5. Create polished .md with:
+
+5. CRITICAL: Set metadata.fidelity = "detailed"
+
+   **REQUIRED FIELD**: The fidelity field is MANDATORY in the schema and tracks progressive enhancement.
+   Detailed mode MUST set fidelity to "detailed" to indicate high-quality production-ready components.
+
+   This field enables progressive fidelity workflow:
+   - sketch → basic → detailed (detailed mode) → production
+
+6. Create polished .md with:
    - Clean ASCII art using box-drawing characters
    - All variables documented
    - State examples
-6. Validate against schema
-7. Save both files to ./fluxwing/components/
+
+7. Validate against schema
+8. Save both files to ./fluxwing/components/
+
+VERIFICATION CHECKLIST:
+- [ ] metadata.fidelity field is set to "detailed"
+- [ ] All required fields are present (name, description, created, modified, tags, category, fidelity)
+- [ ] Both .uxm and .md files are created
+- [ ] JSON is valid and well-formed
 
 Return: Component summary with preview
 

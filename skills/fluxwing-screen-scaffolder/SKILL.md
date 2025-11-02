@@ -170,10 +170,20 @@ Your task:
    - {{description}} = 'Chat message container for banking-chat'
    - {{timestamp}} = '${new Date().toISOString()}'
    - {{screenContext}} = 'banking-chat'
-3. Verify JSON is well-formed
-4. Save to ./fluxwing/components/message-bubble.uxm
-5. DO NOT create .md file
-6. DO NOT load documentation
+
+3. CRITICAL: Set metadata.fidelity = "sketch"
+
+   **REQUIRED FIELD**: The fidelity field is MANDATORY in the schema and tracks progressive enhancement.
+   Fast mode MUST set fidelity to "sketch" to indicate initial scaffolding quality.
+
+4. Verify JSON is well-formed
+5. Save to ./fluxwing/components/message-bubble.uxm
+6. DO NOT create .md file
+7. DO NOT load documentation
+
+VERIFICATION:
+- [ ] metadata.fidelity = "sketch"
+- [ ] All required fields present (name, description, created, modified, tags, category, fidelity)
 
 Return: 'Created message-bubble.uxm (sketch fidelity)'
 
@@ -202,10 +212,20 @@ Your task:
    - {{placeholder}} = 'Type a message...'
    - {{label}} = 'Message'
    - {{screenContext}} = 'banking-chat'
-3. Verify JSON is well-formed
-4. Save to ./fluxwing/components/message-input.uxm
-5. DO NOT create .md file
-6. DO NOT load documentation
+
+3. CRITICAL: Set metadata.fidelity = "sketch"
+
+   **REQUIRED FIELD**: The fidelity field is MANDATORY in the schema and tracks progressive enhancement.
+   Fast mode MUST set fidelity to "sketch" to indicate initial scaffolding quality.
+
+4. Verify JSON is well-formed
+5. Save to ./fluxwing/components/message-input.uxm
+6. DO NOT create .md file
+7. DO NOT load documentation
+
+VERIFICATION:
+- [ ] metadata.fidelity = "sketch"
+- [ ] All required fields present (name, description, created, modified, tags, category, fidelity)
 
 Return: 'Created message-input.uxm (sketch fidelity)'
 
@@ -301,7 +321,12 @@ PART 2: Compose Screen
    - type: "container"
    - props.components: [${componentList}]
    - layout: ${layoutStructure}
-   - fidelity: "detailed" (screen is detailed even if components are sketch)
+
+   CRITICAL: Set metadata.fidelity = "detailed"
+
+   **REQUIRED FIELD**: Screen fidelity tracks the screen's completion level.
+   Even if components are sketch fidelity, the screen itself is detailed (it's a composition).
+   This enables tracking progressive fidelity at both component and screen levels.
 
 4. Create screen .md (template):
    - Use {{component:id}} syntax for component references
@@ -376,7 +401,7 @@ Your task:
    - Add relevant tags
    - Polish .md ASCII (clean, aligned)
    - Keep default state only
-   - Update fidelity field
+   - CRITICAL: Update metadata.fidelity = "basic" (REQUIRED FIELD)
    ` : ''}
 
    ${targetFidelity === 'detailed' ? `
@@ -386,7 +411,7 @@ Your task:
    - Add focus state (use templates/state-additions/focus.json)
    - Polish ASCII art (rounded corners, smooth)
    - Add props.examples array (2-3 examples)
-   - Update fidelity field
+   - CRITICAL: Update metadata.fidelity = "detailed" (REQUIRED FIELD)
    ` : ''}
 
    ${targetFidelity === 'production' ? `
@@ -397,7 +422,7 @@ Your task:
    - Complete accessibility metadata
    - Add keyboard shortcuts
    - Pixel-perfect ASCII
-   - Update fidelity field
+   - CRITICAL: Update metadata.fidelity = "production" (REQUIRED FIELD)
    ` : ''}
 
    Save: Updated .uxm and .md to ./fluxwing/components/
