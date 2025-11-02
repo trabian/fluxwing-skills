@@ -33,46 +33,8 @@ print_header() {
     echo ""
 }
 
-# Function to show plugin installation info
-show_plugin_info() {
-    echo ""
-    echo "╔════════════════════════════════════════════════════════════╗"
-    echo "║              Recommended Installation Method               ║"
-    echo "╚════════════════════════════════════════════════════════════╝"
-    echo ""
-    print_info "For regular users, install via Claude Code plugin system:"
-    echo ""
-    echo "  ${GREEN}/plugin marketplace add trabian/fluxwing-skills${NC}"
-    echo "  ${GREEN}/plugin install fluxwing-skills${NC}"
-    echo ""
-    print_warning "This script is for development and local testing only"
-    echo ""
-    read -p "Continue with development installation? [y/N] " -n 1 -r
-    echo ""
-
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        print_info "Installation cancelled"
-        exit 0
-    fi
-}
-
-# Function to detect installation location
-detect_install_location() {
-    local mode="$1"
-
-    if [ "$mode" = "global" ]; then
-        echo "$HOME/.claude/skills"
-    elif [ "$mode" = "local" ]; then
-        echo "$PWD/.claude/skills"
-    else
-        # Auto-detect mode
-        if [ -d "$PWD/.claude" ]; then
-            echo "$PWD/.claude/skills"
-        else
-            echo "$HOME/.claude/skills"
-        fi
-    fi
-}
+# Global installation directory
+INSTALL_DIR="$HOME/.claude/skills"
 
 # Function to verify source skills exist
 verify_source_skills() {
@@ -157,10 +119,10 @@ verify_installation() {
 
     # Check 1: SKILL.md files exist
     local skill_count=$(find "$target_dir" -maxdepth 2 -name "SKILL.md" -path "*/fluxwing-*/SKILL.md" | wc -l | tr -d ' ')
-    if [ "$skill_count" -eq 6 ]; then
-        print_success "All 6 SKILL.md files found"
+    if [ "$skill_count" -eq 7 ]; then
+        print_success "All 7 SKILL.md files found"
     else
-        print_error "Expected 6 SKILL.md files, found $skill_count"
+        print_error "Expected 7 SKILL.md files, found $skill_count"
         all_checks_passed=false
     fi
 
@@ -252,49 +214,27 @@ show_usage_examples() {
 # Function to show usage
 show_help() {
     cat << EOF
-Usage: $0 [OPTIONS]
+Usage: $0
 
 Development installer for Fluxwing skills.
 
-RECOMMENDED: Use plugin installation instead:
+Installs skills to: ~/.claude/skills
+
+RECOMMENDED: For production use, install via Claude Code plugin system:
   /plugin marketplace add trabian/fluxwing-skills
   /plugin install fluxwing-skills
 
-This script is for development and local testing only.
-
 OPTIONS:
-    --global            Install to ~/.claude/skills (global)
-    --local             Install to ./.claude/skills (project-local)
-    --help              Show this help message
-
-EXAMPLES:
-    # Auto-detect installation location
-    $0
-
-    # Install globally
-    $0 --global
-
-    # Install to current project
-    $0 --local
+    --help, -h          Show this help message
 
 EOF
 }
 
 # Main installation logic
 main() {
-    local install_mode="auto"
-
     # Parse arguments
     while [[ $# -gt 0 ]]; do
         case $1 in
-            --global)
-                install_mode="global"
-                shift
-                ;;
-            --local)
-                install_mode="local"
-                shift
-                ;;
             --help|-h)
                 show_help
                 exit 0
@@ -310,35 +250,30 @@ main() {
 
     print_header
 
-    # Show plugin info and get confirmation
-    show_plugin_info
-
-    # Detect installation location
-    local target_dir=$(detect_install_location "$install_mode")
-    print_info "Installation target: $target_dir"
+    print_info "Installation target: $INSTALL_DIR"
 
     # Verify source skills
     verify_source_skills
 
     # Create target directory
-    create_target_directory "$target_dir"
+    create_target_directory "$INSTALL_DIR"
 
     # Copy skills
     echo ""
-    if copy_skills "$SOURCE_SKILLS_DIR" "$target_dir"; then
+    if copy_skills "$SOURCE_SKILLS_DIR" "$INSTALL_DIR"; then
         # Verify installation
-        if verify_installation "$target_dir"; then
+        if verify_installation "$INSTALL_DIR"; then
             echo ""
             print_success "Fluxwing skills installed successfully!"
             show_usage_examples
             echo ""
-            print_info "Location: $target_dir"
+            print_info "Location: $INSTALL_DIR"
             echo ""
         else
             echo ""
             print_warning "Installation completed with warnings"
             echo ""
-            print_info "Location: $target_dir"
+            print_info "Location: $INSTALL_DIR"
             echo ""
             exit 1
         fi

@@ -43,40 +43,11 @@ cd fluxwing-skills
 ```
 
 The development installer will:
-- ✅ Prompt for confirmation (since plugin installation is recommended)
-- ✅ Auto-detect the best installation location
-- ✅ Copy all 6 skills to Claude Code
+- ✅ Install all 7 skills to `~/.claude/skills/`
 - ✅ Verify the installation
 - ✅ Show usage examples
 
-#### Development Installation Options
-
-**Auto-Detect Mode (Recommended):**
-```bash
-./scripts/install.sh
-```
-
-The installer automatically chooses:
-- If `.claude/` exists in current directory → Install locally (project-specific)
-- Otherwise → Install globally (`~/.claude/skills/`)
-
-**Global Installation:**
-```bash
-./scripts/install.sh --global
-```
-
-**Location:** `~/.claude/skills/`
-
-**Use when:** You want skills available in all Claude Code sessions during development.
-
-**Local Installation:**
-```bash
-./scripts/install.sh --local
-```
-
-**Location:** `./.claude/skills/`
-
-**Use when:** You want skills isolated to this project during development.
+**Location:** Skills are always installed globally to `~/.claude/skills/`
 
 ---
 
@@ -84,48 +55,31 @@ The installer automatically chooses:
 
 If you prefer to install manually:
 
-### 1. Choose Installation Directory
-
-**Global:**
 ```bash
+# Create skills directory
 mkdir -p ~/.claude/skills
-```
 
-**Local (project-specific):**
-```bash
-mkdir -p ./.claude/skills
-```
-
-### 2. Copy Skills
-
-```bash
 # Clone the repository
 git clone https://github.com/trabian/fluxwing-skills.git
 cd fluxwing-skills
 
-# Copy to global location
+# Copy skills to global location
 cp -r skills/* ~/.claude/skills/
-
-# OR copy to local location
-cp -r skills/* ./.claude/skills/
 ```
 
-### 3. Verify Installation
+### Verify Installation
 
-Check that all 6 skills are present:
+Check that all 7 skills are present:
 
 ```bash
-# Global
 ls ~/.claude/skills/
-
-# Local
-ls ./.claude/skills/
 ```
 
 You should see:
 - `fluxwing-component-creator/`
 - `fluxwing-library-browser/`
 - `fluxwing-component-expander/`
+- `fluxwing-enhancer/`
 - `fluxwing-screen-scaffolder/`
 - `fluxwing-component-viewer/`
 - `fluxwing-screenshot-importer/`
@@ -163,24 +117,18 @@ Other test prompts:
 Using the uninstall script:
 
 ```bash
-# Preview what would be removed
-./scripts/uninstall.sh --dry-run
-
-# Remove skills with confirmation
 ./scripts/uninstall.sh
-
-# Remove without confirmation
-./scripts/uninstall.sh --force
 ```
+
+The uninstaller will:
+- Remove all fluxwing-* and uxscii-* (legacy) skills from `~/.claude/skills/`
+- Preserve user data in `./fluxwing/` (never deleted)
 
 ### Manual Uninstallation
 
 ```bash
-# Global
 rm -rf ~/.claude/skills/fluxwing-*
-
-# Local
-rm -rf ./.claude/skills/fluxwing-*
+rm -rf ~/.claude/skills/uxscii-*  # Legacy skills if present
 ```
 
 **Important:** User data in `./fluxwing/` is NEVER deleted during uninstallation.
@@ -206,15 +154,7 @@ rm -rf ./.claude/skills/fluxwing-*
 **Solutions:**
 1. Check directory permissions: `ls -la ~/.claude/`
 2. Create directory manually: `mkdir -p ~/.claude/skills`
-3. Use development installer with `--global` flag
-
-### Skills Installed in Wrong Location
-
-**Problem:** Skills installed globally but you want local (or vice versa).
-
-**Solutions:**
-1. Uninstall: `./scripts/uninstall.sh --force`
-2. Reinstall with explicit flag: `./scripts/install.sh --local` or `--global`
+3. Try manual installation method (see above)
 
 ### Plugin Installation Fails
 
@@ -237,25 +177,22 @@ rm -rf ./.claude/skills/fluxwing-*
 
 ### Development Installation
 
-**Global:**
 - macOS/Linux: `~/.claude/skills/`
 - Windows: `%USERPROFILE%\.claude\skills\`
-
-**Local:**
-- Any OS: `./.claude/skills/` (relative to current directory)
 
 ---
 
 ## What Gets Installed
 
-### The 6 Skills
+### The 7 Skills
 
 1. **fluxwing-component-creator** - Create UI components
 2. **fluxwing-library-browser** - Browse component library
 3. **fluxwing-component-expander** - Add interactive states
-4. **fluxwing-screen-scaffolder** - Build complete screens
-5. **fluxwing-component-viewer** - View component details
-6. **fluxwing-screenshot-importer** - Import screenshots
+4. **fluxwing-enhancer** - Enhance components from sketch to production
+5. **fluxwing-screen-scaffolder** - Build complete screens
+6. **fluxwing-component-viewer** - View component details
+7. **fluxwing-screenshot-importer** - Import screenshots
 
 ### Bundled Data (Per Skill)
 
@@ -298,7 +235,7 @@ git pull
 After installation:
 
 1. **Read the [README.md](README.md)** for quick start examples
-2. **Try the six skills** with natural language prompts
+2. **Try the seven skills** with natural language prompts
 3. **Check [CLAUDE.md](CLAUDE.md)** for architectural details
 4. **Explore bundled templates** in each skill's `templates/` directory
 
