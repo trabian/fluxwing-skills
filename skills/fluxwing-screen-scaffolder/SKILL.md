@@ -43,14 +43,74 @@ Help the user scaffold a complete screen by orchestrating agents in two phases:
 
 **CRITICAL**: Use the Task tool to spawn agents. Do NOT use TodoWrite and work through tasks yourself. Do NOT create files yourself.
 
+## Quality Presets
+
+Scaffolder supports different quality levels for speed vs fidelity tradeoffs:
+
+### fast (60-90s)
+- Create components (sketch fidelity)
+- Compose screen
+- Skip enhancement
+- Use when: Rapid prototyping, early iteration
+
+**Output:**
+- Components: sketch fidelity (.uxm only initially, .md by composer)
+- Screen: .rendered.md with basic quality
+- Time: ~60-90s for 6 components
+
+### balanced (90-150s)
+- Create components (sketch fidelity)
+- Compose screen
+- Enhance to basic fidelity
+- Use when: Quick iteration with decent quality
+
+**Output:**
+- Components: basic fidelity (.uxm + improved .md)
+- Screen: .rendered.md with good quality
+- Time: ~90-150s for 6 components
+
+### detailed (180-240s) **[DEFAULT]**
+- Create components (sketch fidelity)
+- Compose screen
+- Enhance to detailed fidelity (hover + focus states)
+- Use when: Production-ready screens, demos
+
+**Output:**
+- Components: detailed fidelity (.uxm + polished .md + states)
+- Screen: .rendered.md with high quality
+- Time: ~180-240s for 6 components
+
+### production (300-400s)
+- Create components (sketch fidelity)
+- Compose screen
+- Enhance to production fidelity (all states + full a11y)
+- Use when: Final polish, publication
+
+**Output:**
+- Components: production fidelity (complete)
+- Screen: .rendered.md with publication quality
+- Time: ~300-400s for 6 components
+
+**Default: detailed** (best balance of quality and speed)
+
 ## Workflow
 
 ### Step 1: Understand the Screen
 
 Ask about the screen they want to create:
+
+**Screen details:**
 - **Screen name and purpose**: login, dashboard, profile, settings, checkout, etc.
 - **Required components**: forms, navigation, cards, modals, lists, etc.
 - **Layout structure**: vertical, horizontal, grid, sidebar+main, etc.
+
+**Quality preset** (optional):
+- **fast** - Quick prototype (60-90s)
+- **balanced** - Good quality (90-150s)
+- **detailed** - High quality (180-240s) [DEFAULT]
+- **production** - Publication ready (300-400s)
+
+If user doesn't specify, use **detailed** preset.
 
 ### Step 2: Component Inventory
 
@@ -273,17 +333,112 @@ Return summary:
 })
 ```
 
-### Step 5: Report Results
+### Step 5: Auto-Enhancement (Based on Quality Preset)
 
-Create comprehensive summary:
+After screen composition, optionally enhance components based on quality preset.
+
+**Determine enhancement level:**
+- fast → Skip (no enhancement)
+- balanced → Enhance to "basic"
+- detailed → Enhance to "detailed" [DEFAULT]
+- production → Enhance to "production"
+
+**If enhancement needed:**
+
+```typescript
+Task({
+  subagent_type: "general-purpose",
+  model: "sonnet", // Quality model for enhancement
+  description: "Enhance screen components to ${targetFidelity}",
+  prompt: `Enhance all components in ${screenName} to ${targetFidelity} fidelity.
+
+Screen: ${screenName}
+Components: ${componentList}
+Current fidelity: sketch
+Target fidelity: ${targetFidelity}
+
+Use fluxwing-enhancer patterns:
+
+Your task:
+1. Load enhancement patterns: {SKILL_ROOT}/../fluxwing-enhancer/docs/enhancement-patterns.md
+2. Load state templates: {SKILL_ROOT}/../fluxwing-component-creator/templates/state-additions/
+
+3. For EACH component (process in parallel if possible):
+
+   Read: ./fluxwing/components/\${componentId}.uxm
+   Read: ./fluxwing/components/\${componentId}.md
+
+   Enhance based on target:
+
+   ${targetFidelity === 'basic' ? `
+   basic fidelity:
+   - Improve metadata.description (specific, 1-2 sentences)
+   - Add relevant tags
+   - Polish .md ASCII (clean, aligned)
+   - Keep default state only
+   - Update fidelity field
+   ` : ''}
+
+   ${targetFidelity === 'detailed' ? `
+   detailed fidelity:
+   - All "basic" enhancements
+   - Add hover state (use templates/state-additions/hover.json)
+   - Add focus state (use templates/state-additions/focus.json)
+   - Polish ASCII art (rounded corners, smooth)
+   - Add props.examples array (2-3 examples)
+   - Update fidelity field
+   ` : ''}
+
+   ${targetFidelity === 'production' ? `
+   production fidelity:
+   - All "detailed" enhancements
+   - Add disabled state (if applicable)
+   - Add error state (if form component)
+   - Complete accessibility metadata
+   - Add keyboard shortcuts
+   - Pixel-perfect ASCII
+   - Update fidelity field
+   ` : ''}
+
+   Save: Updated .uxm and .md to ./fluxwing/components/
+
+4. After ALL components enhanced:
+
+   Regenerate screen .rendered.md:
+   - Read enhanced component .md files
+   - Embed improved ASCII in .rendered.md
+   - Maintain real example data
+   - Save to ./fluxwing/screens/
+
+5. Return summary:
+   - Components enhanced: [list with changes]
+   - Total time: Xs
+   - Screen .rendered.md regenerated
+
+Target time:
+- basic: 30s (parallel for all components)
+- detailed: 90s (parallel for all components)
+- production: 180s (parallel for all components)
+
+Note: Process components in parallel when possible for maximum speed!
+`
+})
+```
+
+**Enhancement is parallel:** All 6 components enhanced simultaneously, so time ≈ single component time!
+
+### Step 6: Report Results
+
+Create comprehensive summary including enhancement details:
 
 ```markdown
 # Screen Scaffolding Complete ✓
 
 ## Screen: ${screenName}
+## Quality Preset: ${qualityPreset}
 
 ### Phase 1: Fast Component Creation ⚡
-${missingComponents.length > 0 ? missingComponents.map(c => `✓ ${c}.uxm (sketch fidelity, ~10s)`).join('\n') : 'None - all components existed'}
+${missingComponents.map(c => `✓ ${c}.uxm (sketch fidelity, ~10s)`).join('\n')}
 
 Time: ~${missingComponents.length * 10}s
 
@@ -294,40 +449,65 @@ ${componentList.map(c => `✓ ${c}.md (by composer)`).join('\n')}
 Screen files created:
 ✓ ${screenName}.uxm
 ✓ ${screenName}.md (template)
-✓ ${screenName}.rendered.md (MAIN DELIVERABLE)
+✓ ${screenName}.rendered.md
 
 Time: ~60-90s
 
-### Total Time: ~${missingComponents.length * 10 + 75}s (${Math.round((missingComponents.length * 10 + 75)/60)} minutes)
+${qualityPreset !== 'fast' ? `
+### Phase 3: Auto-Enhancement ✨
+Components enhanced to ${targetFidelity} fidelity:
+${componentList.map(c => `✓ ${c}: sketch → ${targetFidelity}`).join('\n')}
 
-### Performance Improvement
-- Old: ~${missingComponents.length * 120}s (${Math.round(missingComponents.length * 120/60)} minutes)
-- New: ~${missingComponents.length * 10 + 75}s (${Math.round((missingComponents.length * 10 + 75)/60)} minutes)
-- Speedup: ${Math.round((1 - (missingComponents.length * 10 + 75)/(missingComponents.length * 120)) * 100)}%
+Enhancements applied:
+${targetFidelity === 'basic' ? '- Improved descriptions\n- Added specific tags\n- Polished ASCII' : ''}
+${targetFidelity === 'detailed' ? '- Improved descriptions\n- Added hover + focus states\n- Polished ASCII\n- Added usage examples' : ''}
+${targetFidelity === 'production' ? '- All detailed enhancements\n- Added disabled + error states\n- Complete accessibility\n- Pixel-perfect ASCII' : ''}
 
-## Next Steps
+Screen .rendered.md regenerated with enhanced components
 
-1. **Review rendered screen:**
-   \`cat ./fluxwing/screens/${screenName}.rendered.md\`
+Time: ~${enhancementTime[targetFidelity]}s
+` : ''}
 
-2. **Enhance components (optional):**
-   Use fluxwing-enhancer to upgrade from sketch to detailed/production fidelity
+### Total Time: ~${totalTime}s (${Math.round(totalTime/60)} minutes)
 
-3. **Customize components:**
-   Edit files in ./fluxwing/components/ as needed
+### Performance
+- Target: ${targetTime[qualityPreset]}
+- Actual: ${totalTime}s
+- Status: ${totalTime <= targetTime[qualityPreset] ? '✓ ON TARGET' : '⚠ OVER TARGET'}
 
 ## Files Created
 
 **Components** (./fluxwing/components/):
-- ${missingComponents.length} .uxm files (sketch fidelity)
-- ${componentList.length} .md files (generated by composer)
+- ${componentList.length} .uxm files (${finalFidelity} fidelity)
+- ${componentList.length} .md files
 
 **Screen** (./fluxwing/screens/):
 - ${screenName}.uxm
 - ${screenName}.md
 - ${screenName}.rendered.md
 
-**Total: ${missingComponents.length + componentList.length + 3} files**
+**Total: ${componentList.length * 2 + 3} files**
+
+## Quality Assessment
+
+- Component fidelity: ${finalFidelity}
+- Screen .rendered.md: ${qualityPreset === 'production' ? 'Publication-ready' : qualityPreset === 'detailed' ? 'High quality' : qualityPreset === 'balanced' ? 'Good quality' : 'Basic quality'}
+- States included: ${statesCount} states per component
+- Accessibility: ${qualityPreset === 'production' ? 'Complete' : qualityPreset === 'detailed' ? 'Good' : 'Basic'}
+
+## Next Steps
+
+1. **Review rendered screen:**
+   \`cat ./fluxwing/screens/${screenName}.rendered.md\`
+
+2. **Further enhancement (optional):**
+   ${qualityPreset !== 'production' ? `Use /fluxwing-enhance to upgrade to ${nextFidelity} fidelity` : 'Already at maximum fidelity'}
+
+3. **Customize components:**
+   Edit ./fluxwing/components/ files as needed
+
+4. **View components:**
+   Use /fluxwing-view to inspect individual components
 ```
 
 ## Parallel Execution Strategy
