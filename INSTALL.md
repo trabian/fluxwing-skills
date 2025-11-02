@@ -56,27 +56,9 @@ The development installer will:
 ./scripts/install.sh
 ```
 
-The installer automatically chooses:
-- If `.claude/` exists in current directory → Install locally (project-specific)
-- Otherwise → Install globally (`~/.claude/skills/`)
+**Location:** `~/.claude/skills/` (global)
 
-**Global Installation:**
-```bash
-./scripts/install.sh --global
-```
-
-**Location:** `~/.claude/skills/`
-
-**Use when:** You want skills available in all Claude Code sessions during development.
-
-**Local Installation:**
-```bash
-./scripts/install.sh --local
-```
-
-**Location:** `./.claude/skills/`
-
-**Use when:** You want skills isolated to this project during development.
+**Use when:** Development testing - makes skills available in all Claude Code sessions.
 
 ---
 
@@ -237,12 +219,8 @@ rm -rf ./.claude/skills/fluxwing-*
 
 ### Development Installation
 
-**Global:**
 - macOS/Linux: `~/.claude/skills/`
 - Windows: `%USERPROFILE%\.claude\skills\`
-
-**Local:**
-- Any OS: `./.claude/skills/` (relative to current directory)
 
 ---
 

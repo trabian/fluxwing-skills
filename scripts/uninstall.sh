@@ -28,27 +28,9 @@ print_header() {
     echo ""
 }
 
-# Function to detect installation locations
-detect_skill_locations() {
-    local locations=()
-
-    # Check global location
-    if [ -d "$HOME/.claude/skills" ]; then
-        local global_count=$(find "$HOME/.claude/skills" -maxdepth 1 -type d -name "fluxwing-*" 2>/dev/null | wc -l | tr -d ' ')
-        if [ "$global_count" -gt 0 ]; then
-            locations+=("$HOME/.claude/skills")
-        fi
-    fi
-
-    # Check local location
-    if [ -d "$PWD/.claude/skills" ]; then
-        local local_count=$(find "$PWD/.claude/skills" -maxdepth 1 -type d -name "fluxwing-*" 2>/dev/null | wc -l | tr -d ' ')
-        if [ "$local_count" -gt 0 ]; then
-            locations+=("$PWD/.claude/skills")
-        fi
-    fi
-
-    printf '%s\n' "${locations[@]}"
+# Function to get global skills location
+get_skills_location() {
+    echo "$HOME/.claude/skills"
 }
 
 # Function to list skills in a directory
@@ -210,25 +192,20 @@ show_help() {
     cat << EOF
 Usage: $0 [OPTIONS]
 
-Uninstall UXscii skills from Claude Code.
+Uninstall Fluxwing skills from Claude Code.
+Removes from: ~/.claude/skills (global)
 
 OPTIONS:
-    --global            Remove from ~/.claude/skills only
-    --local             Remove from ./.claude/skills only
-    --all               Remove from all locations (global + local)
     --force             Skip confirmation prompt
     --dry-run           Show what would be removed without removing
     --help              Show this help message
 
 EXAMPLES:
-    # Remove from auto-detected location (with confirmation)
+    # Remove skills (with confirmation)
     $0
 
-    # Remove from global location
-    $0 --global
-
-    # Remove from all locations without confirmation
-    $0 --all --force
+    # Remove without confirmation
+    $0 --force
 
     # Preview what would be removed
     $0 --dry-run
@@ -242,25 +219,12 @@ EOF
 
 # Main uninstallation logic
 main() {
-    local mode="auto"
     local force="no"
     local dry_run="no"
 
     # Parse arguments
     while [[ $# -gt 0 ]]; do
         case $1 in
-            --global)
-                mode="global"
-                shift
-                ;;
-            --local)
-                mode="local"
-                shift
-                ;;
-            --all)
-                mode="all"
-                shift
-                ;;
             --force)
                 force="yes"
                 shift
@@ -284,77 +248,45 @@ main() {
 
     print_header
 
-    # Detect skill locations
-    local -a locations
-    if [ "$mode" = "global" ]; then
-        if [ -d "$HOME/.claude/skills" ]; then
-            locations=("$HOME/.claude/skills")
-        fi
-    elif [ "$mode" = "local" ]; then
-        if [ -d "$PWD/.claude/skills" ]; then
-            locations=("$PWD/.claude/skills")
-        fi
-    elif [ "$mode" = "all" ]; then
-        mapfile -t locations < <(detect_skill_locations)
-    else
-        # Auto mode: prefer local, fallback to global
-        if [ -d "$PWD/.claude/skills" ]; then
-            local local_count=$(find "$PWD/.claude/skills" -maxdepth 1 -type d -name "fluxwing-*" 2>/dev/null | wc -l | tr -d ' ')
-            if [ "$local_count" -gt 0 ]; then
-                locations=("$PWD/.claude/skills")
-            fi
-        fi
+    # Get global skills location
+    local target_dir=$(get_skills_location)
 
-        if [ ${#locations[@]} -eq 0 ] && [ -d "$HOME/.claude/skills" ]; then
-            local global_count=$(find "$HOME/.claude/skills" -maxdepth 1 -type d -name "fluxwing-*" 2>/dev/null | wc -l | tr -d ' ')
-            if [ "$global_count" -gt 0 ]; then
-                locations=("$HOME/.claude/skills")
-            fi
-        fi
-    fi
-
-    # Check if any skills found
-    if [ ${#locations[@]} -eq 0 ]; then
-        print_info "No UXscii skills found to remove"
-        echo ""
-        print_info "Checked locations:"
-        echo "  • $HOME/.claude/skills"
-        echo "  • $PWD/.claude/skills"
+    # Check if directory exists and has skills
+    if [ ! -d "$target_dir" ]; then
+        print_info "Skills directory not found: $target_dir"
         echo ""
         exit 0
     fi
 
-    # Process each location
-    local total_removed=0
-    for target_dir in "${locations[@]}"; do
-        # List skills
-        list_skills "$target_dir"
-        local skill_count=$?
+    local skill_count=$(find "$target_dir" -maxdepth 1 -type d -name "fluxwing-*" 2>/dev/null | wc -l | tr -d ' ')
 
-        if [ "$skill_count" -gt 0 ]; then
-            # Confirm removal
-            if confirm_removal "$target_dir" "$force"; then
-                # Remove skills
-                if remove_skills "$target_dir" "$dry_run"; then
-                    total_removed=$((total_removed + 1))
-                fi
+    if [ "$skill_count" -eq 0 ]; then
+        print_info "No Fluxwing skills found in $target_dir"
+        echo ""
+        exit 0
+    fi
+
+    # List skills
+    list_skills "$target_dir"
+
+    # Confirm and remove
+    if confirm_removal "$target_dir" "$force"; then
+        if remove_skills "$target_dir" "$dry_run"; then
+            # Show user data status
+            check_user_data
+
+            # Show summary
+            if [ "$dry_run" != "yes" ]; then
+                show_summary "1"
             else
-                exit 0
+                echo ""
+                print_info "DRY RUN complete - no files were removed"
+                print_info "Run without --dry-run to actually remove skills"
+                echo ""
             fi
         fi
-    done
-
-    # Show user data status
-    check_user_data
-
-    # Show summary
-    if [ "$dry_run" != "yes" ] && [ "$total_removed" -gt 0 ]; then
-        show_summary "$total_removed"
-    elif [ "$dry_run" = "yes" ]; then
-        echo ""
-        print_info "DRY RUN complete - no files were removed"
-        print_info "Run without --dry-run to actually remove skills"
-        echo ""
+    else
+        exit 0
     fi
 }
 

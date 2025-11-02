@@ -56,22 +56,9 @@ show_plugin_info() {
     fi
 }
 
-# Function to detect installation location
-detect_install_location() {
-    local mode="$1"
-
-    if [ "$mode" = "global" ]; then
-        echo "$HOME/.claude/skills"
-    elif [ "$mode" = "local" ]; then
-        echo "$PWD/.claude/skills"
-    else
-        # Auto-detect mode
-        if [ -d "$PWD/.claude" ]; then
-            echo "$PWD/.claude/skills"
-        else
-            echo "$HOME/.claude/skills"
-        fi
-    fi
+# Function to get installation location (always global)
+get_install_location() {
+    echo "$HOME/.claude/skills"
 }
 
 # Function to verify source skills exist
@@ -255,46 +242,29 @@ show_help() {
 Usage: $0 [OPTIONS]
 
 Development installer for Fluxwing skills.
+Installs to: ~/.claude/skills (global)
 
 RECOMMENDED: Use plugin installation instead:
   /plugin marketplace add trabian/fluxwing-skills
   /plugin install fluxwing-skills
 
-This script is for development and local testing only.
+This script is for development testing only.
 
 OPTIONS:
-    --global            Install to ~/.claude/skills (global)
-    --local             Install to ./.claude/skills (project-local)
     --help              Show this help message
 
 EXAMPLES:
-    # Auto-detect installation location
+    # Install skills for development
     $0
-
-    # Install globally
-    $0 --global
-
-    # Install to current project
-    $0 --local
 
 EOF
 }
 
 # Main installation logic
 main() {
-    local install_mode="auto"
-
     # Parse arguments
     while [[ $# -gt 0 ]]; do
         case $1 in
-            --global)
-                install_mode="global"
-                shift
-                ;;
-            --local)
-                install_mode="local"
-                shift
-                ;;
             --help|-h)
                 show_help
                 exit 0
@@ -313,8 +283,8 @@ main() {
     # Show plugin info and get confirmation
     show_plugin_info
 
-    # Detect installation location
-    local target_dir=$(detect_install_location "$install_mode")
+    # Get installation location (always global)
+    local target_dir=$(get_install_location)
     print_info "Installation target: $target_dir"
 
     # Verify source skills

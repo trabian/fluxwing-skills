@@ -141,18 +141,12 @@ skills/{skill-name}/            # Within each skill directory
 For local development and testing:
 
 ```bash
-# Auto-detect installation location (local project vs global)
+# Install to global skills directory (~/.claude/skills)
 ./scripts/install.sh
-
-# Force global installation
-./scripts/install.sh --global
-
-# Force local project installation
-./scripts/install.sh --local
 ```
 
 The development installer:
-- Copies `skills/` to `~/.claude/skills/` or project `.claude/skills/`
+- Copies `skills/` to `~/.claude/skills/`
 - Runs automated verification (YAML, templates, schemas, references)
 - Provides colored status output and usage examples
 - Prompts for confirmation before installing
