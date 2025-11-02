@@ -1,6 +1,11 @@
 {
   "name": "fluxwing-marketplace",
   "description": "Fluxwing UX design skills for Claude Code - AI-native component and screen design using the uxscii standard",
+  "owner": {
+    "name": "Trabian",
+    "email": "hello@trabian.com",
+    "url": "https://github.com/trabian"
+  },
   "plugins": [
     {
       "name": "fluxwing-skills",
