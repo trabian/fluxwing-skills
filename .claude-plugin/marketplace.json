@@ -1,0 +1,29 @@
+{
+  "name": "fluxwing-marketplace",
+  "description": "Fluxwing UX design skills for Claude Code - AI-native component and screen design using the uxscii standard",
+  "owner": {
+    "name": "Trabian",
+    "email": "hello@trabian.com",
+    "url": "https://github.com/trabian"
+  },
+  "plugins": [
+    {
+      "name": "fluxwing-skills",
+      "description": "Create UI components and screens through natural language using ASCII art and structured metadata. Includes 6 specialized skills for component creation, screen scaffolding, library browsing, state expansion, component viewing, and screenshot importing.",
+      "source": ".",
+      "version": "0.0.1",
+      "author": "Trabian",
+      "license": "MIT",
+      "keywords": [
+        "fluxwing",
+        "uxscii",
+        "ui-design",
+        "ux-design",
+        "components",
+        "screens",
+        "ascii-art",
+        "design-system"
+      ]
+    }
+  ]
+}

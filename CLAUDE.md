@@ -18,6 +18,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```
 fluxwing-skills/                # Repository root (Claude Code Plugin)
 ├── .claude-plugin/
+│   ├── marketplace.json        # Plugin marketplace catalog
 │   └── plugin.json             # Plugin manifest
 ├── skills/                     # 6 Skills (primary focus)
 │   ├── fluxwing-component-creator/
@@ -33,7 +34,6 @@ fluxwing-skills/                # Repository root (Claude Code Plugin)
 ├── CLAUDE.md                   # This file
 ├── INSTALL.md                  # Installation guide
 ├── LICENSE
-├── marketplace.json            # Plugin marketplace catalog
 ├── package.json                # Minimal metadata
 ├── README.md                   # User-facing overview
 └── TODO.md                     # Development tasks
