@@ -55,86 +55,22 @@
 
 **File**: `skills/fluxwing-component-expander/SKILL.md`
 
-**Goal**: Add copy-on-update behavior when expanding component states
+**Goal**: ✅ **NO CHANGES NEEDED** - Keep in-place update behavior
 
-##### Pre-Implementation
+**Rationale**: Component expansion adds states to the same component, not creating a new version. In-place updates are correct.
 
-- [ ] **Backup current version**
-  ```bash
-  cp skills/fluxwing-component-expander/SKILL.md \
-     skills/fluxwing-component-expander/SKILL.md.backup
-  ```
+##### Tasks
 
-- [ ] **Read current SKILL.md**
-  - [ ] Note current line numbers for modification sections
-  - [ ] Understand existing workflow structure
+- [x] **No changes required** - component-expander keeps in-place update behavior
+- [x] **Rationale documented** - State expansion enhances same component
 
-##### Implementation Tasks
+##### Optional Enhancement (UXM-First Consistency)
 
-- [ ] **Update YAML frontmatter**
-  - [ ] Verify allowed-tools includes: Read, Edit, Write, Glob, Bash
-  - [ ] Update version if applicable
+- [ ] **Verify UXM-first processing**
+  - [ ] Check if skill reads .uxm first when user mentions .md
+  - [ ] If not, add UXM-first instruction (consistency with other skills)
 
-- [ ] **Add copy-versioning module reference**
-  - [ ] Add after "READ from" section (~Line 17)
-  - [ ] Include: `{SKILL_ROOT}/../shared/docs/copy-versioning.md`
-  - [ ] Add loading instruction for agents
-
-- [ ] **Update "Component Expansion Workflow" section**
-  - [ ] Replace Lines 173-188 (current overwrite logic)
-  - [ ] Add detection phase:
-    - [ ] Check if component.uxm exists
-    - [ ] Find highest version (-v2, -v3, etc.)
-    - [ ] Calculate next version number
-  - [ ] Add copy workflow:
-    - [ ] Create new filenames with -v{N+1}
-    - [ ] Copy content from original/highest version
-    - [ ] Apply state additions
-    - [ ] Update metadata.version (increment minor)
-    - [ ] Update metadata.modified timestamp
-    - [ ] Preserve metadata.created from original
-  - [ ] Add preservation note: "Original files unchanged"
-
-- [ ] **Update validation section**
-  - [ ] Update file paths to use new versioned names
-  - [ ] Lines 195-213: Change from `{component-name}.uxm` to `{component-name}-v{N}.uxm`
-
-- [ ] **Add user communication examples**
-  - [ ] Add new section: "User Communication Patterns"
-  - [ ] Example: "Created submit-button-v2 with hover state"
-  - [ ] Example: "Original submit-button preserved"
-
-- [ ] **Update examples throughout**
-  - [ ] Find all examples using specific component names
-  - [ ] Update to show versioned output
-  - [ ] Add "before/after" file listings
-
-##### Testing Tasks
-
-- [ ] **Manual testing**
-  - [ ] Install updated skill locally (`./scripts/install.sh`)
-  - [ ] Test: "Create a button component" (baseline)
-  - [ ] Test: "Add hover state to button" (first version)
-  - [ ] Verify: button-v2.uxm and button-v2.md created
-  - [ ] Verify: Original button.uxm unchanged
-  - [ ] Test: "Add focus state to button" (second version)
-  - [ ] Verify: button-v3.uxm created (not v2 overwritten)
-
-- [ ] **Validation testing**
-  - [ ] Run schema validation on new versioned files
-  - [ ] Check version numbers incremented correctly
-  - [ ] Check metadata.created preserved
-  - [ ] Check metadata.modified updated
-
-##### Completion Criteria
-
-- [ ] No modification of original files
-- [ ] Versioned files created with -v{N} suffix
-- [ ] Metadata fields updated correctly
-- [ ] User receives clear feedback about versioning
-- [ ] All tests passing
-
-**Deliverable**: Updated `skills/fluxwing-component-expander/SKILL.md`
+**Deliverable**: ✅ No changes to `skills/fluxwing-component-expander/SKILL.md`
 
 ---
 
@@ -473,43 +409,40 @@ Each skill has bundled docs in `skills/{skill-name}/docs/`. Update relevant modu
 
 #### Test Cases (Detailed)
 
-##### TC1: Component Expander - First Update
+##### TC1: Component Expander - In-Place Update
 
 - [ ] **Setup**
   - [ ] Create baseline component: "Create a submit button"
   - [ ] Verify: `./fluxwing/components/submit-button.uxm` exists
   - [ ] Note version: Should be 1.0.0
+  - [ ] Note: No hover state initially
 
 - [ ] **Execute**
   - [ ] Request: "Add hover state to submit-button"
   - [ ] Observe Claude's response
 
 - [ ] **Verify**
-  - [ ] File created: `./fluxwing/components/submit-button-v2.uxm`
-  - [ ] File created: `./fluxwing/components/submit-button-v2.md`
-  - [ ] Original unchanged: `submit-button.uxm` (version still 1.0.0)
-  - [ ] New version: `submit-button-v2.uxm` has version 1.1.0
-  - [ ] New file has hover state in `behavior.states`
-  - [ ] `metadata.created` same in both files
-  - [ ] `metadata.modified` newer in v2
-  - [ ] User message mentions "submit-button-v2 created"
+  - [ ] File MODIFIED in place: `submit-button.uxm` (still v1.0.0)
+  - [ ] File MODIFIED in place: `submit-button.md` (hover section added)
+  - [ ] NO new files created (no submit-button-v2.*)
+  - [ ] `behavior.states` array now includes hover
+  - [ ] `metadata.modified` timestamp updated
+  - [ ] `metadata.created` unchanged
 
-##### TC2: Component Expander - Second Update
+##### TC2: Component Expander - Second State Addition
 
 - [ ] **Setup**
-  - [ ] Existing: submit-button.uxm (v1.0.0)
-  - [ ] Existing: submit-button-v2.uxm (v1.1.0)
+  - [ ] Existing: submit-button.uxm (v1.0.0, has hover state from TC1)
 
 - [ ] **Execute**
   - [ ] Request: "Add disabled state to submit-button"
 
 - [ ] **Verify**
-  - [ ] File created: `submit-button-v3.uxm`
-  - [ ] File created: `submit-button-v3.md`
-  - [ ] Both v1 and v2 unchanged
-  - [ ] v3 has version 1.2.0
-  - [ ] v3 has disabled state
-  - [ ] v3 based on v2 content (should have hover state too)
+  - [ ] File MODIFIED in place: `submit-button.uxm` (still v1.0.0)
+  - [ ] File MODIFIED in place: `submit-button.md` (disabled section added)
+  - [ ] NO new files created
+  - [ ] `behavior.states` array now has [hover, disabled]
+  - [ ] `metadata.modified` timestamp updated again
 
 ##### TC3: Component Creator - New Component
 

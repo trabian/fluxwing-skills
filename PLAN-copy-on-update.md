@@ -9,7 +9,9 @@
 
 ## Executive Summary
 
-Update all Fluxwing skills to implement a **copy-on-update** pattern where any modification request creates a new versioned copy instead of modifying existing files. This ensures non-destructive editing and preserves component history.
+Update Fluxwing skills to implement a **copy-on-update** pattern where modification requests create new versioned copies instead of modifying existing files. This ensures non-destructive editing and preserves component history.
+
+**Exception**: `component-expander` continues to update in place, as expanding states is an enhancement to the same component, not a new version.
 
 ---
 
@@ -17,12 +19,12 @@ Update all Fluxwing skills to implement a **copy-on-update** pattern where any m
 
 ### Existing Behaviors (per skill)
 
-| Skill | Current Behavior | File Tool | Issue |
-|-------|-----------------|-----------|-------|
-| **component-expander** | Overwrites `.uxm` and `.md` in-place | Edit | Destructive - no history preservation |
-| **component-creator** | Creates new, but silently overwrites if exists | Write | No existence check - data loss risk |
-| **screen-scaffolder** | Creates new, checks existence for `.md` | Write/Task | Inconsistent - only checks `.md` files |
-| **enhancer** | Overwrites in-place with fidelity updates | Edit | Destructive - loses previous fidelity levels |
+| Skill | Current Behavior | File Tool | Status |
+|-------|-----------------|-----------|--------|
+| **component-expander** | Overwrites `.uxm` and `.md` in-place | Edit | ✅ **Keep as-is** - Expanding states = enhancement |
+| **component-creator** | Creates new, but silently overwrites if exists | Write | ❌ No existence check - data loss risk |
+| **screen-scaffolder** | Creates new, checks existence for `.md` | Write/Task | ❌ Inconsistent - only checks `.md` files |
+| **enhancer** | Overwrites in-place with fidelity updates | Edit | ❌ Destructive - loses previous fidelity levels |
 
 ### Critical Gaps
 
@@ -40,7 +42,7 @@ Update all Fluxwing skills to implement a **copy-on-update** pattern where any m
 When a user requests to update an existing component or screen:
 
 ```
-User Request: "Update my button hover state"
+User Request: "Enhance my button to production fidelity"
 User Request: "Change button.md to use different colors"
 User Request: "Modify the login-screen layout"
 ```
@@ -52,6 +54,12 @@ User Request: "Modify the login-screen layout"
 3. **Create versioned copy** - Never modify original
 4. **Update both files** - `.uxm` and `.md` together
 5. **Preserve original** - Keep old version accessible
+
+**Exception - State Expansion:**
+```
+User Request: "Add hover state to my button"
+```
+This uses `component-expander` which **updates in place** because adding states enhances the same component ID, not creating a new version.
 
 ### Versioning Strategy
 
@@ -114,44 +122,24 @@ Update 2: submit-button-v3.uxm (version 1.2.0)
 
 **File**: `skills/fluxwing-component-expander/SKILL.md`
 
-**Changes Required**:
+**Changes Required**: ✅ **NONE - Keep existing in-place update behavior**
 
-**Current (Lines 173-188):**
+**Rationale**:
+- Component expansion adds states to the SAME component
+- The component ID remains unchanged
+- This is enhancement, not versioning
+- In-place updates are correct behavior here
+
+**Current behavior to PRESERVE:**
 ```markdown
 **Write updated files**:
 - Overwrite `{component-name}.uxm` with expanded states array
 - Append new state sections to `{component-name}.md`
 ```
 
-**New:**
-```markdown
-**Detect update vs create**:
-- Check if `./fluxwing/components/{component-name}.uxm` exists
-- If EXISTS: Enter copy-on-update mode
-- If NOT EXISTS: Error (component must exist for expansion)
-
-**Copy-on-update workflow**:
-1. Read existing `{component-name}.uxm` (e.g., "submit-button.uxm" version 1.0.0)
-2. Find highest versioned copy (check submit-button-v2, submit-button-v3, etc.)
-3. Generate next version number (N+1)
-4. Create new files:
-   - `{component-name}-v{N+1}.uxm` (increment minor version: 1.0.0 → 1.1.0)
-   - `{component-name}-v{N+1}.md`
-5. Copy all content from original
-6. Add new states to `behavior.states` array
-7. Append new state sections to `.md` file
-8. Update `metadata.modified` timestamp
-9. Update `metadata.version` field
-10. Validate new copy
-11. Save both files
-
-**Preserve original files** - Never modify {component-name}.uxm directly
-```
-
-**Additional Sections to Add:**
-- Load copy-versioning documentation module
-- Example showing versioned output
-- User communication: "Created submit-button-v2 with hover state"
+**Minor enhancement (optional):**
+- Ensure UXM-first processing (if user mentions .md file, read .uxm first)
+- This maintains consistency with other skills' UXM-first principle
 
 #### 2.2 fluxwing-component-creator
 
@@ -429,13 +417,15 @@ User: "Update submit-button.md to use darker colors"
 
 ### Multiple rapid updates
 ```
-User: "Add hover state to button"
-User: "Now add focus state too"
+User: "Enhance button to detailed fidelity"
+User: "Now enhance to production fidelity"
 ```
 **Handling:**
-1. First request: Create button-v2 with hover
-2. Second request: Check highest version (v2), create button-v3 with focus
-3. Each request gets its own version
+1. First request: Create button-v2 (detailed fidelity)
+2. Second request: Check highest version (v2), create button-v3 (production fidelity)
+3. Each enhancement gets its own version
+
+**Note**: If user says "Add hover state" then "Add focus state", component-expander updates the SAME file in place (no versioning).
 
 ### Version number conflicts
 If somehow button-v3 exists but button-v2 doesn't:
@@ -445,10 +435,10 @@ If somehow button-v3 exists but button-v2 doesn't:
 
 ## Integration with Existing Skills
 
-**component-expander**: Load before state addition logic
-**component-creator**: Load before designer agent invocation
-**screen-scaffolder**: Load before composer agent invocation
-**enhancer**: Load before enhancement logic
+**component-expander**: ❌ **Do NOT load** - Keep in-place update behavior
+**component-creator**: ✅ Load before designer agent invocation
+**screen-scaffolder**: ✅ Load before composer agent invocation
+**enhancer**: ✅ Load before enhancement logic
 ```
 
 ---
@@ -493,25 +483,28 @@ Created: ./fluxwing/components/submit-button-v2.md
 
 ### Test Cases
 
-#### TC1: Expand Component (First Update)
+#### TC1: Expand Component (In-Place Update)
 ```
-Setup: submit-button.uxm exists (v1.0.0)
+Setup: submit-button.uxm exists (v1.0.0, no hover state)
 Action: "Add hover state to submit-button"
 Expected:
-  - submit-button-v2.uxm created (v1.1.0)
-  - submit-button-v2.md created
-  - Original submit-button.uxm unchanged
-  - New version has hover state
+  - submit-button.uxm MODIFIED in place (still v1.0.0)
+  - submit-button.md MODIFIED in place (hover section added)
+  - behavior.states array now includes hover
+  - metadata.modified timestamp updated
+  - NO new files created (component-expander updates in place)
 ```
 
-#### TC2: Expand Component (Second Update)
+#### TC2: Expand Component (Second State Addition)
 ```
-Setup: submit-button.uxm (v1.0.0) and submit-button-v2.uxm (v1.1.0) exist
+Setup: submit-button.uxm (v1.0.0, has hover state from TC1)
 Action: "Add disabled state to submit-button"
 Expected:
-  - submit-button-v3.uxm created (v1.2.0)
-  - Copies from submit-button-v2 (highest version)
-  - Has disabled state
+  - submit-button.uxm MODIFIED in place (still v1.0.0)
+  - submit-button.md MODIFIED in place (disabled section added)
+  - behavior.states array now has [hover, disabled]
+  - metadata.modified timestamp updated again
+  - NO new files created (in-place update)
 ```
 
 #### TC3: Create New Component (No Conflict)
@@ -683,13 +676,13 @@ See `TODO-copy-on-update.md` for detailed task breakdown.
 | Phase | Duration | Effort |
 |-------|----------|--------|
 | Phase 1: Shared utility module | 2 hours | Create copy-versioning.md doc |
-| Phase 2.1: Update component-expander | 2 hours | Modify SKILL.md, test |
+| Phase 2.1: component-expander | **0 hours** | ✅ No changes (keep in-place) |
 | Phase 2.2: Update component-creator | 2 hours | Add existence checks, test |
 | Phase 2.3: Update screen-scaffolder | 1.5 hours | Enhance checks, test |
 | Phase 2.4: Update enhancer | 2 hours | Implement copy mode, test |
 | Phase 3: Documentation | 1.5 hours | Update all docs |
 | Phase 4: Testing | 3 hours | Run all test cases |
-| **Total** | **14 hours** | ~2 working days |
+| **Total** | **12 hours** | ~1.5 working days |
 
 ---
 
