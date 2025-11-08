@@ -20,22 +20,32 @@ fluxwing-skills/                # Repository root (Claude Code Plugin)
 ├── .claude-plugin/
 │   ├── marketplace.json        # Plugin marketplace catalog
 │   └── plugin.json             # Plugin manifest
-├── skills/                     # 6 Skills (primary focus)
+├── .github/
+│   └── workflows/
+│       ├── deploy-docs.yml     # GitHub Pages deployment
+│       └── release.yml         # Automated release workflow
+├── skills/                     # 7 Skills (primary focus)
 │   ├── fluxwing-component-creator/
 │   ├── fluxwing-library-browser/
 │   ├── fluxwing-component-expander/
 │   ├── fluxwing-screen-scaffolder/
 │   ├── fluxwing-component-viewer/
-│   └── fluxwing-screenshot-importer/
+│   ├── fluxwing-screenshot-importer/
+│   └── fluxwing-enhancer/
 ├── scripts/
 │   ├── install.sh              # Development installation script
-│   └── uninstall.sh            # Skills removal script
+│   ├── uninstall.sh            # Skills removal script
+│   ├── bump-version.sh         # Version management script
+│   ├── package.sh              # Distribution packaging script
+│   └── release.sh              # End-to-end release workflow
 ├── .gitignore
 ├── CLAUDE.md                   # This file
 ├── INSTALL.md                  # Installation guide
 ├── LICENSE
 ├── package.json                # Minimal metadata
 ├── README.md                   # User-facing overview
+├── RELEASE.md                  # Release process guide
+├── RELEASE_AUTOMATION_PLAN.md  # Release automation plan
 └── TODO.md                     # Development tasks
 ```
 
@@ -398,6 +408,114 @@ After installing skills, test with these triggers:
 4. "Build a login screen" → fluxwing-screen-scaffolder
 5. "Show me the primary-button" → fluxwing-component-viewer
 6. "Import this screenshot" → fluxwing-screenshot-importer
+
+## Release Management
+
+### Automated Release System
+
+The repository includes an automated release system that handles version management, distribution packaging, and GitHub releases.
+
+**Quick Release:**
+```bash
+# Patch release (0.0.2 → 0.0.3)
+./scripts/release.sh patch
+
+# Minor release (0.0.2 → 0.1.0)
+./scripts/release.sh minor
+
+# Major release (0.1.0 → 1.0.0)
+./scripts/release.sh major
+
+# Specific version
+./scripts/release.sh 0.0.3
+
+# Preview changes without executing
+./scripts/release.sh patch --dry-run
+```
+
+### Release Scripts
+
+#### bump-version.sh
+Updates version across all package files atomically:
+- `package.json`
+- `.claude-plugin/plugin.json`
+- `.claude-plugin/marketplace.json`
+
+```bash
+# Update version
+./scripts/bump-version.sh 0.0.3
+
+# Preview changes
+./scripts/bump-version.sh 0.0.3 --dry-run
+```
+
+#### package.sh
+Creates distribution zip files for GitHub releases:
+
+```bash
+# Create packages in dist/
+./scripts/package.sh --clean
+
+# Preview without creating files
+./scripts/package.sh --dry-run
+```
+
+Creates:
+- `dist/fluxwing-skills-vX.Y.Z.zip` - Complete plugin package
+- `dist/fluxwing-skills-vX.Y.Z.zip.sha256` - SHA256 checksum
+
+#### release.sh
+End-to-end release workflow:
+
+```bash
+# Full automated release
+./scripts/release.sh 0.0.3
+```
+
+Performs:
+1. ✅ Verifies working directory is clean
+2. ✅ Creates release branch (`release/vX.Y.Z`)
+3. ✅ Updates versions in all files
+4. ✅ Creates git commit and annotated tag
+5. ✅ Creates distribution packages
+6. ✅ Pushes branch and tag to remote
+7. ✅ Displays next steps for PR creation
+
+### GitHub Actions Workflow
+
+`.github/workflows/release.yml` automatically creates GitHub releases when tags are pushed.
+
+**Triggers:**
+- Push of tags matching `v*.*.*` pattern (e.g., `v0.0.3`)
+- Manual workflow dispatch
+
+**Actions:**
+1. Validates tag format and version consistency
+2. Creates distribution packages
+3. Generates release notes from commits
+4. Creates GitHub release with packages attached
+5. Uploads artifacts for 90-day retention
+
+### Release Documentation
+
+See [RELEASE.md](RELEASE.md) for:
+- Complete step-by-step release guide
+- Troubleshooting common issues
+- Rollback procedures
+- Best practices and checklists
+
+See [RELEASE_AUTOMATION_PLAN.md](RELEASE_AUTOMATION_PLAN.md) for:
+- Detailed automation plan and architecture
+- Implementation roadmap
+- Success criteria and risk assessment
+
+### Version Management
+
+**Current Versions:**
+- Check versions: `jq '.version' package.json .claude-plugin/plugin.json`
+- Verify no drift: All three version files must stay synchronized
+
+**Important:** Always use `bump-version.sh` or `release.sh` to update versions. Never manually edit version numbers.
 
 ## Active Technologies
 - HTML5, CSS3, JavaScript ES6+ (browser native) + IBM Plex Mono (web font), GitHub Pages (hosting) (001-github-pages-ascii-redesign)
