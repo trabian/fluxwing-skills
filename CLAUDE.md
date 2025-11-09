@@ -42,10 +42,12 @@ fluxwing-skills/                # Repository root (Claude Code Plugin)
 ├── CLAUDE.md                   # This file
 ├── INSTALL.md                  # Installation guide
 ├── LICENSE
+├── docs/
+│   └── plans/
+│       └── RELEASE_AUTOMATION_PLAN.md  # Release automation plan
 ├── package.json                # Minimal metadata
 ├── README.md                   # User-facing overview
 ├── RELEASE.md                  # Release process guide
-├── RELEASE_AUTOMATION_PLAN.md  # Release automation plan
 └── TODO.md                     # Development tasks
 ```
 
@@ -504,7 +506,7 @@ See [RELEASE.md](RELEASE.md) for:
 - Rollback procedures
 - Best practices and checklists
 
-See [RELEASE_AUTOMATION_PLAN.md](RELEASE_AUTOMATION_PLAN.md) for:
+See [docs/plans/RELEASE_AUTOMATION_PLAN.md](docs/plans/RELEASE_AUTOMATION_PLAN.md) for:
 - Detailed automation plan and architecture
 - Implementation roadmap
 - Success criteria and risk assessment
