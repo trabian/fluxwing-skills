@@ -330,6 +330,32 @@ Follow uxscii standard strictly.`
 - Helps Claude understand actual layout and spacing
 - Only for screens (components are self-explanatory)
 
+### 5. Copy-on-Update for Non-Destructive Editing
+- When modifying existing components/screens, create versioned copies instead of overwriting
+- Versioned files use `-v{N}` suffix (e.g., `button-v2.uxm`, `button-v3.uxm`)
+- Increment minor version number (1.0.0 → 1.1.0 → 1.2.0)
+- Preserve `metadata.created`, update `metadata.modified`
+- **Exception**: component-expander uses in-place updates (adding states enhances same component)
+
+**Skills using copy-on-update**:
+- `component-creator`: Check if component exists, offer to create version
+- `screen-scaffolder`: Check if screen exists, offer to create version
+- `enhancer`: Each fidelity level creates new version
+
+**Skill using in-place updates**:
+- `component-expander`: Adding states modifies same component (no versioning)
+
+**Example progression**:
+```
+button.uxm (v1.0.0, fidelity=sketch)        # Original
+button-v2.uxm (v1.1.0, fidelity=detailed)   # Enhanced version
+button-v3.uxm (v1.2.0, fidelity=production) # Final version
+```
+
+All versions preserved, user can reference specific version when needed.
+
+See `skills/shared/docs/copy-versioning.md` for complete documentation.
+
 ## Variable Substitution
 
 - Templates use `{{variableName}}` syntax
@@ -347,16 +373,23 @@ All interactive components should include:
 
 ## File References by Task
 
+### Copy-on-Update Versioning
+- `skills/shared/docs/copy-versioning.md` - Complete copy-on-update documentation
+- Includes: Detection algorithm, metadata rules, edge cases, integration guide
+- Used by: component-creator, screen-scaffolder, enhancer
+
 ### Creating Components
 - `skills/fluxwing-component-creator/SKILL.md` - Component creation workflow
 - `skills/fluxwing-component-creator/templates/` - 11 bundled templates
 - `skills/fluxwing-component-creator/schemas/uxm-component.schema.json` - Validation
 - `skills/fluxwing-component-creator/docs/03-component-creation.md` - Detailed guide
 - `skills/fluxwing-component-creator/docs/06-ascii-patterns.md` - Box-drawing characters
+- **New**: Pre-creation validation checks for existing components
 
 ### Building Screens
 - `skills/fluxwing-screen-scaffolder/SKILL.md` - Screen scaffolding workflow
 - `skills/fluxwing-screen-scaffolder/templates/` - 2 complete screen examples
+- **New**: Pre-scaffolding validation checks for existing screens
 - `skills/fluxwing-screen-scaffolder/docs/04-screen-composition.md` - Screen guide
 
 ### Browsing Library
@@ -367,6 +400,13 @@ All interactive components should include:
 - `skills/fluxwing-component-expander/SKILL.md` - State expansion workflow
 - `skills/fluxwing-component-expander/docs/03-component-creation.md` - Creation details
 - `skills/fluxwing-component-expander/docs/06-ascii-patterns.md` - ASCII patterns
+- **Note**: Uses in-place updates (no versioning) - adding states enhances same component
+
+### Enhancing Components
+- `skills/fluxwing-enhancer/SKILL.md` - Fidelity enhancement workflow
+- Fidelity levels: sketch → basic → detailed → production
+- **New**: Creates versioned copies for each fidelity level
+- Each enhancement creates new `-v{N}` file, preserves original
 
 ### Viewing Components
 - `skills/fluxwing-component-viewer/SKILL.md` - Component viewing workflow
