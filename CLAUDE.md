@@ -20,22 +20,34 @@ fluxwing-skills/                # Repository root (Claude Code Plugin)
 ├── .claude-plugin/
 │   ├── marketplace.json        # Plugin marketplace catalog
 │   └── plugin.json             # Plugin manifest
-├── skills/                     # 6 Skills (primary focus)
+├── .github/
+│   └── workflows/
+│       ├── deploy-docs.yml     # GitHub Pages deployment
+│       └── release.yml         # Automated release workflow
+├── skills/                     # 7 Skills (primary focus)
 │   ├── fluxwing-component-creator/
 │   ├── fluxwing-library-browser/
 │   ├── fluxwing-component-expander/
 │   ├── fluxwing-screen-scaffolder/
 │   ├── fluxwing-component-viewer/
-│   └── fluxwing-screenshot-importer/
+│   ├── fluxwing-screenshot-importer/
+│   └── fluxwing-enhancer/
 ├── scripts/
 │   ├── install.sh              # Development installation script
-│   └── uninstall.sh            # Skills removal script
+│   ├── uninstall.sh            # Skills removal script
+│   ├── bump-version.sh         # Version management script
+│   ├── package.sh              # Distribution packaging script
+│   └── release.sh              # End-to-end release workflow
 ├── .gitignore
 ├── CLAUDE.md                   # This file
 ├── INSTALL.md                  # Installation guide
 ├── LICENSE
+├── docs/
+│   └── plans/
+│       └── RELEASE_AUTOMATION_PLAN.md  # Release automation plan
 ├── package.json                # Minimal metadata
 ├── README.md                   # User-facing overview
+├── RELEASE.md                  # Release process guide
 └── TODO.md                     # Development tasks
 ```
 
@@ -318,6 +330,32 @@ Follow uxscii standard strictly.`
 - Helps Claude understand actual layout and spacing
 - Only for screens (components are self-explanatory)
 
+### 5. Copy-on-Update for Non-Destructive Editing
+- When modifying existing components/screens, create versioned copies instead of overwriting
+- Versioned files use `-v{N}` suffix (e.g., `button-v2.uxm`, `button-v3.uxm`)
+- Increment minor version number (1.0.0 → 1.1.0 → 1.2.0)
+- Preserve `metadata.created`, update `metadata.modified`
+- **Exception**: component-expander uses in-place updates (adding states enhances same component)
+
+**Skills using copy-on-update**:
+- `component-creator`: Check if component exists, offer to create version
+- `screen-scaffolder`: Check if screen exists, offer to create version
+- `enhancer`: Each fidelity level creates new version
+
+**Skill using in-place updates**:
+- `component-expander`: Adding states modifies same component (no versioning)
+
+**Example progression**:
+```
+button.uxm (v1.0.0, fidelity=sketch)        # Original
+button-v2.uxm (v1.1.0, fidelity=detailed)   # Enhanced version
+button-v3.uxm (v1.2.0, fidelity=production) # Final version
+```
+
+All versions preserved, user can reference specific version when needed.
+
+See `skills/shared/docs/copy-versioning.md` for complete documentation.
+
 ## Variable Substitution
 
 - Templates use `{{variableName}}` syntax
@@ -335,16 +373,23 @@ All interactive components should include:
 
 ## File References by Task
 
+### Copy-on-Update Versioning
+- `skills/shared/docs/copy-versioning.md` - Complete copy-on-update documentation
+- Includes: Detection algorithm, metadata rules, edge cases, integration guide
+- Used by: component-creator, screen-scaffolder, enhancer
+
 ### Creating Components
 - `skills/fluxwing-component-creator/SKILL.md` - Component creation workflow
 - `skills/fluxwing-component-creator/templates/` - 11 bundled templates
 - `skills/fluxwing-component-creator/schemas/uxm-component.schema.json` - Validation
 - `skills/fluxwing-component-creator/docs/03-component-creation.md` - Detailed guide
 - `skills/fluxwing-component-creator/docs/06-ascii-patterns.md` - Box-drawing characters
+- **New**: Pre-creation validation checks for existing components
 
 ### Building Screens
 - `skills/fluxwing-screen-scaffolder/SKILL.md` - Screen scaffolding workflow
 - `skills/fluxwing-screen-scaffolder/templates/` - 2 complete screen examples
+- **New**: Pre-scaffolding validation checks for existing screens
 - `skills/fluxwing-screen-scaffolder/docs/04-screen-composition.md` - Screen guide
 
 ### Browsing Library
@@ -355,6 +400,13 @@ All interactive components should include:
 - `skills/fluxwing-component-expander/SKILL.md` - State expansion workflow
 - `skills/fluxwing-component-expander/docs/03-component-creation.md` - Creation details
 - `skills/fluxwing-component-expander/docs/06-ascii-patterns.md` - ASCII patterns
+- **Note**: Uses in-place updates (no versioning) - adding states enhances same component
+
+### Enhancing Components
+- `skills/fluxwing-enhancer/SKILL.md` - Fidelity enhancement workflow
+- Fidelity levels: sketch → basic → detailed → production
+- **New**: Creates versioned copies for each fidelity level
+- Each enhancement creates new `-v{N}` file, preserves original
 
 ### Viewing Components
 - `skills/fluxwing-component-viewer/SKILL.md` - Component viewing workflow
@@ -398,6 +450,114 @@ After installing skills, test with these triggers:
 4. "Build a login screen" → fluxwing-screen-scaffolder
 5. "Show me the primary-button" → fluxwing-component-viewer
 6. "Import this screenshot" → fluxwing-screenshot-importer
+
+## Release Management
+
+### Automated Release System
+
+The repository includes an automated release system that handles version management, distribution packaging, and GitHub releases.
+
+**Quick Release:**
+```bash
+# Patch release (0.0.2 → 0.0.3)
+./scripts/release.sh patch
+
+# Minor release (0.0.2 → 0.1.0)
+./scripts/release.sh minor
+
+# Major release (0.1.0 → 1.0.0)
+./scripts/release.sh major
+
+# Specific version
+./scripts/release.sh 0.0.3
+
+# Preview changes without executing
+./scripts/release.sh patch --dry-run
+```
+
+### Release Scripts
+
+#### bump-version.sh
+Updates version across all package files atomically:
+- `package.json`
+- `.claude-plugin/plugin.json`
+- `.claude-plugin/marketplace.json`
+
+```bash
+# Update version
+./scripts/bump-version.sh 0.0.3
+
+# Preview changes
+./scripts/bump-version.sh 0.0.3 --dry-run
+```
+
+#### package.sh
+Creates distribution zip files for GitHub releases:
+
+```bash
+# Create packages in dist/
+./scripts/package.sh --clean
+
+# Preview without creating files
+./scripts/package.sh --dry-run
+```
+
+Creates:
+- `dist/fluxwing-skills-vX.Y.Z.zip` - Complete plugin package
+- `dist/fluxwing-skills-vX.Y.Z.zip.sha256` - SHA256 checksum
+
+#### release.sh
+End-to-end release workflow:
+
+```bash
+# Full automated release
+./scripts/release.sh 0.0.3
+```
+
+Performs:
+1. ✅ Verifies working directory is clean
+2. ✅ Creates release branch (`release/vX.Y.Z`)
+3. ✅ Updates versions in all files
+4. ✅ Creates git commit and annotated tag
+5. ✅ Creates distribution packages
+6. ✅ Pushes branch and tag to remote
+7. ✅ Displays next steps for PR creation
+
+### GitHub Actions Workflow
+
+`.github/workflows/release.yml` automatically creates GitHub releases when tags are pushed.
+
+**Triggers:**
+- Push of tags matching `v*.*.*` pattern (e.g., `v0.0.3`)
+- Manual workflow dispatch
+
+**Actions:**
+1. Validates tag format and version consistency
+2. Creates distribution packages
+3. Generates release notes from commits
+4. Creates GitHub release with packages attached
+5. Uploads artifacts for 90-day retention
+
+### Release Documentation
+
+See [RELEASE.md](RELEASE.md) for:
+- Complete step-by-step release guide
+- Troubleshooting common issues
+- Rollback procedures
+- Best practices and checklists
+
+See [docs/plans/RELEASE_AUTOMATION_PLAN.md](docs/plans/RELEASE_AUTOMATION_PLAN.md) for:
+- Detailed automation plan and architecture
+- Implementation roadmap
+- Success criteria and risk assessment
+
+### Version Management
+
+**Current Versions:**
+- Check versions: `jq '.version' package.json .claude-plugin/plugin.json`
+- Verify no drift: All three version files must stay synchronized
+
+**Important:** Always use `bump-version.sh` or `release.sh` to update versions. Never manually edit version numbers.
 
 ## Active Technologies
 - HTML5, CSS3, JavaScript ES6+ (browser native) + IBM Plex Mono (web font), GitHub Pages (hosting) (001-github-pages-ascii-redesign)

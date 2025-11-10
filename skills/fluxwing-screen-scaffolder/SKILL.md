@@ -27,6 +27,9 @@ Create complete screen designs using the **uxscii standard** by orchestrating sp
 
 **NEVER write to skill directories - they are read-only!**
 
+**LOAD for copy-on-update logic:**
+- `{SKILL_ROOT}/../shared/docs/copy-versioning.md` - Versioning pattern for existing screens
+
 ## Your Task
 
 **⚠️ YOU ARE AN ORCHESTRATOR - DO NOT DO THE WORK YOURSELF! ⚠️**
@@ -178,6 +181,70 @@ const bundledComponents = glob('{SKILL_ROOT}/../uxscii-component-creator/templat
 const available = [...userComponents, ...libraryComponents, ...bundledComponents];
 const missing = requiredComponents.filter(c => !available.includes(c));
 ```
+
+### Step 2.5: Pre-Scaffolding Validation (Check for Existing Screen)
+
+**IMPORTANT**: Before creating any screen, check if it already exists to prevent data loss.
+
+1. **Convert screen name to kebab-case ID**:
+   ```
+   "Login Screen" → "login-screen"
+   "User Dashboard" → "user-dashboard"
+   ```
+
+2. **Check if screen exists**:
+   ```bash
+   # Check for existing screen
+   test -f ./fluxwing/screens/{screen-id}.uxm
+   ```
+
+3. **If screen EXISTS**:
+
+   **Inform user and offer choices**:
+   ```
+   Screen '{screen-id}' already exists (version {current-version}).
+
+   Options:
+   (a) Create new version (copy-on-update: {screen-id}-v{N+1})
+   (b) Create with different name
+   (c) Cancel operation
+
+   What would you like to do?
+   ```
+
+   **Handle user response**:
+
+   - **Choice (a) - Create new version**:
+     1. Load copy-versioning logic from `{SKILL_ROOT}/../shared/docs/copy-versioning.md`
+     2. Read existing `{screen-id}.uxm`
+     3. Find highest version (check for `{screen-id}-v2`, `-v3`, etc.)
+     4. Calculate next version: `v{N+1}`
+     5. Pass to composer agent with versioning parameters:
+        - `baseScreenId`: Original ID (e.g., "login-screen")
+        - `newScreenId`: Versioned ID (e.g., "login-screen-v2")
+        - `baseOnExisting`: true
+        - `sourceVersion`: Highest existing version
+     6. Composer creates THREE files:
+        - `{screen-id}-v{N+1}.uxm`
+        - `{screen-id}-v{N+1}.md`
+        - `{screen-id}-v{N+1}.rendered.md`
+     7. Metadata: Increment minor version (1.0.0 → 1.1.0), update modified, preserve created
+
+   - **Choice (b) - Different name**:
+     1. Ask: "What would you like to name this screen?"
+     2. Wait for user response
+     3. Use new name for screen ID
+     4. Proceed with normal scaffolding
+
+   - **Choice (c) - Cancel**:
+     1. Do not create any files
+     2. Inform user: "Operation cancelled. No files were created."
+     3. Exit workflow
+
+4. **If screen DOES NOT exist**:
+   - Proceed with normal scaffolding workflow (no versioning needed)
+   - Screen will be created as `{screen-id}.uxm` (no version suffix)
+   - Initial version: 1.0.0
 
 ### Workflow Branching: Single vs Multi-Screen
 
@@ -358,6 +425,14 @@ Task({
 Screen: ${screenName}
 Components: ${componentList}
 Layout: ${layoutStructure}
+${baseOnExisting ? `
+VERSIONING MODE:
+- Base on existing: ${baseScreenId}
+- New screen ID: ${newScreenId}
+- Source version: ${sourceVersion}
+- Copy-on-update: Increment minor version, preserve created timestamp
+- Create THREE files with -v{N} suffix
+` : ''}
 
 YOUR PRIMARY DELIVERABLE: ${screenName}.rendered.md
 This is what the user will see. Everything else supports this.
@@ -425,9 +500,13 @@ PART 2: Compose Screen
 2. Load screen docs: {SKILL_ROOT}/docs/04-screen-composition.md
 
 3. Create screen .uxm:
-   - type: "container"
-   - props.components: [${componentList}]
+   - ${baseOnExisting ? `Load existing: ./fluxwing/screens/${sourceVersion}.uxm` : `type: "container"`}
+   - ${baseOnExisting ? `Base structure on source version` : `props.components: [${componentList}]`}
    - layout: ${layoutStructure}
+   - ${baseOnExisting ? `id: "${newScreenId}" (with -v{N} suffix)` : `id: "${screenId}"`}
+   - ${baseOnExisting ? `version: Increment minor from source (e.g., 1.0.0 → 1.1.0)` : `version: "1.0.0"`}
+   - ${baseOnExisting ? `metadata.created: PRESERVE from ${sourceVersion}` : `metadata.created: current timestamp`}
+   - ${baseOnExisting ? `metadata.modified: SET to current timestamp` : `metadata.modified: current timestamp`}
 
    CRITICAL: Set metadata.fidelity = "detailed"
 
@@ -438,6 +517,7 @@ PART 2: Compose Screen
 4. Create screen .md (template):
    - Use {{component:id}} syntax for component references
    - Show layout structure with placeholders
+   - ${baseOnExisting ? `Filename: ${newScreenId}.md (versioned)` : `Filename: ${screenId}.md`}
 
 5. Create screen .rendered.md (MAIN DELIVERABLE):
    - Embed ACTUAL component ASCII (read from .md files you just created)
@@ -445,8 +525,10 @@ PART 2: Compose Screen
    - Show all screen states (idle, loading, error if applicable)
    - High visual quality - this is what user will see!
    - Make it publication-ready
+   - ${baseOnExisting ? `Filename: ${newScreenId}.rendered.md (versioned)` : `Filename: ${screenId}.rendered.md`}
 
 6. Save all 3 files to ./fluxwing/screens/
+   - ${baseOnExisting ? `${newScreenId}.uxm, ${newScreenId}.md, ${newScreenId}.rendered.md` : `${screenId}.uxm, ${screenId}.md, ${screenId}.rendered.md`}
 
 ═══════════════════════════════════════
 Performance Notes:

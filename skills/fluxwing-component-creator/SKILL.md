@@ -26,6 +26,9 @@ You are helping the user create uxscii component(s) using the **uxscii standard*
 
 **NEVER write to skill directory - it's read-only!**
 
+**LOAD for copy-on-update logic:**
+- `{SKILL_ROOT}/../shared/docs/copy-versioning.md` - Versioning pattern for existing components
+
 ## Your Task
 
 Help the user create uxscii component(s) by gathering requirements and spawning designer agent(s).
@@ -122,6 +125,71 @@ if (similarTemplates.length > 0) {
 }
 ```
 
+### Step 3: Pre-Creation Validation (Check for Existing Component)
+
+**IMPORTANT**: Before creating any component, check if it already exists to prevent data loss.
+
+**For each component you plan to create:**
+
+1. **Convert to kebab-case ID**:
+   ```
+   "Submit Button" → "submit-button"
+   "User Profile Card" → "user-profile-card"
+   ```
+
+2. **Check if component exists**:
+   ```bash
+   # Check for existing component
+   test -f ./fluxwing/components/{component-id}.uxm
+   ```
+
+3. **If component EXISTS**:
+
+   **Inform user and offer choices**:
+   ```
+   Component '{component-id}' already exists (version {current-version}).
+
+   Options:
+   (a) Create new version (copy-on-update: {component-id}-v{N+1})
+   (b) Create with different name
+   (c) Cancel operation
+
+   What would you like to do?
+   ```
+
+   **Handle user response**:
+
+   - **Choice (a) - Create new version**:
+     1. Load copy-versioning logic from `{SKILL_ROOT}/../shared/docs/copy-versioning.md`
+     2. Read existing `{component-id}.uxm`
+     3. Find highest version (check for `{component-id}-v2`, `-v3`, etc.)
+     4. Calculate next version: `v{N+1}`
+     5. Pass to designer agent with versioning parameters:
+        - `baseComponentId`: Original ID (e.g., "submit-button")
+        - `newComponentId`: Versioned ID (e.g., "submit-button-v2")
+        - `baseOnExisting`: true
+        - `sourceVersion`: Highest existing version
+     6. Designer creates `{component-id}-v{N+1}.uxm` and `.md`
+     7. Metadata: Increment minor version (1.0.0 → 1.1.0), update modified, preserve created
+
+   - **Choice (b) - Different name**:
+     1. Ask: "What would you like to name this component?"
+     2. Wait for user response
+     3. Use new name for component ID
+     4. Proceed with normal creation
+
+   - **Choice (c) - Cancel**:
+     1. Do not create any files
+     2. Inform user: "Operation cancelled. No files were created."
+     3. Exit workflow
+
+4. **If component DOES NOT exist**:
+   - Proceed with normal creation workflow (no versioning needed)
+   - Component will be created as `{component-id}.uxm` (no version suffix)
+   - Initial version: 1.0.0
+
+**For multiple components**: Check existence for EACH component individually. Some may need versioning, others may not.
+
 ## Agent Prompts
 
 ### Fast Mode Agent (For Scaffolder)
@@ -138,12 +206,19 @@ Task({
 Component: ${componentName}
 Type: ${componentType}
 Screen context: ${screenContext}
+${baseOnExisting ? `
+VERSIONING MODE:
+- Base on existing: ${baseComponentId}
+- New component ID: ${newComponentId}
+- Source version: ${sourceVersion}
+- Copy-on-update: Increment minor version, preserve created timestamp
+` : ''}
 
 FAST MODE - Speed is critical! <10 seconds target.
 
 Your task:
-1. Load minimal template: {SKILL_ROOT}/templates/minimal/${componentType}.uxm.template
-2. If template not found, FAIL with error: "No template found for type: ${componentType}"
+1. ${baseOnExisting ? `Load existing: ./fluxwing/components/${sourceVersion}.uxm` : `Load minimal template: {SKILL_ROOT}/templates/minimal/${componentType}.uxm.template`}
+2. ${baseOnExisting ? `Read current version number and metadata.created timestamp` : `If template not found, FAIL with error: "No template found for type: ${componentType}"`}
 3. Replace template variables (component type specific):
 
    **Common variables (all types):**
@@ -177,7 +252,12 @@ Your task:
    This field enables progressive fidelity workflow:
    - sketch (fast mode) → basic → detailed → production
 
-5. Verify JSON is well-formed (quick syntax check)
+5. ${baseOnExisting ? `Update version metadata:
+   - id: "${newComponentId}" (versioned ID)
+   - version: Increment minor from source (e.g., 1.0.0 → 1.1.0)
+   - metadata.created: PRESERVE from ${sourceVersion}
+   - metadata.modified: SET to current timestamp
+` : `Verify JSON is well-formed (quick syntax check)`}
 6. Save to ./fluxwing/components/${componentId}.uxm
 7. DO NOT create .md file
 8. DO NOT load documentation
@@ -208,12 +288,19 @@ Task({
 
 Component: ${componentName}
 Type: ${componentType}
+${baseOnExisting ? `
+VERSIONING MODE:
+- Base on existing: ${baseComponentId}
+- New component ID: ${newComponentId}
+- Source version: ${sourceVersion}
+- Copy-on-update: Increment minor version, preserve created timestamp
+` : ''}
 
 DETAILED MODE - Quality is priority.
 
 Your task:
-1. Load schema: {SKILL_ROOT}/schemas/uxm-component.schema.json
-2. Load docs: {SKILL_ROOT}/docs/03-component-creation.md
+1. ${baseOnExisting ? `Load existing: ./fluxwing/components/${sourceVersion}.uxm` : `Load schema: {SKILL_ROOT}/schemas/uxm-component.schema.json`}
+2. ${baseOnExisting ? `Read copy-versioning docs: {SKILL_ROOT}/../shared/docs/copy-versioning.md` : `Load docs: {SKILL_ROOT}/docs/03-component-creation.md`}
 3. Load ASCII patterns: {SKILL_ROOT}/docs/06-ascii-patterns.md
 4. Create rich .uxm with:
    - Detailed metadata.description
@@ -230,21 +317,33 @@ Your task:
    This field enables progressive fidelity workflow:
    - sketch → basic → detailed (detailed mode) → production
 
-6. Create polished .md with:
+6. ${baseOnExisting ? `Update version metadata:
+   - id: "${newComponentId}" (versioned ID with -v{N} suffix)
+   - version: Increment minor from source (e.g., 1.0.0 → 1.1.0)
+   - metadata.created: PRESERVE from ${sourceVersion}
+   - metadata.modified: SET to current timestamp
+   - metadata.fidelity: Update if enhancing (preserve or upgrade)
+` : `Verify JSON is well-formed`}
+
+7. Create polished .md with:
    - Clean ASCII art using box-drawing characters
    - All variables documented
    - State examples
+   - ${baseOnExisting ? `Filename: ${newComponentId}.md (versioned)` : `Filename: ${componentId}.md`}
 
-7. Validate against schema
-8. Save both files to ./fluxwing/components/
+8. Validate against schema
+9. Save both files to ./fluxwing/components/
+   - ${baseOnExisting ? `${newComponentId}.uxm and ${newComponentId}.md` : `${componentId}.uxm and ${componentId}.md`}
 
 VERIFICATION CHECKLIST:
 - [ ] metadata.fidelity field is set to "detailed"
 - [ ] All required fields are present (name, description, created, modified, tags, category, fidelity)
 - [ ] Both .uxm and .md files are created
+- [ ] ${baseOnExisting ? `Version incremented and ID has -v{N} suffix` : `Component ID is kebab-case`}
+- [ ] ${baseOnExisting ? `metadata.created preserved from source` : `metadata.created set to current timestamp`}
 - [ ] JSON is valid and well-formed
 
-Return: Component summary with preview
+Return: Component summary with preview ${baseOnExisting ? `- Mention version created` : ``}
 
 Target: 60-90 seconds
 `
