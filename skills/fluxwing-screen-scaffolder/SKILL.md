@@ -46,6 +46,20 @@ Help the user scaffold a complete screen by orchestrating agents in two phases:
 
 **CRITICAL**: Use the Task tool to spawn agents. Do NOT use TodoWrite and work through tasks yourself. Do NOT create files yourself.
 
+**MULTI-SCREEN SCENARIOS:**
+
+If user requests N screens (N > 1):
+- ⚠️ **DO NOT** create TodoWrite list with N screen tasks and work through them
+- ⚠️ **DO NOT** use Write/Edit tools to create screen files yourself
+- ⚠️ **DO NOT** "help" composer agents by pre-creating any files
+- ✅ **DO** spawn N composer agents in parallel (one per screen)
+- ✅ **DO** send ONE message with ALL Task calls (parallel execution)
+- ✅ **DO** let each composer agent independently create all 3 files (.uxm, .md, .rendered.md)
+
+**Example:** 6 screens = ONE message with 6 Task tool calls → 18 files created by agents
+
+You are an ORCHESTRATOR. Your job is to spawn agents, not do their work.
+
 ## Quality Presets
 
 Scaffolder supports different quality levels for speed vs fidelity tradeoffs:
@@ -114,6 +128,39 @@ Ask about the screen they want to create:
 - **production** - Publication ready (300-400s)
 
 If user doesn't specify, use **detailed** preset.
+
+**Detect multi-screen requests:**
+
+If the user's request indicates multiple screens, detect by:
+- **Plural language**: "screens", "pages", "all of them"
+- **Multiple file references**: Glob results showing multiple screenshots or files
+- **Explicit numbers**: "5 screens", "all these", "create pages for..."
+
+**When multiple screens detected**, confirm with the user:
+
+```
+I see you want to create [N] screens:
+- [screen-name-1]
+- [screen-name-2]
+- [screen-name-3]
+- ...
+
+I'll create these in parallel using one composer agent per screen.
+Each screen will get all 3 files (.uxm, .md, .rendered.md).
+
+Quality preset: [preset] (default: detailed)
+Estimated time: ~[X-Y] seconds
+
+Proceed? [Yes/No]
+```
+
+**Purpose:**
+- Sets clear expectations upfront
+- Emphasizes .rendered.md is included for ALL screens
+- Provides time estimate
+- Prevents surprises
+
+After confirmation, use **Path B workflow** (see below).
 
 ### Step 2: Component Inventory
 
@@ -199,6 +246,29 @@ const missing = requiredComponents.filter(c => !available.includes(c));
    - Screen will be created as `{screen-id}.uxm` (no version suffix)
    - Initial version: 1.0.0
 
+### Workflow Branching: Single vs Multi-Screen
+
+After completing the component inventory, choose the appropriate workflow path:
+
+**Path A: Single Screen** (1 screen requested)
+- Step 3: Create missing components (parallel)
+- Step 4: Spawn ONE composer agent
+- Step 5: Enhancement
+
+**Path B: Multiple Screens** (2+ screens requested)
+- Step 3: Create missing components across ALL screens (deduplicated, parallel)
+- Step 4: Spawn ONE composer agent PER screen (parallel)
+- Step 5: Enhancement
+
+**Key distinction:** Path B spawns N composer agents in parallel (one per screen) instead of one.
+
+**Example scenarios:**
+- "Create a login screen" → Path A (1 screen, 1 composer)
+- "Create pages for these 6 screenshots" → Path B (6 screens, 6 composers in parallel)
+- "Build dashboard and settings screens" → Path B (2 screens, 2 composers in parallel)
+
+Follow the appropriate path based on screen count. Instructions below apply to **Path A** (single screen). For **Path B** modifications, see notes in Steps 3 and 4.
+
 ### Step 3: Create Missing Components (Fast Mode)
 
 **If missing components exist**, spawn designer agents in FAST MODE - one agent per component:
@@ -209,6 +279,24 @@ const missing = requiredComponents.filter(c => !available.includes(c));
 3. ✅ **DO** use Task tool to spawn one agent per missing component
 4. ✅ **DO** send ONE message with ALL Task calls (parallel execution)
 5. ✅ **DO** use FAST MODE (creates .uxm only, <10s per component)
+
+**Path B (Multi-screen): Component Deduplication**
+
+When creating components for multiple screens:
+
+1. **Inventory ALL screens first**: Collect component requirements from all N screens
+2. **Deduplicate**: Create a unique list of missing components
+   - Example: 6 screens might need `sidebar-nav`, but create it only once
+   - Shared components across screens = created once, reused everywhere
+3. **Spawn one agent per UNIQUE component**: Not one per screen × component
+
+**Example:**
+- Screen 1 needs: [sidebar-nav, button-primary, input-email]
+- Screen 2 needs: [sidebar-nav, button-primary, input-password]
+- Screen 3 needs: [sidebar-nav, card-metric]
+
+**Don't spawn:** 3 × 3 = 9 agents (wasteful duplicates)
+**Do spawn:** 5 unique agents (sidebar-nav, button-primary, input-email, input-password, card-metric)
 
 **Fast Mode Creates:**
 - Component .uxm files (sketch fidelity)
@@ -310,6 +398,15 @@ Target: <10 seconds"
 
 **Once all components exist**, spawn the composer agent:
 
+**Path A (Single Screen):** Spawn ONE composer agent
+**Path B (Multi-screen):** Spawn ONE composer agent PER screen (parallel)
+
+**Example Path B:**
+- 6 screens requested → spawn 6 composer agents in ONE message
+- Each agent creates 3 files for its assigned screen (.uxm, .md, .rendered.md)
+- All 6 agents run in parallel (~90s total, not 540s sequential)
+- Result: 18 files (6 screens × 3 files)
+
 **CRITICAL: Composer generates .md files for ALL components!**
 
 This is the "smart composer" - it:
@@ -336,6 +433,16 @@ VERSIONING MODE:
 - Copy-on-update: Increment minor version, preserve created timestamp
 - Create THREE files with -v{N} suffix
 ` : ''}
+
+YOUR PRIMARY DELIVERABLE: ${screenName}.rendered.md
+This is what the user will see. Everything else supports this.
+
+MANDATORY OUTPUTS (all 3 required):
+1. ${screenName}.uxm (metadata)
+2. ${screenName}.md (template with {{placeholders}})
+3. ${screenName}.rendered.md (REAL data, ACTUAL ASCII) ⚠️ CRITICAL
+
+If you complete without creating .rendered.md, you have FAILED.
 
 Your task has TWO parts:
 
@@ -432,10 +539,18 @@ Performance Notes:
 - Focus quality effort on screen .rendered.md
 - Target: 60-90 seconds total
 
-Return summary:
-- List component .md files created
-- Screen files created
-- Preview of .rendered.md (first 20 lines)
+═══════════════════════════════════════
+VERIFICATION CHECKLIST (before returning):
+═══════════════════════════════════════
+
+- [ ] .uxm file created and saved to ./fluxwing/screens/
+- [ ] .md template created and saved to ./fluxwing/screens/
+- [ ] .rendered.md created with REAL data and ACTUAL component ASCII
+- [ ] All 3 files are in ./fluxwing/screens/
+- [ ] .rendered.md uses realistic example data (not placeholders)
+- [ ] .rendered.md embeds actual ASCII from component .md files
+
+Return: "Created ${screenName}: .uxm ✓, .md ✓, .rendered.md ✓"
 `
 })
 ```
@@ -679,6 +794,42 @@ Performance: ~2x faster with parallel component creation!
 - Components are still created and usable
 - User can manually compose screen
 - Provide specific error context
+
+## Common Rationalizations That Mean You're Failing
+
+If you catch yourself thinking ANY of these thoughts, STOP. You are rationalizing. Use the Task tool to spawn agents instead.
+
+**About creating files directly:**
+- "I'll just create the files directly, it's faster" → WRONG. Spawn agents.
+- "Write is simpler than Task for this" → WRONG. You're an orchestrator, not a worker.
+- "I'll create .uxm and .md myself, agents can do .rendered later" → WRONG. Agents do ALL 3 files.
+- "Let me help by pre-creating some files first" → WRONG. Agents are self-sufficient.
+- "The user wants it fast, no time for agents" → WRONG. Parallel agents ARE faster.
+
+**About multi-screen scenarios:**
+- "Orchestration is overkill for this batch" → WRONG. Batches are exactly when you orchestrate.
+- "I'll do the first screen to show progress" → WRONG. Spawn all agents in parallel.
+- "Let me create a todo list and work through screens" → WRONG. TodoWrite + sequential work = slowest path.
+- "11 screens is too many for parallel agents" → WRONG. That's the perfect use case.
+
+**About the .rendered.md file:**
+- "I'll skip .rendered.md for now" → WRONG. It's the PRIMARY deliverable.
+- "Template (.md) is enough" → WRONG. User needs to SEE the actual layout.
+- ".rendered.md can be added later" → WRONG. Composer creates it NOW.
+
+**Why these rationalizations happen:**
+- Write/Edit tools feel more direct than Task tool
+- Creating files yourself feels productive
+- Spawning agents feels abstract
+- But: You're an ORCHESTRATOR. Your job is coordination, not execution.
+
+**What to do instead:**
+1. Detect how many screens are needed
+2. Spawn that many composer agents in ONE message
+3. Wait for results
+4. Report completion
+
+STOP. Use the Task tool. You are an orchestrator, not a worker.
 
 ## Success Criteria
 
