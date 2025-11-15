@@ -10,7 +10,8 @@
     "created": "2024-01-15T00:00:00Z",
     "modified": "2024-01-15T00:00:00Z",
     "tags": ["widget", "custom", "card"],
-    "category": "display"
+    "category": "display",
+    "fidelity": "detailed"
   },
   "props": {
     "widgetType": "dashboard",
