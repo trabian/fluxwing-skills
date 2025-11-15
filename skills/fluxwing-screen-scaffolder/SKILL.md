@@ -649,6 +649,47 @@ Note: Process components in parallel when possible for maximum speed!
 
 **Enhancement is parallel:** All 6 components enhanced simultaneously, so time ≈ single component time!
 
+### Step 5.5: Validate Screen
+
+**REQUIRED**: Validate the screen file against the schema after composition.
+
+```bash
+# Validate the screen
+node {SKILL_ROOT}/../../validators/validate-screen.js \
+  ./fluxwing/screens/${screenId}.uxm \
+  {SKILL_ROOT}/../fluxwing-component-creator/schemas/uxm-component.schema.json
+```
+
+**Expected behavior**:
+- ✅ **If validation passes**: Continue to Step 6 (Report Results)
+- ❌ **If validation fails**: Report errors clearly and stop execution
+
+**Screen-specific checks**:
+- Validates against uxscii schema (same as components)
+- Checks for .rendered.md file (warning if missing)
+- Checks if composed components exist (warnings for missing components)
+
+**Example output** (success):
+```
+✓ Valid: login-screen
+  Type: container
+  Version: 1.0.0
+  States: 3
+  Props: 3
+
+⚠ Warnings:
+  Warning 1: Referenced component not found: custom-input
+  Location: composed
+```
+
+**If validation fails**, show errors to user:
+```
+✗ Validation Failed
+
+  Error 1: must have required property 'fidelity'
+  Location: metadata
+```
+
 ### Step 6: Report Results
 
 Create comprehensive summary including enhancement details:
