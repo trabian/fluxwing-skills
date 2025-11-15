@@ -373,7 +373,7 @@ Your task:
 4. Create .uxm file (valid JSON with default state only)
 5. Create .md file (ASCII template with default state only)
 6. Save both files to ./fluxwing/components/
-7. Validate using: node {SKILL_ROOT}/../../validators/validate-component.js ./fluxwing/components/${componentId}.uxm {SKILL_ROOT}/schemas/uxm-component.schema.json
+7. Validate using: node {SKILL_ROOT}/../fluxwing-validator/validate-component.js ./fluxwing/components/${componentId}.uxm {SKILL_ROOT}/schemas/uxm-component.schema.json
 8. Use TodoWrite to track progress
 9. Return component summary with ASCII preview
 
@@ -425,7 +425,7 @@ Your task:
 3. Create .uxm file (valid JSON with default state only)
 4. Create .md file (ASCII template with default state only)
 5. Save to ./fluxwing/components/
-6. Validate using: node {SKILL_ROOT}/../../validators/validate-component.js
+6. Validate using: node {SKILL_ROOT}/../fluxwing-validator/validate-component.js
 7. Return component summary
 
 Follow uxscii standard strictly. Create default state only for fast MVP.`
@@ -448,7 +448,7 @@ Your task:
 3. Create .uxm file (valid JSON with default state only)
 4. Create .md file (ASCII template with default state only)
 5. Save to ./fluxwing/components/
-6. Validate using: node {SKILL_ROOT}/../../validators/validate-component.js
+6. Validate using: node {SKILL_ROOT}/../fluxwing-validator/validate-component.js
 7. Return component summary
 
 Follow uxscii standard strictly. Create default state only for fast MVP.`
@@ -471,7 +471,7 @@ Your task:
 3. Create .uxm file (valid JSON with default state only)
 4. Create .md file (ASCII template with default state only)
 5. Save to ./fluxwing/components/
-6. Validate using: node {SKILL_ROOT}/../../validators/validate-component.js
+6. Validate using: node {SKILL_ROOT}/../fluxwing-validator/validate-component.js
 7. Return component summary
 
 Follow uxscii standard strictly. Create default state only for fast MVP.`
@@ -490,16 +490,16 @@ After the designer agent(s) complete, validate the created components using the 
 
 ```bash
 # For single component
-node {SKILL_ROOT}/../../validators/validate-component.js \\
+node {SKILL_ROOT}/../fluxwing-validator/validate-component.js \\
   ./fluxwing/components/${componentId}.uxm \\
   {SKILL_ROOT}/schemas/uxm-component.schema.json
 
 # For multiple components, validate each one
-node {SKILL_ROOT}/../../validators/validate-component.js \\
+node {SKILL_ROOT}/../fluxwing-validator/validate-component.js \\
   ./fluxwing/components/submit-button.uxm \\
   {SKILL_ROOT}/schemas/uxm-component.schema.json
 
-node {SKILL_ROOT}/../../validators/validate-component.js \\
+node {SKILL_ROOT}/../fluxwing-validator/validate-component.js \\
   ./fluxwing/components/cancel-button.uxm \\
   {SKILL_ROOT}/schemas/uxm-component.schema.json
 ```
