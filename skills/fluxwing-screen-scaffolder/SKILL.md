@@ -655,7 +655,7 @@ Note: Process components in parallel when possible for maximum speed!
 
 ```bash
 # Validate the screen
-node {SKILL_ROOT}/../../validators/validate-screen.js \
+node {SKILL_ROOT}/../fluxwing-validator/validate-screen.js \
   ./fluxwing/screens/${screenId}.uxm \
   {SKILL_ROOT}/../fluxwing-component-creator/schemas/uxm-component.schema.json
 ```
