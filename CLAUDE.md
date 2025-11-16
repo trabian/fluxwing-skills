@@ -24,14 +24,15 @@ fluxwing-skills/                # Repository root (Claude Code Plugin)
 │   └── workflows/
 │       ├── deploy-docs.yml     # GitHub Pages deployment
 │       └── release.yml         # Automated release workflow
-├── skills/                     # 7 Skills (primary focus)
+├── skills/                     # 8 Skills (primary focus)
 │   ├── fluxwing-component-creator/
 │   ├── fluxwing-library-browser/
 │   ├── fluxwing-component-expander/
 │   ├── fluxwing-screen-scaffolder/
 │   ├── fluxwing-component-viewer/
 │   ├── fluxwing-screenshot-importer/
-│   └── fluxwing-enhancer/
+│   ├── fluxwing-enhancer/
+│   └── fluxwing-validator/
 ├── scripts/
 │   ├── install.sh              # Development installation script
 │   ├── uninstall.sh            # Skills removal script
@@ -65,7 +66,7 @@ Screens add a third file:
 
 ### Skills Overview
 
-The seven skills handle different aspects of UX design:
+The eight skills handle different aspects of UX design:
 
 1. **fluxwing-component-creator** - Create new components (buttons, inputs, cards, etc.)
    - Triggers: "Create a button", "I need an input component"
@@ -101,6 +102,11 @@ The seven skills handle different aspects of UX design:
    - Triggers: "Import this screenshot", "Convert screenshot to uxscii"
    - Uses: `general-purpose` agent for vision analysis and component generation
    - Outputs: Components extracted from screenshot images
+
+8. **fluxwing-validator** - Validate components and screens
+   - Triggers: "Validate my components", "Check if everything is valid"
+   - Tools: Interactive menu or direct script calls
+   - Outputs: Minimal summary with optional details (interactive) or verbose (direct)
 
 ### Data Location Philosophy
 
@@ -416,6 +422,16 @@ All interactive components should include:
 - `skills/fluxwing-screenshot-importer/SKILL.md` - Import workflow
 - `skills/fluxwing-screenshot-importer/docs/` - 6 screenshot analysis guides
 
+### Validating Components and Screens
+- `skills/fluxwing-validator/SKILL.md` - Validation workflow
+- `skills/fluxwing-validator/validate-component.js` - Component validator
+- `skills/fluxwing-validator/validate-screen.js` - Screen validator
+- `skills/fluxwing-validator/validate-batch.js` - Batch validator
+- **Dual-mode operation**:
+  - Interactive: User invokes skill, gets menu and minimal output
+  - Direct: Other skills call scripts for verbose validation
+  - Path: `{SKILL_ROOT}/../fluxwing-validator/validate-*.js`
+
 ## Documentation References
 
 ### Repository Documentation
@@ -450,6 +466,8 @@ After installing skills, test with these triggers:
 4. "Build a login screen" → fluxwing-screen-scaffolder
 5. "Show me the primary-button" → fluxwing-component-viewer
 6. "Import this screenshot" → fluxwing-screenshot-importer
+7. "Enhance this component" → fluxwing-enhancer
+8. "Validate my components" → fluxwing-validator
 
 ## Release Management
 

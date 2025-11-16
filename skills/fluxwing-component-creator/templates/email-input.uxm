@@ -9,7 +9,8 @@
     "created": "2024-01-15T00:00:00Z",
     "modified": "2024-01-15T00:00:00Z",
     "tags": ["input", "email", "form", "validation"],
-    "category": "input"
+    "category": "input",
+    "fidelity": "detailed"
   },
   "extends": "text-input",
   "props": {

@@ -9,7 +9,8 @@
     "created": "2024-01-15T00:00:00Z",
     "modified": "2024-01-15T00:00:00Z",
     "tags": ["form", "container", "validation"],
-    "category": "input"
+    "category": "input",
+    "fidelity": "detailed"
   },
   "props": {
     "title": "Contact Form",

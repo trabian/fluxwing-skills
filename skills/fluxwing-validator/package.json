@@ -1,0 +1,23 @@
+{
+  "name": "fluxwing-validators",
+  "version": "1.0.0",
+  "description": "Deterministic Node.js validators for uxscii components and screens",
+  "main": "validate-component.js",
+  "scripts": {
+    "test": "node test-validator.js",
+    "test:screens": "node test-screen-validator.js",
+    "validate:components": "node validate-batch.js '../fluxwing/components/*.uxm' '../skills/fluxwing-component-creator/schemas/uxm-component.schema.json'",
+    "validate:screens": "node validate-batch.js '../fluxwing/screens/*.uxm' '../skills/fluxwing-component-creator/schemas/uxm-component.schema.json' --screens",
+    "validate:all": "npm run validate:components && npm run validate:screens"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "ajv": "^8.12.0",
+    "ajv-formats": "^2.1.1",
+    "glob": "^10.3.10"
+  },
+  "author": "Fluxwing",
+  "license": "MIT"
+}

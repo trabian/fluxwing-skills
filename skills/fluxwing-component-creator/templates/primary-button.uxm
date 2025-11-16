@@ -9,7 +9,8 @@
     "created": "2024-01-01T00:00:00Z",
     "modified": "2024-01-01T00:00:00Z",
     "tags": ["button", "primary", "action"],
-    "category": "input"
+    "category": "input",
+    "fidelity": "detailed"
   },
   "props": {
     "text": "Button",
