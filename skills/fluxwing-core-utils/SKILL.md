@@ -1,12 +1,12 @@
 ---
-name: fluxwing-validator
-description: Validate uxscii components and screens against schema with interactive menu or direct script calls
+name: fluxwing-core-utils
+description: Core utilities for validation, inventory, file I/O, and schema operations
 version: 1.0.0
 author: Fluxwing Team
 allowed-tools: Read, Bash, AskUserQuestion, TodoWrite
 ---
 
-# Fluxwing Validator
+# Fluxwing Core Utilities
 
 Validate uxscii components and screens against JSON Schema with interactive workflows.
 

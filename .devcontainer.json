@@ -1,1 +1,15 @@
-{"image":"mcr.microsoft.com/devcontainers/python:3"}
+{
+  "name": "Claude Code Environment",
+
+  "image": "mcr.microsoft.com/devcontainers/javascript-node",
+
+  "mounts": [
+    "source=${localEnv:HOME}/.claude,target=/home/node/.claude,type=bind,consistency=cached"
+  ],
+
+  "containerEnv": {
+    "CLAUDE_CONFIG_DIR": "/home/node/.claude"
+  },
+
+  "postCreateCommand": "curl -fsSL https://claude.ai/install.sh | bash"
+}
