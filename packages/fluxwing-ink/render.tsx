@@ -1,27 +1,32 @@
 #!/usr/bin/env node
 /**
- * Fluxwing Ink - Clean Renderer
+ * Fluxwing Ink - Renderer with Custom Components
  *
- * Renders JSX to ASCII string with fixed width for consistent output.
- * Output is clean and ready for display.
+ * Supports defining reusable components in the input.
  *
  * Usage:
- *   npx tsx render.tsx <<< '<Button>Click</Button>'
- *   npx tsx render.tsx --width 60 <<< '<Card><Text>Hello</Text></Card>'
+ *   npx tsx render.tsx -w 60 <<'EOF'
+ *   --- components
+ *   HoldingRow: <Row><Text bold>{symbol}</Text><Text>{value}</Text><Text color={change.startsWith("+") ? "green" : "red"}>{change}</Text></Row>
+ *   ---
+ *   <Card>
+ *     <HoldingRow symbol="AAPL" value="$142K" change="+2.3%" />
+ *     <HoldingRow symbol="MSFT" value="$128K" change="+1.8%" />
+ *     <HoldingRow symbol="BRK.B" value="$87K" change="-0.2%" />
+ *   </Card>
+ *   EOF
  *
- * Options:
- *   --width, -w    Set render width (default: 70)
- *   --safe, -s     Use safe AST-only mode (no eval)
+ * Or load from a file:
+ *   npx tsx render.tsx -w 60 --components ./my-components.yml <<< '<MyComponent />'
  */
 
 import React from 'react';
 import { render } from 'ink-testing-library';
 import { Box, Text as InkText } from 'ink';
 import { transform } from 'sucrase';
-import { parse } from '@babel/parser';
-import type { Node, JSXElement, JSXFragment, JSXText, JSXExpressionContainer } from '@babel/types';
+import * as fs from 'fs';
 
-// Import all components
+// Import all built-in components
 import {
   Text, Heading, Label, Link,
   Button, ButtonGroup,
@@ -32,8 +37,8 @@ import {
   Table, List,
 } from './src/components/index.js';
 
-// All available components
-const COMPONENTS: Record<string, React.ComponentType<any>> = {
+// Built-in components registry
+const BUILTIN_COMPONENTS: Record<string, React.ComponentType<any>> = {
   Box, InkText,
   Text, Heading, Label, Link,
   Button, ButtonGroup,
@@ -45,21 +50,22 @@ const COMPONENTS: Record<string, React.ComponentType<any>> = {
 };
 
 // Parse CLI args
-function parseArgs(): { width: number; safe: boolean } {
+function parseArgs(): { width: number; componentsFile?: string } {
   const args = process.argv.slice(2);
   let width = 70;
-  let safe = false;
+  let componentsFile: string | undefined;
 
   for (let i = 0; i < args.length; i++) {
     if ((args[i] === '--width' || args[i] === '-w') && args[i + 1]) {
       width = parseInt(args[i + 1], 10);
       i++;
-    } else if (args[i] === '--safe' || args[i] === '-s') {
-      safe = true;
+    } else if ((args[i] === '--components' || args[i] === '-c') && args[i + 1]) {
+      componentsFile = args[i + 1];
+      i++;
     }
   }
 
-  return { width, safe };
+  return { width, componentsFile };
 }
 
 // Read stdin
@@ -71,8 +77,150 @@ async function readStdin(): Promise<string> {
   return Buffer.concat(chunks).toString('utf-8');
 }
 
-// === FAST MODE (eval-based) ===
-function renderFast(jsx: string, width: number): string {
+// Parse inline component definitions
+// Format:
+// --- components
+// ComponentName: <JSX template with {prop} placeholders>
+// ---
+function parseInlineComponents(input: string): { components: Record<string, string>; jsx: string } {
+  const components: Record<string, string> = {};
+
+  const componentBlockMatch = input.match(/---\s*components\s*\n([\s\S]*?)\n---/);
+
+  if (componentBlockMatch) {
+    const block = componentBlockMatch[1];
+    const lines = block.split('\n');
+
+    for (const line of lines) {
+      const match = line.match(/^(\w+):\s*(.+)$/);
+      if (match) {
+        const [, name, template] = match;
+        components[name] = template.trim();
+      }
+    }
+
+    // Remove the component block from input
+    const jsx = input.replace(/---\s*components\s*\n[\s\S]*?\n---\s*/, '').trim();
+    return { components, jsx };
+  }
+
+  return { components, jsx: input.trim() };
+}
+
+// Load components from a YAML-like file
+function loadComponentsFromFile(filepath: string): Record<string, string> {
+  const components: Record<string, string> = {};
+
+  try {
+    const content = fs.readFileSync(filepath, 'utf-8');
+    const lines = content.split('\n');
+
+    let currentName: string | null = null;
+    let currentTemplate: string[] = [];
+
+    for (const line of lines) {
+      // New component definition
+      const nameMatch = line.match(/^(\w+):$/);
+      if (nameMatch) {
+        // Save previous component
+        if (currentName && currentTemplate.length > 0) {
+          components[currentName] = currentTemplate.join('\n').trim();
+        }
+        currentName = nameMatch[1];
+        currentTemplate = [];
+        continue;
+      }
+
+      // Single-line definition: ComponentName: <template>
+      const inlineMatch = line.match(/^(\w+):\s*(<.+>)$/);
+      if (inlineMatch) {
+        components[inlineMatch[1]] = inlineMatch[2];
+        continue;
+      }
+
+      // Multi-line template content (indented)
+      if (currentName && (line.startsWith('  ') || line.startsWith('\t'))) {
+        currentTemplate.push(line.trim());
+      }
+    }
+
+    // Save last component
+    if (currentName && currentTemplate.length > 0) {
+      components[currentName] = currentTemplate.join('\n').trim();
+    }
+  } catch (e) {
+    console.error(`Warning: Could not load components from ${filepath}`);
+  }
+
+  return components;
+}
+
+// Create component factories from templates
+function createCustomComponents(templates: Record<string, string>): Record<string, React.ComponentType<any>> {
+  const customComponents: Record<string, React.ComponentType<any>> = {};
+
+  for (const [name, template] of Object.entries(templates)) {
+    // Create a component that renders the template with props substituted
+    customComponents[name] = (props: Record<string, any>) => {
+      let jsx = template;
+
+      // 1. Handle ternary expressions FIRST: {prop.startsWith("+") ? "green" : "red"}
+      // Returns quoted string result
+      jsx = jsx.replace(
+        /\{(\w+)\.startsWith\("([^"]+)"\)\s*\?\s*"([^"]+)"\s*:\s*"([^"]+)"\}/g,
+        (match, propName, prefix, ifTrue, ifFalse) => {
+          const value = props[propName];
+          if (typeof value === 'string') {
+            return `"${value.startsWith(prefix) ? ifTrue : ifFalse}"`;
+          }
+          return `"${ifFalse}"`;
+        }
+      );
+
+      // 2. Handle simple ternary: {prop ? "a" : "b"} (truthy check)
+      jsx = jsx.replace(
+        /\{(\w+)\s*\?\s*"([^"]+)"\s*:\s*"([^"]+)"\}/g,
+        (match, propName, ifTrue, ifFalse) => {
+          const value = props[propName];
+          return `"${value ? ifTrue : ifFalse}"`;
+        }
+      );
+
+      // 3. Handle numeric props: {prop} where prop is number -> keep as expression
+      // 4. Handle string props in text content: {prop} -> just the value
+      jsx = jsx.replace(/\{(\w+)\}/g, (match, propName) => {
+        const value = props[propName];
+        if (value === undefined) return match;
+        if (typeof value === 'number') return `{${value}}`;
+        // For strings, just return the value (will be text content or attr value)
+        return String(value);
+      });
+
+      // Now render this JSX
+      const code = `return (${jsx});`;
+      const transformed = transform(code, {
+        transforms: ['jsx'],
+        jsxRuntime: 'classic',
+        jsxPragma: 'React.createElement',
+        jsxFragmentPragma: 'React.Fragment',
+      }).code;
+
+      const allComponents = { ...BUILTIN_COMPONENTS, ...customComponents };
+      const componentNames = Object.keys(allComponents);
+      const componentValues = componentNames.map(k => allComponents[k]);
+
+      const factory = new Function('React', ...componentNames, transformed);
+      return factory(React, ...componentValues);
+    };
+  }
+
+  return customComponents;
+}
+
+// Main render function
+function renderJsx(jsx: string, width: number, customComponents: Record<string, React.ComponentType<any>>): string {
+  const allComponents = { ...BUILTIN_COMPONENTS, ...customComponents };
+
   const code = `
     const Component = () => (
       <Box flexDirection="column" width={${width}}>
@@ -89,131 +237,42 @@ function renderFast(jsx: string, width: number): string {
     jsxFragmentPragma: 'React.Fragment',
   }).code;
 
-  const factory = new Function(
-    'React', 'Box', 'InkText',
-    ...Object.keys(COMPONENTS).filter(k => k !== 'Box' && k !== 'InkText'),
-    transformed
-  );
+  const componentNames = Object.keys(allComponents);
+  const componentValues = componentNames.map(k => allComponents[k]);
 
-  const Component = factory(
-    React, Box, InkText,
-    ...Object.keys(COMPONENTS).filter(k => k !== 'Box' && k !== 'InkText').map(k => COMPONENTS[k])
-  );
+  const factory = new Function('React', ...componentNames, transformed);
+  const Component = factory(React, ...componentValues);
 
   const { lastFrame } = render(React.createElement(Component));
   return lastFrame() || '';
 }
 
-// === SAFE MODE (AST-based, no eval) ===
-function parseValue(node: Node): any {
-  switch (node.type) {
-    case 'StringLiteral': return node.value;
-    case 'NumericLiteral': return node.value;
-    case 'BooleanLiteral': return node.value;
-    case 'NullLiteral': return null;
-    case 'Identifier':
-      if (node.name === 'undefined') return undefined;
-      if (node.name === 'true') return true;
-      if (node.name === 'false') return false;
-      throw new Error(`Unsafe identifier: ${node.name}`);
-    case 'ArrayExpression':
-      return node.elements.map((el) => el ? parseValue(el) : null);
-    case 'ObjectExpression':
-      const obj: Record<string, any> = {};
-      for (const prop of node.properties) {
-        if (prop.type === 'ObjectProperty') {
-          const key = prop.key.type === 'Identifier' ? prop.key.name :
-                      prop.key.type === 'StringLiteral' ? prop.key.value : null;
-          if (key) obj[key] = parseValue(prop.value);
-        }
-      }
-      return obj;
-    case 'UnaryExpression':
-      if (node.operator === '-' && node.argument.type === 'NumericLiteral') {
-        return -node.argument.value;
-      }
-      throw new Error(`Unsafe unary: ${node.operator}`);
-    default:
-      throw new Error(`Unsafe node type: ${node.type}`);
-  }
-}
-
-function parseProps(attrs: JSXElement['openingElement']['attributes']): Record<string, any> {
-  const props: Record<string, any> = {};
-  for (const attr of attrs) {
-    if (attr.type === 'JSXAttribute') {
-      const name = attr.name.type === 'JSXIdentifier' ? attr.name.name : null;
-      if (!name) continue;
-      if (attr.value === null) {
-        props[name] = true;
-      } else if (attr.value.type === 'StringLiteral') {
-        props[name] = attr.value.value;
-      } else if (attr.value.type === 'JSXExpressionContainer') {
-        props[name] = parseValue(attr.value.expression as Node);
-      }
-    }
-  }
-  return props;
-}
-
-function jsxToReact(node: Node): React.ReactNode {
-  if (node.type === 'JSXElement') {
-    const el = node as JSXElement;
-    const tagName = el.openingElement.name;
-    const componentName = tagName.type === 'JSXIdentifier' ? tagName.name : null;
-    if (!componentName) throw new Error('Invalid tag');
-
-    const Component = COMPONENTS[componentName];
-    if (!Component) throw new Error(`Unknown component: ${componentName}`);
-
-    const props = parseProps(el.openingElement.attributes);
-    const children = el.children.map(c => jsxToReact(c)).filter(c => c !== null && c !== '');
-
-    return React.createElement(Component, props, ...children);
-  }
-  if (node.type === 'JSXFragment') {
-    const children = (node as JSXFragment).children.map(c => jsxToReact(c)).filter(c => c !== null && c !== '');
-    return React.createElement(React.Fragment, null, ...children);
-  }
-  if (node.type === 'JSXText') {
-    const text = (node as JSXText).value.trim();
-    return text || null;
-  }
-  if (node.type === 'JSXExpressionContainer') {
-    const container = node as JSXExpressionContainer;
-    if (container.expression.type === 'JSXEmptyExpression') return null;
-    return parseValue(container.expression as Node);
-  }
-  return null;
-}
-
-function renderSafe(jsx: string, width: number): string {
-  const wrapped = `<>${jsx}</>`;
-  const ast = parse(wrapped, { sourceType: 'module', plugins: ['jsx'] });
-  const stmt = ast.program.body[0];
-  if (stmt.type !== 'ExpressionStatement') throw new Error('Expected JSX');
-
-  const element = jsxToReact(stmt.expression);
-  const Container = () => React.createElement(Box, { flexDirection: 'column', width }, element);
-
-  const { lastFrame } = render(React.createElement(Container));
-  return lastFrame() || '';
-}
-
 // === MAIN ===
 async function main() {
-  const { width, safe } = parseArgs();
-  const jsx = await readStdin();
+  const { width, componentsFile } = parseArgs();
+  const input = await readStdin();
 
-  if (!jsx.trim()) {
+  if (!input.trim()) {
     console.error('Error: No JSX provided via stdin');
     process.exit(1);
   }
 
   try {
-    const output = safe ? renderSafe(jsx, width) : renderFast(jsx, width);
+    // Parse inline component definitions
+    const { components: inlineComponents, jsx } = parseInlineComponents(input);
 
-    // Output with clear delimiters for easy parsing
+    // Load components from file if specified
+    const fileComponents = componentsFile ? loadComponentsFromFile(componentsFile) : {};
+
+    // Merge all custom component templates
+    const allTemplates = { ...fileComponents, ...inlineComponents };
+
+    // Create component factories
+    const customComponents = createCustomComponents(allTemplates);
+
+    // Render
+    const output = renderJsx(jsx, width, customComponents);
+
     console.log('```');
     console.log(output);
     console.log('```');
