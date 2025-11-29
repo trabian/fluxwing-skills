@@ -26,8 +26,8 @@ const PortfolioOverview = () => {
             <Text dimColor>Total Portfolio Value</Text>
             <Row gap={2}>
               <Badge variant="success">● Live</Badge>
-              <Button variant="outline">Deposit</Button>
               <Button variant="primary">Trade</Button>
+              <Button variant="outline">Deposit</Button>
             </Row>
           </Row>
           <Box gap={3}>
