@@ -1,6 +1,6 @@
 ---
 name: Fluxwing Ink Designer
-description: Design UIs with JSX that render to ASCII for preview, then generate React/Tailwind code. Use when user wants to design, prototype, or create UI screens interactively with live ASCII preview. Triggers on "design a", "create UI", "build a screen", "prototype", or mentions of ASCII/terminal UI preview.
+description: Design UIs with JSX that render to ASCII for preview, then generate React/Tailwind code. Use when user wants to design, prototype, or create UI screens interactively with live ASCII preview. Also handles screenshot import - converting UI screenshots to JSX. Triggers on "design a", "create UI", "build a screen", "prototype", "import screenshot", "convert this UI", or mentions of ASCII/terminal UI preview.
 version: 0.0.1
 author: Trabian
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash, TodoWrite
@@ -16,6 +16,7 @@ All tools are in `{SKILL_ROOT}/../../packages/fluxwing-ink/`:
 - `render.tsx` - Render JSX to ASCII preview
 - `generate.tsx` - Generate React/Tailwind code
 - `validate.tsx` - Validate JSX and components
+- `import.tsx` - Helper for screenshot imports
 
 **Run from the package directory:**
 ```bash
@@ -26,6 +27,11 @@ cd {SKILL_ROOT}/../../packages/fluxwing-ink && npx tsx render.tsx ...
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
+│  0. IMPORT (optional)                                           │
+│  ┌─────────┐                  ┌─────────┐                       │
+│  │Screenshot│ ──Claude Vision─▶│  JSX    │                       │
+│  └─────────┘                  └─────────┘                       │
+│                                    │                             │
 │  1. DESIGN                    2. ITERATE                        │
 │  ┌─────────┐                  ┌─────────┐                       │
 │  │  JSX    │ ──render.tsx──▶  │  ASCII  │ ◀── User feedback     │
@@ -90,6 +96,160 @@ cd {SKILL_ROOT}/../../packages/fluxwing-ink && npx tsx render.tsx ...
 | Component | Description |
 |-----------|-------------|
 | `Table`, `TableHeader`, `TableBody`, `TableRow`, `TableCell`, `TableHeaderCell` | Table structure |
+
+## Screenshot Import Workflow
+
+When user provides a screenshot or asks to "import", "convert", or "recreate" a UI:
+
+### Step 1: Read the Screenshot
+
+Use the Read tool to view the image:
+
+```typescript
+Read({ file_path: "/path/to/screenshot.png" })
+```
+
+### Step 2: Analyze the UI Structure
+
+Examine the screenshot and identify:
+
+1. **Layout Structure**
+   - Overall layout (single column, sidebar, grid)
+   - Major sections and their arrangement
+   - Spacing and alignment patterns
+
+2. **Components**
+   - Cards, panels, containers
+   - Form elements (inputs, buttons, selects)
+   - Text elements (headings, labels, body text)
+   - Navigation elements
+   - Feedback elements (alerts, badges, progress)
+
+3. **Visual Hierarchy**
+   - Primary vs secondary actions
+   - Emphasis and de-emphasis
+   - Grouping and separation
+
+### Step 3: Map to Available Components
+
+Map UI elements to fluxwing-ink components:
+
+| Screenshot Element | JSX Component |
+|-------------------|---------------|
+| Bordered container with title | `<Card title="...">` |
+| Text input with label | `<Input label="..." />` |
+| Primary button | `<Button variant="primary">` |
+| Secondary/ghost button | `<Button variant="outline">` |
+| Vertical stack of elements | `<Stack gap={1}>` |
+| Horizontal row | `<Row gap={1}>` |
+| Section heading | `<Heading level={2}>` |
+| Muted/secondary text | `<Text dimmed>` |
+| Checkbox with label | `<Checkbox label="..." />` |
+| Dropdown | `<Select options={[...]} />` |
+| Alert/notification | `<Alert variant="...">` |
+| Status indicator | `<Badge variant="...">` |
+
+### Step 4: Generate JSX
+
+Create JSX that recreates the structure:
+
+```jsx
+{/* Imported from screenshot: login-page.png */}
+<Card title="Sign In">
+  <Stack gap={1}>
+    {/* Email field - prominent position */}
+    <Input label="Email" placeholder="you@example.com" />
+    {/* Password with show/hide toggle in original */}
+    <Input label="Password" type="password" />
+    {/* Remember me was a checkbox in original */}
+    <Checkbox label="Remember me" />
+    {/* Primary CTA - full width in original */}
+    <Button variant="primary">Sign In</Button>
+    {/* Secondary link below - convert to outline button */}
+    <Button variant="outline">Forgot Password?</Button>
+  </Stack>
+</Card>
+```
+
+**Use comments to document:**
+- Source of the import
+- Elements that couldn't be exactly replicated
+- Decisions made during conversion
+- TODOs for features not yet supported
+
+### Step 5: Render and Compare
+
+Render the JSX and show alongside original intent:
+
+```bash
+cd {SKILL_ROOT}/../../packages/fluxwing-ink && npx tsx render.tsx -w 60 <<'EOF'
+... generated JSX ...
+EOF
+```
+
+Ask user: "Here's my interpretation. What would you like to adjust?"
+
+### Step 6: Iterate
+
+Refine based on feedback until the ASCII preview matches user's expectations.
+
+### Import Tips
+
+1. **Start with structure** - Get the layout right first, then refine details
+2. **Use comments liberally** - Document what you saw vs what you created
+3. **Note limitations** - Some UI elements may not have exact ASCII equivalents
+4. **Offer alternatives** - If a component doesn't exist, suggest closest match
+5. **Extract patterns** - If you see repeated elements, define custom components
+
+### Example Import Session
+
+```
+User: Import this screenshot [provides path to login-form.png]
+
+Agent: [Reads the image]
+
+I can see a login form with:
+- Card container with "Welcome Back" title
+- Email input field
+- Password input field
+- "Remember me" checkbox
+- Blue "Sign In" button
+- "Forgot password?" link
+
+Let me recreate this:
+
+[Renders ASCII preview]
+
+╭────────────────────────────────────────────╮
+│ Welcome Back                               │
+│                                            │
+│ Email                                      │
+│ ┌────────────────────────────────────────┐ │
+│ │Enter your email                        │ │
+│ └────────────────────────────────────────┘ │
+│                                            │
+│ Password                                   │
+│ ┌────────────────────────────────────────┐ │
+│ │••••••••                                │ │
+│ └────────────────────────────────────────┘ │
+│                                            │
+│ ☑ Remember me                              │
+│                                            │
+│ ┌────────────────────────────────────────┐ │
+│ │              Sign In                   │ │
+│ └────────────────────────────────────────┘ │
+│                                            │
+│         Forgot password?                   │
+╰────────────────────────────────────────────╯
+
+Notes:
+- The blue button color will appear in generated Tailwind
+- "Forgot password?" converted to centered text (could be Link)
+
+Would you like any adjustments?
+```
+
+---
 
 ## Design Session Workflow
 
