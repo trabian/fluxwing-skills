@@ -381,14 +381,19 @@ function transformJSXChild(child: t.JSXElement['children'][0], customComponents:
     return text ? text : '';
   }
   if (t.isJSXExpressionContainer(child)) {
+    // Handle JSX comments: {/* comment */}
+    if (t.isJSXEmptyExpression(child.expression)) {
+      const comments = (child.expression as any).innerComments || [];
+      if (comments.length > 0) {
+        return comments.map((c: any) => `{/* ${c.value.trim()} */}`).join('\n');
+      }
+      return '';
+    }
     if (t.isStringLiteral(child.expression)) {
       return child.expression.value;
     }
     if (t.isIdentifier(child.expression)) {
       return `{${child.expression.name}}`;
-    }
-    if (t.isJSXEmptyExpression(child.expression)) {
-      return '';
     }
     // For complex expressions, generate code
     return `{${generate(child.expression).code}}`;
