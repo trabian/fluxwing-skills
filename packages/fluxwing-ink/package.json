@@ -1,0 +1,38 @@
+{
+  "name": "@fluxwing/ink",
+  "version": "0.1.0",
+  "description": "React Ink-based UI design system for ASCII rendering",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "fluxwing": "./dist/cli/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "preview": "node --loader ts-node/esm src/cli/index.ts preview",
+    "example:login": "node --loader ts-node/esm examples/login-screen.tsx",
+    "example:dashboard": "node --loader ts-node/esm examples/dashboard.tsx"
+  },
+  "dependencies": {
+    "ink": "^5.0.1",
+    "react": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/react": "^18.3.12",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "keywords": [
+    "ui",
+    "design",
+    "ascii",
+    "react-ink",
+    "cli",
+    "terminal"
+  ],
+  "author": "Trabian",
+  "license": "MIT"
+}
