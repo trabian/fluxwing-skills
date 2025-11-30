@@ -1,0 +1,20 @@
+# Finance UI Components
+# Load with: npx tsx render.tsx -c components/finance.yml
+
+# Stat display with label and value
+StatBox: <Stack align="center"><Text dimColor>{label}</Text><Text bold>{value}</Text></Stack>
+
+# Holding row with color-coded change
+HoldingRow: <Row><Box width={10}><Text bold>{symbol}</Text></Box><Box width={10}><Text dimColor>{shares}</Text></Box><Box width={12}><Text>{value}</Text></Box><Text color={change.startsWith("+") ? "green" : "red"}>{change}</Text></Row>
+
+# Transaction row with icon and amount
+TransactionRow: <Row><Box width={4}><Text>{icon}</Text></Box><Box width={22}><Text>{description}</Text></Box><Text color={amount.startsWith("+") ? "green" : "red"}>{amount}</Text><Box width={8}><Text dimColor>{time}</Text></Box></Row>
+
+# Account badge with status
+AccountBadge: <Row gap={2}><Text dimColor>{type}</Text><Text>****{last4}</Text><Badge variant={status.startsWith("Active") ? "success" : "default"}>{status}</Badge></Row>
+
+# Price with change indicator
+PriceDisplay: <Row gap={2}><Text bold>{price}</Text><Text color={change.startsWith("+") ? "green" : "red"}>{change}</Text></Row>
+
+# Simple metric card
+MetricCard: <Card><Stack gap={0}><Text dimColor>{label}</Text><Heading level={2}>{value}</Heading><Text color={trend.startsWith("+") ? "green" : "red"}>{trend}</Text></Stack></Card>

@@ -1,0 +1,37 @@
+{
+  "name": "fluxwing",
+  "version": "0.1.0",
+  "description": "Design UIs at conversation speed. JSX → ASCII preview → React/Tailwind.",
+  "type": "module",
+  "scripts": {
+    "render": "npx tsx render.tsx",
+    "generate": "npx tsx generate.tsx",
+    "validate": "npx tsx validate.tsx"
+  },
+  "keywords": [
+    "ui",
+    "design",
+    "ascii",
+    "jsx",
+    "react",
+    "tailwind",
+    "cli",
+    "terminal"
+  ],
+  "author": "Trabian",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/generator": "^7.23.0",
+    "@babel/parser": "^7.23.0",
+    "@babel/types": "^7.23.0",
+    "ink": "^4.4.1",
+    "ink-testing-library": "^3.0.0",
+    "react": "^18.2.0",
+    "sucrase": "^3.34.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.2.0",
+    "typescript": "^5.0.0"
+  }
+}
