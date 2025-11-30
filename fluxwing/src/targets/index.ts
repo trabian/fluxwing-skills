@@ -18,6 +18,7 @@
 
 import type { GeneratorTarget } from './types.js';
 import { reactTailwind } from './react-tailwind/index.js';
+import { netsuiteSuitelet } from './netsuite-suitelet/index.js';
 
 // Export types
 export type { ComponentMapping, ComponentMappings, GeneratorTarget } from './types.js';
@@ -25,6 +26,7 @@ export type { ComponentMapping, ComponentMappings, GeneratorTarget } from './typ
 // Registry of available targets
 export const targets: Record<string, GeneratorTarget> = {
   'react-tailwind': reactTailwind,
+  'netsuite-suitelet': netsuiteSuitelet,
 };
 
 /**
@@ -49,3 +51,4 @@ export function getAvailableTargets(): string[] {
 
 // Re-export individual targets for direct access
 export { reactTailwind } from './react-tailwind/index.js';
+export { netsuiteSuitelet } from './netsuite-suitelet/index.js';
