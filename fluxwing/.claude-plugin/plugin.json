@@ -1,0 +1,23 @@
+{
+  "name": "fluxwing",
+  "version": "0.1.0",
+  "description": "Design UIs at conversation speed. JSX → ASCII preview → React/Tailwind.",
+  "author": {
+    "name": "Trabian",
+    "email": "hello@trabian.com",
+    "url": "https://github.com/trabian"
+  },
+  "homepage": "https://github.com/trabian/fluxwing",
+  "repository": "https://github.com/trabian/fluxwing",
+  "license": "MIT",
+  "keywords": [
+    "fluxwing",
+    "ui-design",
+    "jsx",
+    "ascii",
+    "react",
+    "tailwind",
+    "design-system",
+    "claude-code"
+  ]
+}

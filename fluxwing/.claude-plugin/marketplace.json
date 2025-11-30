@@ -1,0 +1,32 @@
+{
+  "name": "fluxwing-marketplace",
+  "description": "Design UIs at conversation speed with Fluxwing",
+  "owner": {
+    "name": "Trabian",
+    "email": "hello@trabian.com",
+    "url": "https://github.com/trabian"
+  },
+  "plugins": [
+    {
+      "name": "fluxwing",
+      "description": "Design UIs with JSX that render to ASCII for preview, then generate production React/Tailwind code. Fast iteration through conversation.",
+      "source": "./",
+      "version": "0.1.0",
+      "author": {
+        "name": "Trabian",
+        "email": "hello@trabian.com",
+        "url": "https://github.com/trabian"
+      },
+      "license": "MIT",
+      "keywords": [
+        "fluxwing",
+        "ui-design",
+        "jsx",
+        "ascii",
+        "react",
+        "tailwind",
+        "prototyping"
+      ]
+    }
+  ]
+}
