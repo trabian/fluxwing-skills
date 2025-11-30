@@ -3,12 +3,18 @@
  * Fluxwing Code Generator
  *
  * Transforms component JSX to platform-specific code.
- * Currently supports: react-tailwind
+ *
+ * Supports:
+ * - Built-in targets: react-tailwind, netsuite-suitelet
+ * - External targets: npm packages, local files
+ * - Config aliases: fluxwing.config.ts
  *
  * Usage:
  *   npx tsx generate.tsx --target react-tailwind < design.tsx
  *   npx tsx generate.tsx --target react-tailwind --input ./fluxwing/screens/login.tsx
  *   echo '<Button>Click</Button>' | npx tsx generate.tsx -t react-tailwind
+ *   npx tsx generate.tsx --target @acme/banking-components --input form.tsx
+ *   npx tsx generate.tsx --target ./targets/internal.ts --input form.tsx
  *   npx tsx generate.tsx --list-targets
  */
 
@@ -22,7 +28,11 @@ import {
 } from './src/parser/index.js';
 
 // Code generation targets
-import { getTarget, getAvailableTargets } from './src/targets/index.js';
+import {
+  loadTarget,
+  getTargetInfo,
+  getAvailableTargets,
+} from './src/targets/index.js';
 
 // ============================================================================
 // CLI
@@ -35,6 +45,8 @@ interface CliArgs {
   format: boolean;
   componentFile?: string;
   componentName?: string;
+  configPath?: string;
+  listTargets: boolean;
 }
 
 function parseArgs(): CliArgs {
@@ -42,6 +54,7 @@ function parseArgs(): CliArgs {
   const result: CliArgs = {
     target: 'react-tailwind',
     format: true,
+    listTargets: false,
   };
 
   for (let i = 0; i < args.length; i++) {
@@ -56,18 +69,39 @@ function parseArgs(): CliArgs {
       result.componentFile = args[++i];
     } else if (arg === '--component') {
       result.componentName = args[++i];
+    } else if (arg === '--config') {
+      result.configPath = args[++i];
     } else if (arg === '--no-format') {
       result.format = false;
     } else if (arg === '--list-targets' || arg === '-l') {
-      console.log('Available targets:');
-      for (const name of getAvailableTargets()) {
-        console.log(`  - ${name}`);
-      }
-      process.exit(0);
+      result.listTargets = true;
     }
   }
 
   return result;
+}
+
+async function listTargets(configPath?: string): Promise<void> {
+  // Show built-in targets first
+  console.log('Built-in targets:');
+  for (const name of getAvailableTargets()) {
+    console.log(`  - ${name}`);
+  }
+
+  // Show config-based targets if available
+  try {
+    const allTargets = await getTargetInfo({ configPath });
+    const configTargets = allTargets.filter(t => t.source === 'config');
+
+    if (configTargets.length > 0) {
+      console.log('\nConfig targets:');
+      for (const target of configTargets) {
+        console.log(`  - ${target.name} (${target.description})`);
+      }
+    }
+  } catch {
+    // No config file or error loading - that's fine
+  }
 }
 
 async function readStdin(): Promise<string> {
@@ -85,10 +119,16 @@ async function readStdin(): Promise<string> {
 async function main() {
   const args = parseArgs();
 
-  // Get the target generator
+  // Handle --list-targets
+  if (args.listTargets) {
+    await listTargets(args.configPath);
+    process.exit(0);
+  }
+
+  // Load the target generator (supports built-in, npm, and local file targets)
   let target;
   try {
-    target = getTarget(args.target);
+    target = await loadTarget(args.target, { configPath: args.configPath });
   } catch (error) {
     console.error((error as Error).message);
     process.exit(1);
