@@ -37,6 +37,14 @@ import { transform } from 'sucrase';
 import * as fs from 'fs';
 import * as path from 'path';
 
+// Shared parser module
+import {
+  type ComponentDefinition,
+  parseInlineComponents,
+  loadComponentsFromFile,
+  mergeComponentDefinitions,
+} from './src/parser/index.js';
+
 // Import all built-in components
 import {
   Text, Heading, Label, Link,
@@ -101,92 +109,6 @@ async function readStdin(): Promise<string> {
     chunks.push(chunk);
   }
   return Buffer.concat(chunks).toString('utf-8');
-}
-
-// Component with states
-interface ComponentDefinition {
-  default: string;
-  states: Record<string, string>;  // hover, focus, disabled, active, error, etc.
-}
-
-// Parse inline component definitions with state support
-// Format:
-// --- components
-// Button: <Box borderStyle="single">...</Box>
-// Button[hover]: <Box borderStyle="double">...</Box>
-// Button[disabled]: <Box borderColor="gray">...</Box>
-// ---
-function parseInlineComponents(input: string): {
-  components: Record<string, ComponentDefinition>;
-  jsx: string;
-} {
-  const components: Record<string, ComponentDefinition> = {};
-
-  const componentBlockMatch = input.match(/---\s*components\s*\n([\s\S]*?)\n---/);
-
-  if (componentBlockMatch) {
-    const block = componentBlockMatch[1];
-    const lines = block.split('\n');
-
-    for (const line of lines) {
-      // Match: ComponentName[state]: <template> or ComponentName: <template>
-      const match = line.match(/^(\w+)(?:\[(\w+)\])?:\s*(.+)$/);
-      if (match) {
-        const [, name, state, template] = match;
-
-        if (!components[name]) {
-          components[name] = { default: '', states: {} };
-        }
-
-        if (state) {
-          components[name].states[state] = template.trim();
-        } else {
-          components[name].default = template.trim();
-        }
-      }
-    }
-
-    // Remove the component block from input
-    const jsx = input.replace(/---\s*components\s*\n[\s\S]*?\n---\s*/, '').trim();
-    return { components, jsx };
-  }
-
-  return { components, jsx: input.trim() };
-}
-
-// Load components from a YAML-like file (with state support)
-function loadComponentsFromFile(filepath: string): Record<string, ComponentDefinition> {
-  const components: Record<string, ComponentDefinition> = {};
-
-  try {
-    const content = fs.readFileSync(filepath, 'utf-8');
-    const lines = content.split('\n');
-
-    for (const line of lines) {
-      // Skip comments and empty lines
-      if (line.trim().startsWith('#') || !line.trim()) continue;
-
-      // Match: ComponentName[state]: <template> or ComponentName: <template>
-      const match = line.match(/^(\w+)(?:\[(\w+)\])?:\s*(<.+>)$/);
-      if (match) {
-        const [, name, state, template] = match;
-
-        if (!components[name]) {
-          components[name] = { default: '', states: {} };
-        }
-
-        if (state) {
-          components[name].states[state] = template;
-        } else {
-          components[name].default = template;
-        }
-      }
-    }
-  } catch (e) {
-    console.error(`Warning: Could not load components from ${filepath}`);
-  }
-
-  return components;
 }
 
 // Create component factories from templates with state support
@@ -433,20 +355,8 @@ async function main() {
     // Load components from file if specified
     const fileComponents = componentsFile ? loadComponentsFromFile(componentsFile) : {};
 
-    // Merge all component definitions
-    const allDefs: Record<string, ComponentDefinition> = {};
-    for (const [name, def] of Object.entries(fileComponents)) {
-      allDefs[name] = def;
-    }
-    for (const [name, def] of Object.entries(inlineComponents)) {
-      if (allDefs[name]) {
-        // Merge states
-        allDefs[name].default = def.default || allDefs[name].default;
-        allDefs[name].states = { ...allDefs[name].states, ...def.states };
-      } else {
-        allDefs[name] = def;
-      }
-    }
+    // Merge all component definitions (inline takes precedence over file)
+    const allDefs = mergeComponentDefinitions(fileComponents, inlineComponents);
 
     // Create component factories
     const customComponents = createCustomComponents(allDefs, BUILTIN_COMPONENTS);

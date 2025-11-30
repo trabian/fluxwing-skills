@@ -17,6 +17,13 @@ import * as parser from '@babel/parser';
 import generate from '@babel/generator';
 import * as t from '@babel/types';
 
+// Shared parser module
+import {
+  parseInlineComponents,
+  loadComponentsFromFile,
+  getDefaultTemplates,
+} from './src/parser/index.js';
+
 // ============================================================================
 // Tailwind Component Mappings
 // ============================================================================
@@ -632,58 +639,6 @@ ${code.split('\n').map(line => '    ' + line).join('\n')}
 }`;
 }
 
-function parseComponentsFromSource(source: string): { jsx: string; components: Map<string, string> } {
-  const components = new Map<string, string>();
-  let jsx = source;
-
-  // Extract component definitions from comment block
-  const componentMatch = source.match(/\/\*\s*\n?---\s*components\s*\n([\s\S]*?)\n---\s*\n?\*\//);
-  if (componentMatch) {
-    const componentBlock = componentMatch[1];
-    const lines = componentBlock.split('\n');
-
-    for (const line of lines) {
-      const match = line.match(/^(\w+)(?:\[\w+\])?:\s*(.+)$/);
-      if (match) {
-        const [, name, template] = match;
-        // Only store default (non-state) definitions
-        if (!line.includes('[')) {
-          components.set(name, template.trim());
-        }
-      }
-    }
-  }
-
-  // Extract JSX from Design component
-  const jsxMatch = source.match(/const Design = \(\) => \(\s*<>\s*([\s\S]*?)\s*<\/>\s*\)/);
-  if (jsxMatch) {
-    jsx = jsxMatch[1].trim();
-  }
-
-  return { jsx, components };
-}
-
-function loadComponentFile(filepath: string): Map<string, string> {
-  const components = new Map<string, string>();
-
-  if (!fs.existsSync(filepath)) {
-    return components;
-  }
-
-  const content = fs.readFileSync(filepath, 'utf-8');
-  const lines = content.split('\n');
-
-  for (const line of lines) {
-    const match = line.match(/^(\w+)(?:\[\w+\])?:\s*(.+)$/);
-    if (match && !line.includes('[')) {
-      const [, name, template] = match;
-      components.set(name, template.trim());
-    }
-  }
-
-  return components;
-}
-
 async function readStdin(): Promise<string> {
   return new Promise((resolve) => {
     let data = '';
@@ -706,31 +661,31 @@ async function main() {
   }
 
   let source: string;
-  let components = new Map<string, string>();
+  let allComponents: Record<string, { default: string; states: Record<string, string> }> = {};
 
   // Load external component file if specified
   if (args.componentFile) {
-    components = loadComponentFile(args.componentFile);
+    allComponents = loadComponentsFromFile(args.componentFile);
   }
 
   // Read input
   if (args.inputFile) {
     source = fs.readFileSync(args.inputFile, 'utf-8');
-    const parsed = parseComponentsFromSource(source);
-    source = parsed.jsx;
-    // Merge components (file components override external)
-    for (const [k, v] of parsed.components) {
-      components.set(k, v);
+    const { jsx, components: inlineComponents } = parseInlineComponents(source);
+    source = jsx;
+    // Merge components (inline override external)
+    for (const [k, v] of Object.entries(inlineComponents)) {
+      allComponents[k] = v;
     }
   } else {
     source = await readStdin();
 
     // Check if it's a full source file or just JSX
-    if (source.includes('const Design')) {
-      const parsed = parseComponentsFromSource(source);
-      source = parsed.jsx;
-      for (const [k, v] of parsed.components) {
-        components.set(k, v);
+    if (source.includes('const Design') || source.includes('--- components')) {
+      const { jsx, components: inlineComponents } = parseInlineComponents(source);
+      source = jsx;
+      for (const [k, v] of Object.entries(inlineComponents)) {
+        allComponents[k] = v;
       }
     }
   }
@@ -741,6 +696,9 @@ async function main() {
     console.error('       npx tsx generate.tsx --target react-tailwind --input design.tsx');
     process.exit(1);
   }
+
+  // Get default templates only (generator doesn't need state variants)
+  const components = getDefaultTemplates(allComponents);
 
   // Generate code
   let output = generateReactTailwind(source.trim(), components);
